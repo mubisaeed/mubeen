@@ -14,6 +14,7 @@ class StudentsController extends Controller
 {
     public function students()
     {
+
     	$user = Auth::user();
         $students = DB::table('students')->get();
         return view('students.index', compact('students', 'user'));
@@ -26,15 +27,15 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
     		$this->validate($request, [
-	            'sname' => ['required'],
-	            'fname' => ['required'],
-	            'phno' => ['required'],
-                'image' => ['required'],
-	            'cnic' => ['required'],
-	            'add' => ['required'],
-	            'class' => ['required'],
-	            'rno' => ['required'],
-	        ]);
+                'sname' => 'required','min:3','max:50',
+                'fname' => 'required','min:3','max:50',
+                'phno' => 'required','min:11','max:11',
+                'image' => 'required',
+                'cnic' => 'required','min:13','max:15',
+                'add' => 'required','min:3','max:200',
+                'class' => 'required','min:3','max:20',
+                'rno' => 'required',
+            ]);
             if ($files = $request->file('image')) {
                 $name=$files->getClientOriginalName();
                 $image = time().'.'.$request->image->getClientOriginalExtension();
@@ -68,6 +69,16 @@ class StudentsController extends Controller
 
    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+                'sname' => 'required','min:3','max:50',
+                'fname' => 'required','min:3','max:50',
+                'phno' => 'required','min:11','max:11',
+                'image' => 'required',
+                'cnic' => 'required','min:13','max:15',
+                'add' => 'required','min:3','max:200',
+                'class' => 'required','min:3','max:20',
+                'rno' => 'required',
+            ]);
         $student = DB::table('students')->where('id',$id)->get()->first();
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();

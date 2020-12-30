@@ -20,13 +20,13 @@ class CourseController extends Controller
     }
     public function coursestore(Request $request)
     {
-    		$this->validate($request, [
-	            'clname' => ['required'],
-	            'department' => ['required'],
-	            'rno' => ['required'],
-	            'ccolor' => ['required'],
-	            'cdescription' => ['required'],
-	        ]);
+    		 $this->validate($request, [
+                'clname' => 'required','min:3','max:50',
+                'department' => 'required','min:3','max:200',
+                'rno' => 'required',
+                'ccolor' => 'required',
+                'cdescription' => 'required',
+            ]);
     	$str = strtolower($request->clname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = array(
@@ -104,6 +104,13 @@ class CourseController extends Controller
 
    public function course_update(Request $request, $id)
     {
+        $this->validate($request, [
+                'clname' => 'required','min:3','max:50',
+                'department' => 'required','min:3','max:200',
+                'rno' => 'required',
+                'ccolor' => 'required',
+                'cdescription' => 'required',
+            ]);
         $str = strtolower($request->title);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = array(

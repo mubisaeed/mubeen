@@ -1,38 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
-
-<style>
-
-table, th, td {
-    border-bottom: 5px solid #ddd;
-}
-
-
-#customers { font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
-		border-collapse: collapse;
-		width: 100%; }
-
-#customers td, #customers th { border: 1px solid #ddd;
-				padding: 8px; }
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #4CAF50;
-  color: white;
-}
-
-
-</style>
-
-
-
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{('img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{('img/favicon.png')}}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
     Greecon
@@ -46,15 +17,20 @@ table, th, td {
       <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
       <!-- CSS Files -->
-      <link href="{{('css/material-dashboard.css?v=2.1.2')}}" rel="stylesheet" />
+      <link href="{{asset('css/material-dashboard.css?v=2.1.2')}}" rel="stylesheet" />
+
       <!-- CSS Just for demo purpose, don't include it in your project -->
-      <link href="{{('demo/demo.css')}}" rel="stylesheet" />
+      <link href="{{asset('demo/demo.css')}}" rel="stylesheet" />
       <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css">
       <script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
     </head>
     <body class="">
-       @include('layouts.sidebar')
+      @include('layouts.sidebar')
       <div class="main-panel">
         <!-- Navbar -->
        @include('layouts.navbar')
@@ -63,50 +39,71 @@ table, th, td {
           <div class="container-fluid">
             
             @include('layouts.top_menu_bar')
-           
-          
-              
 
-{{-- <div>
-@if(count($icons)>0)
-<h3>All Icons</h3>
-@else
-<h3>No Icons Available</h3>
-@endif
-</div> --}}
-{{-- <th> Icons </th> --}}
-@if(count($icons)>0)
-<table id="customers">
-<tr>
 
-{{-- <th> ID </th> --}}
-<th> Title </th>
-<th> Image </th>
-{{-- <th> created date </th> --}}
-<th> Action </th>
-</tr>
-@foreach ($icons as $icon )
-<tr>
-{{-- <td>{{$icon->id}}</td> --}}
-<td>{{$icon->title}}</td>
-<td><img src="{{asset('img/icons/'.$icon->image)}}" height="50" width="50"></td>
-{{-- <td>{{$icon->created_at}}</td> --}}
-<td><a href="{{url('editicon/'. $icon->id)}}"><button>Edit</button></a>
+            <div id="message">
+            @if (Session::has('message'))
+              <div class="alert alert-info">
+                {{ Session::get('message') }}
+              </div>
+            @endif
+          </div>
 
-<a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>">Delete</a>
+             <form class="form-horizontal" method="POST" action="{{ url('/updatecontact/'. $contact->id) }}" enctype="multipart/form-data">
+                    @csrf
+                        <div class="card2 card border-0 px-4 py-5">
+                            <div class="login_text">
+                                <h3>create course</h3>
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Title</h6>
+                                </label> 
+                                <input type="text" name="title" value="{{$contact->title}}" class="mb-4" placeholder="Enter title" required="" min="3" max="50">
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Image</h6>
+                                </label> 
+                                <input type="file" name="image" value="{{$contact->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
+                                <img src="{{asset('/img/upload/'.$contact->image)}}" width ="100" >
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Email</h6>
+                                </label> 
+                                <input type="email" name="email" value="{{$contact->email}}">
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Phone</h6>
+                                </label> 
+                                <input type="text" name="phno" value="{{$contact->phone }}"  class="mb-4" placeholder="Enter department" required="" data-inputmask="'mask': '0399-99999999'" maxlength="12">
+                            </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm">Address</h6>
+                                </label> 
+                                <input type="text" name="add" value="{{$contact->address }}"  class="mb-4" placeholder="Enter department" required="" min="3" max="200">
+                            </div>
+                            <div class="card-footer pull-right">
 
-</td>
-</tr>
+                        <a class="btn btn-default" href="{{url('/contactpage')}}">Cancel</a>
 
-@endforeach
+                    <button type="submit" class="btn btn-fill btn-primary">Update</button>
+                </div>
+                    </form>
+                </div>
+                <script>
+    $(":input").inputmask();
 
-</table>
-@else
-<h2>There is no icon<h2>
-@endif
-
-              <!--   Core JS Files   -->
-              <script src="{{('js/core/jquery.min.js')}}"></script>
+   </script>
+                <script type="text/javascript">
+                  setTimeout(function() {
+                    $('#message').fadeOut('fast');
+                }, 30000);
+                </script>
+   			  <script src="{{('js/core/jquery.min.js')}}"></script>
               <script src="{{('js/core/popper.min.js')}}"></script>
               <script src="{{('js/core/bootstrap-material-design.min.js')}}"></script>
               <script src="{{('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
@@ -426,59 +423,5 @@ table, th, td {
               data // giving the organizer the static data that should be displayed
               );
               </script>
-
-
-
-
-<script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script>
-
-<script type="text/javascript">
-$("body").on( "click", ".delete", function () {
-var task_id = $( this ).attr( "data-id" );
-console.log(task_id);
-var form_data = {
-id: task_id
-};
-swal({
-title: "Do you want to delete this Icon",
-
-type: 'info',
-showCancelButton: true,
-confirmButtonColor: '#F79426',
-cancelButtonColor: '#d33',
-confirmButtonText: 'Yes',
-showLoaderOnConfirm: true
-}).then( ( result ) => {
-if ( result.value == true ) {
-$.ajax( {
-type: 'get',
-
-url: '<?php echo url("/deleteicon/{id}"); ?>',
-data: form_data,
-success: function ( msg ) {
-swal( "@lang('Icon Deleted')", '', 'success' )
-setTimeout( function () {
-location.reload();
-}, 1000 );
-}
-} );
-}
-} );
-} );
-</script>
-<style>
-.sweet-alert h2 {
-font-size: 1.3rem !important;
-}
-
-.sweet-alert .sa-icon {
-margin: 30px auto 35px !important;
-}
-</style>
-
-
-
-
-
-            </body>
-          </html>
+</body>
+</html>

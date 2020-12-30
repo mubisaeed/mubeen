@@ -69,7 +69,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-8">
-                                <h4 class="card-title"> Courses</h4>
+                                <h4 class="card-title">All Courses</h4>
                             </div>
 
                         </div>
@@ -78,10 +78,11 @@
                     </div>
                     <div class="card-body">
                         <div class="">
+                          @if($courses->count() > 0)
                             <table id="myTable" class="text-primary display table tablesorter">
                                 <thead class="text-primary">
-
                                     <tr>
+                                        <th>Sr.no</th>
                                         <th>Course name</th>
                                         <th>Department</th>
                                         <th>Room Number</th>
@@ -93,11 +94,11 @@
                                         <th width="130" class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
-
                                     <tr class="custom_color" >
                                         @foreach($courses as $c)
                                         
                                     <tr>
+                                        <td>{{$c->id}}</td>
                                         <td><a href="{{url('/course/'.$c->slug)}}" target="_blank"> {{$c->class_name}} </a></td>
                                         <td>{{$c->department}}</td>
                                         <td> {{$c->room_number}}</td>
@@ -112,8 +113,8 @@
                                         </td>
                                         <td>{!! $c->course_description !!} </td>
                                         <td class="text-right">
-                                                    <a  href="{{url('course/replicate/' . $c->id)}}">Duplicate Course</a>
-                                                    <a  href="{{url('course/edit/' . $c->id)}}">Edit</a>
+                                                    <a class="btn btn-sm btn-info"  href="{{url('course/replicate/' . $c->id)}}"><i class="fa fa-copy"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{url('course/edit/' . $c->id)}}"><i class="fa fa-pencil"></i></a>
                                                     <a href="javascript:void(0);" data-id="<?php echo $c->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </div>
@@ -122,6 +123,9 @@
                                   @endforeach
                                 </tbody>
                             </table>
+                                  @else
+                                    <h3>There is no student</h3>
+                                  @endif
                         </div>
                     </div>
                     <div class="card-footer py-4">
@@ -138,6 +142,7 @@
     $('#message').fadeOut('fast');
 }, 30000);
 </script>
+<!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
 <script type="text/javascript">
         $( "body" ).on( "click", ".delete", function () {
             var task_id = $( this ).attr( "data-id" );

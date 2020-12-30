@@ -50,39 +50,63 @@
                             <div class="login_text">
                                 <h3>create Student</h3>
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black">School name</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School name</h6>
                                 </label> 
-                                <input type="text" name="sname" class="mb-4" placeholder="Enter class name" required="">
+                                <input type="text" value="{{ old('sname')}}" name="sname" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="50">
+                                @error('sname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black">School logo</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School logo</h6>
                                 </label> 
                                 <input type="file" name="image">
            
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black">Address</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Address</h6>
                                 </label> 
-                                <input type="text" name="add" class="mb-4" placeholder="Enter room number" required="">
+                                <input type="text" value="{{ old('add')}}" name="add" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
+                                @error('add')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black">Owner Name</h6>
+                                    <h6 class="mb-0 text-sm"style="color:black; margin-right: 10px">Owner Name</h6>
                                 </label> 
-                                <input type="text" name="oname" class="mb-4" placeholder="Enter room number" required="">
+                                <input type="text" value="{{ old('oname')}}" name="oname" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="70">
+                                @error('oname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black">Owner Address</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Owner Address</h6>
                                 </label> 
-                                <input type="text" name="oadd" class="mb-4" placeholder="Enter room number" required="">
+                                <input type="text" value="{{ old('oadd')}}" name="oadd" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
+                                @error('oadd')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
                             
-                            </div>
                             <div class="row px-3 mb-4">
                                 <div class="custom-control custom-checkbox custom-control-inline">   </div>
                             </div>

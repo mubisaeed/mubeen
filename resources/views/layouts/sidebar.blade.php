@@ -71,7 +71,7 @@
               </div>
             </li>
             <li class="nav-item dropdown_item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseFive">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                 <i class="fa fa-calendar-o"></i>
                 <span>Discussions</span>
               </a>
@@ -93,6 +93,24 @@
                   <a class="collapse-item" href="/create">Add new icon</a>
                 </div>
               </div>
+            </li>
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                <i class="fa fa-graduation-cap"></i>
+                <span>Pages</span>
+              </a>
+              <div id="collapseEight" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{url('/aboutpage')}}">About Page</a>
+                  <a class="collapse-item" href="{{url('/contactpage')}}">Contact Us</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item active ">
+              <a class="nav-link" href="{{route('setting')}}">
+                <i class="fa fa-home"></i>
+                <p>Settings</p>
+              </a>
             </li>
           </ul>
         </div>

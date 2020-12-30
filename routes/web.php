@@ -9,6 +9,9 @@ use App\Http\Controllers\InstructorsController;
 use App\Http\Controllers\iconsController;
 use App\Http\Controllers\SafetytipsController;
 use App\Http\Controllers\DiscussionsController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\ContactPageController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -102,5 +105,17 @@ Route::get('/viewicon', [iconsController::class, 'showicon']);
 Route::get('editicon/{id}',[iconsController::class,'editicon'])->name('editicon');
 Route::post('updateicon/{id}',[iconsController::class,'updateicon'])->name('updateicon');
 Route::get('/deleteicon/{id}', [iconsController::class,'deleteicon'])->name('/deleteicon');
+
+// settings
+Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
+Route::post('update',  [SettingsController::class, 'update'])->name('update');
+
+//pages
+Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Page');
+Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
+Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
+Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

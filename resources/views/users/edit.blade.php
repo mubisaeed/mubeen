@@ -23,6 +23,8 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css">
       <script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+
     </head>
     <body class="">
       @include('layouts.sidebar')
@@ -38,24 +40,34 @@
 
             <form method="POST" action="{{url('update',Auth::user()->id)}}" enctype="multipart/form-data">
               @csrf
-              <label>name</label>
+              <label><h6 style="color:black; margin-right: 10px">name </h6></label>
               <input type="text" name="name" value="{{$user->name}}">
-              <label>email</label>
+              <br><br>
+              <label><h6 style="color:black; margin-right: 10px">email</h6></label>
               <input type="email" name="email" value="{{$user->email}}">
               @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-              <label>Contact</label>
-              <input type="number" name="contact" value="{{$user->contact}}">
-              <label>Your Image</label>
-              <input type="file" name="image" value="{{$user->image}}">
+                <br><br>
+              <label>
+                <h6 style="color:black; margin-right: 10px">Contact</h6></label>
+              <input type="number" name="contact" value="{{$user->contact}}" data-inputmask="'mask': '0399-99999999'" maxlength="12" required="">
+              <br><br>
+              <label><h6 style="color:black; margin-right: 10px">Your Image</h6></label>
+              <input type="file" name="image" value="{{$user->image}}" accept="image/x-png,image/gif,image/jpeg">
+              <br>
               <img src="{{asset('/img/upload/'.$user->image)}}" width ="100" >
-              <label>Bio</label>
-              <input type="text" name="bio" value="{{ $user->bio }}">
+              <br><br>
+              <label><h6 style="color:black; margin-right: 10px">Bio</h6></label>
+              <input type="text" name="bio" value="{{ $user->bio }}" min="3" max="200">
               <input type="submit" name="update" value="update">
             </form>
+            <script>
+                    $(":input").inputmask();
+
+               </script>
             
               <!--   Core JS Files   -->
               <script src="{{asset('js/core/jquery.min.js')}}"></script>
