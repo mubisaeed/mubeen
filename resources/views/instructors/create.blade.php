@@ -2,7 +2,7 @@
 @section('content')
 
   <div>
-    <h3>Add new Instructor</h3>
+    <h3>Add Instructor</h3>
     <hr>
     <form method="POST" action="/instructors/create" enctype="multipart/form-data">
       @csrf
