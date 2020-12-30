@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Icon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\support\Facades\DB;
+use Illuminate\support\Facades\file;
+
+class iconsController extends Controller
+{
+    //
+    public function iconpage(){
+        $user = Auth::user();
+        return view ('icons.createicon', compact('user'));
+    }
+
+    public function showicon(){
+       $user = Auth::user();
+        $icons = Icon::orderBy('ID', 'asc')->get();
+        return view('icons.viewicon', compact('icons', 'user'));
+    }
+
+    public function createicon(Request $req){
+        $this->validate($req, [
+        'title'=>'required',
+        'image'=>'required'
+    ]);
+
+        $icon= new Icon;
+        $icon->title=$req->input('title');
+
+        $image = $req->file('image');
+        $imageName = time().'.'.$image->getClientOriginalName();
+        $image->move(public_path('img/icons'), $imageName); 
+        $icon->image=$imageName;
+        $icon->save();
+        if($icon){
+        return redirect('/viewicon');
+            }
+        }
+
+    public function editicon($id)
+    {
+        $user = Auth::user();
+        $data=Icon::where('id',$id)->get()->first();
+        return view('icons.editicon',compact('data', 'user'));
+    }
+
+     public function updateicon(Request $request){
+
+        $this->validate($request, [
+        'title'=>'required',
+        'image'=>'required'
+    ]);
+
+
+        $icon = Icon::find($request->id);
+        $icon->title=$request->input('title');
+
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalName();
+        $image->move(public_path('img/icons'), $imageName); 
+        $icon->image=$imageName;
+        $icon->save();
+        if($icon){
+        return redirect('/viewicon');
+            }
+
+        }
+        public function deleteicon(Request $request)
+        {
+            $id = $request->input("id");
+            Icon::where("id", $id)->delete();
+        }
+}
+    
