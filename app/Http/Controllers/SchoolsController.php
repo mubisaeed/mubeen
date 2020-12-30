@@ -24,13 +24,13 @@ class SchoolsController extends Controller
     }
     public function store(Request $request)
     {
-    		$this->validate($request, [
-	            'sname' => ['required', 'string', 'max:255'],
-	            'image' => ['required'],
-	            'add' => ['required'],
-	            'oname' => ['required'],
-	            'oadd' => ['required'],
-	        ]);
+    		$request->validate([
+                'sname' => 'required','min:3','max:50',
+                'image' => 'required',
+                'add' => 'required','min:3','max:200',
+                'oname' => 'required','min:3','max:70',
+                'oadd' => 'required','min:3','max:200',
+            ]);
 	        if ($files = $request->file('image')) {
 		    	$name=$files->getClientOriginalName();
 		        $image = time().'.'.$request->image->getClientOriginalExtension();
@@ -61,14 +61,14 @@ class SchoolsController extends Controller
 
    public function update(Request $request, $id)
     {
-    	$school = DB::table('schools')->where('id',$id)->get()->first();
-    	$this->validate($request, [
-                'sname' => ['required', 'string', 'max:255'],
-                'image' => ['mimes:jpeg,png'],
-                'add' => ['required'],
-                'oname' => ['required'],
-                'oadd' => ['required'],
+        $request->validate([
+                'sname' => 'required','min:3','max:50',
+                'image' => 'required',
+                'add' => 'required','min:3','max:200',
+                'oname' => 'required','min:3','max:70',
+                'oadd' => 'required','min:3','max:200',
             ]);
+    	$school = DB::table('schools')->where('id',$id)->get()->first();
         if ($files = $request->file('image')) {
 	    	$name=$files->getClientOriginalName();
 	        $image = time().'.'.$request->image->getClientOriginalExtension();

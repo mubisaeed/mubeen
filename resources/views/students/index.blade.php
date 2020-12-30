@@ -70,7 +70,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-8">
-                                <h4 class="card-title"> Courses</h4>
+                                <h4 class="card-title">All Students</h4>
                             </div>
 
                         </div>
@@ -79,10 +79,12 @@
                     </div>
                     <div class="card-body">
                         <div class="">
+                                  @if($students->count() > 0)
                             <table id="myTable" class="text-primary display table tablesorter">
                                 <thead class="text-primary">
 
                                     <tr>
+                                        <th>Sr. no</th>
                                         <th>Student name</th>
                                         <th>Student Image</th>
                                         <th>Father Name</th>
@@ -94,11 +96,11 @@
                                         <th width="130" class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
-
                                     <tr class="custom_color" >
                                         @foreach($students as $st)
                                         
                                     <tr>
+                                        <td>{{$st->id}}</td>
                                         <td>{{$st->name}}</td>
                                         <td><img src="{{asset('/img/upload/'.$st->image)}}" width ="100" ></td>
                                         <td>{{$st->father_name}}</td>
@@ -109,7 +111,7 @@
                                         <td>{{$st->rollno }}</td>
                                         <td class="text-right">
                                            
-                                                    <a  href="{{url('student/edit/' . $st->id)}}">Edit</a>
+                                                    <a class="btn btn-sm btn-info" href="{{url('student/edit/' . $st->id)}}"><i class="fa fa-pencil"></i></a>
                                                     <a href="javascript:void(0);" data-id="<?php echo $st->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </div>
@@ -118,6 +120,9 @@
                                   @endforeach
                                 </tbody>
                             </table>
+                                  @else
+                                    <h3>There is no student</h3>
+                                  @endif
                         </div>
                     </div>
                     <div class="card-footer py-4">
@@ -134,6 +139,7 @@
     $('#message').fadeOut('fast');
 }, 30000);
 </script>
+<!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
 <script type="text/javascript">
         $( "body" ).on( "click", ".delete", function () {
             var task_id = $( this ).attr( "data-id" );

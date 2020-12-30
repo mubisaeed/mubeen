@@ -12,7 +12,7 @@ class iconsController extends Controller
     //
     public function iconpage(){
         $user = Auth::user();
-        return view ('icons.createicon', compact('user'));
+        return view ('icons.createicon', compact ('user'));
     }
 
     public function showicon(){

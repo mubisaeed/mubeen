@@ -27,6 +27,7 @@
       <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
     </head>
     <body class="">
       @include('layouts.sidebar')
@@ -54,57 +55,89 @@
                             <div class="login_text">
                                 <h3>create course</h3>
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Student name</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Student name</h6>
                                 </label> 
-                                <input type="text" name="sname" value="{{$student->name }}" class="mb-4" placeholder="Enter class name" required="">
+                                <input type="text" name="sname" value="{{$student->name }}" class="mb-4" placeholder="Enter student name" required="" minlength="3" maxlength ="50">
+                                @error('sname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Student Image</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Student Image</h6>
                                 </label> 
-                                <input type="file" name="image" value="{{$student->image }}"  class="mb-4" >
+                                <input type="file" name="image" value="{{$student->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
                                 <img src="{{asset('/img/upload/'.$student->image)}}" width ="100" >
+
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Father Name</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Father Name</h6>
                                 </label> 
-                                <input type="text" name="fname" value="{{$student->father_name }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="text" name="fname" value="{{$student->father_name }}"  class="mb-4" placeholder="Enter department" required="" minlength="3" maxlength ="50">
+                                @error('fname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Phone</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Phone</h6>
                                 </label> 
-                                <input type="text" name="phno" value="{{$student->phone }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="number" name="phno" value="{{$student->phone }}"  class="mb-4" placeholder="Enter department" required="" data-inputmask="'mask': '0399-99999999'" maxlength="12">
+                                @error('phno')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">CNIC</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">CNIC</h6>
                                 </label> 
-                                <input type="text" name="cnic" value="{{$student->cnic }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="text" name="cnic" value="{{$student->cnic }}"  class="mb-4" placeholder="Enter department" required="" data-inputmask="'mask': '99999-9999999-9'"  placeholder="XXXXX-XXXXXXX-X">
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Address</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Address</h6>
                                 </label> 
-                                <input type="text" name="add" value="{{$student->address }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="text" name="add" value="{{$student->address }}"  class="mb-4" placeholder="Enter department" required="" minlength="3" maxlength ="200">
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">class</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">class</h6>
                                 </label> 
-                                <input type="text" name="class" value="{{$student->class }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="text" name="class" value="{{$student->class }}"  class="mb-4" placeholder="Enter department" required="" minlength="3" maxlength ="200">
+                                @error('class')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Roll Number</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Roll Number</h6>
                                 </label> 
                                 <input type="text" name="rno" value="{{$student->rollno }}" class="mb-4" placeholder="Enter room number" required="">
+                                @error('rno')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
-                           
-                            
                            
                             <div class="card-footer pull-right">
 
@@ -114,6 +147,10 @@
                 </div>
                     </form>
                 </div>
+                <script>
+    $(":input").inputmask();
+
+   </script>
                 <script type="text/javascript">
                   setTimeout(function() {
                     $('#message').fadeOut('fast');

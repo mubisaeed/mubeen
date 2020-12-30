@@ -53,57 +53,80 @@
                             <div class="login_text">
                                 <h3>create course</h3>
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Class name</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class name</h6>
                                 </label> 
-                                <input type="text" name="clname" value="{{$course->class_name }}" class="mb-4" placeholder="Enter class name" required="">
+                                <input type="text" name="clname" value="{{$course->class_name }}" class="mb-4" placeholder="Enter class name" required=""  minlength="3" maxlength ="50">
+                                @error('clname')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Derpartment</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Derpartment</h6>
                                 </label> 
-                                <input type="text" name="department" value="{{$course->department }}"  class="mb-4" placeholder="Enter department" required="">
+                                <input type="text" name="department" value="{{$course->department }}"  class="mb-4" placeholder="Enter department" required=""  minlength="3" maxlength ="200">
+                                @error('department')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Room Number</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Room Number</h6>
                                 </label> 
                                 <input type="text" name="rno" value="{{$course->room_number }}" class="mb-4" placeholder="Enter room number" required="">
+                                @error('rno')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Start Date</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Start Date</h6>
                                 </label> 
 
 
                                 <input type="date" name="sdate" value="{{ $course->start_date}}"  class="mb-4" placeholder="Enter start date" required="">
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">End Date</h6>
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">End Date</h6>
                                 </label> 
-                                <input type="date" name="sdate" value="{{ $course->end_date}}"  class="mb-4" placeholder="Enter start date" required="">
+                                <input type="date" name="edate" value="{{ $course->end_date}}"  class="mb-4" placeholder="Enter start date" required="">
                                 
                             </div>
+                            <br><br>
                             <div class="row px-3 demo "> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Class Color</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class Color</h6>
                                 </label> 
                                 <div style="background-color:  {{$course->class_color}}; padding: 10px; border: 1px solid green;">
                                         		
                                         	</div>
                                 <input type="text" id="demo-input" name="ccolor" value="{{$course->class_color}}" class="mb-4" placeholder="Enter class color" required="">
                             </div>
+                            <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm">Course Description</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Course Description</h6>
                                 </label> 
                                 <textarea name="cdescription" cols="16" id="txtEditor" style="height: 35px;width: 100%;" required>
-							{{$course->course_description}}
-                            </textarea>
+							                   {{$course->course_description}}
+                                </textarea>
                                 
                             </div>
+                            <br><br>
                             <div class="card-footer pull-right">
 
                         <a class="btn btn-default" href="{{url('/course')}}">Cancel</a>
