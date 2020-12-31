@@ -1,6 +1,14 @@
 @extends('layouts.app')
 @section('content')
 
+  <div id="message">
+    @if (Session::has('message'))
+      <div class="alert alert-info">
+        {{ Session::get('message') }}
+      </div>
+    @endif
+  </div>
+
   <div>
     <button><a href="/safetytips/create">Add Safety Tip</a></button>
   </div>
@@ -23,18 +31,24 @@
         </div><br>
         <p>Description: {{$safetytip->description}}</p>
         <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
-        <form action="/safetytips/{{}}" method="POST">
+        <form action="/safetytips/{{$safetytip->id}}" method="POST">
           @csrf
           @method('DELETE')
           <button onclick="return confirm('Are you sure?')" type="submit" value="submit">Delete</button>
         </form>
-        <a onclick="delete($safetytip->id)">Delete</a>
       </div><br>
       <hr>
     @endforeach
   </div>
 
-</div>
-</div>
-</div>
+  </div>
+  </div>
+  </div>
+
+  <script type="text/javascript">
+    setTimeout(function() {
+      $('#message').fadeOut('fast');
+    }, 2000);
+  </script>
+
 @endsection

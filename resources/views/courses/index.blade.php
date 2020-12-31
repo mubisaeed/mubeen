@@ -124,7 +124,7 @@
                                 </tbody>
                             </table>
                                   @else
-                                    <h3>There is no student</h3>
+                                    <h3>No Cources Available</h3>
                                   @endif
                         </div>
                     </div>
@@ -140,7 +140,7 @@
 <script type="text/javascript">
   setTimeout(function() {
     $('#message').fadeOut('fast');
-}, 30000);
+}, 2000);
 </script>
 <!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
 <script type="text/javascript">
