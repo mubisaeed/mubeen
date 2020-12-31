@@ -68,7 +68,7 @@
             Greecon
           </h1>
           <br />
-          <a href="{{url('/loginpage')}}" class="btn btn-primary btn-round btn-lg">Login</a>
+          {{-- <a href="{{url('/loginpage')}}" class="btn btn-primary btn-round btn-lg">Login</a> --}}
         </div>
       </div>
     </div>

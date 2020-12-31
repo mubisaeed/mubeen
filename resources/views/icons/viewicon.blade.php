@@ -64,7 +64,13 @@ table, th, td {
             
             @include('layouts.top_menu_bar')
            
-          
+            <div id="message">
+              @if (Session::has('message'))
+                <div class="alert alert-info">
+                  {{ Session::get('message') }}
+                </div>
+              @endif
+              </div>
               
 
 {{-- <div>
@@ -104,6 +110,12 @@ table, th, td {
 @else
 <h2>There is no icon<h2>
 @endif
+
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
+</script>
 
               <!--   Core JS Files   -->
               <script src="{{('js/core/jquery.min.js')}}"></script>

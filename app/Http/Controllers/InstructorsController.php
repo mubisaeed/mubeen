@@ -6,6 +6,7 @@ use App\Instructor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class InstructorsController extends Controller
 {
@@ -39,6 +40,7 @@ class InstructorsController extends Controller
         $instructor->bio=$request->bio;
         $instructor->email=$request->email;
         $instructor->save();
+        Session::flash('message', 'successfully saved');
         return redirect('/instructors');
     }
     
@@ -47,6 +49,7 @@ class InstructorsController extends Controller
         $path="img/instructors/$instructor->image";
         File::delete($path);
         $instructor->delete();
+        Session::flash('message', 'successfully deleted');
         return redirect('/instructors');
     }
    
@@ -82,6 +85,7 @@ class InstructorsController extends Controller
         $instructor->bio=$request->bio;
         $instructor->email=$request->email;
         $instructor->save();
+        Session::flash('message', 'successfully updated');
         return redirect('/instructors');
     }
 }

@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
+  <div id="message">
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+  </div>
   <div>
     @if(count($instructors)>0)
       <h3>All Instructors</h3>
@@ -30,7 +37,13 @@
     @endforeach
   </div>
 
-</div>
-</div>
-</div>
+  </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+    setTimeout(function() {
+      $('#message').fadeOut('fast');
+  }, 2000);
+  </script>
+
 @endsection
