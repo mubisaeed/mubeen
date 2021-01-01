@@ -37,7 +37,7 @@ class iconsController extends Controller
         $icon->image=$imageName;
         $icon->save();
         if($icon){
-        Session::flash('message', 'successfully saved');
+        Session::flash('message', 'Successfully Saved');
         return redirect('/viewicon');
             }
         }
@@ -71,7 +71,7 @@ class iconsController extends Controller
         $icon->image=$imageName;
         $icon->save();
         if($icon){
-        Session::flash('message', 'successfully updated');
+        Session::flash('message', 'Successfully Updated');
         return redirect('/viewicon');
         }
 

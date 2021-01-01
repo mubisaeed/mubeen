@@ -31,11 +31,7 @@
         </div><br>
         <p>Description: {{$safetytip->description}}</p>
         <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
-        <form action="/safetytips/{{$safetytip->id}}" method="POST">
-          @csrf
-          @method('DELETE')
-          <button onclick="return confirm('Are you sure?')" type="submit" value="submit">Delete</button>
-        </form>
+        <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete</a></button>
       </div><br>
       <hr>
     @endforeach
@@ -49,6 +45,39 @@
     setTimeout(function() {
       $('#message').fadeOut('fast');
     }, 2000);
+  </script>
+
+  <script type="text/javascript">
+  $("body").on( "click", ".delete", function () {
+  var task_id = $( this ).attr( "data-id" );
+  console.log(task_id);
+  var form_data = {
+  id: task_id
+  };
+  swal({
+  title: "Do you want to delete this Safety Tip?",
+  type: 'info',
+  showCancelButton: true,
+  confirmButtonColor: '#F79426',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes',
+  showLoaderOnConfirm: true
+  }).then( ( result ) => {
+  if ( result.value == true ) {
+  $.ajax( {
+  type: 'get',
+  url: '<?php echo url("/safetytips/delete"); ?>',
+  data: form_data,
+  success: function ( msg ) {
+  swal( "@lang('Safety Tip Deleted')", '', 'success' )
+  setTimeout( function () {
+  location.reload();
+  }, 1000 );
+  }
+  } );
+  }
+  } );
+  } );
   </script>
 
 @endsection

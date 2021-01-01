@@ -40,17 +40,16 @@ class InstructorsController extends Controller
         $instructor->bio=$request->bio;
         $instructor->email=$request->email;
         $instructor->save();
-        Session::flash('message', 'successfully saved');
+        Session::flash('message', 'Successfully Saved');
         return redirect('/instructors');
     }
     
-    public function destroy($id){
+    public function destroy(Request $request){
+        $id = $request->input("id");
         $instructor = Instructor::find($id);
         $path="img/instructors/$instructor->image";
         File::delete($path);
         $instructor->delete();
-        Session::flash('message', 'successfully deleted');
-        return redirect('/instructors');
     }
    
     public function edit($id){
@@ -85,7 +84,7 @@ class InstructorsController extends Controller
         $instructor->bio=$request->bio;
         $instructor->email=$request->email;
         $instructor->save();
-        Session::flash('message', 'successfully updated');
+        Session::flash('message', 'Successfully Updated');
         return redirect('/instructors');
     }
 }

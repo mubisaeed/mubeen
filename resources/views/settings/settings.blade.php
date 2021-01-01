@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
+<div id="message">
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+</div>
 <div>
     <form action="{{url('update/')}}" method="POST" enctype="multipart/form-data">
       {{@csrf_field()}} 
@@ -33,5 +40,10 @@
 </div>
 </div>
 
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+  }, 2000);
+</script>
 
 @endsection

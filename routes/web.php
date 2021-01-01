@@ -79,7 +79,7 @@ Route::post('/school/delete',  [SchoolsController::class, 'destroy']);
 Route::get('/instructors', [InstructorsController::class, 'index']);
 Route::get('/instructors/create', [InstructorsController::class, 'create']);
 Route::post('/instructors/create', [InstructorsController::class, 'store']);
-Route::delete('/instructors/{id}', [InstructorsController::class, 'destroy']);
+Route::get('/instructors/delete', [InstructorsController::class, 'destroy']);
 Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
 Route::put('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
@@ -87,7 +87,7 @@ Route::put('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 Route::get('/safetytips', [SafetytipsController::class, 'index']);
 Route::get('/safetytips/create', [SafetytipsController::class, 'create']);
 Route::post('/safetytips/create', [SafetytipsController::class, 'store']);
-Route::delete('/safetytips/{id}', [SafetytipsController::class, 'destroy']);
+Route::get('/safetytips/delete', [SafetytipsController::class, 'destroy']);
 Route::get('/safetytips/edit/{id}', [SafetytipsController::class, 'edit']);
 Route::put('/safetytips/edit/{id}', [SafetytipsController::class, 'update']);
 
@@ -95,7 +95,7 @@ Route::put('/safetytips/edit/{id}', [SafetytipsController::class, 'update']);
 Route::get('/discussions', [DiscussionsController::class, 'index']);
 Route::get('/discussions/create', [DiscussionsController::class, 'create']);
 Route::post('/discussions/create', [DiscussionsController::class, 'store']);
-Route::delete('/discussions/{id}', [DiscussionsController::class, 'destroy']);
+Route::get('/discussions/delete', [DiscussionsController::class, 'destroy']);
 Route::get('/discussions/edit/{id}', [DiscussionsController::class, 'edit']);
 Route::put('/discussions/edit/{id}', [DiscussionsController::class, 'update']);
 
