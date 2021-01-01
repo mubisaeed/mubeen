@@ -38,17 +38,16 @@ class DiscussionsController extends Controller
         $discussion->image=$imageName;
         $discussion->description=$request->description;
         $discussion->save();
-        Session::flash('message', 'successfully saved');
+        Session::flash('message', 'Successfully Saved');
         return redirect('/discussions');
     }
 
-    public function destroy($id){
+    public function destroy(Request $request){
+        $id = $request->input("id");
         $discussion = Discussion::find($id);
-        $path="img/instructors/$discussion->image";
+        $path="img/discussions/$discussion->image";
         File::delete($path);
         $discussion->delete();
-        Session::flash('message', 'successfully deleted');
-        return redirect('/discussions');
     }
 
     public function edit($id){
@@ -81,7 +80,7 @@ class DiscussionsController extends Controller
         $discussion->image=$imageName;
         $discussion->description=$request->description;
         $discussion->save();
-        Session::flash('message', 'successfully updated');
+        Session::flash('message', 'Successfully Updated');
         return redirect('/discussions');
     }
 }
