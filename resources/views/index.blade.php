@@ -42,6 +42,11 @@
         <ul class="navbar-nav">
           @if (Auth::check())
             <li class="nav-item">
+              <a class="nav-link" href="{{url('/dashboard')}}" >
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{url('/logout')}}" >
                 Logout
               </a>

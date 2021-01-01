@@ -15,7 +15,7 @@
                     @csrf
                         <div class="card2 card border-0 px-4 py-5">
                             <div class="login_text">
-                                <h3>create course</h3>
+                                <h3>Update Course</h3>
                             </div>
                             <br><br>
                             <div class="row px-3"> 

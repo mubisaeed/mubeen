@@ -64,7 +64,7 @@
                 {{ Session::get('message') }}
               </div>
             @endif
-          </div>
+            </div>
             <div class="col-md-12">
                 <div class="card ">
                     <div class="card-header">
@@ -135,11 +135,11 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-      setTimeout(function() {
-        $('#message').fadeOut('fast');
-    }, 3000);
-    </script>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
+</script>
 <!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
       <script type="text/javascript">
         $( "body" ).on( "click", ".delete", function () {

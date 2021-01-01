@@ -54,7 +54,7 @@
                                     <div class="custom-control custom-checkbox custom-control-inline">   </div>
                                 </div>
                                 <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
-                                <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <a href="{{url('/registerpage')}}" class="text-danger ">Register</a></small> </div>
+                                {{-- <div class="row mb-4 px-3"> <small class="font-weight-bold">Don't have an account? <a href="{{url('/registerpage')}}" class="text-danger ">Register</a></small> </div> --}}
                             </div>
                         </form>
                     </div>

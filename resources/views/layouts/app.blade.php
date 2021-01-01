@@ -36,8 +36,6 @@
           @include('layouts.top_menu_bar')
 
              @yield('content')
-        
-
       
     <!--   Core JS Files   -->
     <script src="{{asset('js/core/jquery.min.js')}}"></script>

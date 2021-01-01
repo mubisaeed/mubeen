@@ -1,6 +1,6 @@
 <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
-          <div class="logo"><a href="{{url('/')}}" class="simple-text logo-normal">
+          <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
             <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
           </a>
         </div>

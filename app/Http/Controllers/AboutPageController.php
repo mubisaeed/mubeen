@@ -33,7 +33,7 @@ class AboutPageController extends Controller
             $data->content=$request->input('content');
             $data->image = $image;
             $data->save();
-            Session::flash('message', 'Updated successfully');
+            Session::flash('message', 'Updated Successfully');
             return redirect('/aboutpage');
     }
 }
