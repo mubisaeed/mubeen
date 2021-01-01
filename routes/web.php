@@ -12,6 +12,7 @@ use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
+use App\Http\Controllers\MessagesController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +116,10 @@ Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Pag
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
 Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
+//messages
+Route::get('/chatbox/{id}', [MessagesController::class, 'index'])->name('Send Message');
+Route::post('/sendmessage', [MessagesController::class, 'sendMessage']);
 
 Auth::routes();
 

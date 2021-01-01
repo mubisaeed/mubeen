@@ -82,15 +82,15 @@
                             <table id="myTable" class="text-primary display table tablesorter">
                                 <thead class="text-primary">
                                     <tr>
-                                        <th>Sr.no</th>
                                         <th>Course name</th>
                                         <th>Department</th>
                                         <th>Room Number</th>
                                         <th>Slug</th>
                                         <th>Start Date</th>
                                         <th>End Date</th>
+                                        <th>Sessions</th>
                                         <th>Class Color</th>
-                                        <th>Course Descri</th>
+                                        <th>Course Description</th>
                                         <th width="130" class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
@@ -98,14 +98,13 @@
                                         @foreach($courses as $c)
                                         
                                     <tr>
-                                        <td>{{$c->id}}</td>
                                         <td><a href="{{url('/course/'.$c->slug)}}" target="_blank"> {{$c->class_name}} </a></td>
                                         <td>{{$c->department}}</td>
                                         <td> {{$c->room_number}}</td>
                                         <td style="text-transform: none;"> {{$c->slug}} </td>
-                                        <td> {{ $c->start_date }} </td>
-                                        <td>{{ $c->end_date }}</td>
-                                        
+                                        <td> {{date('d-m-Y', strtotime($c->start_date))}} </td>
+                                        <td>{{date('d-m-Y', strtotime($c->end_date))}}</td>
+                                        <td> {{$c->sessions}}</td>
                                         <td>
                                         	<div style="background-color:  {{$c->class_color}}; padding: 10px; border: 1px solid green;">
                                         		
@@ -119,6 +118,7 @@
                                                 </div>
                                             </div>
                                         </td>
+
                                     </tr>
                                   @endforeach
                                 </tbody>
@@ -178,7 +178,7 @@
             } );
         } );
     </script>
-<script src="{{('js/core/jquery.min.js')}}"></script>
+              <script src="{{('js/core/jquery.min.js')}}"></script>
               <script src="{{('js/core/popper.min.js')}}"></script>
               <script src="{{('js/core/bootstrap-material-design.min.js')}}"></script>
               <script src="{{('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>

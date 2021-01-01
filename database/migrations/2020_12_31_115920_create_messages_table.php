@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Messages extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,13 @@ class Messages extends Migration
     {
          Schema::create('messages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('sender');
-            $table->foreign('sender')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('receiver');
-            $table->foreign('receiver')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('student');
+            $table->foreign('student')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('instructor');
+            $table->foreign('instructor')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('sent_by');
             $table->text('content');
-            $table->integer('seen');
+            $table->integer('seen')->default(0);
             $table->timestamps();
         });
     }

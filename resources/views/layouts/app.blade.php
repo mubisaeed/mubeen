@@ -34,11 +34,9 @@
       <div class="content">
         <div class="container-fluid">
           @include('layouts.top_menu_bar')
-          
-            
 
-
-          @yield('content')
+             @yield('content')
+        
 
       
     <!--   Core JS Files   -->

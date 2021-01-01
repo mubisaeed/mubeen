@@ -14,7 +14,7 @@ class StudentsController extends Controller
 {
     public function students()
     {
-
+        
     	$user = Auth::user();
         $students = DB::table('students')->get();
         return view('students.index', compact('students', 'user'));
@@ -26,14 +26,17 @@ class StudentsController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
     		$this->validate($request, [
-                'sname' => 'required','min:3','max:50',
+                'sname' => 'required','min:3','max:20',
                 'fname' => 'required','min:3','max:50',
                 'phno' => 'required','min:11','max:11',
                 'image' => 'required',
                 'cnic' => 'required','min:13','max:15',
                 'add' => 'required','min:3','max:200',
                 'class' => 'required','min:3','max:20',
+                'diabetes' => 'required',
+                'alergy' => 'required',
                 'rno' => 'required',
             ]);
             if ($files = $request->file('image')) {
@@ -50,8 +53,12 @@ class StudentsController extends Controller
             'class'=> $request->class,
             'rollno'=> $request->rno,
             'image'=>$image,
+            'diabetes'=>$request->diabetes,
+            'alergy'=>$request->alergy,
+            'blood_group'=>$request->blood,
         );
 		        $success = DB::table('students')->insert($data);
+                // dd($success);
 		        if($success){
                     Session::flash('message', 'Student saved successfully');
 		            return redirect('/students');
@@ -69,16 +76,6 @@ class StudentsController extends Controller
 
    public function update(Request $request, $id)
     {
-        $this->validate($request, [
-                'sname' => 'required','min:3','max:50',
-                'fname' => 'required','min:3','max:50',
-                'phno' => 'required','min:11','max:11',
-                'image' => 'required',
-                'cnic' => 'required','min:13','max:15',
-                'add' => 'required','min:3','max:200',
-                'class' => 'required','min:3','max:20',
-                'rno' => 'required',
-            ]);
         $student = DB::table('students')->where('id',$id)->get()->first();
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
@@ -96,6 +93,9 @@ class StudentsController extends Controller
             $data->address=$request->input('add');
             $data->class=$request->input('class');
             $data->rollno=$request->input('rno');
+            $data->blood_group=$request->input('blood');
+            $data->diabetes=$request->input('diabetes');
+            $data->alergy=$request->input('alergy');
             $data->image = $image;
             $data->save();
             Session::flash('message', 'Updated successfully');
