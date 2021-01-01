@@ -11,7 +11,7 @@
               <h3>Lily Cristopher</h3>
             </div>
             <li class="nav-item active  ">
-              <a class="nav-link" href="/dashboard">
+              <a class="nav-link" href="{{url('/dashboard')}}">
                 <i class="fa fa-home"></i>
                 <p>Dashboard</p>
               </a>
@@ -106,12 +106,6 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item active ">
-              <a class="nav-link" href="{{route('setting')}}">
-                <i class="fa fa-home"></i>
-                <p>Settings</p>
-              </a>
-            </li>
-          </ul>
+            </ul>
         </div>
       </div>

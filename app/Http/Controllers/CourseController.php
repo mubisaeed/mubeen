@@ -20,11 +20,13 @@ class CourseController extends Controller
     }
     public function coursestore(Request $request)
     {
+        // dd($request->sessions);
     		 $this->validate($request, [
                 'clname' => 'required','min:3','max:50',
                 'department' => 'required','min:3','max:200',
                 'rno' => 'required',
                 'ccolor' => 'required',
+                'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
     	$str = strtolower($request->clname);
@@ -36,6 +38,7 @@ class CourseController extends Controller
             'start_date'=> $request->sdate,
             'end_date'=> $request->edate,
             'class_color'=> $request->ccolor,
+            'sessions'=> $request->sessions,
             'slug'=> $slug,
             'course_description'=> $request->cdescription,
         );
@@ -109,6 +112,7 @@ class CourseController extends Controller
                 'department' => 'required','min:3','max:200',
                 'rno' => 'required',
                 'ccolor' => 'required',
+                'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
         $str = strtolower($request->title);
@@ -120,6 +124,7 @@ class CourseController extends Controller
             'start_date'=> $request->sdate,
             'end_date'=> $request->edate,
             'class_color'=> $request->ccolor,
+            'sessions'=> $request->sessions,
             'slug'=> $slug,
             'course_description'=> $request->cdescription,
         );

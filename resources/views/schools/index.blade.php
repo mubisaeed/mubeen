@@ -84,7 +84,6 @@
                                 <thead class="text-primary">
 
                                     <tr>
-                                        <th>Sr. no</th>
                                         <th>School Name</th>
                                         <th>Logo</th>
                                         <th>Address</th>
@@ -97,7 +96,6 @@
                                         @foreach($schools as $sch)
                                         
                                     <tr>
-                                        <td>{{$sch->id}}</td>
                                         <td>{{$sch->name}}</td>
                                         <td><img src="{{asset('/img/upload/'.$sch->logo)}}" width ="100" ></td>
                                         <td>{{$sch->address}}</td>

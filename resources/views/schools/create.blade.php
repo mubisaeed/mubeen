@@ -48,7 +48,7 @@
 
                             @endforeach
                             <div class="login_text">
-                                <h3>create Student</h3>
+                                <h3>Create School</h3>
                             </div>
                             <br><br>
                             <div class="row px-3"> 

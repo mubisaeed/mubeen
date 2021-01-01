@@ -73,7 +73,11 @@
             Greecon
           </h1>
           <br />
-          {{-- <a href="{{url('/loginpage')}}" class="btn btn-primary btn-round btn-lg">Login</a> --}}
+          @if (Auth::check())
+          <a href="{{url('/logout')}}" class="btn btn-primary btn-round btn-lg">Logout</a>
+          @else
+          <a href="{{url('/loginpage')}}" class="btn btn-primary btn-round btn-lg">Login</a>
+          @endif
         </div>
       </div>
     </div>
