@@ -9,10 +9,12 @@ use App\Http\Controllers\InstructorsController;
 use App\Http\Controllers\iconsController;
 use App\Http\Controllers\SafetytipsController;
 use App\Http\Controllers\DiscussionsController;
+use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -99,6 +101,22 @@ Route::post('/discussions/create', [DiscussionsController::class, 'store']);
 Route::get('/discussions/delete', [DiscussionsController::class, 'destroy']);
 Route::get('/discussions/edit/{id}', [DiscussionsController::class, 'edit']);
 Route::put('/discussions/edit/{id}', [DiscussionsController::class, 'update']);
+
+//Routes for departments functionality:
+Route::get('/departments', [DepartmentsController::class, 'index']);
+Route::get('/departments/create', [DepartmentsController::class, 'create']);
+Route::post('/departments/create', [DepartmentsController::class, 'store']);
+Route::get('/departments/delete', [DepartmentsController::class, 'destroy']);
+Route::get('/departments/edit/{id}', [DepartmentsController::class, 'edit']);
+Route::put('/departments/edit/{id}', [DepartmentsController::class, 'update']);
+
+//Routes for rooms functionality:
+Route::get('/rooms', [RoomsController::class, 'index']);
+Route::get('/rooms/create', [RoomsController::class, 'create']);
+Route::post('/rooms/create', [RoomsController::class, 'store']);
+Route::get('/rooms/delete', [RoomsController::class, 'destroy']);
+Route::get('/rooms/edit/{id}', [RoomsController::class, 'edit']);
+Route::put('/rooms/edit/{id}', [RoomsController::class, 'update']);   
 
 // icons
 Route::get('/create', [iconsController::class, 'iconpage']);
