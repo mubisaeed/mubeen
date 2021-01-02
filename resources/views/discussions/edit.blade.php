@@ -25,7 +25,7 @@
       @enderror
       <br>
       <label for="description">Enter Description:</label>
-      <input type="text" name="description" value="{{$discussion->description}}" required minlength="10" maxlength="3000">
+      <input type="text" name="description" value="{{old('title', $discussion->description)}}" required minlength="10" maxlength="3000">
       @error('description')
       <div>
         {{$message}}

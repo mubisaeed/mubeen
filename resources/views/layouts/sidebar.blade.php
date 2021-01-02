@@ -47,6 +47,18 @@
               </div>
             </li>
             <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                <i class="fa fa-graduation-cap"></i>
+                <span>Departments</span>
+              </a>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
+                  <a class="collapse-item" href="{{url('/departments/create')}}">Add Department</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <i class="fa fa-calendar-o"></i>
                 <span>Students List </span>
@@ -103,6 +115,18 @@
                 <div class="py-2 collapse-inner rounded">
                   <a class="collapse-item" href="{{url('/aboutpage')}}">About Page</a>
                   <a class="collapse-item" href="{{url('/contactpage')}}">Contact Us</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                <i class="fa fa-graduation-cap"></i>
+                <span>Rooms</span>
+              </a>
+              <div id="collapseNine" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{url('/rooms')}}">All Rooms</a>
+                  <a class="collapse-item" href="{{url('/rooms/create')}}">Add Room</a>
                 </div>
               </div>
             </li>

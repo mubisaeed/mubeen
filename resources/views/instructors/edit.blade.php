@@ -25,7 +25,7 @@
       @enderror
       <br>
       <label for="bio">Enter Bio:</label>
-      <input type="text" name="bio" value="{{$instructor->bio}}" required minlength="10" maxlength="3000">
+      <input type="text" name="bio" value="{{old('bio', $instructor->bio)}} required minlength="10" maxlength="3000">
       @error('bio')
       <div>
         {{$message}}
@@ -33,7 +33,7 @@
       @enderror
       <br><br>
       <label for="email">Enter Email:</label>
-      <input type="email" name="email" value="{{$instructor->email}}" required maxlength="255">
+      <input type="email" name="email" value="{{old('email', $instructor->email)}}" required maxlength="255">
       @error('email')
       <div>
         {{$message}}
