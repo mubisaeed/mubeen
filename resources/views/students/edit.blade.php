@@ -29,6 +29,17 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Email</h6>
+                                </label> 
+                                <input type="email" name="email" value="{{$student->email }}" class="mb-4" placeholder="Enter email" required="">
+                                @error('sname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                             <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
@@ -67,7 +78,7 @@
                                 <label class="mb-1">
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">CNIC</h6>
                                 </label>
-                                <input type="text" name="cnic" value="{{ $student->cnic}}" class="mb-4" data-inputmask="'mask': '99999-9999999-9'"  placeholder="XXXXX-XXXXXXX-X"  required="" maxlength="13">
+                                <input type="text" name="cnic" value="{{ $student->cnic}}" class="mb-4" data-inputmask="'mask': '99999-9999999-9'"  placeholder="XXXXX-XXXXXXX-X"  required="" maxlength="15">
                             </div>
                             <br><br>
                             <div class="row px-3"> 

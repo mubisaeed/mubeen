@@ -14,7 +14,8 @@ class SchoolsController extends Controller
     public function schools()
     {
     	$user = Auth::user();
-        $schools = DB::table('schools')->get();
+        $schoolsdetail = DB::table('schools')->get();
+        $schools = DB::table('users')->where('role_id', 3)->get();
         return view('schools.index', compact('schools', 'user'));
     }
     public function create()

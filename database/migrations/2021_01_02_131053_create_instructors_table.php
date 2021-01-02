@@ -15,10 +15,10 @@ class CreateInstructorsTable extends Migration
     {
         Schema::create('instructors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('image');
-            $table->string('bio');
-            $table->string('email');
+            $table->integer('i_u_id')->unsigned()->nullable();
+            $table->string('phone');
+            $table->string('cnic');
+            $table->string('address');
             $table->timestamps();
         });
     }

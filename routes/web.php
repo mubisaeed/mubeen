@@ -43,6 +43,9 @@ Route::post('/setpassword', [userscontroller::class, 'setpassword']);
 Route::get('/resetpassword', [userscontroller::class, 'resetpassword']);
 Route::get('/edit/{id}', [userscontroller::class, 'edit']);
 Route::post('/update/{id}', [userscontroller::class, 'update']);
+// Route::post('/createstudent', [userscontroller::class, 'createstudent']);
+// Route::post('/createinstructor', [userscontroller::class, 'createinstructor']);
+// Route::post('/createschool', [userscontroller::class, 'createschool']);
 
 
 //course crud
@@ -63,6 +66,7 @@ Route::get('/students', [StudentsController::class, 'students'])->name('students
 Route::get('/studentcreate', [StudentsController::class, 'create']);
 Route::post('/studentstore', [StudentsController::class, 'store']);
 Route::get('/student/edit/{id}',  [StudentsController::class, 'edit']);
+Route::get('/student/show/{id}',  [StudentsController::class, 'show']);
 Route::post('/student/update/{id}',  [StudentsController::class, 'update']);
 Route::post('/student/delete',  [StudentsController::class, 'destroy']);
 
@@ -81,8 +85,9 @@ Route::get('/instructors', [InstructorsController::class, 'index']);
 Route::get('/instructors/create', [InstructorsController::class, 'create']);
 Route::post('/instructors/create', [InstructorsController::class, 'store']);
 Route::get('/instructors/delete', [InstructorsController::class, 'destroy']);
+Route::get('/instructors/show/{id}', [InstructorsController::class, 'show']);
 Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
-Route::put('/instructors/edit/{id}', [InstructorsController::class, 'update']);
+Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
 //Routes for safety tips functionality:
 Route::get('/safetytips', [SafetytipsController::class, 'index']);

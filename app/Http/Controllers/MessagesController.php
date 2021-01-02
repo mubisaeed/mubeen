@@ -31,6 +31,7 @@ class MessagesController extends Controller
     }
     public function sendMessage(Request $request)
     {
+        $time = \Carbon\Carbon::now();
         $sideid = $request->sideid;
     	if(Auth::user()->role_id==4)	
     	{
@@ -47,6 +48,7 @@ class MessagesController extends Controller
             'student'=> $student,
             'instructor'=> $instructor,
             'sent_by'=> $request->sentby,
+            'created_at'=> $time,
         );
 		  $success = DB::table('messages')->insert($data);
           if($success){

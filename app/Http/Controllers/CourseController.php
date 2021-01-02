@@ -117,18 +117,33 @@ class CourseController extends Controller
             ]);
         $str = strtolower($request->title);
         $slug = preg_replace('/\s+/', '-', $str);
-        $data = array(
-            'class_name'=> $request->clname,
-            'department'=> $request->department,
-            'room_number'=> $request->rno,
-            'start_date'=> $request->sdate,
-            'end_date'=> $request->edate,
-            'class_color'=> $request->ccolor,
-            'sessions'=> $request->sessions,
-            'slug'=> $slug,
-            'course_description'=> $request->cdescription,
-        );
-        $success = DB::table('courses')->where('id',$id)->update($data);
+        // $data = array(
+        //     'class_name'=> $request->clname,
+        //     'department'=> $request->department,
+        //     'room_number'=> $request->rno,
+        //     'start_date'=> $request->sdate,
+        //     'end_date'=> $request->edate,
+        //     'class_color'=> $request->ccolor,
+        //     'sessions'=> $request->sessions,
+        //     'slug'=> $slug,
+        //     'course_description'=> $request->cdescription,
+        // );
+        // $success = DB::table('courses')->where('id',$id)->update($data);
+        // dd($success);
+
+
+        $data = Course::find($id);
+        $data->class_name=$request->input('clname');
+        $data->department=$request->input('department');
+        $data->room_number=$request->input('rno');
+        $data->start_date=$request->input('sdate');
+        $data->end_date=$request->input('edate');
+        $data->class_color=$request->input('ccolor');
+        $data->sessions=$request->input('sessions');
+        $data->slug=$slug;
+        $data->course_description=$request->input('cdescription');
+        $success = $data->save();
+
         if($success){
             Session::flash('message', 'Course updated successfully');
             return redirect('/course')->with('success', 'Update Successfuly');

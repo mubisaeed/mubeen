@@ -1,41 +1,67 @@
 @extends('layouts.app')
 @section('content')
 
-  <div id="message">
-    @if (Session::has('message'))
-      <div class="alert alert-info">
-        {{ Session::get('message') }}
-      </div>
-    @endif
-  </div>
-  <div>
-    @if(count($instructors)>0)
-      <h3>All Instructors</h3>
-    @else
-      <h3>No Instructors Available</h3>
-    @endif
-  </div>
-  <hr>
-  <div>
-    @foreach ($instructors as $instructor)
-      <h4>ID: {{$instructor->id}}</h4>
-      <div>
-        <h5>Name: {{$instructor->name}}</h5>
-        <div>
-          <img height="250px" width="300px" src="img/instructors/{{$instructor->image}}">
-        </div><br>
-        <p>Bio: {{$instructor->bio}}</p>
-        <span>Email: {{$instructor->email}}<span><br><br>
-        <button><a href="/instructors/edit/{{$instructor->id}}">Edit</a></button>
-        <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $instructor->id; ?>">Delete</a></button>
-      </div><br>
-      <hr>
-    @endforeach
-  </div>
+  <div class="content">
+        <div class="row">
+            <div id="message">
+            @if (Session::has('message'))
+              <div class="alert alert-info">
+                {{ Session::get('message') }}
+              </div>
+            @endif
+            </div>
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                <h4 class="card-title">All Instructors</h4>
+                            </div>
 
-  </div>
-  </div>
-  </div>
+                        </div>
+                    
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                                  @if(count($instructors) > 0)
+                            <table id="myTable" class="text-primary display table tablesorter">
+                                <thead class="text-primary">
+
+                                    <tr>
+                                        <th>Instructor name</th>
+                                        <th>Email</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr></thead>
+                                <tbody>
+                                    <tr class="custom_color" >
+                                        @foreach($instructors as $ins)
+                                        
+                                    <tr>
+                                        <td>{{$ins->name}}</td>
+                                        <td>{{$ins->email}}</td>
+                                        <td class="text-right">
+                                          <a class="btn btn-sm btn-success" href="{{url('/instructors/show/' . $ins->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                          <a class="btn btn-sm btn-info" href="{{url('instructors/edit/' . $ins->id)}}"><i class="fa fa-pencil"></i></a>
+                                          <a href="javascript:void(0);" data-id="<?php echo $ins->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                  @endforeach
+                                </tbody>
+                            </table>
+                                  @else
+                                    <h3>There is no Instructor</h3>
+                                  @endif
+                        </div>
+                    </div>
+                    <div class="card-footer py-4">
+                        <nav class="d-flex justify-content-end" aria-label="...">
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
   
   <script type="text/javascript">
     setTimeout(function() {
