@@ -3,6 +3,13 @@
 @section('content')
                     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
                     <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script>
+                    <div id="message">
+                        @if (Session::has('message'))
+                          <div class="alert alert-info">
+                            {{ Session::get('message') }}
+                          </div>
+                        @endif  
+                    </div>
                     <form method="POST" action="/studentstore" enctype="multipart/form-data">
                     @csrf
                         <div class="card2 card border-0 px-4 py-5">
@@ -27,7 +34,24 @@
                                 @enderror
                             </div>
                             <br><br>
+                            <label><h6 style="color:black; margin-right: 10px">email</h6></label>
+                            <input type="email" name="email" placeholder="Enter email address" value="{{old('email')}}">
+                              @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                              @enderror
+                            <br><br>
                             <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Role</h6>
+                                </label> 
+                                <select required="required" class="form-control" name="role">
+                                    <option value="5">Student</option>
+                                </select>
+                            </div>
+                            <br><br>
+                             <div class="row px-3"> 
                                 <label class="mb-1">
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Student Image</h6>
                                 </label> 
@@ -144,10 +168,14 @@
                 </div>
                 <script>
                     $(":input").inputmask();
-
                </script>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+      setTimeout(function() {
+        $('#message').fadeOut('fast');
+    }, 2000);
+    </script>   
 @endsection
        

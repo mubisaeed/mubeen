@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
     <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -24,10 +25,25 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css">
       <script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+      <link href="{{('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
+
+		<style>
+
+		.card-body {
+		    overflow-x: scroll;
+		    overflow-y: hidden;
+		}
+		.sweet-alert h2 {
+			font-size: 1.3rem !important;
+		}
+
+		.sweet-alert .sa-icon {
+			margin: 30px auto 35px !important;
+		}
+		</style>
     <body class="">
       @include('layouts.sidebar')
       <div class="main-panel">
@@ -38,70 +54,107 @@
           <div class="container-fluid">
             
             @include('layouts.top_menu_bar')
+
+
+    <div class="content">
+        <div class="row">
             <div id="message">
-              @if (Session::has('message'))
-                <div class="alert alert-info">
-                  {{ Session::get('message') }}
-                </div>
-              @endif 
+            @if (Session::has('message'))
+              <div class="alert alert-info">
+                {{ Session::get('message') }}
+              </div>
+            @endif
             </div>
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-8">
+                                <h4 class="card-title">All Students</h4>
+                            </div>
 
-              <form method="POST" action="/createschool" enctype="multipart/form-data">
-              @csrf
-                  <div class="card2 card border-0 px-4 py-5">
-                    @foreach ($errors->all() as $error)
+                        </div>
+                    
+                    </div>
+                    <div class="card-body">
+                        <div class="">
+                                 
+                            <table id="myTable" class="text-primary display table tablesorter">
+                                <thead class="text-primary">
 
-                    <div class="alert alert-danger">{{ $error }}</div>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <th>CNIC</th>
+                                        <th>Address</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr></thead>
+                                <tbody>
+                                    <tr class="custom_color" >
+                                        @foreach($instructordetail as $ins)
+                                    <tr>
+                                        <td>{{$ins->phone}}</td>
+                                        <td>{{$ins->cnic}}</td>
+                                        <td>{{$ins->address}}</td>
+                                        <td class="text-right">
+                                          <a class="btn btn-sm btn-success" href="{{url('/instructors')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                  @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer py-4">
+                        <nav class="d-flex justify-content-end" aria-label="...">
 
-                      @endforeach
-                      <div class="login_text">
-                          <h3>Create School</h3>
-                      </div>
-                      <br><br>
-                      <div class="row px-3"> 
-                          <label class="mb-1">
-                              <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School name</h6>
-                          </label> 
-                          <input type="text" value="{{ old('name')}}" name="name" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="50">
-                          @error('sname')
-                              <span class="invalid-feedback" role="alert">
-                                  <strong>{{ $message }}</strong>
-                              </span>
-                          @enderror
-                      </div>
-                      <br><br>
-                            <label style="color: black" for="email">Enter Email:</label>
-                      <input type="email" name="email" value="{{old('email')}}" required maxlength="255">
-                      @error('email')
-                      <div>
-                        {{$message}}
-                      </div>
-                      @enderror
-                      <br><br>
-                      <div class="row px-3"> 
-                          <label class="mb-1">
-                              <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Role</h6>
-                          </label> 
-                          <select required="required" class="form-control" name="role">
-                              <option value="3">School</option>
-                              <option value="4">Instructor</option>
-                              <option value="5">Student</option>
-                          </select>
-                      </div>
-                      
-                      <div class="row px-3 mb-4">
-                          <div class="custom-control custom-checkbox custom-control-inline">   </div>
-                      </div>
-                      <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
-                  </div>
-              </form>
+                        </nav>
+                    </div>
                 </div>
-                <script type="text/javascript">
-                  setTimeout(function() {
-                    $('#message').fadeOut('fast');
-                }, 2000);
-                </script>   
-             <script src="{{('js/core/jquery.min.js')}}"></script>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
+</script>
+<!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
+      <script type="text/javascript">
+        $( "body" ).on( "click", ".delete", function () {
+            var task_id = $( this ).attr( "data-id" );
+            var form_data = {
+                id: task_id
+            };
+            swal({
+                title: "Do you want to delete this Student",
+                //text: "@lang('category.delete_category_msg')",
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#F79426',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes',
+                showLoaderOnConfirm: true
+            }).then( ( result ) => {
+                if ( result.value == true ) {
+                    $.ajax( {
+                        type: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
+                        },
+                        url: '<?php echo url("student/delete"); ?>',
+                        data: form_data,
+                        success: function ( msg ) {
+                            swal( "@lang('Course Deleted Successfully')", '', 'success' )
+                            setTimeout( function () {
+                                location.reload();
+                            }, 900 );
+                        }
+                    } );
+                }
+            } );
+        } );
+    </script>
+              <script src="{{('js/core/jquery.min.js')}}"></script>
               <script src="{{('js/core/popper.min.js')}}"></script>
               <script src="{{('js/core/bootstrap-material-design.min.js')}}"></script>
               <script src="{{('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
@@ -421,6 +474,5 @@
               data // giving the organizer the static data that should be displayed
               );
               </script>
-</body>
-</html>
-       
+            </body>
+          </html>

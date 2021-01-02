@@ -84,27 +84,20 @@
                                 <thead class="text-primary">
 
                                     <tr>
-                                        <th>School Name</th>
-                                        <th>Logo</th>
-                                        <th>Address</th>
-                                        <th>Owner Name</th>
-                                        <th>Owner Address</th>
-                                        <th width="130" class="text-center">Actions</th>
+                                       <th>School name</th>
+                                        <th>Email</th>
+                                        <th class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
                                     <tr class="custom_color" >
                                         @foreach($schools as $sch)
-                                        
                                     <tr>
                                         <td>{{$sch->name}}</td>
-                                        <td><img src="{{asset('/img/upload/'.$sch->logo)}}" width ="100" ></td>
-                                        <td>{{$sch->address}}</td>
-                                        <td>{{$sch->owner_name }} </td>
-                                        <td>{{$sch->owner_address }}</td>
+                                        <td>{{$sch->email}}</td>
                                         <td class="text-right">
-                                           
-                                                    <a class="btn btn-sm btn-success" href="{{url('school/edit/' . $sch->id)}}"><i class="fa fa-pencil"></i></a>
-                                                    <a href="javascript:void(0);" data-id="<?php echo $sch->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
+                                           <a class="btn btn-sm btn-success" href="{{url('student/edit/' . $sch->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                          <a class="btn btn-sm btn-success" href="{{url('school/edit/' . $sch->id)}}"><i class="fa fa-pencil"></i></a>
+                                          <a href="javascript:void(0);" data-id="<?php echo $sch->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
                                                 </div>
                                             </div>
                                         </td>

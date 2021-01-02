@@ -78,23 +78,14 @@
                     </div>
                     <div class="card-body">
                         <div class="">
-                                  @if($students->count() > 0)
+                                  @if(count($students) > 0)
                             <table id="myTable" class="text-primary display table tablesorter">
                                 <thead class="text-primary">
 
                                     <tr>
                                         <th>Student name</th>
-                                        <th>Student Image</th>
-                                        <th>Father Name</th>
-                                        <th>Phone Number</th>
-                                        <th>CNIC</th>
-                                        <th>Address</th>
-                                        <th>Class</th>
-                                        <th>Roll number</th>
-                                        <th>Blood Group</th>
-                                        <th>Diabetes</th>
-                                        <th>Alergy</th>
-                                        <th width="130" class="text-center">Actions</th>
+                                        <th>Email</th>
+                                        <th class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
                                     <tr class="custom_color" >
@@ -103,19 +94,11 @@
                                     <tr>
                                         
                                         <td>{{$st->name}}</td>
-                                        <td><img src="{{asset('/img/upload/'.$st->image)}}" width ="100" ></td>
-                                        <td>{{$st->father_name}}</td>
-                                        <td>{{$st->phone}}</td>
-                                        <td>{{$st->cnic }} </td>
-                                        <td>{{$st->address }}</td>
-                                        <td>{{$st->class }}</td>
-                                        <td>{{$st->rollno }}</td>
-                                        <td>{{$st->blood_group }}</td>
-                                        <td>{{$st->diabetes }}</td>
-                                        <td>{{$st->alergy}}</td>
+                                        <td>{{$st->email}}</td>
                                         <td class="text-right">
-                                                    <a class="btn btn-sm btn-info" href="{{url('student/edit/' . $st->id)}}"><i class="fa fa-pencil"></i></a>
-                                                    <a href="javascript:void(0);" data-id="<?php echo $st->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
+                                          <a class="btn btn-sm btn-success" href="{{url('student/show/' . $st->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                          <a class="btn btn-sm btn-info" href="{{url('student/edit/' . $st->id)}}"><i class="fa fa-pencil"></i></a>
+                                          <a href="javascript:void(0);" data-id="<?php echo $st->id; ?>" class="btn btn-sm btn-danger delete"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                   @endforeach
