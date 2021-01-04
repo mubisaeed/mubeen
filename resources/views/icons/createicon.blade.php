@@ -24,7 +24,7 @@
       </span>
       @endif
 
-    <input type="file" name="image" value="{{old('image')}}" accept="image/x-png,image/gif,image/jpeg" placeholder="Image" required>
+    <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" placeholder="Image" required>
 
       @if ($errors->has('image'))
       <span class="text-danger">

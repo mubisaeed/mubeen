@@ -137,9 +137,9 @@ Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
 Route::post('update',  [SettingsController::class, 'update'])->name('update');
 
 // pages
-Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Page');
+Route::get('/aboutpage', [AboutPageController::class, 'index']);
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
-Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
+Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:

@@ -143,6 +143,12 @@
                 </div>
               </div>
             </li>
+            <li class="nav-item active ">
+              <a class="nav-link" href="/setting">
+                <i class="fa fa-home"></i>
+                <p>Settings</p>
+              </a>
+            </li>
       </ul>
     </div>
   </div>
