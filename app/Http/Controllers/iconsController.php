@@ -5,7 +5,8 @@ use App\Icon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\support\Facades\DB;
-use Illuminate\support\Facades\file;
+use Illuminate\support\Facades\File;
+use Illuminate\support\Facades\Session;
 
 class iconsController extends Controller
 {
@@ -36,6 +37,7 @@ class iconsController extends Controller
         $icon->image=$imageName;
         $icon->save();
         if($icon){
+        Session::flash('message', 'Successfully Saved');
         return redirect('/viewicon');
             }
         }
@@ -47,31 +49,38 @@ class iconsController extends Controller
         return view('icons.editicon',compact('data', 'user'));
     }
 
-     public function updateicon(Request $request){
+    public function updateicon(Request $request, $id){
+        $icon = Icon::find($id);
 
         $this->validate($request, [
-        'title'=>'required',
-        'image'=>'required'
-    ]);
+            'title'=>'required'
+        ]);
 
-
-        $icon = Icon::find($request->id);
+        
+        if ($files = $request->file('image')) {
+            $path="img/icons/$icon->image";
+            File::delete($path);
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalName();  
+            $image->move(public_path('img/icons'), $imageName);
+        }
+        else{
+            $imageName = $icon->image;
+        }
         $icon->title=$request->input('title');
-
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalName();
-        $image->move(public_path('img/icons'), $imageName); 
         $icon->image=$imageName;
         $icon->save();
         if($icon){
+        Session::flash('message', 'Successfully Updated');
         return redirect('/viewicon');
-            }
+        }
 
-        }
-        public function deleteicon(Request $request)
-        {
-            $id = $request->input("id");
-            Icon::where("id", $id)->delete();
-        }
+    }
+        
+    public function deleteicon(Request $request)
+    {
+        $id = $request->input("id");
+        Icon::where("id", $id)->delete();
+    }
 }
     

@@ -38,83 +38,70 @@
           <div class="container-fluid">
             
             @include('layouts.top_menu_bar')
-
-                    <form method="POST" action="/schoolstore" enctype="multipart/form-data">
-                    @csrf
-                        <div class="card2 card border-0 px-4 py-5">
-                          @foreach ($errors->all() as $error)
-
-                          <div class="alert alert-danger">{{ $error }}</div>
-
-                            @endforeach
-                            <div class="login_text">
-                                <h3>create Student</h3>
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School name</h6>
-                                </label> 
-                                <input type="text" value="{{ old('sname')}}" name="sname" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="50">
-                                @error('sname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School logo</h6>
-                                </label> 
-                                <input type="file" name="image">
-           
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Address</h6>
-                                </label> 
-                                <input type="text" value="{{ old('add')}}" name="add" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
-                                @error('add')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm"style="color:black; margin-right: 10px">Owner Name</h6>
-                                </label> 
-                                <input type="text" value="{{ old('oname')}}" name="oname" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="70">
-                                @error('oname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Owner Address</h6>
-                                </label> 
-                                <input type="text" value="{{ old('oadd')}}" name="oadd" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
-                                @error('oadd')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            
-                            <div class="row px-3 mb-4">
-                                <div class="custom-control custom-checkbox custom-control-inline">   </div>
-                            </div>
-                            <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
-                        </div>
-                    </form>
+            <div id="message">
+              @if (Session::has('message'))
+                <div class="alert alert-info">
+                  {{ Session::get('message') }}
                 </div>
-                <script src="{{('js/core/jquery.min.js')}}"></script>
+              @endif 
+            </div>
+
+              <form method="POST" action="/createschool" enctype="multipart/form-data">
+              @csrf
+                  <div class="card2 card border-0 px-4 py-5">
+                    @foreach ($errors->all() as $error)
+
+                    <div class="alert alert-danger">{{ $error }}</div>
+
+                      @endforeach
+                      <div class="login_text">
+                          <h3>Create School</h3>
+                      </div>
+                      <br><br>
+                      <div class="row px-3"> 
+                          <label class="mb-1">
+                              <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School name</h6>
+                          </label> 
+                          <input type="text" value="{{ old('name')}}" name="name" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="50">
+                          @error('sname')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
+                      </div>
+                      <br><br>
+                            <label style="color: black" for="email">Enter Email:</label>
+                      <input type="email" name="email" value="{{old('email')}}" required maxlength="255">
+                      @error('email')
+                      <div>
+                        {{$message}}
+                      </div>
+                      @enderror
+                      <br><br>
+                      <div class="row px-3"> 
+                          <label class="mb-1">
+                              <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Role</h6>
+                          </label> 
+                          <select required="required" class="form-control" name="role">
+                              <option value="3">School</option>
+                              <option value="4">Instructor</option>
+                              <option value="5">Student</option>
+                          </select>
+                      </div>
+                      
+                      <div class="row px-3 mb-4">
+                          <div class="custom-control custom-checkbox custom-control-inline">   </div>
+                      </div>
+                      <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
+                  </div>
+              </form>
+                </div>
+                <script type="text/javascript">
+                  setTimeout(function() {
+                    $('#message').fadeOut('fast');
+                }, 2000);
+                </script>   
+             <script src="{{('js/core/jquery.min.js')}}"></script>
               <script src="{{('js/core/popper.min.js')}}"></script>
               <script src="{{('js/core/bootstrap-material-design.min.js')}}"></script>
               <script src="{{('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Safetytip;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class SafetyTipsController extends Controller
 {
@@ -37,15 +38,16 @@ class SafetyTipsController extends Controller
         $safetytip->image=$imageName;
         $safetytip->description=$request->description;
         $safetytip->save();
+        Session::flash('message', 'Successfully Saved');
         return redirect('/safetytips');
     }
 
-    public function destroy($id){
+    public function destroy(Request $request){
+        $id = $request->input("id");
         $safetytip = Safetytip::find($id);
-        $path="img/instructors/$safetytip->image";
+        $path="img/safetytips/$safetytip->image";
         File::delete($path);
         $safetytip->delete();
-        return redirect('/safetytips');
     }
 
     public function edit($id){
@@ -78,6 +80,7 @@ class SafetyTipsController extends Controller
         $safetytip->image=$imageName;
         $safetytip->description=$request->description;
         $safetytip->save();
+        Session::flash('message', 'Successfully Updated');
         return redirect('/safetytips');
     }
 }

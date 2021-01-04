@@ -9,11 +9,15 @@ use App\Http\Controllers\InstructorsController;
 use App\Http\Controllers\iconsController;
 use App\Http\Controllers\SafetytipsController;
 use App\Http\Controllers\DiscussionsController;
+use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\CourseResourcesController;
+use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +46,9 @@ Route::post('/setpassword', [userscontroller::class, 'setpassword']);
 Route::get('/resetpassword', [userscontroller::class, 'resetpassword']);
 Route::get('/edit/{id}', [userscontroller::class, 'edit']);
 Route::post('/update/{id}', [userscontroller::class, 'update']);
+// Route::post('/createstudent', [userscontroller::class, 'createstudent']);
+// Route::post('/createinstructor', [userscontroller::class, 'createinstructor']);
+// Route::post('/createschool', [userscontroller::class, 'createschool']);
 
 
 //course crud
@@ -62,6 +69,7 @@ Route::get('/students', [StudentsController::class, 'students'])->name('students
 Route::get('/studentcreate', [StudentsController::class, 'create']);
 Route::post('/studentstore', [StudentsController::class, 'store']);
 Route::get('/student/edit/{id}',  [StudentsController::class, 'edit']);
+Route::get('/student/show/{id}',  [StudentsController::class, 'show']);
 Route::post('/student/update/{id}',  [StudentsController::class, 'update']);
 Route::post('/student/delete',  [StudentsController::class, 'destroy']);
 
@@ -79,15 +87,16 @@ Route::post('/school/delete',  [SchoolsController::class, 'destroy']);
 Route::get('/instructors', [InstructorsController::class, 'index']);
 Route::get('/instructors/create', [InstructorsController::class, 'create']);
 Route::post('/instructors/create', [InstructorsController::class, 'store']);
-Route::delete('/instructors/{id}', [InstructorsController::class, 'destroy']);
+Route::get('/instructors/delete', [InstructorsController::class, 'destroy']);
+Route::get('/instructors/show/{id}', [InstructorsController::class, 'show']);
 Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
-Route::put('/instructors/edit/{id}', [InstructorsController::class, 'update']);
+Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
 //Routes for safety tips functionality:
 Route::get('/safetytips', [SafetytipsController::class, 'index']);
 Route::get('/safetytips/create', [SafetytipsController::class, 'create']);
 Route::post('/safetytips/create', [SafetytipsController::class, 'store']);
-Route::delete('/safetytips/{id}', [SafetytipsController::class, 'destroy']);
+Route::get('/safetytips/delete', [SafetytipsController::class, 'destroy']);
 Route::get('/safetytips/edit/{id}', [SafetytipsController::class, 'edit']);
 Route::put('/safetytips/edit/{id}', [SafetytipsController::class, 'update']);
 
@@ -95,11 +104,27 @@ Route::put('/safetytips/edit/{id}', [SafetytipsController::class, 'update']);
 Route::get('/discussions', [DiscussionsController::class, 'index']);
 Route::get('/discussions/create', [DiscussionsController::class, 'create']);
 Route::post('/discussions/create', [DiscussionsController::class, 'store']);
-Route::delete('/discussions/{id}', [DiscussionsController::class, 'destroy']);
+Route::get('/discussions/delete', [DiscussionsController::class, 'destroy']);
 Route::get('/discussions/edit/{id}', [DiscussionsController::class, 'edit']);
 Route::put('/discussions/edit/{id}', [DiscussionsController::class, 'update']);
 
-//Routes for icons functionality:
+//Routes for departments functionality:
+Route::get('/departments', [DepartmentsController::class, 'index']);
+Route::get('/departments/create', [DepartmentsController::class, 'create']);
+Route::post('/departments/create', [DepartmentsController::class, 'store']);
+Route::get('/departments/delete', [DepartmentsController::class, 'destroy']);
+Route::get('/departments/edit/{id}', [DepartmentsController::class, 'edit']);
+Route::put('/departments/edit/{id}', [DepartmentsController::class, 'update']);
+
+//Routes for rooms functionality:
+Route::get('/rooms', [RoomsController::class, 'index']);
+Route::get('/rooms/create', [RoomsController::class, 'create']);
+Route::post('/rooms/create', [RoomsController::class, 'store']);
+Route::get('/rooms/delete', [RoomsController::class, 'destroy']);
+Route::get('/rooms/edit/{id}', [RoomsController::class, 'edit']);
+Route::put('/rooms/edit/{id}', [RoomsController::class, 'update']);   
+
+// icons
 Route::get('/create', [iconsController::class, 'iconpage']);
 Route::post('/createicon', [iconsController::class, 'createicon']);
 Route::get('/viewicon', [iconsController::class, 'showicon']);
@@ -125,6 +150,10 @@ Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
 Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
 Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
 Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
+
+//messages
+Route::get('/chatbox/{id}', [MessagesController::class, 'index'])->name('Send Message');
+Route::post('/sendmessage', [MessagesController::class, 'sendMessage']);
 
 Auth::routes();
 

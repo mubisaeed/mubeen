@@ -1,6 +1,13 @@
 @extends('layouts.app')
 @section('content')
 
+<div id="message">
+            @if (Session::has('message'))
+              <div class="alert alert-info">
+                {{ Session::get('message') }}
+              </div>
+            @endif
+          </div>
   <div class="row make_visible">
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
@@ -232,65 +239,85 @@
           <a href="#">See all results</a>
         </div>
       </div>
-      <div class="inbox card-header card-header-warning card-header-icon">
-        <div class="card-icon">
-          <h2>Inbox</h2>
+      @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 5)
+        <div class="inbox card-header card-header-warning card-header-icon">
+          <div class="card-icon">
+            <h2>Inbox</h2>
+          </div>
+          <select class="form-control" >
+            <option>Recent</option>
+            <option>Latest</option>
+          </select>
+          <div class="listing_ib">
+            <?php
+                $id = Auth::user()->role_id;
+                $instructors = DB::table('users')->where('role_id', 4)->get();
+                $students = DB::table('users')->where('role_id', 5)->get();
+              ?>
+              @if($id == 4)
+                @foreach($students as $st)
+                <?php
+                      $user = Auth::user();
+                      if(Auth::user()->role_id==4)
+                        {
+                        $student = $st->id;
+                        $instructor = Auth::user()->id;
+                        $messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('content');
+                        $message = $messages->values()->last();
+                        $times = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('created_at');
+                        $time = $times->values()->last();
+                        // $t = $time->setTimezone('America/Vancouver');
+                        // echo $time;
+                        // echo \Carbon\Carbon::now();
+                          // echo \Carbon\Carbon::now()."   " . \Carbon\Carbon::parse($time);
+                          // $diff = \Carbon\Carbon::now()->diffInMinutes(\Carbon\Carbon::parse($time));
+                          $diff = \Carbon\Carbon::parse($time)->diffForHumans();
+                      }
+                    ?>
+                      <div class="ib_img">
+                        <img src="{{asset('/img/upload/'.$st->image)}}" width="50" alt="">
+                        <a href="{{url('/chatbox/'.$st->id)}}">
+                          <div class="ib_text">
+                            <h4>{{$st->name}}</h4>
+                            <p class="ib_short_text m-0">{{$message}}</p>
+                            <p class="time m-0">{{$diff}}</p>
+                          </div>
+                        </a>
+                      </div>
+                  @endforeach
+                @endif
+                @if($id == 5)
+                  @foreach($instructors as $ins)
+                    <?php
+                      $user = Auth::user();
+                      if(Auth::user()->role_id==5)
+                        {
+                        $instructor = $ins->id;
+                        $student = Auth::user()->id;
+                        $messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('content');
+                        $message = $messages->values()->last();
+                        $times = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('created_at');
+                        $time = $times->values()->last();
+                        // echo \Carbon\Carbon::now();
+                          // echo \Carbon\Carbon::now()."   " . \Carbon\Carbon::parse($time);
+                          $diff = \Carbon\Carbon::now()->diffForHumans(\Carbon\Carbon::parse($time));
+                      }
+                    ?>
+                    <div class="ib_img">
+                      <img src="{{asset('/img/upload/'.$ins->image)}}" width="50" alt="">
+                      <a href="{{url('/chatbox/'.$ins->id)}}">
+                        <div class="ib_text">
+                          <h4>{{$ins->name}}</h4>
+                          <p class="ib_short_text m-0">{{$message}}</p>
+                          <p class="time m-0">{{$diff}}</p>
+                        </div>
+                      </a>
+                    </div>
+                  @endforeach
+                @endif
+              </div>
         </div>
-        <select class="form-control" >
-          <option>Recent</option>
-          <option>Latest</option>
-        </select>
-        <div class="listing_ib">
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval7.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval8.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval9.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval10.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval11.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-          <div class="ib_img">
-            <img src="{{('img/latest/Oval10.png')}}" alt="">
-            <div class="ib_text">
-              <h4>Andrew Stack</h4>
-              <p class="ib_short_text m-0">Bonbon macaroon jelly beans gummi bears</p>
-              <p class="time m-0">25 mins ago</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      @endif
     </div>
   </div>
   <div class="calender_main">
@@ -423,4 +450,9 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 3000);
+</script>
 @endsection

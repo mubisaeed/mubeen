@@ -42,6 +42,11 @@
         <ul class="navbar-nav">
           @if (Auth::check())
             <li class="nav-item">
+              <a class="nav-link" href="{{url('/dashboard')}}" >
+                Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="{{url('/logout')}}" >
                 Logout
               </a>
@@ -68,7 +73,11 @@
             Greecon
           </h1>
           <br />
+          @if (Auth::check())
+          <a href="{{url('/logout')}}" class="btn btn-primary btn-round btn-lg">Logout</a>
+          @else
           <a href="{{url('/loginpage')}}" class="btn btn-primary btn-round btn-lg">Login</a>
+          @endif
         </div>
       </div>
     </div>

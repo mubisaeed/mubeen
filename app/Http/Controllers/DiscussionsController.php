@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Discussion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 
 class DiscussionsController extends Controller
 {
@@ -37,15 +38,16 @@ class DiscussionsController extends Controller
         $discussion->image=$imageName;
         $discussion->description=$request->description;
         $discussion->save();
+        Session::flash('message', 'Successfully Saved');
         return redirect('/discussions');
     }
 
-    public function destroy($id){
+    public function destroy(Request $request){
+        $id = $request->input("id");
         $discussion = Discussion::find($id);
-        $path="img/instructors/$discussion->image";
+        $path="img/discussions/$discussion->image";
         File::delete($path);
         $discussion->delete();
-        return redirect('/discussions');
     }
 
     public function edit($id){
@@ -78,6 +80,7 @@ class DiscussionsController extends Controller
         $discussion->image=$imageName;
         $discussion->description=$request->description;
         $discussion->save();
+        Session::flash('message', 'Successfully Updated');
         return redirect('/discussions');
     }
 }

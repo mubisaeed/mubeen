@@ -14,7 +14,7 @@ class Addimagetousers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->bigIncrement('contact');
+            $table->string('contact');
             $table->string('image');
             $table->string('bio');
         });

@@ -117,15 +117,8 @@ class userscontroller extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-                'name' => 'required', 'string', 'max:255',
-                'email' => 'required', 'string', 'email', 'max:255', 'unique:users',
-                'password' => 'required', 'string', 'min:8', 'confirmed',
-            ]);
     	$user = User::find($id);
     	// $request->validate([
-     //        'name' => ['required', 'string', 'max:255'],
-	    //     // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
 	    //     // 'image' => 'image|mimes:jpeg,png,jpg|max:2048',
      //    ]);
     	if ($files = $request->file('image')) {
@@ -143,7 +136,7 @@ class userscontroller extends Controller
         $data->bio=$request->input('bio');
         $data->image = $image;
         $data->save();
-        // $request->session()->flash('status',' Updated  successfully');
+        Session::flash('message', 'Updated  successfully');
         return redirect('/dashboard');
     }
 
