@@ -95,6 +95,18 @@
               </div>
             </li>
             <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                <i class="fa fa-calendar-o"></i>
+                <span>Course Resources</span>
+              </a>
+              <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{route('/courseresourse')}}">All Resources</a>
+                  <a class="collapse-item" href="{{route('/resource')}}">Add Resources</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                 <i class="fa fa-graduation-cap"></i>
                 <span>Pages</span>

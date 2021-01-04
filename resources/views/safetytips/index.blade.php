@@ -23,12 +23,11 @@
         </div><br>
         <p>Description: {{$safetytip->description}}</p>
         <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
-        <form action="/safetytips/{{}}" method="POST">
+        <form action="/safetytips/delete{{$safetytip->id}}" method="POST">
           @csrf
           @method('DELETE')
           <button onclick="return confirm('Are you sure?')" type="submit" value="submit">Delete</button>
         </form>
-        <a onclick="delete($safetytip->id)">Delete</a>
       </div><br>
       <hr>
     @endforeach

@@ -12,6 +12,7 @@ use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
+use App\Http\Controllers\CourseResourcesController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +99,7 @@ Route::delete('/discussions/{id}', [DiscussionsController::class, 'destroy']);
 Route::get('/discussions/edit/{id}', [DiscussionsController::class, 'edit']);
 Route::put('/discussions/edit/{id}', [DiscussionsController::class, 'update']);
 
-// icons
+//Routes for icons functionality:
 Route::get('/create', [iconsController::class, 'iconpage']);
 Route::post('/createicon', [iconsController::class, 'createicon']);
 Route::get('/viewicon', [iconsController::class, 'showicon']);
@@ -110,11 +111,20 @@ Route::get('/deleteicon/{id}', [iconsController::class,'deleteicon'])->name('/de
 Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
 Route::post('update',  [SettingsController::class, 'update'])->name('update');
 
-//pages
+// pages
 Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Page');
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
 Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
+//Routes for Course Resources functionality:
+Route::get('/courseresourse', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
+Route::post('/resource/create', [CourseResourcesController::class, 'store']);
+Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
+Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
+Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
+Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
 Auth::routes();
 
