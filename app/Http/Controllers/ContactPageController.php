@@ -19,7 +19,14 @@ class ContactPageController extends Controller
     }
     public function update(Request $request)
     {
-    	$contact = DB::table('contactpage')->where('id',1)->get()->first();
+        $contact = DB::table('contactpage')->where('id',1)->get()->first();
+        
+        $this->validate($request, [
+            'title'=>'required|min:3|max:50',
+            'image'=>'max:5000',
+            'email'=>'required|email|unique:contactpage|max:255'
+        ]);
+
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();

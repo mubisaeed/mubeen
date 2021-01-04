@@ -11,7 +11,7 @@
     </div>
     <div class="info">
 
-    <input type="text" name="title" value="{{$data->title}}" placeholder="Enter Titile here!">
+    <input type="text" name="title" value="value="{{old('title', $data->title)}}" placeholder="Enter Titile here!" required>
 
     @if ($errors->has('title'))
     <span class="text-danger">

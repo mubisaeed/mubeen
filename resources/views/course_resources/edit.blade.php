@@ -20,12 +20,12 @@
 
         <select name="course" id="">
         @foreach ($courses as $course)
-          <option value="{{$course->id}}">{{$course->class_name}}</option>
+          <option value="{{$course->id}}">{{{{old('title', $cress->class_name)}}}}</option>
         @endforeach
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{$cress->title}}" placeholder="Enter Titile here!"><br><br>
+    <input type="text" name="title" value="{{old('title', $cress->title)}}" placeholder="Enter Titile here!" required><br><br>
 
        @error('title')
       <div>
@@ -34,7 +34,7 @@
       @enderror
 
       <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{$cress->short_description}}"><br><br>
+    <input type="text" name="short_des" value="{{old('title', $cress->short_description)}}" required><br><br>
 
        @error('short_des')
       <div>
@@ -43,7 +43,7 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{$cress->file}}"><br><br>
+    <input type="file" name="file" value="{{old('title', $cress->file)}}"><br><br>
 
     <button type="submit">Update</button>
   </form>

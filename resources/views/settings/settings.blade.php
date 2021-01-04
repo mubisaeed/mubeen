@@ -14,24 +14,25 @@
       <h2>Settings</h2>
     
       <label for="fb">Facebook Link:</label>
-      <input type="url" name="fb" value="{{$setting->facebook_url}}" placeholder="Facebook Link"><br><br>
+      <input type="url" name="fb" value={{old('title', $setting->facebook_url)}} required><br><br>
 
       <label for="twitter">Twitter Link:</label>
-      <input type="url" name="twitter" value="{{$setting->twitter_url}}" placeholder="Twitter Link"><br><br>
+      <input type="url" name="twitter" value={{old('title', $setting->twitter_url)}} required><br><br>
 
       <label for="youtube">Youtube Link:</label>
-      <input type="url" name="youtube" value="{{$setting->youtube_url}}" placeholder="Youtube Link"><br><br>
+      <input type="url" name="youtube" value={{old('title', $setting->youtube_url)}} required><br><br>
 
       <label for="contact">Contact Us:</label>
-      <input type="email" name="contact" value="{{$setting->contact_email}}" placeholder="Contact Us"><br><br>
+      <input type="email" name="contact" value={{old('title', $setting->contact_email)}} required><br><br>
 
       <label for="Noti">Notification Email:</label>
-      <input type="email" name="Noti" value="{{$setting->notification_email}}" placeholder="Notification"><br><br>
+      <input type="email" name="Noti" value={{old('title', $setting->notification_email)}} required><br><br>
 
       <label for="phone">Phone Number:</label>
-      <input type="number" name="phone" value="{{$setting->phone_number}}" placeholder="Phone Number" class="mb-4" required="" data-inputmask="'mask': '0399-99999999'" maxlength="12"><br><br>
+      <input type="number" name="phone" value={{old('title', $setting->phone_number)}}  class="mb-4" data-inputmask="'mask':'0399-99999999'" maxlength="12" minlength="12" required><br><br>
 
-      <button type="submit">update</button>
+      <a class="btn btn-default" href="{{url('/setting')}}">Cancel</a>
+      <button type="submit">Update</button>
 
     </form>
   </div>
