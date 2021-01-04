@@ -25,7 +25,7 @@
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{$cress->title}}" placeholder="Enter Titile here!" required><br><br>
+    <input type="text" name="title" value="{{$cress->title}}" placeholder="Enter Titile here!"><br><br>
 
        @error('title')
       <div>
@@ -34,7 +34,7 @@
       @enderror
 
       <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{$cress->short_description}}" required><br><br>
+    <input type="text" name="short_des" value="{{$cress->short_description}}"><br><br>
 
        @error('short_des')
       <div>
@@ -44,12 +44,6 @@
 
     <label for="file">File:</label><br>
     <input type="file" name="file" value="{{$cress->file}}"><br><br>
-
-     @error('file')
-      <div>
-        {{$message}}
-      </div>
-      @enderror
 
     <button type="submit">Update</button>
   </form>

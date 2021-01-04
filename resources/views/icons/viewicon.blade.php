@@ -21,7 +21,7 @@
         <td>{{$icon->title}}</td>
         <td><img src="{{asset('img/icons/'.$icon->image)}}" height="50" width="50"></td>
         <td><a href="{{url('editicon/'. $icon->id)}}"><button>Edit</button></a>
-        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>">Delete</a></td>
+        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>"><button>Delete</button></a></td>
       </tr>
       @endforeach
     </table>
