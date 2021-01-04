@@ -119,13 +119,6 @@ class StudentsController extends Controller
             $data->save();
             Session::flash('message', 'Updated successfully');
             return redirect('/students');
-        if($success){
-            Session::flash('message', 'Student updated successfully');
-            return redirect('/students');
-        }else{
-            Session::flash('message', 'Something went wrong');
-            return back();
-        }
     }
 
     public function destroy(Request $request)

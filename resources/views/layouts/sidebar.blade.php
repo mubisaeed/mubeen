@@ -107,10 +107,10 @@
                 </div>
               </div>
             </li>
-            <li class="nav-item dropdown_item">
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-              <i class="fa fa-calendar-o"></i>
-              <span>Instructors</span>
+         <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            <i class="fa fa-calendar-o"></i>
+            <span>Instructors</span>
           </a>
           <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
