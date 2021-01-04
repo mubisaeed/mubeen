@@ -25,7 +25,7 @@
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{old('title')}}" placeholder="Enter Titile here!" required><br><br>
+    <input type="text" name="title" value="{{old('title')}}" placeholder="Enter Titile here!"><br><br>
 
       @error('title')
       <div>
@@ -34,7 +34,7 @@
       @enderror
 
       <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{old('short_des')}}" required><br><br>
+    <input type="text" name="short_des" value="{{old('short_des')}}"><br><br>
 
       @error('short_des')
       <div>
@@ -43,7 +43,7 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{old('file')}}" required><br><br>
+    <input type="file" name="file" value="{{old('file')}}"><br><br>
 
    @error('file')
       <div>

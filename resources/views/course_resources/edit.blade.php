@@ -45,12 +45,6 @@
     <label for="file">File:</label><br>
     <input type="file" name="file" value="{{old('title', $cress->file)}}"><br><br>
 
-     @error('file')
-      <div>
-        {{$message}}
-      </div>
-      @enderror
-
     <button type="submit">Update</button>
   </form>
 </div>

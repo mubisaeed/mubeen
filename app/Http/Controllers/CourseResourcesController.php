@@ -12,8 +12,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
+
 class CourseResourcesController extends Controller
 {
+    public function hello(){
+        phpinfo();
+    }
     public function index(){
         $user = Auth::user();
         $cress=CourseResources::all();
@@ -27,8 +31,9 @@ class CourseResourcesController extends Controller
     }
 
     public function Store(Request $req){
-        $this->validate($req, [
-        'file' => 'required|max:102400',
+        $this->validate($req,
+         [
+        'file' => 'required',
         'title'=>'required|min:3|max:20',
         'short_des'=>'required|min:10|max:5000',
     ]);
@@ -59,7 +64,6 @@ class CourseResourcesController extends Controller
     public function update($id, Request $request){
 
         $this->validate($request, [
-            'file' => 'max:102400',
             'title'=>'required|min:3|max:20',
             'short_des'=>'required|min:10|max:5000',
         ]);
