@@ -31,7 +31,15 @@
         </div><br>
         <p>Description: {{$safetytip->description}}</p>
         <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
+<<<<<<< HEAD
+        <form action="/safetytips/delete{{$safetytip->id}}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button onclick="return confirm('Are you sure?')" type="submit" value="submit">Delete</button>
+        </form>
+=======
         <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete</a></button>
+>>>>>>> 765fb557d1cf36874b7d18749e37f1b19ce38536
       </div><br>
       <hr>
     @endforeach

@@ -71,6 +71,46 @@
                 </div>
               </div>
             </li>
+<<<<<<< HEAD
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                <i class="fa fa-calendar-o"></i>
+                <span>Discussions</span>
+              </a>
+              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="/discussions">All Discussions</a>
+                  <a class="collapse-item" href="/discussions/create">Add Discussion</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                <i class="fa fa-calendar-o"></i>
+                <span>Icons</span>
+              </a>
+              <div id="collapseSix" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="/viewicon">Icons List</a>
+                  <a class="collapse-item" href="/create">Add new icon</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                <i class="fa fa-calendar-o"></i>
+                <span>Course Resources</span>
+              </a>
+              <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{route('/courseresourse')}}">All Resources</a>
+                  <a class="collapse-item" href="{{route('/resource')}}">Add Resources</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown_item">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+=======
          <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
             <i class="fa fa-calendar-o"></i>
@@ -121,6 +161,7 @@
         </li>
          <li class="nav-item dropdown_item">
               <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+>>>>>>> 765fb557d1cf36874b7d18749e37f1b19ce38536
                 <i class="fa fa-graduation-cap"></i>
                 <span>Rooms</span>
               </a>
