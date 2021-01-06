@@ -58,7 +58,6 @@
                                     <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Start Date</h6>
                                 </label> 
 
-
                                 <input type="date" name="sdate" value="{{$course->start_date}}"  class="mb-4" placeholder="Enter start date" required="">
                             </div>
                             <br><br>

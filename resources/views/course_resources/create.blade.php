@@ -2,6 +2,13 @@
 @section('content')
 
 <div>
+  <div id="message">
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+</div>
   <form action="{{url('/resource/create')}}" method="post" enctype="multipart/form-data">
     
     {{@csrf_field()}}
@@ -66,6 +73,11 @@ uploadField.onchange = function() {
     };
 };
 
+</script>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
 </script>
 
  @endsection

@@ -165,8 +165,9 @@ Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:
-Route::get('/courseresourse', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
 Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
+Route::get('/resources', [CourseResourcesController::class, 'resources'])->name('/resources');
 Route::post('/resource/create', [CourseResourcesController::class, 'store']);
 Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
 Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);

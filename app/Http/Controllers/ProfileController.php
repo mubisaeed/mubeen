@@ -44,7 +44,9 @@ class ProfileController extends Controller
        }
        if($request->input('password'))
        {
-
+        $this->validate($request, [
+            'password' => 'required|min:8|confirmed',
+        ]);
         $password=$request->input('password');
        }
         else {

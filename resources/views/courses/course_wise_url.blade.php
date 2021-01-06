@@ -50,7 +50,9 @@
                           <h5>Course Color</h5>
                         </div>
                         <div class="cv_box_rank">
-                          <p>substr({{$cat->course_color}})</p>
+                          <p><div style="background-color:  {{$cat->course_color}}; padding: 10px; border: 1px solid green;">
+                                            
+                                          </div></p>
                         </div>
                       </div>
                       <div class="cv_box_detail">
