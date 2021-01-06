@@ -25,21 +25,21 @@
                           <div class="tabbable-panel">
                             <div class="tabbable-line">
                               <ul class="nav nav-tabs ">
-                                <li class="active profile_tabs_child">
-                                  <a href="#tab_default_1" data-toggle="tab">
+                                <li class="profile_tabs_child">
+                                 <a href="{{url('/showprofile')}}" >
                                   Profile </a>
                                 </li>
-                                <li class="profile_tabs_child">
-                                  <a href="#tab_default_2" data-toggle="tab">
-                                  Messages </a>
+                                <li class="active profile_tabs_child">
+                                  <a href="{{url('/messages')}}">
+                      Messages </a>
                                 </li>
                                 <li class="profile_tabs_child">
-                                  <a href="#tab_default_3" data-toggle="tab">
-                                  Settings </a>
+                                  <a href="{{url('/editprofile')}}">
+                      Settings </a>
                                 </li>
                               </ul>
                               <div class="tab-content">
-                                <div class="tab-pane active" id="tab_default_1">
+                                <!-- <div class="tab-pane active" id="tab_default_1">
                                   <div class="profile_row">
                                     <div class="row">
                                       <div class="col-md-3">
@@ -91,8 +91,8 @@
                                       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     </p>
                                   </div>
-                                </div>
-                                <div class="tab-pane" id="tab_default_2">
+                                </div> -->
+                                <div class="tab-pane active" id="tab_default_2">
                                   <div class="row">
 
                                   
@@ -307,7 +307,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              <div class="tab-pane" id="tab_default_3">
+                             <!--  <div class="tab-pane" id="tab_default_3">
                                 <div class="s_profile">
                                   <div class="s_profile_img text-center">
                                     <div class="child_image">
@@ -376,7 +376,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </div> -->
                             </div>
                           </div>
                         </div>
