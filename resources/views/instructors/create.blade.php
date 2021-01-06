@@ -42,6 +42,17 @@
                                 </span>
                               @enderror
                             <br><br>
+                            <br><br>
+                                <label for="password">{{ __('Password') }}</label>
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                @error('password')
+                                      <span class="invalid-feedback" role="alert">
+                                          <strong>{{ $message }}</strong>
+                                      </span>
+                                  @enderror
+                                <label for="password-confirm">{{ __('Confirm Password') }}</label>
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                              <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Role</h6>
@@ -56,7 +67,7 @@
                                 <label class="mb-1">
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Instructor Image</h6>
                                 </label> 
-                                <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
+                                <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="">
                             </div>
                             <br><br>
                             <br><br>

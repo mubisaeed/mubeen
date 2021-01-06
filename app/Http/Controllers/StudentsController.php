@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Course;
 use App\Student;
+use File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -30,42 +31,48 @@ class StudentsController extends Controller
     public function store(Request $request)
     {
 		$this->validate($request, [
-            'sname' => 'required','min:3','max:20',
-            'fname' => 'required','min:3','max:50',
-            'phno' => 'required','min:11','max:11',
+            'sname' => 'required|min:3|max:20',
+            'fname' => 'required|min:3|max:50',
+            'phno' => 'required|min:12|max:12',
+            'password' => 'required|string|min:8|confirmed',
             'image' => 'required',
-            'cnic' => 'required','min:13','max:15',
-            'add' => 'required','min:3','max:200',
-            'class' => 'required','min:3','max:20',
+            'cnic' => 'required|min:13|max:15',
+            'add' => 'required|min:3|max:200',
+            'class' => 'required|min:3|max:20',
             'diabetes' => 'required',
             'alergy' => 'required',
             'rno' => 'required',
         ]);
+        if ($files = $request->file('image')) {
+            $name=$files->getClientOriginalName();
+            $image = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path() .'\img\students', $image);
+       }
         $udata = new User();
         $udata->name=$request->input('sname');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
+        $udata->image=$image;
         $udata->password = Hash::make($request['password']);
         $udata->save();
-        if ($files = $request->file('image')) {
-            $name=$files->getClientOriginalName();
-            $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
-       }
-        $sdata = array(
-            's_u_id'=> $udata->id,
-            'father_name'=> $request->fname,
-            'father_name'=> $request->fname,
-            'cnic'=> $request->cnic,
-            'phone'=> $request->phno,
-            'address'=> $request->add,
-            'class'=> $request->class,
-            'rollno'=> $request->rno,
-            'diabetes'=>$request->diabetes,
-            'alergy'=>$request->alergy,
-            'blood_group'=>$request->blood,
-        );
-        $success = DB::table('students')->insert($sdata);
+
+        $sdata = new Student();
+        $sdata->s_u_id = $udata->id;
+        $sdata->father_name = $request->fname;
+        $sdata->cnic = $request->cnic;
+        $sdata->phone = $request->phno;
+        $sdata->address = $request->add;
+        $sdata->class = $request->class;
+        $sdata->rollno = $request->rno;
+        $sdata->diabetes = $request->diabetes;
+        $sdata->alergy = $request->alergy;
+        $sdata->blood_group = $request->blood;
+        $sdata->save();
+        $i_s_data = array(
+            's_u_id' => $sdata->s_u_id,
+            'i_u_id' => Auth::user()->id,
+        ); 
+        $success = DB::table('instructor_student')->insert($i_s_data);
         if($success){
             Session::flash('message', 'Student saved successfully');
             return redirect('/students');
@@ -90,12 +97,25 @@ class StudentsController extends Controller
     }
    public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'sname' => 'required|min:3|max:20',
+            'fname' => 'required|min:3|max:50',
+            'phno' => 'required|min:12|max:12',
+            'password' => 'required|string|min:8|confirmed',
+            'image' => 'required',
+            'cnic' => 'required|min:13|max:15',
+            'add' => 'required|min:3|max:200',
+            'class' => 'required|min:3|max:20',
+            'diabetes' => 'required',
+            'alergy' => 'required',
+            'rno' => 'required',
+        ]);
         $student = DB::table('students')->where('id',$id)->get()->first();
         $user = DB::table('users')->where('id',$student->s_u_id)->get()->first();
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
+            $request->image->move(public_path() .'\img\students', $image);
            }
            else{
             $image = $user->image;
@@ -120,12 +140,15 @@ class StudentsController extends Controller
             Session::flash('message', 'Updated successfully');
             return redirect('/students');
     }
-
-    public function destroy(Request $request)
-    {
-			$id = $request->id;   
-            DB::table('users')->where('id',$id)->delete();
-			DB::table('students')->where('s_u_id',$id)->delete();
-            Session::flash('message', 'Student deleted successfully');
-        }
+   public function destroy(Request $request)
+      {
+          $id = $request->id;   
+          $user = DB::table('users')->where('id',$id)->get()->first();
+          $path="img/students/$user->image";
+          File::delete($path);
+          DB::table('instructor_student')->where('s_u_id',$id)->delete();
+          DB::table('students')->where('s_u_id',$id)->delete();
+          DB::table('users')->where('id',$id)->delete();
+          Session::flash('message', 'Student deleted successfully');
+      }
 }

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Instructor;
 use App\User;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
@@ -29,11 +31,17 @@ class InstructorsController extends Controller
         $this->validate($request, [
             'name'=>'required|min:3|max:255',
             'image'=>'required|max:5000',
-            'email'=>'required|email|unique:users|max:255'
+            'email'=>'required|email|unique:users|max:255',
+            'password' => 'required|string|min:8|confirmed',
         ]);
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalName();  
-        $image->move(public_path('img/instructors'), $imageName);
+        if ($files = $request->file('image')) {
+            $name=$files->getClientOriginalName();
+            $image = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path() .'\img\instructors', $image);
+       }
+        // $image = $request->file('image');
+        // $imageName = time().'.'.$image->getClientOriginalName();  
+        // $image->move(public_path('img/instructors'), $imageName);
 
         $udata = new User();
         $udata->name=$request->input('name');
@@ -49,20 +57,26 @@ class InstructorsController extends Controller
         $instructor->phone=$request->phno;
         $instructor->cnic=$request->cnic;
         $instructor->address=$request->add;
-        $instructor->save();
-        Session::flash('message', 'Successfully Saved');
-        return back();
+        $success = $instructor->save();
+        if($success){
+            Session::flash('message', 'Schodol create successfully');
+            return redirect('/instructors');
+        }else{
+            Session::flash('message', 'Something went wrong');
+            return redirect()->back();
+        }
     }
     
     public function destroy(Request $request)
     {
         $id = $request->id;   
+        $user = DB::table('users')->where('id',$id)->get()->first();
+        $path="img/instructors/$user->image";
+        File::delete($path);
         DB::table('users')->where('id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
         Session::flash('message', 'Instructor deleted successfully');
     }   
-    //     $path="img/instructors/$instructor->image";
-    //     File::delete($path);
     public function show($id)
     {
         $user = Auth::user();
@@ -76,14 +90,21 @@ class InstructorsController extends Controller
     	return view ('instructors.edit', compact('instructor', 'user'));
     }
 
-    public function update($id, Request $request){
+    public function update($id, Request $request)
+    {
+        $this->validate($request, [
+            'name'=>'required|min:3|max:255',
+            'image'=>'required|max:5000',
+            'email'=>'required|email|unique:users|max:255',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
         // $instructor = Instructor::find($id);
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
         // dd($instructor);
         $user = DB::table('users')->where('id',$instructor->i_u_id)->get()->first();
         if ($files = $request->file('image')) {
-            $path="img/instructors/$instructor->image";
-            File::delete($path);
+            // $path="img/instructors/$instructor->image";
+            // File::delete($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
             $image->move(public_path('img/instructors'), $imageName);

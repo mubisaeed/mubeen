@@ -31,6 +31,6 @@ class InstructorStudentTable extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('instructor_student');
+        Schema::dropIfExists('instructor_student');
     }
 }

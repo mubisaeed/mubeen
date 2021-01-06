@@ -16,24 +16,39 @@
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Title</h6></label> 
-        <input type="text" name="title" value="{{$contact->title}}" class="mb-4" placeholder="Enter title" required="" min="3" max="50">
+        <input type="text" name="title" value="{{old('title', $contact->title)}}" class="mb-4" required minlength="3" maxlength="50">
+        @error('title')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Image</h6></label> 
-        <input type="file" name="image" value="{{$contact->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
+        <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
+        @error('image')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
         <img src="{{asset('/img/upload/'.$contact->image)}}" width ="100" >
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Email</h6></label> 
-        <input type="email" name="email" value="{{$contact->email}}">
+        <input type="email" name="email" value="{{old('email', $contact->email)}}" required>
+        @error('email')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Phone</h6></label> 
-        <input type="text" name="phno" value="{{$contact->phone }}"  class="mb-4" placeholder="Enter department" required="" data-inputmask="'mask': '0399-99999999'" maxlength="12">
+        <input type="text" name="phno" value="{{old('phno', $contact->phone)}}"  class="mb-4" required data-inputmask="'mask': '0399-99999999'" maxlength="12" minlength="12">
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Address</h6></label> 
-        <input type="text" name="add" value="{{$contact->address }}"  class="mb-4" placeholder="Enter department" required="" min="3" max="200">
+        <input type="text" name="add" value="{{old('add', $contact->address)}}"  class="mb-4" required minlength="3" maxlength="200">
       </div>
       <div class="card-footer pull-right">
         <a class="btn btn-default" href="{{url('/contactpage')}}">Cancel</a>

@@ -19,7 +19,14 @@ class AboutPageController extends Controller
     }
     public function update(Request $request)
     {
-    	$about = DB::table('aboutpage')->where('id',1)->get()->first();
+        $about = DB::table('aboutpage')->where('id',1)->get()->first();
+        
+        $this->validate($request, [
+            'title'=>'required|min:3|max:255',
+            'image'=>'max:5000',
+            'content'=>'required'
+        ]);
+
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\userscontroller;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StudentsController;
 use App\Http\Controllers\SchoolsController;
 use App\Http\Controllers\InstructorsController;
@@ -33,6 +34,8 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
+Route::get('/showprofile', [AdminController::class, 'show_profile']);
+Route::get('/showcalender', [AdminController::class, 'show_calender']);
 
 //users crud and role
 
@@ -73,11 +76,24 @@ Route::get('/student/show/{id}',  [StudentsController::class, 'show']);
 Route::post('/student/update/{id}',  [StudentsController::class, 'update']);
 Route::post('/student/delete',  [StudentsController::class, 'destroy']);
 
+
+//classes crud
+
+Route::get('/classes', [ClassController::class, 'index'])->name('classes');
+Route::get('/classcreate', [ClassController::class, 'create']);
+Route::post('/classstore', [ClassController::class, 'store']);
+Route::get('/class/edit/{id}',  [ClassController::class, 'edit']);
+Route::get('/class/show/{id}',  [ClassController::class, 'show']);
+Route::post('/class/update/{id}',  [ClassController::class, 'update']);
+Route::post('/class/delete',  [ClassController::class, 'destroy']);
+
+
 //School crud
 
 Route::get('/schools', [SchoolsController::class, 'schools'])->name('school');
 Route::get('/schoolcreate', [SchoolsController::class, 'create']);
 Route::post('/schoolstore', [SchoolsController::class, 'store']);
+Route::get('/school/show/{id}', [SchoolsController::class, 'show']);
 Route::get('/school/edit/{id}',  [SchoolsController::class, 'edit']);
 Route::post('/school/update/{id}',  [SchoolsController::class, 'update']);
 Route::post('/school/delete',  [SchoolsController::class, 'destroy']);
@@ -137,9 +153,9 @@ Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
 Route::post('update',  [SettingsController::class, 'update'])->name('update');
 
 // pages
-Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Page');
+Route::get('/aboutpage', [AboutPageController::class, 'index']);
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
-Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
+Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:
