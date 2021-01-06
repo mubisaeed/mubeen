@@ -24,7 +24,9 @@ class ContactPageController extends Controller
         $this->validate($request, [
             'title'=>'required|min:3|max:50',
             'image'=>'max:5000',
-            'email'=>'required|email|unique:contactpage|max:255'
+            'email'=>'required|email|max:255',
+            'phno'=>'required|min:12|max:12',
+            'add'=>'required|min:3|max:200'
         ]);
 
         if ($files = $request->file('image')) {

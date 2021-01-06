@@ -20,9 +20,12 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-        'phone' => 'max:12|min:12',
+        'fb' => 'required',
+        'twitter' => 'required',
+        'youtube' => 'required',
         'contact'=>'required|email|max:255',
-        'Noti'=>'required|email|max:255'
+        'Noti'=>'required|email|max:255',
+        'phone' => 'max:12|min:12'
         ]);
 
         $data=Setting::where('id', 1)->first();

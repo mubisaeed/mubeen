@@ -31,7 +31,10 @@ class InstructorsController extends Controller
             'name'=>'required|min:3|max:255',
             'image'=>'required|max:5000',
             'email'=>'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:20|confirmed',
+            'phno' => 'required|min:12|max:12',
+            'cnic' => 'required|min:15|max:15',
+            'add' => 'required|min:3|max:200'
         ]);
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
@@ -94,9 +97,12 @@ class InstructorsController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'name'=>'min:3|max:255',
+            'name'=>'required|min:3|max:255',
             'image'=>'max:5000',
-            // 'email'=>'required|email|unique:users|max:255',
+            'email'=>'required|max:255',
+            'phno' => 'required|min:12|max:12',
+            'cnic' => 'required|min:15|max:15',
+            'add' => 'required|min:3|max:200'
         ]);
         // $instructor = Instructor::find($id);
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
