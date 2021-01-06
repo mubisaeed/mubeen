@@ -24,7 +24,7 @@
             <label class="mb-1">
               <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Student name</h6>
               </label> 
-              <input type="text" value="{{ old('sname')}}" name="sname" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="20">
+              <input type="text" value="{{ old('sname')}}" name="sname" class="mb-4" placeholder="Enter student name" required="" minlength="3" maxlength ="20">
               @error('sname')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -101,14 +101,14 @@
             <label class="mb-1">
                 <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Address</h6>
             </label> 
-            <input type="text"value="{{ old('add')}}" name="add" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
+            <input type="text"value="{{ old('add')}}" name="add" class="mb-4" placeholder="Enter address" required="" minlength="3" maxlength ="200">
           </div>
           <br><br>
           <div class="row px-3"> 
             <label class="mb-1">
                 <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Class</h6>
             </label> 
-            <input type="text" value="{{ old('class')}}" name="class" class="mb-4" placeholder="Enter room number" required="" min="3" max="50">
+            <input type="text" value="{{ old('class')}}" name="class" class="mb-4" placeholder="Enter class" required="" min="3" max="50">
               @error('class')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

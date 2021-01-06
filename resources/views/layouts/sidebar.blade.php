@@ -17,12 +17,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/showcalender')}}">
             <i class="fa fa-home"></i>
@@ -189,12 +189,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active ">
+        <!-- <li class="nav-item active ">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/showcalender')}}">
             <i class="fa fa-home"></i>
@@ -307,12 +307,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active ">
+        <!-- <li class="nav-item active ">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/showcalender')}}">
             <i class="fa fa-home"></i>
@@ -401,12 +401,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active ">
+        <!-- <li class="nav-item active ">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/showcalender')}}">
             <i class="fa fa-home"></i>
@@ -459,12 +459,12 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active ">
+        <!-- <li class="nav-item active ">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item active">
           <a class="nav-link" href="{{url('/showcalender')}}">
             <i class="fa fa-home"></i>

@@ -36,7 +36,7 @@ class InstructorsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\instructors', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
        }
         // $image = $request->file('image');
         // $imageName = time().'.'.$image->getClientOriginalName();  
@@ -46,6 +46,7 @@ class InstructorsController extends Controller
         $udata->name=$request->input('name');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
+        $udata->contact=$request->input('phno');
         $udata->image=$image;
         $udata->password = Hash::make($request['password']);
         $udata->save();
@@ -91,11 +92,11 @@ class InstructorsController extends Controller
 
     public function update($id, Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
-            'name'=>'required|min:3|max:255',
-            'image'=>'required|max:5000',
-            'email'=>'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|confirmed',
+            'name'=>'min:3|max:255',
+            'image'=>'max:5000',
+            // 'email'=>'required|email|unique:users|max:255',
         ]);
         // $instructor = Instructor::find($id);
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
@@ -106,7 +107,7 @@ class InstructorsController extends Controller
             // File::delete($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/instructors'), $imageName);
+            $image->move(public_path('img/upload'), $imageName);
            }
            else{
             $imageName = $user->image;
@@ -114,6 +115,7 @@ class InstructorsController extends Controller
 
            $udata = User::find($instructor->i_u_id);
            $udata->name=$request->input('name');
+           $udata->contact=$request->input('phno');
            $udata->email=$request->input('email');
            $udata->image=$imageName;
            $udata->save();

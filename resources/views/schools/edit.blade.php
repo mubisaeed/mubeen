@@ -46,7 +46,7 @@
                 </label> 
                 <input type="file" name="image" value="{{$school->image }}"  class="mb-4" accept="image/x-png,image/gif,image/jpeg">
 
-                <img src="{{asset('/img/schools/'.$school->image)}}" width ="100" >
+                <img src="{{asset('/img/upload/'.$school->image)}}" width ="100" >
             </div>
             <br><br>
             <br><br>

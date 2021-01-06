@@ -19,7 +19,7 @@ class StudentsController extends Controller
     {
         
     	$user = Auth::user();
-        $students = DB::table('users')->where('role_id', 5)->get()->all();
+        $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
         return view('students.index', compact('students', 'user'));
     }
 
@@ -46,12 +46,13 @@ class StudentsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\students', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
        }
         $udata = new User();
         $udata->name=$request->input('sname');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
+        $udata->contact=$request->input('phno');
         $udata->image=$image;
         $udata->password = Hash::make($request['password']);
         $udata->save();
@@ -101,7 +102,7 @@ class StudentsController extends Controller
             'sname' => 'required|min:3|max:20',
             'fname' => 'required|min:3|max:50',
             'phno' => 'required|min:12|max:12',
-            'password' => 'required|string|min:8|confirmed',
+            // 'password' => 'required|string|min:8|confirmed',
             'image' => 'required',
             'cnic' => 'required|min:13|max:15',
             'add' => 'required|min:3|max:200',
@@ -115,7 +116,7 @@ class StudentsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\students', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
            }
            else{
             $image = $user->image;
@@ -123,6 +124,7 @@ class StudentsController extends Controller
            $udata = User::find($student->s_u_id);
            $udata->name=$request->input('sname');
            $udata->email=$request->input('email');
+           $udata->contact=$request->input('phno');
            $udata->image=$image;
            $udata->save();
 
@@ -144,7 +146,7 @@ class StudentsController extends Controller
       {
           $id = $request->id;   
           $user = DB::table('users')->where('id',$id)->get()->first();
-          $path="img/students/$user->image";
+          $path="img/upload/$user->image";
           File::delete($path);
           DB::table('instructor_student')->where('s_u_id',$id)->delete();
           DB::table('students')->where('s_u_id',$id)->delete();

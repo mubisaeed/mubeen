@@ -137,11 +137,33 @@ class CourseController extends Controller
             return redirect()->back()->with('alert', 'Update Unsuccessfuly');
         }
     }
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $courses=DB::table('courses')->where('course_name','LIKE','%'.$request->search."%")->get();
+            if($courses)
+            {
+                foreach ($courses as $key => $course)
+                {
+                    $output.='<tr>'.
+                        '<td>'.$course->id.'</td>'.
+                        '<td>'.$course->course_name.'</td>'.
+                        '<td>'.$course->start_date - $course->start_date.'</td>'.
+                        '<td>'.$course->department.'</td>'.
+                        '<td>'.$course->romm_number.'</td>'.
+                    '</tr>';
+                }
+                return Response($output);
+            }
+        }
+    }
 
     public function destroy(Request $request)
     {
 			$id = $request->id;   
 			DB::table('courses')->where('id',$id)->delete();
             Session::flash('message', 'Course deleted successfully');
-        }
+    }
 }

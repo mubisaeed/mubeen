@@ -1,8 +1,7 @@
-
-      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    @include('layouts.app')
+<link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+@extends('layouts.app')
+@section('content')
             <div id="message">
             @if (Session::has('message'))
               <div class="alert alert-info">
@@ -150,4 +149,5 @@
                       $('#message').fadeOut('fast');
                   }, 30000);
                   </script>
+@endsection
              
