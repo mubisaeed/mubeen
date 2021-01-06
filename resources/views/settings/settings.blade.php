@@ -15,16 +15,31 @@
     
       <label for="fb">Facebook Link:</label>
       <input type="url" name="fb" value={{old('fb', $setting->facebook_url)}} required><br><br>
+      @error('fb')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
 
       <label for="twitter">Twitter Link:</label>
       <input type="url" name="twitter" value={{old('twitter', $setting->twitter_url)}} required><br><br>
+      @error('twitter')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
 
       <label for="youtube">Youtube Link:</label>
       <input type="url" name="youtube" value={{old('youtube', $setting->youtube_url)}} required><br><br>
+      @error('youtube')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
 
       <label for="contact">Contact Us:</label>
       <input type="email" name="contact" value={{old('contact', $setting->contact_email)}} required><br><br>
-      @error('phone')
+      @error('contact')
         <div>
           {{ $message }}
         </div>
@@ -32,7 +47,7 @@
 
       <label for="Noti">Notification Email:</label>
       <input type="email" name="Noti" value={{old('Noti', $setting->notification_email)}} required><br><br>
-      @error('phone')
+      @error('Noti')
         <div>
           {{ $message }}
         </div>
