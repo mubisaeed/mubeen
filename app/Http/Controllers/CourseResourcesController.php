@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Session;
 
 class CourseResourcesController extends Controller
 {
-    public function hello(){
-        phpinfo();
-    }
     public function index(){
         $user = Auth::user();
         $cress=CourseResources::all();

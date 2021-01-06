@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -72,8 +71,8 @@ class InstructorsController extends Controller
     {
         $id = $request->id;   
         $user = DB::table('users')->where('id',$id)->get()->first();
-        $path="img/upload/$user->image";
-        File::delete($path);
+        $path="img/instructors/$user->image";
+        @unlink($path);
         DB::table('users')->where('id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
         Session::flash('message', 'Instructor deleted successfully');

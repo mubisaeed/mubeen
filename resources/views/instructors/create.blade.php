@@ -102,13 +102,9 @@
                             <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
                         </div>
                     </form>
-                </div>
                 <script>
                     $(":input").inputmask();
                </script>
-            </div>
-        </div>
-    </div>
     <script type="text/javascript">
       setTimeout(function() {
         $('#message').fadeOut('fast');

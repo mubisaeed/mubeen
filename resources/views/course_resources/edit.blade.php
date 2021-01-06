@@ -20,7 +20,7 @@
 
         <select name="course" id="">
         @foreach ($courses as $course)
-          <option value="{{$course->id}}">{{{{old('title', $cress->class_name)}}}}</option>
+          <option value="{{$course->id}}">{{$course->course_name}}</option>
         @endforeach
         </select><br><br>
 
@@ -34,7 +34,7 @@
       @enderror
 
       <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{old('title', $cress->short_description)}}" required><br><br>
+    <input type="text" name="short_des" value="{{old('short_des', $cress->short_description)}}" required><br><br>
 
        @error('short_des')
       <div>
@@ -43,13 +43,23 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{old('title', $cress->file)}}"><br><br>
+    <input id="file" type="file" name="file"><br><br>
 
     <button type="submit">Update</button>
   </form>
 </div>
-  
-</div>
-</div>
-</div>
+
+<script>
+
+var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 100 * 1024 * 1024){
+       alert("File is too big!");
+       this.value = "";
+    };
+};
+
+</script>
+
  @endsection
