@@ -30,11 +30,11 @@
           </a>
         </li>
         <li class="nav-item dropdown_item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
             <i class="fa fa-graduation-cap"></i>
             <span>Classes</span>
           </a>
-          <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+          <div id="collapseEleven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
               <a class="collapse-item" href="{{url('/classes')}}">All Classes</a>
               <a class="collapse-item" href="{{url('/classcreate')}}">Add New Class</a>
@@ -56,7 +56,7 @@
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
             <i class="fa fa-graduation-cap"></i>
-            <span>Schools </span>
+            <span>Schools</span>
           </a>
           <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
@@ -68,7 +68,7 @@
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <i class="fa fa-calendar-o"></i>
-            <span>Students </span>
+            <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
@@ -334,7 +334,7 @@
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <i class="fa fa-calendar-o"></i>
-            <span>Students </span>
+            <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
@@ -416,7 +416,7 @@
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <i class="fa fa-calendar-o"></i>
-            <span>Students </span>
+            <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">

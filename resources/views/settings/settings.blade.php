@@ -14,32 +14,42 @@
       <h2>Settings</h2>
     
       <label for="fb">Facebook Link:</label>
-      <input type="url" name="fb" value={{old('title', $setting->facebook_url)}} required><br><br>
+      <input type="url" name="fb" value={{old('fb', $setting->facebook_url)}} required><br><br>
 
       <label for="twitter">Twitter Link:</label>
-      <input type="url" name="twitter" value={{old('title', $setting->twitter_url)}} required><br><br>
+      <input type="url" name="twitter" value={{old('twitter', $setting->twitter_url)}} required><br><br>
 
       <label for="youtube">Youtube Link:</label>
-      <input type="url" name="youtube" value={{old('title', $setting->youtube_url)}} required><br><br>
+      <input type="url" name="youtube" value={{old('youtube', $setting->youtube_url)}} required><br><br>
 
       <label for="contact">Contact Us:</label>
-      <input type="email" name="contact" value={{old('title', $setting->contact_email)}} required><br><br>
+      <input type="email" name="contact" value={{old('contact', $setting->contact_email)}} required><br><br>
+      @error('phone')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
 
       <label for="Noti">Notification Email:</label>
-      <input type="email" name="Noti" value={{old('title', $setting->notification_email)}} required><br><br>
+      <input type="email" name="Noti" value={{old('Noti', $setting->notification_email)}} required><br><br>
+      @error('phone')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
 
       <label for="phone">Phone Number:</label>
-      <input type="number" name="phone" value={{old('title', $setting->phone_number)}}  class="mb-4" data-inputmask="'mask':'0399-99999999'" maxlength="12" minlength="12" required><br><br>
-
+      <input type="tel" name="phone" value={{old('phone', $setting->phone_number)}}  class="mb-4" placeholder="03xx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required minlength="12" maxlength = "12"><br><br>
+      @error('phone')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
       <a class="btn btn-default" href="{{url('/setting')}}">Cancel</a>
       <button type="submit">Update</button>
 
     </form>
   </div>
-
-</div>
-</div>
-</div>
 
 <script type="text/javascript">
   setTimeout(function() {

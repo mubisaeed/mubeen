@@ -56,11 +56,7 @@
       </div>
     </div>
   </form>
-
-  </div>
-  </div>
-  </div>
-
+  
   <script>
     $(":input").inputmask();
   </script>
