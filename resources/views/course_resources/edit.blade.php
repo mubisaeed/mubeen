@@ -43,7 +43,7 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{old('title', $cress->file)}}"><br><br>
+    <input id="file" type="file" name="file" value="{{$cress->file}}"><br><br>
 
     <button type="submit">Update</button>
   </form>
@@ -52,4 +52,18 @@
 </div>
 </div>
 </div>
+
+<script>
+
+var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 100 * 1024 * 1024){
+       alert("File is too big!");
+       this.value = "";
+    };
+};
+
+</script>
+
  @endsection

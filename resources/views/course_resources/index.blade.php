@@ -24,7 +24,7 @@
             <td>{{$cres->title}}</td>
             <td>{{$cres->short_description}}</td>
             @if ($cres->type=='pdf')
-              <td><embed src="{{('storage/'.$cres->file)}}" type="application/pdf"  
+              <td><embed src="{{asset('storage/'.$cres->file)}}" type="application/pdf"  
               height="80" width="80" download></td>
             @elseif($cres->type=='mp4')
               <td><iframe src="{{asset('storage/'.$cres->file)}}"></iframe></td>
