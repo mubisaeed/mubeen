@@ -175,7 +175,7 @@ Route::get('resource/download/{id}', [CourseResourcesController::class, 'downloa
 
 //messages
 Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');
-Route::get('/chatbox/{id}', [MessagesController::class, 'index'])->name('Send Message');
+Route::get('/chatbox/{id}', [MessagesController::class, 'messages'])->name('Send Message');
 Route::post('/sendmessage', [MessagesController::class, 'sendMessage']);
 
 Auth::routes();
