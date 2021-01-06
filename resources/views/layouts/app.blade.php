@@ -32,9 +32,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
       <!-- Latest compiled and minified JavaScript -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+        
         <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     </head>
     <body class="">
@@ -50,6 +48,7 @@
                 </div>
             </div>
         </div>
+        
         <!--   Core JS Files   -->
       <script src="{{asset('js/core/jquery.min.js')}}"></script>
       <script src="{{asset('js/core/popper.min.js')}}"></script>

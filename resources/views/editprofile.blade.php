@@ -91,12 +91,12 @@
                         <div class="security_setting">
                           <h3>Security Settings</h3>
                           <div class="row">
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                               <div class="custom_input_main">
                                 <input type="text" class="form-control" value="{{$user->password}}" placeholder="***************">
                                 <label>Old Password<span class="grey">*</span></label>
                               </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-6">
                               <div class="custom_input_main">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">

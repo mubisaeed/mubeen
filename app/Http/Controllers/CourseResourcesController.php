@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Session;
 
 class CourseResourcesController extends Controller
 {
-    public function index(){
+    public function index($id){
         $user = Auth::user();
-        $cress=CourseResources::all();
+        $cress=DB::table('resources')->where('course_id', $id)->get()->all();
         return view ('course_resources.index', compact ('user','cress'));
     }
 
@@ -47,7 +47,7 @@ class CourseResourcesController extends Controller
         $cress->save();
         if($cress){
             Session::flash('message', 'Resource Stored Successfully');
-            return redirect('/courseresourse');
+            return redirect('/resource/create');
         }
     }
 
@@ -100,5 +100,12 @@ class CourseResourcesController extends Controller
         $path='http://127.0.0.1:8000/storage/';
         return response()->download(public_path('/storage/'. $cress->file));
         return Storage::download($path, $cress->file);
+    }
+
+    public function resources()
+    {
+        $user = Auth::user();
+        $cress=DB::table('resources')->get()->all();
+        return view ('course_resources.index', compact ('user','cress'));
     }
 }
