@@ -11,10 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class MessagesController extends Controller
 {
+    public function messages()
+    {
+       $user = Auth::user();
+        return view ('messages.messages', compact('user'));
+    }
     public function index($id)
     {	
+        // dd($id);
     	$user = Auth::user();
     	$sideid = $id;
+        $suser = DB::table('users')->where('id', $sideid)->get()->first();
     	if(Auth::user()->role_id==4)	
     	{
     		$student = $sideid;
@@ -27,7 +34,7 @@ class MessagesController extends Controller
     		$student = Auth::user()->id;
     		$messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->get()->all();
     	}
-    	return view('chats.chatroom', compact('user', 'student', 'instructor', 'sideid', 'messages'));
+    	return view('messages.messages', compact('user', 'student', 'instructor', 'sideid', 'messages', 'suser'));
     }
     public function sendMessage(Request $request)
     {
