@@ -20,7 +20,7 @@
 
         <select name="course" id="">
         @foreach ($courses as $course)
-          <option value="{{$course->id}}">{{$course->class_name}}</option>
+          <option value="{{$course->id}}">{{$course->course_name}}</option>
         @endforeach
         </select><br><br>
 
@@ -54,8 +54,5 @@
     <button type="submit">Submit</button>
   </form>
 </div>
-  
-</div>
-</div>
-</div>
+
  @endsection

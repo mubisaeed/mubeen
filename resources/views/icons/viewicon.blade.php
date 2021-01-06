@@ -29,10 +29,6 @@
     <h2>There is no icon<h2>
   @endif
 
-</div>
-</div>
-</div>
-
 <script type="text/javascript">
   setTimeout(function() {
     $('#message').fadeOut('fast');

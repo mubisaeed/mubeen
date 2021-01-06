@@ -31,10 +31,6 @@
     @endforeach
   </div>
 
-  </div>
-  </div>
-  </div>
-  
   <script type="text/javascript">
     setTimeout(function() {
       $('#message').fadeOut('fast');

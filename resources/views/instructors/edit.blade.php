@@ -87,7 +87,6 @@
                     <button type="submit" class="btn btn-fill btn-primary">Update</button>
                 </div>
              </form>
-                </div>
                 <script>
                     $(":input").inputmask();
 
