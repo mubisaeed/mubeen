@@ -84,7 +84,7 @@
                                     <option {{ ( $course->sessions) == '6' ? 'selected' : '' }}  value="6">6</option>
                                     <option {{ ( $course->sessions) == '7' ? 'selected' : '' }}  value="7">7</option>
                                     <option {{ ( $course->sessions) == '8' ? 'selected' : '' }}  value="8">8</option>
-                                    <option{{ ( $course->sessions) == '9' ? 'selected' : '' }}  value="9">9</option>
+                                    <option {{ ( $course->sessions) == '9' ? 'selected' : '' }}  value="9">9</option>
                                 </select>
                             </div>
                             <br><br>

@@ -14,6 +14,7 @@ use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
+use App\Http\Controllers\CourseResourcesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Route;
@@ -151,11 +152,20 @@ Route::get('/deleteicon/{id}', [iconsController::class,'deleteicon'])->name('/de
 Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
 Route::post('update',  [SettingsController::class, 'update'])->name('update');
 
-//pages
-Route::get('/aboutpage', [AboutPageController::class, 'index'])->name('About Page');
+// pages
+Route::get('/aboutpage', [AboutPageController::class, 'index']);
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
-Route::get('/contactpage', [ContactPageController::class, 'index'])->name('Contact Page');
+Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
+//Routes for Course Resources functionality:
+Route::get('/courseresourse', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
+Route::post('/resource/create', [CourseResourcesController::class, 'store']);
+Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
+Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
+Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
+Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
 //messages
 Route::get('/chatbox/{id}', [MessagesController::class, 'index'])->name('Send Message');

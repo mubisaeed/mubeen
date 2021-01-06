@@ -17,20 +17,36 @@
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Title</h6></label> 
-        <input type="text" name="title" value="{{$about->title }}" class="mb-4" placeholder="Enter student name" required="" min="3" max="50">
+        <input type="text" name="title" value="{{old('title', $about->title)}}" class="mb-4" required minlength="3" maxlength="50">
+        @error('title')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Image</h6></label> 
-        <input type="file" name="image" value="{{$about->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
+        <input type="file" name="image"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
+        @error('image')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
         <img src="{{asset('/img/upload/'.$about->image)}}" width ="100" >
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Content</h6></label> 
-        <textarea name="content" cols="16" id="txtEditor" style="height: 35px;width: 100%;" required = "">
+        <textarea name="content" cols="16" id="txtEditor" required>
           {{$about->content }}
         </textarea>
+        @error('content')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>                 
       <div class="card-footer pull-right">
+        <a class="btn btn-default" href="{{url('/aboutpage')}}">Cancel</a>
         <button type="submit" class="btn btn-fill btn-primary">Update</button>
       </div>
     </div>

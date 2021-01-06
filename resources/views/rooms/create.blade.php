@@ -15,7 +15,7 @@
       @enderror
       <br>
       <label style="color: black" for="room_no">Enter Room No. :</label>
-      <input type="text" name="room_no" value="{{old('room_no')}}">
+      <input type="text" name="room_no" value="{{old('room_no')}}" required minlength="1" maxlength="25">
       @error('room_no')
       <div>
         {{$message}}
