@@ -43,9 +43,9 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{old('file')}}"><br><br>
+    <input id="file" type="file" name="file" value="{{old('file')}}" size="max:10240"><br><br>
 
-   @error('file')
+      @error('file')
       <div>
         {{$message}}
       </div>
@@ -58,4 +58,18 @@
 </div>
 </div>
 </div>
+
+<script>
+
+var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 100 * 1024 * 1024){
+       alert("File is too big!");
+       this.value = "";
+    };
+};
+
+</script>
+
  @endsection
