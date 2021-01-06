@@ -22,8 +22,8 @@ class CourseController extends Controller
     {
         // dd($request->sessions);
     		 $this->validate($request, [
-                'clname' => 'required','min:3','max:50',
-                'department' => 'required','min:3','max:200',
+                'cname' => 'min:3|max:50',
+                'department' => 'required|min:2|max:200',
                 'rno' => 'required',
                 'ccolor' => 'required',
                 'sessions' => 'required',
@@ -32,12 +32,12 @@ class CourseController extends Controller
     	$str = strtolower($request->clname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = array(
-            'class_name'=> $request->clname,
+            'course_name'=> $request->cname,
             'department'=> $request->department,
             'room_number'=> $request->rno,
             'start_date'=> $request->sdate,
             'end_date'=> $request->edate,
-            'class_color'=> $request->ccolor,
+            'course_color'=> $request->ccolor,
             'sessions'=> $request->sessions,
             'slug'=> $slug,
             'course_description'=> $request->cdescription,
@@ -68,8 +68,8 @@ class CourseController extends Controller
     	// $cat = Course::where('slug',$request->cat)->first();
         $cat = DB::table('courses')->where('slug',$request->cat)->first();
         if($cat){
-               $class_name = $cat->class_name;
-               return view('courses.course_wise_url', compact('class_name','cat', 'user'));
+               $course_name = $cat->course_name;
+               return view('courses.course_wise_url', compact('course_name','cat', 'user'));
            }else{
                Session::flash('error','URL Category not found');
                return redirect('/course');
@@ -79,12 +79,12 @@ class CourseController extends Controller
     {
         $oldcourse = DB::table('courses')->where('id',$id)->first();
         $data = array(
-            'class_name'=> $oldcourse->class_name,
+            'course_name'=> $oldcourse->course_name,
             'department'=> $oldcourse->department,
             'room_number'=> $oldcourse->room_number,
             'start_date'=> $oldcourse->start_date,
             'end_date'=> $oldcourse->end_date,
-            'class_color'=> $oldcourse->class_color,
+            'course_color'=> $oldcourse->course_color,
             'slug'=> $oldcourse->slug,
             'course_description'=> $oldcourse->course_description,
         );
@@ -108,8 +108,8 @@ class CourseController extends Controller
    public function course_update(Request $request, $id)
     {
         $this->validate($request, [
-                'clname' => 'required','min:3','max:50',
-                'department' => 'required','min:3','max:200',
+                'cname' => 'required|min:3|max:50',
+                'department' => 'required|min:2|max:200',
                 'rno' => 'required',
                 'ccolor' => 'required',
                 'sessions' => 'required',
@@ -117,28 +117,13 @@ class CourseController extends Controller
             ]);
         $str = strtolower($request->title);
         $slug = preg_replace('/\s+/', '-', $str);
-        // $data = array(
-        //     'class_name'=> $request->clname,
-        //     'department'=> $request->department,
-        //     'room_number'=> $request->rno,
-        //     'start_date'=> $request->sdate,
-        //     'end_date'=> $request->edate,
-        //     'class_color'=> $request->ccolor,
-        //     'sessions'=> $request->sessions,
-        //     'slug'=> $slug,
-        //     'course_description'=> $request->cdescription,
-        // );
-        // $success = DB::table('courses')->where('id',$id)->update($data);
-        // dd($success);
-
-
         $data = Course::find($id);
-        $data->class_name=$request->input('clname');
+        $data->course_name=$request->input('cname');
         $data->department=$request->input('department');
         $data->room_number=$request->input('rno');
         $data->start_date=$request->input('sdate');
         $data->end_date=$request->input('edate');
-        $data->class_color=$request->input('ccolor');
+        $data->course_color=$request->input('ccolor');
         $data->sessions=$request->input('sessions');
         $data->slug=$slug;
         $data->course_description=$request->input('cdescription');

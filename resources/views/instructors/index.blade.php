@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>Instructor name</th>
                                         <th>Email</th>
+                                        <th>Image</th>
                                         <th class="text-center">Actions</th>
                                     </tr></thead>
                                 <tbody>
@@ -39,6 +40,9 @@
                                     <tr>
                                         <td>{{$ins->name}}</td>
                                         <td>{{$ins->email}}</td>
+                                        <td>
+                                          <img src="{{asset('/img/instructors/'.$ins->image)}}" width ="100" >
+                                        </td>
                                         <td class="text-right">
                                           <a class="btn btn-sm btn-success" href="{{url('/instructors/show/' . $ins->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                           <a class="btn btn-sm btn-info" href="{{url('instructors/edit/' . $ins->id)}}"><i class="fa fa-pencil"></i></a>

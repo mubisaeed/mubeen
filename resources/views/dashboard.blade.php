@@ -251,12 +251,13 @@
           <div class="listing_ib">
             <?php
                 $id = Auth::user()->role_id;
-                $instructors = DB::table('users')->where('role_id', 4)->get();
-                $students = DB::table('users')->where('role_id', 5)->get();
+                $instructors = DB::table('instructor_student')->where('s_u_id', Auth::user()->id)->get()->all();
+                $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
               ?>
               @if($id == 4)
-                @foreach($students as $st)
+                @foreach($students as $stdnt)
                 <?php
+                      $st = DB::table('users')->where('id', $stdnt->s_u_id)->get()->first();
                       $user = Auth::user();
                       if(Auth::user()->role_id==4)
                         {
@@ -274,8 +275,13 @@
                           $diff = \Carbon\Carbon::parse($time)->diffForHumans();
                       }
                     ?>
+                    @if(count($messages) > 0)
                       <div class="ib_img">
-                        <img src="{{asset('/img/upload/'.$st->image)}}" width="50" alt="">
+                        @if($st->image == null)
+                          <img src="{{asset('/img/man.png')}}" width="50" alt="">
+                        @else
+                          <img src="{{asset('/img/upload/'.$st->image)}}" width="50" alt="">
+                        @endif
                         <a href="{{url('/chatbox/'.$st->id)}}">
                           <div class="ib_text">
                             <h4>{{$st->name}}</h4>
@@ -284,11 +290,13 @@
                           </div>
                         </a>
                       </div>
+                    @endif
                   @endforeach
                 @endif
                 @if($id == 5)
-                  @foreach($instructors as $ins)
+                  @foreach($instructors as $instrctr)
                     <?php
+                      $ins  = DB::table('users')->where('id', $instrctr->i_u_id)->get()->first();
                       $user = Auth::user();
                       if(Auth::user()->role_id==5)
                         {
@@ -303,16 +311,18 @@
                           $diff = \Carbon\Carbon::now()->diffForHumans(\Carbon\Carbon::parse($time));
                       }
                     ?>
-                    <div class="ib_img">
-                      <img src="{{asset('/img/upload/'.$ins->image)}}" width="50" alt="">
-                      <a href="{{url('/chatbox/'.$ins->id)}}">
-                        <div class="ib_text">
-                          <h4>{{$ins->name}}</h4>
-                          <p class="ib_short_text m-0">{{$message}}</p>
-                          <p class="time m-0">{{$diff}}</p>
-                        </div>
-                      </a>
-                    </div>
+                    @if(count($messages) > 0)
+                      <div class="ib_img">
+                        <img src="{{asset('/img/upload/'.$ins->image)}}" width="50" alt="">
+                        <a href="{{url('/chatbox/'.$ins->id)}}">
+                          <div class="ib_text">
+                            <h4>{{$ins->name}}</h4>
+                            <p class="ib_short_text m-0">{{$message}}</p>
+                            <p class="time m-0">{{$diff}}</p>
+                          </div>
+                        </a>
+                      </div>
+                    @endif
                   @endforeach
                 @endif
               </div>
