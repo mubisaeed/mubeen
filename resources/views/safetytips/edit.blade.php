@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
   <div>
     <h3>Edit Safety Tip</h3>
     <hr>

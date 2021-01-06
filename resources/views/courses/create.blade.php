@@ -1,8 +1,16 @@
-      <link href="{{asset('css/bootstrap-colorpicker.min.css')}}" rel="stylesheet" />
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-        @include('layouts.app')
-            <form method="POST" action="/createcourse">
+<link href="{{asset('css/bootstrap-colorpicker.min.css')}}" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+@extends('layouts.app')
+@section('content')
+<div class="breadcrumb_main">
+  <ol class="breadcrumb">
+     <li><a href = "#">Home</a></li>
+     <li class = "active">Add New Course</li>
+  </ol>
+</div>
+
+<form method="POST" action="/createcourse">
                 @csrf
                     <div class="card2 card border-0 px-4 py-5">
                       @foreach ($errors->all() as $error)
@@ -16,9 +24,9 @@
                         <br><br>
                         <div class="row px-3"> 
                             <label class="mb-1">
-                                <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class name</h6>
+                                <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Course name</h6>
                             </label> 
-                            <input type="text" value="{{ old('clname')}}" name="clname" class="mb-4" placeholder="Enter class name" required=""  minlength="3" maxlength ="50">
+                            <input type="text" value="{{ old('cname')}}" name="cname" class="mb-4" required=""  minlength="3" maxlength ="50">
                             @error('clname')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -70,7 +78,6 @@
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Sessions</h6>
                                 </label> 
                                 <select required="required" class="form-control" name="sessions">
-                                    <option value="">Choose sessions</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -85,7 +92,7 @@
                         <br><br>
                         <div class="row px-3 demo "> 
                             <label class="mb-1">
-                                <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class Color</h6>
+                                <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Course Color</h6>
                             </label> 
                             <input type="text" id="demo-input" name="ccolor" value="rgb(255, 128, 0)" class="mb-4" placeholder="Enter class color" required="">
                         </div>
@@ -105,10 +112,9 @@
                         <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
                     </div>
                 </form>
-                </div>
+
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js"></script>
-                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js">
-                </script>
+                
                 <script>
                     $('.colorpicker').colorpicker();
                 </script>
@@ -132,4 +138,5 @@
                       });
                     });
                 </script>
-       
+
+@endsection

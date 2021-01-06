@@ -1,5 +1,5 @@
 @if(Auth::user()->role_id == 1)
-  <div class="wrapper ">
+  <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
         <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
@@ -17,11 +17,29 @@
             <p>Dashboard</p>
           </a>
         </li>
-        <li class="nav-item active ">
+        <li class="nav-item active">
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
           </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/showcalender')}}">
+            <i class="fa fa-home"></i>
+            <p>Calender</p>
+          </a>
+        </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+            <i class="fa fa-graduation-cap"></i>
+            <span>Classes</span>
+          </a>
+          <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/classes')}}">All Classes</a>
+              <a class="collapse-item" href="{{url('/classcreate')}}">Add New Class</a>
+            </div>
+          </div>
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -177,6 +195,12 @@
             <p>Edit Profile</p>
           </a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/showcalender')}}">
+            <i class="fa fa-home"></i>
+            <p>Calender</p>
+          </a>
+        </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fa fa-graduation-cap"></i>
@@ -289,6 +313,12 @@
             <p>Edit Profile</p>
           </a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/showcalender')}}">
+            <i class="fa fa-home"></i>
+            <p>Calender</p>
+          </a>
+        </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
             <i class="fa fa-graduation-cap"></i>
@@ -377,6 +407,12 @@
             <p>Edit Profile</p>
           </a>
         </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/showcalender')}}">
+            <i class="fa fa-home"></i>
+            <p>Calender</p>
+          </a>
+        </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <i class="fa fa-calendar-o"></i>
@@ -427,6 +463,12 @@
           <a class="nav-link" href="{{url('edit', Auth::user()->id)}}">
             <i class="fa fa-home"></i>
             <p>Edit Profile</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/showcalender')}}">
+            <i class="fa fa-home"></i>
+            <p>Calender</p>
           </a>
         </li>
         <li class="nav-item dropdown_item">

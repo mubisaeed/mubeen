@@ -41,6 +41,16 @@
                                 @enderror
                             </div>
                             <br><br>
+                             <br><br>
+                            <div class="row px-3"> 
+                                <label class="mb-1">
+                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Instructor Image</h6>
+                                </label> 
+                                <input type="file" name="image" value="{{$instructor->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
+                                <img src="{{asset('/img/instructors/'.$instructor->image)}}" width ="100" >
+
+                            </div>
+                            <br><br>
                            
                             <div class="row px-3"> 
                                 <label class="mb-1">

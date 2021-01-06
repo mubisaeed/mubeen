@@ -22,19 +22,71 @@
   </div>
   <hr>
   <div>
-    @foreach ($safetytips as $safetytip)
-      <h4>ID: {{$safetytip->id}}</h4>
-      <div>
-        <h5>Title: {{$safetytip->title}}</h5>
-        <div>
-          <img height="250px" width="300px" src="img/safetytips/{{$safetytip->image}}">
-        </div><br>
-        <p>Description: {{$safetytip->description}}</p>
-        <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
-        <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete</a></button>
-      </div><br>
-      <hr>
-    @endforeach
+  <div class="breadcrumb_main">
+              <ol class="breadcrumb">
+                <li><a href = "#">Home</a></li>
+                <li class = "active">Grecon Safety Tips</li>
+              </ol>
+            </div>
+            <div class="content_main">
+              <div class="card-header sftp_main">
+                <h3 class="mb-0">Grecon Safety Tips</h3>
+                <div class="panel-group" id="accordion">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="active_stp stmp_accordion">
+                      How to learn via live instructor</a>
+                      </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse in collapse show">
+                      <div class="panel-body">
+                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" class="stmp_accordion">
+                      Assignment reportings</a>
+                      </h4>
+                    </div>
+                    <div id="collapse2" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" class="stmp_accordion">
+                      Where does it come from?</a>
+                      </h4>
+                    </div>
+                    <div id="collapse3" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapse4" class="stmp_accordion">
+                      Where does it come from?</a>
+                      </h4>
+                    </div>
+                    <div id="collapse4" class="panel-collapse collapse">
+                      <div class="panel-body">
+                        <p>But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>    
   </div>
 
   </div>

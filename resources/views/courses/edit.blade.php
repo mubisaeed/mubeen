@@ -20,14 +20,14 @@
                             <br><br>
                             <div class="row px-3"> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class name</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Course name</h6>
                                 </label> 
-                                <input type="text" name="clname" value="{{$course->class_name }}" class="mb-4" placeholder="Enter class name" required=""  minlength="3" maxlength ="50">
-                                @error('clname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                                <input type="text" name="cname" value="{{$course->course_name }}" class="mb-4" placeholder="Enter class name" required=""  minlength="3" maxlength ="50">
+                                @error('cname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <br><br>
                             <div class="row px-3"> 
@@ -90,12 +90,12 @@
                             <br><br>
                             <div class="row px-3 demo "> 
                                 <label class="mb-1">
-                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Class Color</h6>
+                                    <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Course Color</h6>
                                 </label> 
-                                <div style="background-color:  {{$course->class_color}}; padding: 10px; border: 1px solid green;">
+                                <div style="background-color:  {{$course->course_color}}; padding: 10px; border: 1px solid green;">
                                         		
                                         	</div>
-                                <input type="text" id="demo-input" name="ccolor" value="{{$course->class_color}}" class="mb-4" placeholder="Enter class color" required="">
+                                <input type="text" id="demo-input" name="ccolor" value="{{$course->course_color}}" class="mb-4" placeholder="Enter class color" required="">
                             </div>
                             <br><br>
                             <div class="row px-3"> 
