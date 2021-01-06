@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-// use \Crypt;
 
 class ProfileController extends Controller
 {
