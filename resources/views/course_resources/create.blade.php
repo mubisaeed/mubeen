@@ -25,7 +25,7 @@
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{old('title')}}" placeholder="Enter Titile here!"><br><br>
+    <input type="text" name="title" value="{{old('title')}}"><br><br>
 
       @error('title')
       <div>
@@ -43,9 +43,9 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input type="file" name="file" value="{{old('file')}}"><br><br>
+    <input id="file" type="file" name="file" size="max:10240"><br><br>
 
-   @error('file')
+      @error('file')
       <div>
         {{$message}}
       </div>
@@ -54,5 +54,18 @@
     <button type="submit">Submit</button>
   </form>
 </div>
+
+<script>
+
+var uploadField = document.getElementById("file");
+
+uploadField.onchange = function() {
+    if(this.files[0].size > 100 * 1024 * 1024){
+       alert("File is too big!");
+       this.value = "";
+    };
+};
+
+</script>
 
  @endsection
