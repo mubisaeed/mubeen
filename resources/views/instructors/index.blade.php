@@ -41,7 +41,7 @@
                                         <td>{{$ins->name}}</td>
                                         <td>{{$ins->email}}</td>
                                         <td>
-                                          <img src="{{asset('/img/instructors/'.$ins->image)}}" width ="100" >
+                                          <img src="{{asset('/img/upload/'.$ins->image)}}" width ="100" >
                                         </td>
                                         <td class="text-right">
                                           <a class="btn btn-sm btn-success" href="{{url('/instructors/show/' . $ins->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

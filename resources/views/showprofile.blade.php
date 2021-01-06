@@ -6,6 +6,13 @@
     <li class = "active">Profile</li>
   </ol>
 </div>  
+<div id="message">
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+</div>
 <div class="content_main">
   <div class="profile_main">
     
@@ -44,7 +51,9 @@
                                           <div class="p_img_edit">
                                             <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="img-fluid">
                                             <div class="edit_pic">
-                                              <a href="#"> <i class="fa fa-pencil"></i> </a>
+                                              <form>
+                                              <a> <i class="fa fa-pencil"></i> </a>
+                                              </form>
                                             </div>
                                           </div>
                                           <h3>{{$user->name}}</h3>
@@ -128,4 +137,9 @@
   </div>
 </div>
 </div>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
+</script>
 @endsection

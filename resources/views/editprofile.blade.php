@@ -7,15 +7,17 @@
   </ol>
 </div>  
 <div id="message">
-        @if (Session::has('message'))
-          <div class="alert alert-info">
-            {{ Session::get('message') }}
-          </div>
-        @endif
-      </div>
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+</div>
 <div class="content_main">
   <div class="profile_main">
-    
+     @foreach ($errors->all() as $error)
+              <div class="alert alert-danger">{{ $error }}</div>
+          @endforeach
     <div class="profile mt-0">
       <div class="course card-header card-header-warning card-header-icon">
         
@@ -48,9 +50,10 @@
                       <div class="s_profile">
                         <div class="s_profile_img text-center">
                           <div class="child_image">
-                            <img src="{{asset('/img/upload/'.$user->image)}}" alt="">
+                            <img src="{{asset('/img/upload/'.$user->image)}}" alt="" id="upfile1">
                             <div class="s_edit_pic">
-                              <a href="#"> <i class="fa fa-pencil"></i> </a>
+                              <input type="file" id="imgupload" name="image" accept="image/*" capture style="display:none"/>
+                              <a id="OpenImgUpload"> <i class="fa fa-pencil"></i> </a>
                             </div>
                           </div>
                         </div>
@@ -90,19 +93,24 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="custom_input_main">
-                                <input type="text" class="form-control" placeholder="***************">
+                                <input type="text" class="form-control" value="{{$user->password}}" placeholder="***************">
                                 <label>Old Password<span class="grey">*</span></label>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="custom_input_main">
-                                <input type="password" class="form-control">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password">
+                                @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <label>New Password</label>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="custom_input_main">
-                                <input type="password" class="form-control" >
+                                <input id="password-confirm" type="password" class="form-control"  name="password_confirmation" autocomplete="new-password">
                                 <label>Confirm New Password</label>
                               </div>
                             </div>
@@ -158,4 +166,8 @@
     $('#message').fadeOut('fast');
 }, 2000);
 </script>
+<script type="text/javascript">
+  $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
+</script>
+
 @endsection

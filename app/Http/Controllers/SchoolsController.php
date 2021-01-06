@@ -40,12 +40,13 @@ class SchoolsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\schools', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
        }
         $udata = new User();
         $udata->name=$request->input('name');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
+        $udata->contact=$request->input('phno');
         $udata->image=$image;
         $udata->password = Hash::make($request['password']);
         $udata->save();
@@ -99,7 +100,7 @@ class SchoolsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\schools', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
            }
            else{
             $image = $user->image;
@@ -107,6 +108,7 @@ class SchoolsController extends Controller
            $udata = User::find($school->sch_u_id);
            $udata->name=$request->input('name');
            $udata->email=$request->input('email');
+           $udata->contact=$request->input('phno');
            $udata->image=$image;
            $udata->save();
 
@@ -129,7 +131,7 @@ class SchoolsController extends Controller
     {
         $id = $request->id;  
         $user = DB::table('users')->where('id',$id)->get()->first();
-        $path="img/schools/$user->image";
+        $path="img/upload/$user->image";
         File::delete($path); 
         DB::table('users')->where('id',$id)->delete();
         DB::table('schools')->where('sch_u_id',$id)->delete();

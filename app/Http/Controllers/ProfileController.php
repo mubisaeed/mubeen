@@ -18,17 +18,18 @@ class ProfileController extends Controller
 
     public function edit_profile()
     {
+        // dd('hlo');
     	$user = Auth::user();
+        // $password = Crypt::decrypt($user->password);
+        // dd($password);
     	return view ('editprofile', compact('user'));
     }
 
     public function updateprofile(Request $request, $id)
     {
-
     	$user = User::find($id);
     	$this->validate($request, [
             'name' => 'required|min:2|max:20',
-            'image' => 'required',
             'contact' => 'required|min:12|max:12',
             'bio' => 'required',
         ]);
@@ -40,6 +41,15 @@ class ProfileController extends Controller
        else{
        	$image = $user->image;
        }
+       if($request->input('password'))
+       {
+
+        $password=$request->input('password');
+       }
+        else {
+        $password = $user->password;
+    }
+        // dd($password);
         $data = User::find($id);
         $data->name=$request->input('name');
         $data->email=$request->input('email');
@@ -48,6 +58,6 @@ class ProfileController extends Controller
         $data->image = $image;
         $data->save();
         Session::flash('message', 'Updated  successfully');
-        return redirect('/dashboard');
+        return redirect('/showprofile');
     }
 }

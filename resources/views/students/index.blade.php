@@ -33,14 +33,16 @@
                           </tr></thead>
                       <tbody>
                           <tr class="custom_color" >
-                              @foreach($students as $st)
+                              @foreach($students as $std)
                               
                           <tr>
-                              
+                              <?php
+                                $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
+                              ?>
                               <td>{{$st->name}}</td>
                               <td>{{$st->email}}</td>
                               <td>
-                                <img src="{{asset('/img/students/'.$st->image)}}" width ="100" >
+                                <img src="{{asset('/img/upload/'.$st->image)}}" width ="100" >
                               </td>
                               <td class="text-right">
                                 <a class="btn btn-sm btn-success" href="{{url('student/show/' . $st->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

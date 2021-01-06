@@ -45,7 +45,7 @@
           <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Student Image</h6>
       </label> 
       <input type="file" name="image" value="{{$student->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
-      <img src="{{asset('/img/students/'.$student->image)}}" width ="100" >
+      <img src="{{asset('/img/upload/'.$student->image)}}" width ="100" >
     </div>
     <br><br>
     <div class="row px-3"> 

@@ -10,6 +10,9 @@
                 </div>
               @endif
             </div>
+            @foreach ($errors->all() as $error)
+              <div class="alert alert-danger">{{ $error }}</div>
+          @endforeach
              <form class="form-horizontal" method="POST" action="{{ url('/instructors/edit/'. $instructor->id) }}" enctype="multipart/form-data">
                     @csrf
                         <div class="card2 card border-0 px-4 py-5">
@@ -47,7 +50,7 @@
                                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Instructor Image</h6>
                                 </label> 
                                 <input type="file" name="image" value="{{$instructor->image }}"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
-                                <img src="{{asset('/img/instructors/'.$instructor->image)}}" width ="100" >
+                                <img src="{{asset('/img/upload/'.$instructor->image)}}" width ="100" >
 
                             </div>
                             <br><br>
@@ -87,7 +90,6 @@
                     <button type="submit" class="btn btn-fill btn-primary">Update</button>
                 </div>
              </form>
-                </div>
                 <script>
                     $(":input").inputmask();
 
