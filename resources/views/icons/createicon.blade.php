@@ -15,25 +15,27 @@
     </div>
 
     <div class="info">
-
-    <input type="text" name="title" value="{{old('title')}}" placeholder="Enter Titile here!" required>
+    <div class="form-group">
+    <input type="text" class="form-control" name="title" value="{{old('title')}}" placeholder="Enter Titile here!" required>
 
       @if ($errors->has('title'))
       <span class="text-danger">
       <small>{{ $errors->first('title') }}</small>
       </span>
       @endif
-
-    <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" placeholder="Image" required>
+    </div>
+    <div class="text-left">
+    <input type="file" class="img-fluid" name="image" accept="image/x-png,image/gif,image/jpeg" required>
 
       @if ($errors->has('image'))
       <span class="text-danger">
       <small>{{ $errors->first('image') }}</small>
       </span>
       @endif
-
-
-    <button type="submit">Create</button>
+    </div>
+    <div class="footer pull-right">
+    <button type="submit" class="btn btn-primary">Create</button>
+    </div>
   </form>
 </div>
 
