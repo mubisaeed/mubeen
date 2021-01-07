@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('users.loginpage');
 });
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
 Route::get('/showcalender', [AdminController::class, 'show_calender']);

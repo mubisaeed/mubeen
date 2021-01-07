@@ -8,12 +8,12 @@
       </div>
     @endif
   </div>
-  <div class="row">
+  <div class="row z_minus">
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-header card-header-warning card-header-icon">
           <div class="card-icon">
-            <i class="graduation_cap"><img src="../assets/img/latest/cap.png" alt=""></i>
+            <i class="graduation_cap"><img src="../img/latest/cap.png" alt=""></i>
           </div>
           <p class="card-category">Courses</p>
           <h3 class="card-title">4
@@ -30,7 +30,7 @@
       <div class="card card-stats">
         <div class="card-header card-header-success card-header-icon">
           <div class="card-icon">
-            <i class="daily_usr"><img src="../assets/img/latest/checking-attendance.png" alt=""></i>
+            <i class="daily_usr"><img src="../img/latest/checking-attendance.png" alt=""></i>
           </div>
           <p class="card-category">Attendance</p>
           <h3 class="card-title">80%</h3>
@@ -46,7 +46,7 @@
       <div class="card card-stats">
         <div class="card-header card-header-danger card-header-icon">
           <div class="card-icon">
-            <i class="carbon_report"><img src="../assets/img/latest/carbon_report.png" alt=""></i>
+            <i class="carbon_report"><img src="../img/latest/carbon_report.png" alt=""></i>
           </div>
           <p class="card-category">Assignments</p>
           <h3 class="card-title">75%</h3>
@@ -62,7 +62,7 @@
       <div class="card card-stats">
         <div class="card-header card-header-info card-header-icon">
           <div class="card-icon">
-            <i class="quiz"><img src="../assets/img/latest/quiz.png" alt=""></i>
+            <i class="quiz"><img src="../img/latest/quiz.png" alt=""></i>
           </div>
           <p class="card-category">Quizzes/Tests</p>
           <h3 class="card-title">80%</h3>
@@ -146,7 +146,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval.png" alt="">
+            <img src="../img/latest/Oval.png" alt="">
             <div class="stu_text">
               <h4>Mr Wick</h4>
               <p>60%</p>
@@ -159,7 +159,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval2.png" alt="">
+            <img src="../img/latest/Oval2.png" alt="">
             <div class="stu_text">
               <h4>Lily Joe</h4>
               <p>68%</p>
@@ -172,7 +172,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval3.png" alt="">
+            <img src="../img/latest/Oval3.png" alt="">
             <div class="stu_text">
               <h4>Jone dakker</h4>
               <p>70%</p>
@@ -185,7 +185,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval4.png" alt="">
+            <img src="../img/latest/Oval4.png" alt="">
             <div class="stu_text">
               <h4>Cloi claver</h4>
               <p>73%</p>
@@ -198,7 +198,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval.png" alt="">
+            <img src="../img/latest/Oval.png" alt="">
             <div class="stu_text">
               <h4>Mr Wick</h4>
               <p>60%</p>
@@ -211,7 +211,7 @@
         </div>
         <div class="stu_list">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval2.png" alt="">
+            <img src="../img/latest/Oval2.png" alt="">
             <div class="stu_text">
               <h4>Lily Joe</h4>
               <p>68%</p>
@@ -224,7 +224,7 @@
         </div>
         <div class="stu_list border-0">
           <div class="stu_img">
-            <img src="../assets/img/latest/Oval4.png" alt="">
+            <img src="../img/latest/Oval4.png" alt="">
             <div class="stu_text">
               <h4>Cloi claver</h4>
               <p>73%</p>
@@ -462,7 +462,7 @@
               <th scope="row">#12</th>
               <td class="first_row">
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple03.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple03.png" alt="" class="img-fluid">
                   <p>Mathematics</p>
                 </div>
               </td>
@@ -488,7 +488,7 @@
               <th scope="row">#13</th>
               <td>
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple04.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple04.png" alt="" class="img-fluid">
                   <p>Literature</p>
                 </div>
               </td>
@@ -512,7 +512,7 @@
               <th scope="row">#14</th>
               <td>
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple05.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple05.png" alt="" class="img-fluid">
                   <p>Psychology</p>
                 </div>
               </td>
@@ -536,7 +536,7 @@
               <th scope="row">#15</th>
               <td>
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple06.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple06.png" alt="" class="img-fluid">
                   <p>English</p>
                 </div>
               </td>
@@ -560,7 +560,7 @@
               <th scope="row">#16</th>
               <td>
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple07.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple07.png" alt="" class="img-fluid">
                   <p>Biology</p>
                 </div>
               </td>
@@ -584,7 +584,7 @@
               <th scope="row">#17</th>
               <td>
                 <div class="course_td">
-                  <img src="../assets/img/latest/Simple08.png" alt="" class="img-fluid">
+                  <img src="../img/latest/Simple08.png" alt="" class="img-fluid">
                   <p>Mathematics</p>
                 </div>
               </td>

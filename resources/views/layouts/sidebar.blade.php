@@ -8,8 +8,8 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/latest/admin.png')}}" alt="" class="img-fluid">
-          <h3>Lily Cristopher</h3>
+          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="img-fluid">
+          <h3>{{$user->name}}</h3>
         </div>
         <li class="nav-item active  ">
           <a class="nav-link" href="{{url('/dashboard')}}">
