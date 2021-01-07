@@ -2,6 +2,13 @@
 @section('content')
 
 <div>
+  <div id="message">
+  @if (Session::has('message'))
+    <div class="alert alert-info">
+      {{ Session::get('message') }}
+    </div>
+  @endif
+</div>
   <form action="{{url('/resource/create')}}" method="post" enctype="multipart/form-data">
     
     {{@csrf_field()}}
@@ -20,12 +27,12 @@
 
         <select name="course" id="">
         @foreach ($courses as $course)
-          <option value="{{$course->id}}">{{$course->class_name}}</option>
+          <option value="{{$course->id}}">{{$course->course_name}}</option>
         @endforeach
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{old('title')}}" placeholder="Enter Titile here!"><br><br>
+    <input type="text" name="title" value="{{old('title')}}"><br><br>
 
       @error('title')
       <div>
@@ -43,7 +50,7 @@
       @enderror
 
     <label for="file">File:</label><br>
-    <input id="file" type="file" name="file" value="{{old('file')}}" size="max:10240"><br><br>
+    <input id="file" type="file" name="file" size="max:10240"><br><br>
 
       @error('file')
       <div>
@@ -53,10 +60,6 @@
 
     <button type="submit">Submit</button>
   </form>
-</div>
-  
-</div>
-</div>
 </div>
 
 <script>
@@ -70,6 +73,11 @@ uploadField.onchange = function() {
     };
 };
 
+</script>
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
 </script>
 
  @endsection

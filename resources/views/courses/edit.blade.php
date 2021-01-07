@@ -1,8 +1,7 @@
-
-      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
-
-    @include('layouts.app')
+<link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+@extends('layouts.app')
+@section('content')
             <div id="message">
             @if (Session::has('message'))
               <div class="alert alert-info">
@@ -58,7 +57,6 @@
                                 <label class="mb-1">
                                     <h6 class="mb-0 text-sm"  style="color:black; margin-right: 10px">Start Date</h6>
                                 </label> 
-
 
                                 <input type="date" name="sdate" value="{{$course->start_date}}"  class="mb-4" placeholder="Enter start date" required="">
                             </div>
@@ -150,4 +148,5 @@
                       $('#message').fadeOut('fast');
                   }, 30000);
                   </script>
+@endsection
              

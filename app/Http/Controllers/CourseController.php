@@ -85,6 +85,7 @@ class CourseController extends Controller
             'start_date'=> $oldcourse->start_date,
             'end_date'=> $oldcourse->end_date,
             'course_color'=> $oldcourse->course_color,
+            'sessions'=> $oldcourse->sessions,
             'slug'=> $oldcourse->slug,
             'course_description'=> $oldcourse->course_description,
         );
@@ -137,11 +138,33 @@ class CourseController extends Controller
             return redirect()->back()->with('alert', 'Update Unsuccessfuly');
         }
     }
+    public function search(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $courses=DB::table('courses')->where('course_name','LIKE','%'.$request->search."%")->get();
+            if($courses)
+            {
+                foreach ($courses as $key => $course)
+                {
+                    $output.='<tr>'.
+                        '<td>'.$course->id.'</td>'.
+                        '<td>'.$course->course_name.'</td>'.
+                        '<td>'.$course->start_date - $course->end_date.'</td>'.
+                        '<td>'.$course->department.'</td>'.
+                        '<td>'.$course->room_number.'</td>'.
+                    '</tr>';
+                }
+                return Response($output);
+            }
+        }
+    }
 
     public function destroy(Request $request)
     {
 			$id = $request->id;   
 			DB::table('courses')->where('id',$id)->delete();
             Session::flash('message', 'Course deleted successfully');
-        }
+    }
 }

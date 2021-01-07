@@ -43,10 +43,6 @@
       <h2>There is no Resource<h2>
     @endif
   </div>
-    
-  </div>
-  </div>
-  </div>
 
   <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script>
 

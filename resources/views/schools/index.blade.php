@@ -38,7 +38,7 @@
                   <td>{{$sch->name}}</td>
                   <td>{{$sch->email}}</td>
                   <td>
-                    <img src="{{asset('/img/schools/'.$sch->image)}}" width ="100" >
+                    <img src="{{asset('/img/upload/'.$sch->image)}}" width ="100" >
                   </td>
                   <td class="text-right">
                      <a class="btn btn-sm btn-success" href="{{url('/school/show/' . $sch->id)}}"><i class="fa fa-eye" aria-hidden="true"></i></a>

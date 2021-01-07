@@ -37,7 +37,7 @@
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Content</h6></label> 
         <textarea name="content" cols="16" id="txtEditor" required>
-          {{$about->content }}
+          {{old('content', $about->content)}}
         </textarea>
         @error('content')
           <div>
@@ -51,10 +51,6 @@
       </div>
     </div>
   </form>
-  
-  </div>
-  </div>
-  </div>
     
   <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
   <script>

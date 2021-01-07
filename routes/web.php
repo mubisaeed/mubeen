@@ -16,6 +16,7 @@ use App\Http\Controllers\AboutPageController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\CourseResourcesController;
 use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -34,8 +35,13 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
-Route::get('/showprofile', [AdminController::class, 'show_profile']);
 Route::get('/showcalender', [AdminController::class, 'show_calender']);
+
+
+//profile
+Route::get('/showprofile', [ProfileController::class, 'show_profile']);
+Route::get('/editprofile', [ProfileController::class, 'edit_profile']);
+Route::post('/updateprofile/{id}', [ProfileController::class, 'updateprofile']);
 
 //users crud and role
 
@@ -65,7 +71,7 @@ Route::get('/course/replicate/{id}',  [CourseController::class, 'course_replicat
 Route::get('/course/edit/{id}',  [CourseController::class, 'course_edit']);
 Route::post('/course/update/{id}',  [CourseController::class, 'course_update']);
 Route::post('/course/delete',  [CourseController::class, 'destroy']);
-
+Route::get('search',  [CourseController::class, 'search']);
 //students crud
 
 Route::get('/students', [StudentsController::class, 'students'])->name('students');
@@ -159,8 +165,9 @@ Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:
-Route::get('/courseresourse', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
 Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
+Route::get('/resources', [CourseResourcesController::class, 'resources'])->name('/resources');
 Route::post('/resource/create', [CourseResourcesController::class, 'store']);
 Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
 Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
@@ -168,7 +175,8 @@ Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'
 Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
 //messages
-Route::get('/chatbox/{id}', [MessagesController::class, 'index'])->name('Send Message');
+Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');
+Route::get('/chatbox/{id}', [MessagesController::class, 'messages'])->name('Send Message');
 Route::post('/sendmessage', [MessagesController::class, 'sendMessage']);
 
 Auth::routes();

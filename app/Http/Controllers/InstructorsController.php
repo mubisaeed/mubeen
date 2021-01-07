@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -32,12 +31,15 @@ class InstructorsController extends Controller
             'name'=>'required|min:3|max:255',
             'image'=>'required|max:5000',
             'email'=>'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|max:20|confirmed',
+            'phno' => 'required|min:12|max:12',
+            'cnic' => 'required|min:15|max:15',
+            'add' => 'required|min:3|max:200'
         ]);
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\instructors', $image);
+            $request->image->move(public_path() .'\img\upload', $image);
        }
         // $image = $request->file('image');
         // $imageName = time().'.'.$image->getClientOriginalName();  
@@ -47,6 +49,7 @@ class InstructorsController extends Controller
         $udata->name=$request->input('name');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
+        $udata->contact=$request->input('phno');
         $udata->image=$image;
         $udata->password = Hash::make($request['password']);
         $udata->save();
@@ -72,7 +75,7 @@ class InstructorsController extends Controller
         $id = $request->id;   
         $user = DB::table('users')->where('id',$id)->get()->first();
         $path="img/instructors/$user->image";
-        File::delete($path);
+        @unlink($path);
         DB::table('users')->where('id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
         Session::flash('message', 'Instructor deleted successfully');
@@ -92,11 +95,14 @@ class InstructorsController extends Controller
 
     public function update($id, Request $request)
     {
+        // dd($request->all());
         $this->validate($request, [
             'name'=>'required|min:3|max:255',
-            'image'=>'required|max:5000',
-            'email'=>'required|email|unique:users|max:255',
-            'password' => 'required|string|min:8|confirmed',
+            'image'=>'max:5000',
+            'email'=>'required|max:255',
+            'phno' => 'required|min:12|max:12',
+            'cnic' => 'required|min:15|max:15',
+            'add' => 'required|min:3|max:200'
         ]);
         // $instructor = Instructor::find($id);
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
@@ -107,7 +113,7 @@ class InstructorsController extends Controller
             // File::delete($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/instructors'), $imageName);
+            $image->move(public_path('img/upload'), $imageName);
            }
            else{
             $imageName = $user->image;
@@ -115,6 +121,7 @@ class InstructorsController extends Controller
 
            $udata = User::find($instructor->i_u_id);
            $udata->name=$request->input('name');
+           $udata->contact=$request->input('phno');
            $udata->email=$request->input('email');
            $udata->image=$imageName;
            $udata->save();

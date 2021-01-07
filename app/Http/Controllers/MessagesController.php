@@ -11,11 +11,44 @@ use Illuminate\Support\Facades\DB;
 
 class MessagesController extends Controller
 {
+    public function messages($id=0)
+    {
+
+        
+        $curr_user = Auth::user();
+        $user = Auth::user();
+     
+           $user_id =$curr_user->role_id;
+        //    if($user_id == 4){
+               $user_ids = DB::table('instructor_student')->where('i_u_id' , $curr_user->id)->pluck('s_u_id');
+               $students = DB::table('students')->wherein('s_u_id' , $user_ids)->get();
+          
+              $selected_user_message = null;
+               if($id != 0){
+                   if(auth()->user()->role_id == 4){
+                    $selected_user_message = DB::table('messages')->where('student' , $id)->orderBy('id' , 'asc')->get();
+                   }
+                   else{
+                    $selected_user_message = DB::table('messages')->where('instructor' , $id)->orderBy('id' , 'asc')->get();
+                             
+                   } 
+                
+                }
+
+              return view ('messages.messages', compact('students','user' , 'selected_user_message' ,'id'));
+        //    }  
+
+       
+
+        // return view ('messages.messages', compact('user'));
+    }
     public function index($id)
-    {	
+    {
+
     	$user = Auth::user();
     	$sideid = $id;
-    	if(Auth::user()->role_id==4)	
+        $suser = DB::table('users')->where('id', $sideid)->get()->first();
+    	if(Auth::user()->role_id==4)
     	{
     		$student = $sideid;
     		$instructor = Auth::user()->id;
@@ -27,27 +60,34 @@ class MessagesController extends Controller
     		$student = Auth::user()->id;
     		$messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->get()->all();
     	}
-    	return view('chats.chatroom', compact('user', 'student', 'instructor', 'sideid', 'messages'));
+    	return view('messages.messages', compact('user', 'student', 'instructor', 'sideid', 'messages', 'suser'));
     }
     public function sendMessage(Request $request)
     {
+
+       
+        
+        
         $time = \Carbon\Carbon::now();
-        $sideid = $request->sideid;
-    	if(Auth::user()->role_id==4)	
+
+        $recieveid = $request->student_id;
+
+    	if(Auth::user()->role_id==4)
     	{
-    		$student = $sideid;
+    		$student = $recieveid;
     		$instructor = Auth::user()->id;
     	}
     	if(Auth::user()->role_id==5)
     		{
-    		$instructor = $sideid;
+    		$instructor = $recieveid;
     		$student = Auth::user()->id;
-    	}
+        }
+        
     	$data = array(
             'content'=> $request->message,
             'student'=> $student,
             'instructor'=> $instructor,
-            'sent_by'=> $request->sentby,
+            'sent_by'=> Auth::user()->id,
             'created_at'=> $time,
         );
 		  $success = DB::table('messages')->insert($data);

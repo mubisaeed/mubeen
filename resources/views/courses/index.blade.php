@@ -22,7 +22,7 @@
         <h3>Course Schedules</h3>
         <div class="table_filters">
           <div class="table_search">
-            <input type="text" name="" value="" placeholder="Search...">
+            <input type="text" name="search" id="search" value="" placeholder="Search...">
             <a href="#"> <i class="fa fa-search"></i> </a>
           </div>
           <div class="table_select">
@@ -68,6 +68,8 @@
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                     <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
+                    <a class="dropdown-item" href="{{url('resource/download/'.$course->id)}}" target="_blank"> <i class="fa fa-eye"></i>Link</a>
+                    <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}" target="_blank"> <i class="fa fa-file" aria-hidden="true"></i>Resourses</a>
                     <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a>
                     <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                     <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
@@ -227,6 +229,23 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $('#search').on('keyup',function(){
+    $value=$(this).val();
+    $.ajax({
+      type : 'get',
+      url : 'search',
+      data:{'search':$value},
+      success:function(data){
+        $('tbody').html(data);
+      }
+    });
+  })
+</script>
+<script type="text/javascript">
+  $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+</script>
+
 <script type="text/javascript">
   setTimeout(function() {
     $('#message').fadeOut('fast');

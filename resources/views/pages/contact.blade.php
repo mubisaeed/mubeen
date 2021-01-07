@@ -43,12 +43,22 @@
         @enderror
       </div>
       <div class="row px-3"> 
-        <label class="mb-1"><h6 class="mb-0 text-sm">Phone</h6></label> 
-        <input type="text" name="phno" value="{{old('phno', $contact->phone)}}"  class="mb-4" required data-inputmask="'mask': '0399-99999999'" maxlength="12" minlength="12">
+        <label for="phno" class="mb-1"><h6 class="mb-0 text-sm">Phone</h6></label> 
+        <input type="tel" name="phno" value="{{old('phno', $contact->phone)}}"  class="mb-4" required maxlength="12" minlength="12" placeholder="03xx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}">
+        @error('phno')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>
       <div class="row px-3"> 
         <label class="mb-1"><h6 class="mb-0 text-sm">Address</h6></label> 
         <input type="text" name="add" value="{{old('add', $contact->address)}}"  class="mb-4" required minlength="3" maxlength="200">
+        @error('add')
+          <div>
+            {{$message}}
+          </div>
+        @enderror
       </div>
       <div class="card-footer pull-right">
         <a class="btn btn-default" href="{{url('/contactpage')}}">Cancel</a>
@@ -56,11 +66,7 @@
       </div>
     </div>
   </form>
-
-  </div>
-  </div>
-  </div>
-
+  
   <script>
     $(":input").inputmask();
   </script>

@@ -20,7 +20,7 @@
                 <div class="row d-flex">
                     <div class="col-lg-6">
                         <div class="card1 pb-5">
-                            <div class="row"> <img src="https://i.imgur.com/CXQmsmF.png" class="logo"> </div>
+                            <div class="row"> <img src="{{asset('img/latest/logo.png')}}" class="logo"> </div>
                             <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="{{('img/login.png')}}" class="image"> </div>
                         </div>
                     </div>

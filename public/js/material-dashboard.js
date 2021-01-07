@@ -53,12 +53,6 @@ $(document).ready(function() {
   //  Activate the tooltips
   $('[rel="tooltip"]').tooltip();
 
-  $('.form-control').on("focus", function() {
-    $(this).parent('.input-group').addClass("input-group-focus");
-  }).on("blur", function() {
-    $(this).parent(".input-group").removeClass("input-group-focus");
-  });
-
   // remove class has-error for checkbox validation
   $('input[type="checkbox"][required="true"], input[type="radio"][required="true"]').on('click', function() {
     if ($(this).hasClass('error')) {
@@ -154,7 +148,6 @@ md = {
 
     $.notify({
       icon: "add_alert",
-      message: "Welcome to <b>Material Dashboard Pro</b> - a beautiful admin panel for every web developer."
 
     }, {
       type: type[color],
