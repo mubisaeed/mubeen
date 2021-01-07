@@ -1,0 +1,16 @@
+[2021-01-07 06:02:09] local.ERROR: syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 4): syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) at D:\\xampp\\htdocs\\Grecon\\app\\Class.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2021-01-07 06:03:03] local.ERROR: syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 4): syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) at D:\\xampp\\htdocs\\Grecon\\app\\Class.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2021-01-07 06:04:03] local.ERROR: syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 4): syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) at D:\\xampp\\htdocs\\Grecon\\app\\Class.php:7)
+[stacktrace]
+#0 {main}
+"} 
+[2021-01-07 06:05:03] local.ERROR: syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 4): syntax error, unexpected 'Class' (T_CLASS), expecting identifier (T_STRING) at D:\\xampp\\htdocs\\Grecon\\app\\Class.php:7)
+[stacktrace]
+#0 {main}
+"} 
