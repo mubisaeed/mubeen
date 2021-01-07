@@ -10,20 +10,24 @@
   </div>
               
   @if(count($icons)>0)
-    <table id="customers">
+    <table id="customers" class="table table-bordered table-hover table-sm table-striped">
+    <thead class="thead-dark">
       <tr>
         <th> Title </th>
-        <th> Image </th>
+        <th> Icons </th>
         <th> Action </th>
       </tr>
+      </thead>
+      <tbody>
       @foreach ($icons as $icon )
       <tr>
         <td>{{$icon->title}}</td>
-        <td><img src="{{asset('img/icons/'.$icon->image)}}" height="50" width="50"></td>
-        <td><a href="{{url('editicon/'. $icon->id)}}"><button>Edit</button></a>
-        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>"><button>Delete</button></a></td>
+        <td><img src="{{asset('img/icons/'.$icon->image)}}" class="img-fluid" height="50" width="75"></td>
+        <td><a href="{{url('editicon/'. $icon->id)}}"><button class="btn btn-info">Edit</button></a>
+        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>"><button class="btn btn-danger">Delete</button></a></td>
       </tr>
       @endforeach
+      </tbody>
     </table>
   @else
     <h2>There is no icon<h2>
