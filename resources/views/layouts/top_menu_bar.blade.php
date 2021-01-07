@@ -5,7 +5,7 @@
       <h3>{{$user->name}} Dashboard</h3>
     </div>
     <div class="live_button">
-      <button type="button"><img src="{{asset('img/latest/man-talking.png')}}" alt="" class="img-fluid"> Go to Live Instructor</button>
+      <button type="button"><img src="{{asset('img/latest/man-talking.png')}}" alt="" class="img-fluid">Live Instructor</button>
     </div>
   </div>
   <div class="top_menu_bar">
