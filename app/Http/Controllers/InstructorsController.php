@@ -28,7 +28,7 @@ class InstructorsController extends Controller
     public function store(Request $request){
         // dd($request);
         $this->validate($request, [
-            'name'=>'required|min:3|max:255',
+            'name'=>'required|min:3|max:50',
             'image'=>'required|max:5000',
             'email'=>'required|email|unique:users|max:255',
             'password' => 'required|string|min:8|max:20|confirmed',
@@ -37,20 +37,17 @@ class InstructorsController extends Controller
             'add' => 'required|min:3|max:200'
         ]);
         if ($files = $request->file('image')) {
-            $name=$files->getClientOriginalName();
-            $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
-       }
-        // $image = $request->file('image');
-        // $imageName = time().'.'.$image->getClientOriginalName();  
-        // $image->move(public_path('img/instructors'), $imageName);
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalName();
+            $request->image->move(public_path() .'\img\upload', $imageName);
+        }
 
         $udata = new User();
         $udata->name=$request->input('name');
         $udata->role_id=$request->input('role');
         $udata->email=$request->input('email');
         $udata->contact=$request->input('phno');
-        $udata->image=$image;
+        $udata->image=$imageName;
         $udata->password = Hash::make($request['password']);
         $udata->save();
 
@@ -74,7 +71,7 @@ class InstructorsController extends Controller
     {
         $id = $request->id;   
         $user = DB::table('users')->where('id',$id)->get()->first();
-        $path="img/instructors/$user->image";
+        $path="img/upload/$user->image";
         @unlink($path);
         DB::table('users')->where('id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
@@ -97,7 +94,7 @@ class InstructorsController extends Controller
     {
         // dd($request->all());
         $this->validate($request, [
-            'name'=>'required|min:3|max:255',
+            'name'=>'required|min:3|max:50',
             'image'=>'max:5000',
             'email'=>'required|max:255',
             'phno' => 'required|min:12|max:12',
@@ -106,11 +103,11 @@ class InstructorsController extends Controller
         ]);
         // $instructor = Instructor::find($id);
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
-        // dd($instructor);
+        
         $user = DB::table('users')->where('id',$instructor->i_u_id)->get()->first();
         if ($files = $request->file('image')) {
-            // $path="img/instructors/$instructor->image";
-            // File::delete($path);
+            $path="img/upload/$user->image";
+            @unlink($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
             $image->move(public_path('img/upload'), $imageName);
