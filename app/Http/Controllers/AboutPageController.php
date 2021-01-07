@@ -28,17 +28,20 @@ class AboutPageController extends Controller
         ]);
 
         if ($files = $request->file('image')) {
-            $name=$files->getClientOriginalName();
-            $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
-           }
-           else{
-            $image = $about->image;
-           }
+            $path="img/upload/$about->image";
+            @unlink($path);
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalName();  
+            $image->move(public_path('img/upload'), $imageName);
+        }
+        else{
+         $imageName = $about->image;
+        }
+
            $data = AboutPage::find(1);
             $data->title=$request->input('title');
             $data->content=$request->input('content');
-            $data->image = $image;
+            $data->image = $imageName;
             $data->save();
             Session::flash('message', 'Updated Successfully');
             return redirect('/aboutpage');

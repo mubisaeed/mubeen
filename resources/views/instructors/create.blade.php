@@ -26,7 +26,7 @@
                 <label class="mb-1">
                     <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Instructor name</h6>
                 </label> 
-                <input type="text" value="{{ old('name')}}" name="name" class="mb-4" required minlength="3" maxlength ="20">
+                <input type="text" value="{{ old('name')}}" name="name" class="mb-4" required minlength="3" maxlength ="50">
                 @error('name')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -42,7 +42,7 @@
                 @enderror
                 <br>
                 <label for="password">{{ __('Password') }}</label>
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required minlength="8" maxlength="20">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" required minlength="8" maxlength="20">
                 @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -85,7 +85,7 @@
                 <label class="mb-1">
                     <h6 class="mb-0 text-sm" style="color:black"style="color:black; margin-right: 10px">CNIC</h6>
                 </label> 
-                <input type="text" value="{{ old('cnic')}}" name="cnic" class="mb-4" data-inputmask="'mask': '99999-9999999-9'"  placeholder="XXXXX-XXXXXXX-X"  required>
+                <input type="text" value="{{ old('cnic')}}" name="cnic" class="mb-4" data-inputmask="'mask': '99999-9999999-9'"  placeholder="XXXXX-XXXXXXX-X" required minlength="15">
                 @error('cnic')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

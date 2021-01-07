@@ -30,19 +30,21 @@ class ContactPageController extends Controller
         ]);
 
         if ($files = $request->file('image')) {
-            $name=$files->getClientOriginalName();
-            $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
-           }
-           else{
-            $image = $contact->image;
-           }
+            $path="img/upload/$contact->image";
+            @unlink($path);
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalName();  
+            $image->move(public_path('img/upload'), $imageName);
+        }
+        else{
+         $imageName = $contact->image;
+        }
            $data = ContactPage::find(1);
             $data->title=$request->input('title');
             $data->email=$request->input('email');
             $data->address=$request->input('add');
             $data->phone=$request->input('phno');
-            $data->image = $image;
+            $data->image = $imageName;
             $data->save();
             Session::flash('message', 'Updated Successfully');
             return redirect('/contactpage');

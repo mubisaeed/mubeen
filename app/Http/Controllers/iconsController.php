@@ -81,6 +81,9 @@ class iconsController extends Controller
     public function deleteicon(Request $request)
     {
         $id = $request->input("id");
+        $icon = Icon::find($id);
+        $path="img/icons/$icon->image";
+        File::delete($path);
         Icon::where("id", $id)->delete();
     }
 }
