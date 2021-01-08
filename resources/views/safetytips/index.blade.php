@@ -8,18 +8,6 @@
       </div>
     @endif
   </div>
-
-  <div>
-    <button><a href="/safetytips/create">Add Safety Tip</a></button>
-  </div>
-  <div>
-    @if(count($safetytips)>0)
-      <h3>All Safety Tips</h3>
-    @else
-      <h3>No Safety Tips Available</h3>
-    @endif
-  </div>
-  <hr>
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
       <li><a href = "/dashboard">Home</a></li>
@@ -28,7 +16,14 @@
   </div>
   <div class="content_main">
     <div class="card-header sftp_main">
+      <div class="align_dftp">
       <h3 class="mb-0">Grecon Safety Tips</h3>
+      @if(count($safetytips)==0)
+        <h3>No Safety Tips Available</h3>
+      @endif
+      <button><a href="/safetytips/create">Add Safety Tip</a></button>
+
+    </div>
       <div class="panel-group" id="accordion">
         @foreach ($safetytips as $safetytip)
           <div class="panel panel-default">
@@ -42,9 +37,12 @@
               <div class="panel-body">
                 <p>{{$safetytip->description}}</p>
               </div>
-              <button><a href="/safetytips/edit/{{$safetytip->id}}">Edit</a></button>
-              <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
-              </a></button>
+              <div class="sftp_edit_del">
+                
+                <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
+                </a>
+                <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+              </div>
             </div>
           </div>
         @endforeach

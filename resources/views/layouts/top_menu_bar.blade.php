@@ -16,8 +16,8 @@
         </div>
       </div>
       <div class="col-md-2">
-        <div class="top_menu_link" @if(Request::segment(1) == '#')  active_link arrow_box @endif>
-          <a href="#">User Guide</a>
+        <div class="top_menu_link @if(Request::segment(1) == 'userguide')  active_link arrow_box @endif ">
+          <a href="/userguide">User Guide</a>
         </div>
       </div>
       <div class="col-md-3">
@@ -68,7 +68,7 @@
                 <a class="dropdown-item" href="#">Another One</a>
               </div>
             </li>
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
               <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user"></i>
                 <p class="d-lg-none d-md-block">
@@ -82,7 +82,7 @@
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{url('/logout')}}">Log out</a>
               </div>
-            </li>
+            </li> --}}
           </ul>
         </div>
       </div>
