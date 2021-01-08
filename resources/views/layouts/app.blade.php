@@ -34,6 +34,7 @@
     
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+            <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     
     </head>
     <body class="">

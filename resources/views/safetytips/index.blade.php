@@ -17,34 +17,55 @@
   <div class="content_main">
     <div class="card-header sftp_main">
       <div class="align_dftp">
-      <h3 class="mb-0">Grecon Safety Tips</h3>
-      @if(count($safetytips)==0)
-        <h3>No Safety Tips Available</h3>
-      @endif
-      <button><a href="/safetytips/create">Add Safety Tip</a></button>
-
-    </div>
+        @if(count($safetytips)>0)
+          <h3 class="mb-0">Grecon Safety Tips</h3>
+        @else
+          <h3 class="mb-0">No Safety Tips Available</h3>
+        @endif
+        <button><a href="/safetytips/create">Add Safety Tip</a></button>
+      </div>
       <div class="panel-group" id="accordion">
+        @php $counter=0; @endphp 
         @foreach ($safetytips as $safetytip)
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse.{{$safetytip->id}}" class="active_stp stmp_accordion">
-              {{$safetytip->title}}</a>
-              </h4>
-            </div>
-            <div id="collapse.{{$safetytip->id}}" class="panel-collapse in collapse show">
-              <div class="panel-body">
-                <p>{{$safetytip->description}}</p>
+          @if ($counter == 0)
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse.{{$safetytip->id}}" class="active_stp stmp_accordion">{{$safetytip->title}}</a>
+                </h4>
               </div>
-              <div class="sftp_edit_del">
-                
-                <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
-                </a>
-                <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+              <div id="collapse.{{$safetytip->id}}" class="panel-collapse in collapse show">
+                <div class="panel-body">
+                  <p>{{$safetytip->description}}</p>
+                </div>
+                <div class="sftp_edit_del">
+                  <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
+                  </a>
+                  <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+                </div>
               </div>
             </div>
-          </div>
+          @else
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse.{{$safetytip->id}}" class="stmp_accordion">
+                {{$safetytip->title}}</a>
+                </h4>
+              </div>
+              <div id="collapse.{{$safetytip->id}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <p>{{$safetytip->description}}</p>
+                </div>
+                <div class="sftp_edit_del">
+                  <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
+                  </a>
+                  <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+                </div>
+              </div>
+            </div>
+          @endif
+          @php $counter++; @endphp
         @endforeach
       </div>
     </div>

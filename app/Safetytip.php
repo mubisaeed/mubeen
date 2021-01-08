@@ -8,7 +8,6 @@ class SafetyTip extends Model
 {
     protected $fillable=[
         'title',
-        'image',
         'description'
     ];
 }

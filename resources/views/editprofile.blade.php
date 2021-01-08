@@ -92,13 +92,13 @@
                           <div class="row">
                             <div class="col-md-6">
                               <div class="custom_input_main">
-                                <input type="text" class="form-control" placeholder="***************">
+                                <input type="text" class="form-control" placeholder="***************" autocomplete="new-password">
                                 <label>Old Password<span class="grey">*</span></label>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="custom_input_main">
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" autocomplete="new-password">
                                 <label>New Password</label>
                               </div>
                             </div>
