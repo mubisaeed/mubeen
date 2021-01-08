@@ -16,7 +16,6 @@ class CreateSafetyTipsTable extends Migration
         Schema::create('safety_tips', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('image');
             $table->string('description');
             $table->timestamps();
         });
