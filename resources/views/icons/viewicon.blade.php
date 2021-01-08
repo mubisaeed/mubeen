@@ -31,7 +31,7 @@
       </tbody>
     </table>
   @else
-    <h2>No any Icon Available<h2>
+    <h2>No Icons Available<h2>
   @endif
 
 <script type="text/javascript">
