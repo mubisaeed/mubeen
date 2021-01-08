@@ -90,8 +90,11 @@
                                     <div class="edit_detail_p">
                                       <a href="#"><i class="fa fa-pencil"></i></a>
                                     </div>
-                                    <p>
-                                      {{$user->bio}}
+                                    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atcorrupti quos dolores et
+                                      quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est
+                                      laborum et dolorum fuga. <br> <br>
+                                      On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoraliz the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble thena bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. <br> <br>
+                                      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                                     </p>
                                   </div>
                                 </div>
