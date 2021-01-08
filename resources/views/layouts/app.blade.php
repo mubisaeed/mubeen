@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-        <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{asset('/assets/img/apple-icon.png')}}">
+        <link rel="icon" type="image/png" href="{{asset('/assets/img/favicon.png')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
         Greecon
@@ -81,7 +82,7 @@
       <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
       <!-- Library for adding dinamically elements -->
-      <script src="{{asset('')}}/assets/js/plugins/arrive.min.js"></script>
+      <script src="{{asset('/assets/js/plugins/arrive.min.js')}}"></script>
       <!--  Google Maps Plugin    -->
       <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
       <!-- Chartist JS -->
@@ -93,7 +94,7 @@
       <script src="{{asset('/assets/js/material-dashboard.js?v=2.1.2')}}" type="text/javascript"></script>
       <script src="{{asset('/assets/js/script.js')}}" type="text/javascript"></script>
       <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-      <script src="{{asset('')}}/assets/demo/demo.js"></script>
+      <script src="{{asset('/assets/demo/demo.js')}}"></script>
       <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
       <script>
