@@ -11,7 +11,7 @@
               
   @if(count($icons)>0)
     <table id="customers" class="table table-bordered table-hover table-sm table-striped">
-    <thead class="thead-dark">
+    <thead class="thead-light">
       <tr>
         <th> Title </th>
         <th> Icons </th>
@@ -24,13 +24,14 @@
         <td>{{$icon->title}}</td>
         <td><img src="{{asset('img/icons/'.$icon->image)}}" class="img-fluid" height="50" width="75"></td>
         <td><a href="{{url('editicon/'. $icon->id)}}"><button class="btn btn-info">Edit</button></a>
-        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>"><button class="btn btn-danger">Delete</button></a></td>
+        <a class="delete" href="javascript:void(0);" data-id="<?php echo $icon->id; ?>">
+        <button class="btn btn-danger">Delete</button></a></td>
       </tr>
       @endforeach
       </tbody>
     </table>
   @else
-    <h2>There is no icon<h2>
+    <h2>No any Icon Available<h2>
   @endif
 
 <script type="text/javascript">

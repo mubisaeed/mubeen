@@ -35,6 +35,7 @@
     </div>
     <div class="footer pull-right">
     <button type="submit" class="btn btn-primary">Create</button>
+    <a href="/viewicon" class="btn btn-default">Cancel</a>
     </div>
   </form>
 </div>
