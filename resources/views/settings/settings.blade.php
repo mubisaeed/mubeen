@@ -57,6 +57,7 @@
       @enderror
       <div class="footer pull-right">
       <button type="submit" class="btn btn-success">Update</button>
+      <a href='setting' class="btn btn-default" >Cancel</a>
       </div>
 
     </form>
