@@ -1,58 +1,104 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="col-md-12">
-  <div class="card ">
-    <div class="card-header">
-      <div class="row">
-          <div class="col-8">
-              <h4 class="card-title">Student Detail</h4>
+
+<div class="content_main">
+  <div class="all_courses_main">
+    
+    <div class="course_table mt-0">
+      <div class="course card-header card-header-warning card-header-icon">
+        
+        <h3>Student Details</h3>
+          <div class="table_filters">
+            <div class="table_search">
+              <input type="text" name="search" id="search" value="" placeholder="Search...">
+              <a href="#"> <i class="fa fa-search"></i> </a>
+            </div>
+            <div class="table_select">
+              <select class="selectpicker">
+                <option>All Students</option>
+                <option>Today </option>
+                <option>Macro Economics I</option>
+                <option>Macro Economics II</option>
+              </select>
+            </div>
           </div>
-      </div>  
-    </div>
-    <div class="card-body">
-      <div class="">     
-          <table id="myTable" class="text-primary display table tablesorter">
-            <thead class="text-primary">
+          <table class="table table-hover">
+            <thead>
               <tr>
-                <th>Father name</th>
-                <th>Phone</th>
-                <th>CNIC</th>
-                <th>Address</th>
-                <th>Class</th>
-                <th>Roll no</th>
-                <th>Blood Group</th>
-                <th>Diabetes</th>
-                <th>Alergy</th>
-                <th class="text-center">Actions</th>
+                <th scope="col">Father name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">CNIC</th>
+                <th scope="col">Address</th>
+                <th scope="col">Class</th>
+                <th scope="col">Roll no</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Diabetes</th>
+                <th scope="col">Alergy</th>
+                <th scope="col">Actions</th>
               </tr>
-              </thead>
-              <tbody>
-                  <tr class="custom_color" >
-                    @foreach($studentsdetail as $st) 
-                  <tr>
-                    <td>{{$st->father_name}}</td>
-                    <td>{{$st->phone}}</td>
-                    <td>{{$st->cnic}}</td>
-                    <td>{{$st->address}}</td>
-                    <td>{{$st->class}}</td>
-                    <td>{{$st->rollno}}</td>
-                    <td>{{$st->blood_group}}</td>
-                    <td>{{$st->diabetes}}</td>
-                    <td>{{$st->alergy}}</td>
-                    <td class="text-right">
-                      <a class="btn btn-sm btn-success" href="{{url('/students')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+            </thead>
+            <tbody>
+               @foreach($studentsdetail as $st) 
+              <tr>
+                <td class="first_row">
+                  <div class="course_td">
+                    <p>{{$st->father_name}}</p>
+                  </div>
+                </td>
+                <td class="first_row">{{$st->phone}}</td>
+                <td class="first_row">{{$st->cnic}}</td>
+                <td class="first_row">{{$st->address}}</td>
+                <td class="first_row">{{$st->class}}</td>
+                <td class="first_row">{{$st->rollno}}</td>
+                <td class="first_row">{{$st->blood_group}}</td>
+                <td class="first_row">{{$st->diabetes}}</td>
+                <td class="first_row">{{$st->alergy}}</td>
+                
+                <td class="align_ellipse first_row">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="material-icons">
+                        more_horiz
+                      </span>
+                      <div class="ripple-container"></div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                      <a class="dropdown-item" href="{{url('/students')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                     </td>
-                  </tr>
-                    @endforeach
-              </tbody>
-          </table>
+                    </div>
+                  </li>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>   
+          <div class="table_footer">
+            <div class="table_pegination">
+              <nav>
+                <ul class="pager">
+                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+                  <i class="fa fa-angle-left"></i></a></li>
+                  <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
+                  <li class="pager__item"><a class="align_hash" href="#">/</a></li>
+                  <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
+                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+                  <i class="fa fa-angle-right"></i></a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="table_rows">
+              <div class="rows_main">
+                <p>Rows per page</p>
+                <select>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                </select>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
-    <div class="card-footer py-4">
-        <nav class="d-flex justify-content-end" aria-label="...">
-        </nav>
-    </div>
-  </div>  
+  </div>
 </div>
 @endsection            

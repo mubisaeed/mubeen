@@ -110,6 +110,7 @@
                             </div>
                           </div>
                           <div class="s_form_button text-center">
+
                             <button type="button" class="btn cncl_btn">Cancel</button>
                             <button type="button" class="btn save_btn">Save</button>
                           </div>
