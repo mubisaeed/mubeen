@@ -32,8 +32,25 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('users.loginpage');
 });
+
+Route::get('/userguide', function () {
+    $user = Auth::user();
+    	return view ('userguide', compact('user'));
+});
+
+Route::get('/quiz', function () {
+    $user = Auth::user();
+    return view ('quiz', compact('user'));
+});
+
+Route::get('/assessment', function () {
+    $user = Auth::user();
+    return view ('assessment', compact('user'));
+});
+
+
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
 Route::get('/showcalender', [AdminController::class, 'show_calender']);
 

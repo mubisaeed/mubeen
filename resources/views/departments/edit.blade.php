@@ -15,8 +15,10 @@
       </div>
       @enderror
       <br><br>
-      <input type="submit" value="Update">
-      <button><a href="/departments">Cancel</a></button>
+      <div class="footer pull-right">
+      <input class="btn btn-primary" type="submit" value="Update">
+      <a href="/departments" class="btn btn-default">Cancel</a>
+      </div>
     </form>
   </div>
 

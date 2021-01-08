@@ -10,24 +10,29 @@
     <h2>Icons</h2>
     </div>
     <div class="info">
-
-    <input type="text" name="title" value="value="{{old('title', $data->title)}}" placeholder="Enter Titile here!" required>
-
+    <div class="form-group">
+    <input type="text" class="form-control" name="title" value="{{old('title', $data->title)}}" placeholder="Enter Titile here!" required>
+    
     @if ($errors->has('title'))
     <span class="text-danger">
     <small>{{ $errors->first('title') }}</small>
     </span>
     @endif
-
-    <input type="file" accept="image/x-png,image/gif,image/jpeg" name="image"><img src="{{asset('img/icons/'.$data->image)}}" height="50" width="50">
+    </div>
+    <div class="text-left">
+    <input type="file" class="img-fluid" accept="image/x-png,image/gif,image/jpeg" name="image">
+    <img src="{{asset('img/icons/'.$data->image)}}" height="100" width="100">
 
     @if ($errors->has('image'))
     <span class="text-danger">
     <small>{{ $errors->first('image') }}</small>
     </span>
     @endif
-
-    <button type="submit">Update</button>
+    </div>
+    <div class="footer pull-right">
+    <button type="submit" class="btn btn-success">Update</button>
+    <a class="btn btn-default" href="{{url('/viewicon')}}">Cancel</a>
+    </div>
 
   </form>
 

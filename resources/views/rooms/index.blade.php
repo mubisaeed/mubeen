@@ -15,20 +15,31 @@
       <h3>No Rooms Available</h3>
     @endif
   </div>
-  <hr>
-  <div>
+  <table class="table table-bordered table-hover table-sm table-striped">
+  <thead class="thead-light">
+      <tr>
+        <th> ID </th>
+        <th> Name </th>
+        <th> Room No </th>
+        <th> Floor No </th>
+        <th> Action </th>
+      </tr>
+      </thead>
+      <tbody>
     @foreach ($rooms as $room)
-      <h4>ID: {{$room->id}}</h4>
-      <div>
-        <h5>Name: {{$room->name}}</h5>
-        <span>Room No. : {{$room->room_no}}</span> <br>
-        <span>Floor No. : {{$room->floor_no}}<span>
-        <br><br>
-        <button><a href="/rooms/edit/{{$room->id}}">Edit</a></button>
-        <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $room->id; ?>">Delete</a></button>
-      </div><br>
-      <hr>
+      <tr>
+      <td>{{$room->id}}</td>
+      <td>{{$room->name}}</td>
+        <td>{{$room->room_no}}</td>
+        <td>{{$room->floor_no}}</td>
+        <td>      
+        <a href="/rooms/edit/{{$room->id}}"><button class="btn btn-primary">Edit</button></a>
+        <a class="delete" href="javascript:void(0);" data-id="<?php echo $room->id; ?>"><button class="btn btn-danger">Delete</button></a>
+        </td>
+        </tr>
     @endforeach
+    </tbody>
+    </table>
   </div>
 
   <script type="text/javascript">

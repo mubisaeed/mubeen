@@ -8,8 +8,25 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/latest/admin.png')}}" alt="" class="img-fluid">
-          <h3>Lily Cristopher</h3>
+          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <h3>{{$user->name}}</h3>
+          <li class="arrow_dropdown dropdown">
+            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="{{asset('/assets/img/latest/arrow_down.png')}}" alt="">
+              <p class="d-lg-none d-md-block">
+                Account
+              </p>
+              <div class="ripple-container"></div>
+            </a>
+            <div class="dropdown-menu admin_dd dropdown-menu-right" aria-labelledby="navbarDropdownProfile" x-placement="bottom-end" style="position: absolute; top: 42px; left: -129px; will-change: top, left;">
+              <a class="dropdown-item" href="{{url('/showprofile')}}"> <i class="fa fa-user"></i> Profile</a>
+              <a class="dropdown-item" href="#"><i class="fa fa-inbox"></i> Inbox</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Account Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{url('/logout')}}"> <i class="fa fa-sign-out"></i> Log out</a>
+            </div>
+          </li>
         </div>
         <li class="nav-item active  ">
           <a class="nav-link" href="{{url('/dashboard')}}">

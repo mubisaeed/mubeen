@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 use App\Icon;
-use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\support\Facades\DB;
@@ -11,7 +10,7 @@ use Illuminate\support\Facades\Session;
 
 class iconsController extends Controller
 {
-    //
+
     public function iconpage(){
         $user = Auth::user();
         return view ('icons.createicon', compact ('user'));
@@ -26,7 +25,7 @@ class iconsController extends Controller
     public function createicon(Request $req){
         $this->validate($req, [
         'title'=>'required',
-        'image'=>'required'
+        'image'=>'required|max:5000'
     ]);
 
         $icon= new Icon;
@@ -54,7 +53,8 @@ class iconsController extends Controller
         $icon = Icon::find($id);
 
         $this->validate($request, [
-            'title'=>'required'
+            'title'=>'required',
+            'image'=>'max:5000'
         ]);
 
         
@@ -81,6 +81,9 @@ class iconsController extends Controller
     public function deleteicon(Request $request)
     {
         $id = $request->input("id");
+        $icon = Icon::find($id);
+        $path="img/icons/$icon->image";
+        File::delete($path);
         Icon::where("id", $id)->delete();
     }
 }

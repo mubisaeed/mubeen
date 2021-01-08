@@ -8,28 +8,37 @@
       </div>
     @endif
   </div>
-  <div>
     @if(count($discussions)>0)
       <h3>All Discussions</h3>
     @else
       <h3>No Discussions Available</h3>
     @endif
   </div>
-  <hr>
-  <div>
+  <table class="table table-bordered table-hover table-sm table-striped">
+  <thead class="thead-light">
+  <tr>
+  <th>ID</th>
+  <th>Title</th>
+  <th>image</th>
+  <th>Description</th>
+  <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
     @foreach ($discussions as $discussion)
-      <h4>ID: {{$discussion->id}}</h4>
-      <div>
-        <h5>Title: {{$discussion->title}}</h5>
-        <div>
-          <img height="250px" width="300px" src="img/discussions/{{$discussion->image}}">
-        </div><br>
-        <p>Description: {{$discussion->description}}</p>
-        <button><a href="/discussions/edit/{{$discussion->id}}">Edit</a></button>
-        <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $discussion->id; ?>">Delete</a></button>
-      </div><br>
-      <hr>
+    <tr>
+    <td>{{$discussion->id}}</td>
+    <td>{{$discussion->title}}</td>
+    <td>
+    <img height="50px" width="50px" src="img/discussions/{{$discussion->image}}">
+    </td>
+    <td>{{$discussion->description}}</td>
+    <td><a href="/discussions/edit/{{$discussion->id}}"><button class="btn btn-primary">Edit</button></a>
+    <a class="delete" href="javascript:void(0);" data-id="<?php echo $discussion->id; ?>"><button class="btn btn-danger">Delete</button></a></td>
+    </tr>
     @endforeach
+    </tbody>
+    </table>
   </div>
 
 
