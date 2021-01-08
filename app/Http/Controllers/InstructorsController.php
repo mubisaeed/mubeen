@@ -16,8 +16,8 @@ class InstructorsController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $instructors = DB::table('users')->where('role_id', 4)->get()->all();
-    	return view ('instructors.index', ['instructors'=>$instructors], compact('user'));
+        $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->get()->all();
+    	return view ('instructors.index', compact('user', 'instructors'));
     }
 
     public function create(){
@@ -57,9 +57,14 @@ class InstructorsController extends Controller
         $instructor->phone=$request->phno;
         $instructor->cnic=$request->cnic;
         $instructor->address=$request->add;
-        $success = $instructor->save();
+        $instructor->save();
+        $i_sch_data = array(
+            'i_u_id' => $instructor->i_u_id,
+            'sch_u_id' => Auth::user()->id,
+        ); 
+        $success = DB::table('instructor_school')->insert($i_sch_data);
         if($success){
-            Session::flash('message', 'Schodol create successfully');
+            Session::flash('message', 'Instructor create successfully');
             return redirect('/instructors');
         }else{
             Session::flash('message', 'Something went wrong');
@@ -72,15 +77,16 @@ class InstructorsController extends Controller
         $id = $request->id;   
         $user = DB::table('users')->where('id',$id)->get()->first();
         $path="img/upload/$user->image";
-        @unlink($path);
-        DB::table('users')->where('id',$id)->delete();
+        File::delete($path);
+        DB::table('instructor_school')->where('i_u_id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
+        DB::table('users')->where('id',$id)->delete();
         Session::flash('message', 'Instructor deleted successfully');
     }   
     public function show($id)
     {
         $user = Auth::user();
-        $instructordetail = DB::table('instructors')->where('i_u_id',$id)->get()->all();
+        $instructordetail = DB::table('instructors')->where('i_u_id',$id)->get()->first();
         return view('instructors.show', compact('instructordetail', 'user'));
     }
    

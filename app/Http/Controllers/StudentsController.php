@@ -102,8 +102,6 @@ class StudentsController extends Controller
             'sname' => 'required|min:3|max:20',
             'fname' => 'required|min:3|max:50',
             'phno' => 'required|min:12|max:12',
-            // 'password' => 'required|string|min:8|confirmed',
-            'image' => 'required',
             'cnic' => 'required|min:13|max:15',
             'add' => 'required|min:3|max:200',
             'class' => 'required|min:3|max:20',
