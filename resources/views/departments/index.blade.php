@@ -15,14 +15,22 @@
       <h3>No Departments Available</h3>
     @endif
   </div>
-  <hr>
-  <div>
+  <table class="table table-bordered table-hover table-sm table-striped">
+  <thead class="thead-light">
+  <tr>
+  <th>ID</th>
+  <th>Name</th>
+  <th>Action</th>
+  </tr>
     @foreach ($departments as $department)
-      <h4>ID: {{$department->id}}</h4>
-      <h5>name: {{$department->name}}</h5>
-      <button><a href="/departments/edit/{{$department->id}}">Edit</a></button>
-      <button><a class="delete" href="javascript:void(0);" data-id="<?php echo $department->id; ?>">Delete</a></button>
-      <br><hr>
+    <tr>
+      <td>{{$department->id}}</td>
+      <td>{{$department->name}}</td>
+      <td>
+      <a href="/departments/edit/{{$department->id}}"><button class="btn btn-primary">Edit</button></a>
+      <a class="delete" href="javascript:void(0);" data-id="<?php echo $department->id; ?>"><button class="btn btn-danger">Delete</button></a>
+      </td>
+      </tr>
     @endforeach
   </div>
 

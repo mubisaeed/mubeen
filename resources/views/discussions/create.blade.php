@@ -7,31 +7,34 @@
     <form method="POST" action="/discussions/create" enctype="multipart/form-data">
       @csrf
       <label style="color: black" for="title">Enter title:</label>
-      <input type="text" name="title" value="{{old('title')}}" required minlength="3" maxlength="255">
+      <input class="form-control" type="text" name="title" value="{{old('title')}}" required minlength="3" maxlength="255">
       @error('title')
       <div>
         {{$message}}
       </div>
       @enderror
       <br>
+      <div class="text-left">
       <label style="color: black" for="image">Upload an image:</label>
-      <input type="file" name="image" required accept="image/x-png,image/gif,image/jpeg">
+      <input class="img-fluid" type="file" name="image" required accept="image/x-png,image/gif,image/jpeg">
       @error('image')
       <div>
         {{$message}}
       </div>
       @enderror
-      <br>
+      </div><br>
       <label style="color: black" for="description">Enter Description:</label>
-      <input type="text" name="description" value="{{old('description')}}" required minlength="10" maxlength="3000">
+      <input class="form-control" type="text" name="description" value="{{old('description')}}" required minlength="10" maxlength="3000">
       @error('description')
       <div>
         {{$message}}
       </div>
       @enderror
       <br><br>
-      <input type="submit" value="Submit">
-      <button><a href="/discussions">Cancel</a></button>
+      <div class="footer pull-right">
+      <input class="btn btn-primary" type="submit" value="Submit">
+      <a href="/discussions" class="btn btn-default">Cancel</a>
+      </div>
     </form>
   </div>
 

@@ -55,9 +55,9 @@
           {{ $message }}
         </div>
       @enderror
-      
+      <div class="footer pull-right">
       <button type="submit" class="btn btn-success">Update</button>
-      <a class="btn btn-default" href="{{url('/setting')}}">Cancel</a>
+      </div>
 
     </form>
   </div>

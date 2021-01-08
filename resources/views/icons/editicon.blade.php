@@ -30,8 +30,8 @@
     @endif
     </div>
     <div class="footer pull-right">
-    <a class="btn btn-default" href="{{url('/viewicon')}}">Cancel</a>
     <button type="submit" class="btn btn-success">Update</button>
+    <a class="btn btn-default" href="{{url('/viewicon')}}">Cancel</a>
     </div>
 
   </form>
