@@ -80,6 +80,7 @@ Route::post('/update/{id}', [userscontroller::class, 'update']);
 //course crud
 
 Route::get('/course/{cat}', [CourseController::class, 'course_wise_url']);
+Route::get('/getcourses', [CourseController::class, 'get_courses']);
 
 Route::get('/course', [CourseController::class, 'course'])->name('courses');
 Route::get('/courses', [CourseController::class, 'coursecreate']);

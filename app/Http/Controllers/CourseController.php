@@ -18,6 +18,7 @@ class CourseController extends Controller
     	$user = Auth::user();
     	return view ('courses.create', compact('user'));
     }
+
     public function coursestore(Request $request)
     {
         // dd($request->sessions);
@@ -25,11 +26,13 @@ class CourseController extends Controller
                 'cname' => 'min:3|max:50',
                 'department' => 'required|min:2|max:200',
                 'rno' => 'required',
+                'sdate' => 'required|date',
+                'edate' => 'required|date|after_or_equal:sdate',
                 'ccolor' => 'required',
                 'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
-    	$str = strtolower($request->clname);
+    	$str = strtolower($request->cname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = array(
             'course_name'=> $request->cname,
@@ -51,7 +54,6 @@ class CourseController extends Controller
                     Session::flash('message', 'Something went wrong');
 		            return redirect()->back();
 		        }
-            // }
     }
 
     public function course()
@@ -61,6 +63,12 @@ class CourseController extends Controller
         return view('courses.index', compact('courses', 'user'));
     }
 
+    public function get_courses(Request $request)
+    {
+        dd($request->input('page'));
+        $user = Auth::user();
+         return view('courses.index', Users::paginate($request->get('per_page', $request->num)), compact('user'));
+    }
 
     public function course_wise_url(Request $request)
     {
@@ -108,15 +116,18 @@ class CourseController extends Controller
 
    public function course_update(Request $request, $id)
     {
+        // dd($request);
         $this->validate($request, [
                 'cname' => 'required|min:3|max:50',
                 'department' => 'required|min:2|max:200',
                 'rno' => 'required',
+                'sdate' => 'required|date',
+                'edate' => 'required|date|after_or_equal:sdate',
                 'ccolor' => 'required',
                 'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
-        $str = strtolower($request->title);
+        $str = strtolower($request->cname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = Course::find($id);
         $data->course_name=$request->input('cname');

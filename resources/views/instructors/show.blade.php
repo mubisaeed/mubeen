@@ -1,60 +1,86 @@
 @extends('layouts.app')
 @section('content')
-    <div class="content">
-        <div class="row">
-            <div id="message">
-            @if (Session::has('message'))
-              <div class="alert alert-info">
-                {{ Session::get('message') }}
+
+<div class="content_main">
+  <div class="all_courses_main">
+    
+    <div class="course_table mt-0">
+      <div class="course card-header card-header-warning card-header-icon">
+        
+        <h3>Instructor Details</h3>
+          <div class="table_filters">
+            <div class="table_search">
+              <input type="text" name="search" id="search" value="" placeholder="Search...">
+              <a href="#"> <i class="fa fa-search"></i> </a>
+            </div>
+            <div class="table_select">
+              <select class="selectpicker">
+                <option>All Instructors</option>
+                <option>Today </option>
+                <option>Macro Economics I</option>
+                <option>Macro Economics II</option>
+              </select>
+            </div>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Phone</th>
+                <th scope="col">CNIC</th>
+                <th scope="col">Address</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="first_row">{{$instructordetail->phone}}</td>
+                <td class="first_row">{{$instructordetail->cnic}}</td>
+                <td class="first_row">{{$instructordetail->address}}</td>
+                
+                <td class="align_ellipse first_row">
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="material-icons">
+                        more_horiz
+                      </span>
+                      <div class="ripple-container"></div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                      <a class="dropdown-item" href="{{url('/instructors')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    </td>
+                    </div>
+                  </li>
+                </td>
+              </tr>
+            </tbody>
+          </table>   
+          <div class="table_footer">
+            <div class="table_pegination">
+              <nav>
+                <ul class="pager">
+                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+                  <i class="fa fa-angle-left"></i></a></li>
+                  <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
+                  <li class="pager__item"><a class="align_hash" href="#">/</a></li>
+                  <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
+                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+                  <i class="fa fa-angle-right"></i></a></li>
+                </ul>
+              </nav>
+            </div>
+            <div class="table_rows">
+              <div class="rows_main">
+                <p>Rows per page</p>
+                <select>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                </select>
               </div>
-            @endif
             </div>
-            <div class="col-md-12">
-                <div class="card ">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-8">
-                                <h4 class="card-title">Instructor Detail</h4>
-                            </div>
-
-                        </div>
-                    
-                    </div>
-                    <div class="card-body">
-                        <div class="">
-                                 
-                            <table id="myTable" class="text-primary display table tablesorter">
-                                <thead class="text-primary">
-
-                                    <tr>
-                                        <th>Phone</th>
-                                        <th>CNIC</th>
-                                        <th>Address</th>
-                                        <th class="text-center">Actions</th>
-                                    </tr></thead>
-                                <tbody>
-                                    <tr class="custom_color" >
-                                        @foreach($instructordetail as $ins)
-                                    <tr>
-                                        <td>{{$ins->phone}}</td>
-                                        <td>{{$ins->cnic}}</td>
-                                        <td>{{$ins->address}}</td>
-                                        <td class="text-right">
-                                          <a class="btn btn-sm btn-success" href="{{url('/instructors')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
-                                        </td>
-                                    </tr>
-                                  @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+          </div>
+      </div>
     </div>
+  </div>
+</div>
 @endsection

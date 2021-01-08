@@ -348,7 +348,7 @@
             </div>
           </div>
         </li>
-        <li class="nav-item dropdown_item">
+        <!-- <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
             <i class="fa fa-calendar-o"></i>
             <span>Students</span>
@@ -359,7 +359,7 @@
               <a class="collapse-item" href="{{url('/studentcreate')}}">Add new student</a>
             </div>
           </div>
-        </li>
+        </li> -->
          <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
             <i class="fa fa-calendar-o"></i>
