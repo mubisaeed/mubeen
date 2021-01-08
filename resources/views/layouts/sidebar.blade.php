@@ -2,13 +2,13 @@
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
-        <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
+        <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,9 +20,9 @@
             </a>
             <div class="dropdown-menu admin_dd dropdown-menu-right" aria-labelledby="navbarDropdownProfile" x-placement="bottom-end" style="position: absolute; top: 42px; left: -129px; will-change: top, left;">
               <a class="dropdown-item" href="{{url('/showprofile')}}"> <i class="fa fa-user"></i> Profile</a>
-              <a class="dropdown-item" href="/messages"><i class="fa fa-inbox"></i> Inbox</a>
+              <a class="dropdown-item" href="{{url('/messages')}}"><i class="fa fa-inbox"></i> Inbox</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/editprofile"><i class="fa fa-cog"></i> Account Settings</a>
+              <a class="dropdown-item" href="{{url('/editprofile')}}"><i class="fa fa-cog"></i> Account Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url('/logout')}}"> <i class="fa fa-sign-out"></i> Log out</a>
             </div>
@@ -35,9 +35,9 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('/calender')}}">
-            <i class="fa fa-home"></i>
-            <p>Calender</p>
+          <a class="nav-link" href="{{url('/calendar')}}">
+            <i class="fa fa-calendar"></i>
+            <p>Calendar</p>
           </a>
         </li>
         <li class="nav-item dropdown_item">
@@ -54,7 +54,7 @@
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <i class="fa fa-graduation-cap"></i>
+            <i class="fa fa-book"></i>
             <span>Courses</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -66,19 +66,19 @@
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            <i class="fa fa-calendar-o"></i>
+            <i class="fa fa-user-plus"></i>
             <span>Instructors</span>
           </a>
           <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/instructors">All Instructors</a>
-              <a class="collapse-item" href="/instructors/create">Add Instructor</a>
+              <a class="collapse-item" href="{{url('/instructors')}}">All Instructors</a>
+              <a class="collapse-item" href="{{url('/instructors/create')}}">Add Instructor</a>
             </div>
           </div>
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <i class="fa fa-calendar-o"></i>
+            <i class="fa fa-user"></i>
             <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -87,6 +87,40 @@
               <a class="collapse-item" href="{{url('/studentcreate')}}">Add new student</a>
             </div>
           </div>
+        </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+            <i class="fa fa-pencil"></i>
+            <span>Quizzes</span>
+          </a>
+          <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/quizzes/create')}}">Add New Quiz</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+            <i class="fa fa-file-text-o"></i>
+            <span>Assignments</span>
+          </a>
+          <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/assignments/create')}}">Add New Assignment</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/safetytips')}}">
+            <i class="fa fa-lightbulb-o"></i>
+            <p>Grecon Safety Tips</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/userguide')}}">
+            <i class="fa fa-address-book-o"></i>
+            <p>User Guide</p>
+          </a>
         </li>
         {{-- <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
@@ -131,8 +165,8 @@
           </a>
           <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/discussions">All Discussions</a>
-              <a class="collapse-item" href="/discussions/create">Add Discussion</a>
+              <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
+              <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
             </div>
           </div>
         </li> --}}
@@ -143,8 +177,8 @@
           </a>
           <div id="collapseSix" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/viewicon">Icons List</a>
-              <a class="collapse-item" href="/create">Add new icon</a>
+              <a class="collapse-item" href="{{url('/viewicon')}}">Icons List</a>
+              <a class="collapse-item" href="{{url('/create')}}">Add new icon</a>
             </div>
           </div>
         </li> --}}
@@ -161,7 +195,7 @@
           </div>
         </li> --}}
         {{-- <li class="nav-item active ">
-          <a class="nav-link" href="/setting">
+          <a class="nav-link" href="{{url('/setting')}}">
             <i class="fa fa-home"></i>
             <p>Settings</p>
           </a>
@@ -176,13 +210,13 @@
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
-        <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
+        <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,9 +228,9 @@
             </a>
             <div class="dropdown-menu admin_dd dropdown-menu-right" aria-labelledby="navbarDropdownProfile" x-placement="bottom-end" style="position: absolute; top: 42px; left: -129px; will-change: top, left;">
               <a class="dropdown-item" href="{{url('/showprofile')}}"> <i class="fa fa-user"></i> Profile</a>
-              <a class="dropdown-item" href="/messages"><i class="fa fa-inbox"></i> Inbox</a>
+              <a class="dropdown-item" href="{{url('/messages')}}"><i class="fa fa-inbox"></i> Inbox</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/editprofile"><i class="fa fa-cog"></i> Account Settings</a>
+              <a class="dropdown-item" href="{{url('/editprofile')}}"><i class="fa fa-cog"></i> Account Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url('/logout')}}"> <i class="fa fa-sign-out"></i> Log out</a>
             </div>
@@ -209,14 +243,14 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('/calender')}}">
+          <a class="nav-link" href="{{url('/calendar')}}">
             <i class="fa fa-home"></i>
-            <p>Calender</p>
+            <p>Calendar</p>
           </a>
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <i class="fa fa-graduation-cap"></i>
+            <i class="fa fa-book"></i>
             <span>Courses</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -228,19 +262,19 @@
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            <i class="fa fa-calendar-o"></i>
+            <i class="fa fa-user-plus"></i>
             <span>Instructors</span>
           </a>
           <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
-              <a class="collapse-item" href="/instructors">All Instructors</a>
-              <a class="collapse-item" href="/instructors/create">Add Instructor</a>
+              <a class="collapse-item" href="{{url('/instructors')}}">All Instructors</a>
+              <a class="collapse-item" href="{{url('/instructors/create')}}">Add Instructor</a>
             </div>
           </div>
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <i class="fa fa-calendar-o"></i>
+            <i class="fa fa-user"></i>
             <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -250,6 +284,40 @@
             </div>
           </div>
         </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+            <i class="fa fa-pencil"></i>
+            <span>Quizzes</span>
+          </a>
+          <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/quizzes/create')}}">Add New Quiz</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+            <i class="fa fa-file-text-o"></i>
+            <span>Assignments</span>
+          </a>
+          <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/assignments/create')}}">Add New Assignment</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/safetytips')}}">
+            <i class="fa fa-lightbulb-o"></i>
+            <p>Grecon Safety Tips</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/userguide')}}">
+            <i class="fa fa-address-book-o"></i>
+            <p>User Guide</p>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -258,13 +326,13 @@
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
-        <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
+        <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -276,9 +344,9 @@
             </a>
             <div class="dropdown-menu admin_dd dropdown-menu-right" aria-labelledby="navbarDropdownProfile" x-placement="bottom-end" style="position: absolute; top: 42px; left: -129px; will-change: top, left;">
               <a class="dropdown-item" href="{{url('/showprofile')}}"> <i class="fa fa-user"></i> Profile</a>
-              <a class="dropdown-item" href="/messages"><i class="fa fa-inbox"></i> Inbox</a>
+              <a class="dropdown-item" href="{{url('/messages')}}"><i class="fa fa-inbox"></i> Inbox</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/editprofile"><i class="fa fa-cog"></i> Account Settings</a>
+              <a class="dropdown-item" href="{{url('/editprofile')}}"><i class="fa fa-cog"></i> Account Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url('/logout')}}"> <i class="fa fa-sign-out"></i> Log out</a>
             </div>
@@ -291,14 +359,14 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('/calender')}}">
+          <a class="nav-link" href="{{url('/calendar')}}">
             <i class="fa fa-home"></i>
-            <p>Calender</p>
+            <p>Calendar</p>
           </a>
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <i class="fa fa-graduation-cap"></i>
+            <i class="fa fa-book"></i>
             <span>Courses</span>
           </a>
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -310,7 +378,7 @@
         </li>
         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <i class="fa fa-calendar-o"></i>
+            <i class="fa fa-user"></i>
             <span>Students</span>
           </a>
           <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -320,6 +388,40 @@
             </div>
           </div>
         </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+            <i class="fa fa-pencil"></i>
+            <span>Quizzes</span>
+          </a>
+          <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/quizzes/create')}}">Add New Quiz</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item dropdown_item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
+            <i class="fa fa-file-text-o"></i>
+            <span>Assignments</span>
+          </a>
+          <div id="collapseTwelve" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-2 collapse-inner rounded">
+              <a class="collapse-item" href="{{url('/assignments/create')}}">Add New Assignment</a>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/safetytips')}}">
+            <i class="fa fa-lightbulb-o"></i>
+            <p>Grecon Safety Tips</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/userguide')}}">
+            <i class="fa fa-address-book-o"></i>
+            <p>User Guide</p>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -328,13 +430,13 @@
   <div class="wrapper">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
-        <img src="{{asset('img/latest/logo.png')}}" alt="" class="img-fluid">
+        <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -346,9 +448,9 @@
             </a>
             <div class="dropdown-menu admin_dd dropdown-menu-right" aria-labelledby="navbarDropdownProfile" x-placement="bottom-end" style="position: absolute; top: 42px; left: -129px; will-change: top, left;">
               <a class="dropdown-item" href="{{url('/showprofile')}}"> <i class="fa fa-user"></i> Profile</a>
-              <a class="dropdown-item" href="/messages"><i class="fa fa-inbox"></i> Inbox</a>
+              <a class="dropdown-item" href="{{url('/messages')}}"><i class="fa fa-inbox"></i> Inbox</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="/editprofile"><i class="fa fa-cog"></i> Account Settings</a>
+              <a class="dropdown-item" href="{{url('/editprofile')}}"><i class="fa fa-cog"></i> Account Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{url('/logout')}}"> <i class="fa fa-sign-out"></i> Log out</a>
             </div>
@@ -361,9 +463,21 @@
           </a>
         </li>
         <li class="nav-item active">
-          <a class="nav-link" href="{{url('/calender')}}">
+          <a class="nav-link" href="{{url('/calendar')}}">
             <i class="fa fa-home"></i>
-            <p>Calender</p>
+            <p>Calendar</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/safetytips')}}">
+            <i class="fa fa-lightbulb-o"></i>
+            <p>Grecon Safety Tips</p>
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{{url('/userguide')}}">
+            <i class="fa fa-address-book-o"></i>
+            <p>User Guide</p>
           </a>
         </li>
       </ul>

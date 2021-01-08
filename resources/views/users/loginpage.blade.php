@@ -12,7 +12,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="{{asset('css/login.css')}}">
+        <link href="{{asset('/assets/css/login.css')}}" rel="stylesheet" />
     </head>
     <body>
         <div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
@@ -20,8 +20,8 @@
                 <div class="row d-flex">
                     <div class="col-lg-6">
                         <div class="card1 pb-5">
-                            <div class="row"> <img src="{{asset('img/latest/logo.png')}}" class="logo"> </div>
-                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="{{('img/login.png')}}" class="image"> </div>
+                            <div class="row"> <img src="{{asset('/assets/img/latest/logo.png')}}" class="logo"> </div>
+                            <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="{{('/assets/img/login.png')}}" class="image"> </div>
                         </div>
                     </div>
                     

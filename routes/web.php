@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\userscontroller;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\StudentsController;
@@ -13,13 +13,15 @@ use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
-use App\Http\Controllers\CalenderController;
+use App\Http\Controllers\AssignmentsController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\CourseResourcesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UserGuideController;
+use App\Http\Controllers\QuizzesController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -44,26 +46,20 @@ Route::get('/', function () {
 Route::get('/userguide', [UserGuideController::class, 'index']);
 
 
-//Quiz routes
-Route::get('/quiz', function () {
-    $user = Auth::user();
-    return view ('quiz', compact('user'));
-});
+//Quizzes routes
+Route::get('/quizzes/create', [QuizzesController::class, 'create']);
 
 
-//Assessment Routes
-Route::get('/assessment', function () {
-    $user = Auth::user();
-    return view ('assessment', compact('user'));
-});
+//Assignments Routes
+Route::get('/assignments/create', [AssignmentsController::class, 'create']);
 
 
 //Dashboard Route
-Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth']);
 
 
-//Calender Route
-Route::get('/calender', [CalenderController::class, 'index']);
+//Calendar Route
+Route::get('/calendar', [CalendarController::class, 'index']);
 
 
 //profile

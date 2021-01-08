@@ -12,17 +12,17 @@
     <div class="row">
       <div class="col-md-2">
         <div class="top_menu_link  @if(Request::segment(1) == 'dashboard')  active_link arrow_box @endif ">
-          <a href="/dashboard">Dashboard</a>
+          <a href="{{url('/dashboard')}}">Dashboard</a>
         </div>
       </div>
       <div class="col-md-2">
-        <div class="top_menu_link @if(Request::segment(1) == 'userguide')  active_link arrow_box @endif ">
-          <a href="/userguide">User Guide</a>
+        <div class="top_menu_link @if(Request::segment(1) == 'course')  active_link arrow_box @endif ">
+          <a href="{{url('/course')}}">Cources</a>
         </div>
       </div>
       <div class="col-md-3">
-        <div class="top_menu_link @if(Request::segment(1) == 'safetytips')  active_link arrow_box @endif">
-          <a href="/safetytips">Grecon Safety Tips</a>
+        <div class="top_menu_link @if(Request::segment(1) == 'calendar')  active_link arrow_box @endif">
+          <a href="{{url('/calendar')}}">Calendar & Events</a>
         </div>
       </div>
       <div class="col-md-2">
