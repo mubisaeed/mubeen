@@ -94,56 +94,40 @@
                                 </div> -->
                                 <div class="tab-pane active" id="tab_default_2">
                                   <div class="row">
-
-                                  
                                     <div class="col-md-7">
                                       <div class="chatbox-holder">
                                         <div class="chatbox">
                                           <div class="ticket_chat">
                                             <div class="msg_img">
-                                              <img src="{{asset('img/upload/'.auth()->user()->image)}}" alt="">
-                                              <div class="msg_name">  
-                                                <h5>{{auth()->user()->name}}</h5>
-                                                <p>{{auth()->user()->bio}}</p>
+                                              <img src="../assets/img/latest/msg_img.png" alt="">
+                                              <div class="msg_name">
+                                                <h5>Cloie Dacker</h5>
+                                                <p>M.Phil Biology</p>
                                               </div>
                                             </div>
                                           </div>
-
-
-
                                           <div class="chat-messages">
-                                            
-                                            
-                             @if($selected_user_message != null) 
-
-
-
-                                   @foreach($selected_user_message as $message)
-                                            @if($message->sent_by == auth()->user()->id)
+                                            <div class="message-box-holder">
+                                              <div class="message-box message-partner">
+                                                Hello! Finally found the time to write to you) I need your help in creating interactive animations for my mobile application.
+                                              </div>
+                                            </div>
+                                            <div class="message-box-holder">
+                                              <div class="message-box message-partner">
+                                                Can I send you files?
+                                              </div>
+                                              <p class="admin_days_ago">4 days ago</p>
+                                            </div>
                                             <div class="message-box-holder">
                                               <div class="add_check">
                                                 <div class="message-box">
-                                                 {{ $message->content  }}
+                                                  Hey! Okay, send out.
                                                 </div>
                                                 <span><img src="../assets/img/latest/all-done.svg" alt=""></span>
                                               </div>
-                                              <!-- <p class="user_days_ago">4 days ago</p> -->
+                                              <p class="user_days_ago">4 days ago</p>
                                             </div>
-
-                                            @else<div class="message-box-holder">
-                                              <div class="message-box message-partner">
-                                              {{ $message->content  }}
-                                              </div>
-                                              <!-- <p class="admin_days_ago">4 days ago</p> -->
-                                            </div>
-                                            @endif
-                                     @endforeach
-
-
-
-                               @endif  
-
-                                            <!-- <div class="message-box-holder">
+                                            <div class="message-box-holder">
                                               <div class="message-box message-partner">
                                                 <div class="attachment_send">
                                                   <i class="fa fa-file-o"></i>
@@ -156,10 +140,8 @@
                                             </div>
                                             <div class="combine_date">
                                               <p>3 days ago</p>
-                                            </div> -->
-
-
-                                            <!-- <div class="message-box-holder">
+                                            </div>
+                                            <div class="message-box-holder">
                                               <div class="add_check">
                                                 <div class="message-box">
                                                   Hello! I tweaked everything you asked. I am sending the finished file.
@@ -167,17 +149,10 @@
                                                 <span><img src="../assets/img/latest/checkmark.svg" alt=""></span>
                                               </div>
                                               <p class="user_days_ago">3 days ago</p>
-                                            </div> -->
-
-
+                                            </div>
                                           </div>
-                                          
-                                          <form class="form-horizontal" method="POST" action="{{ url('sendmessage') }}" enctype="multipart/form-data">
-                                             {{ csrf_field() }}
                                           <div class="chat-input-holder">
                                             <div class="main_send">
-                                            <?php $segment =  Request::segment(1); ?>
-                                             @if($segment == 'chatbox')
                                               <div class="plus_icon">
                                                 <a href="#"><i class="fa fa-plus"></i></a>
                                                 <div class="option_list" style="display: none;">
@@ -186,34 +161,15 @@
                                                   </ul>
                                                 </div>
                                               </div>
-                                            
-                                              <input type="hidden" name="student_id"  value="{{$id}}">
-                                              <textarea class="chat-input" required name="message" placeholder="Type a message here"></textarea>
+                                              <textarea class="chat-input" placeholder="Type a message here"></textarea>
                                             </div>
                                             <div class="send_icon">
-                                           <button type="submit" >   <a  ><i class="fa fa-paper-plane"></i></a>   </button>
-                                            @else
-                                                    @if(auth()->user()->role_id == 4)
-                                                    <h3> Select an Student to send message  </h3 >
-                                                    @elseif(auth()->user()->role_id == 5)
-                                                    <h3> Select an instructure to send message  </h3 > 
-                                                    @else
-                                                    <h3> Unable to send messages  </h3 >
-                                                    @endif
-                                             
-                                                    @endif
+                                              <a href="#"><i class="fa fa-paper-plane"></i></a>
                                             </div>
-                                            
-
-                                           
                                           </div>
-                                           <form>
                                         </div>
                                       </div>
                                     </div>
-
-
-                                    <!-- user list -->
                                     <div class="col-md-5 devided_border">
                                       <div class="msg_list_head">
                                         <select>
@@ -225,85 +181,125 @@
                                           <i class="fa fa-plus"></i>
                                         </div>
                                       </div>
-
-                      @if(auth()->user()->role_id == 4)                
-                     <!-- For instructure -->
-                                 @foreach($students as $student)
-
-                                 <a href="{{url('chatbox/'.$student->s_u_id)}}">
                                       <div class="msg_listing">
                                         <div class="msg_styling">
                                           <div class="msg_img">
                                             <div class="msg_list_img">
-                                              <img src="{{asset('/img/upload/'.DB::table('users')->where('id' ,$student->s_u_id)->pluck('image')->first())}}" alt="">
+                                              <img src="../assets/img/latest/msg_img.png" alt="">
                                             </div>
                                             <div class="msg_name">
-                                              <h5>   {{DB::table('users')->where('id' ,$student->s_u_id)->pluck('name')->first()}}   </h5>
-                                              <p><strong> Roll: {{$student->rollno}}  </strong> || Class: {{$student->class}}  </p>
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
                                             </div>
                                           </div>
                                           <div class="msg_time">
                                             <p>2:12 PM</p>
                                           </div>
                                         </div>
-                                        <p class="s_msg"> <?php $messag = DB::table('messages')->where('student' , $student->s_u_id)->where('instructor' , auth()->user()->id)->orderby('id' , 'desc')->first();  ?> 
-                                     @if($messag) 
-                                       @if($messag->sent_by == auth()->user()->id)
-                                         <strong>You: </strong>      {{$messag->content}}
-                                       @else
-                                       <strong>{{DB::table('users')->where('id' ,$student->s_u_id)->pluck('name')->first()}}: </strong>      {{$messag->content}}
-                                       @endif 
-                                     @endif    
-                                          </p>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
                                       </div>
-
-                                   </a>   
-
-                                   @endforeach   
-              @elseif(auth()->user()->role_id == 5)
-              <!-- For students -->
-              <?php    
-               $user_ids = DB::table('instructor_student')->where('s_u_id' , auth()->user()->id)->pluck('i_u_id');
-               $studentss = DB::table('instructors')->wherein('i_u_id' , $user_ids)->get();
-              ?>
-                @foreach($studentss as $student)
-
-                        <a href="{{url('chatbox/'.$student->i_u_id)}}">
-                            <div class="msg_listing">
-                              <div class="msg_styling">
-                                <div class="msg_img">
-                                  <div class="msg_list_img">
-                                    <img src="{{asset('/img/upload/'.DB::table('users')->where('id' ,$student->i_u_id)->pluck('image')->first())}}" alt="">
-                                  </div>
-                                  <div class="msg_name">
-                                    <h5>   {{DB::table('users')->where('id' ,$student->i_u_id)->pluck('name')->first()}}   </h5>
-                                  </div>
-                                </div>
-                                <div class="msg_time">
-                                  <!-- <p>2:12 PM</p> -->
-                                </div>
-                              </div>
-                              <p class="s_msg"> <?php $messag = DB::table('messages')->where('student' , auth()->user()->id)->where('instructor' , $student->i_u_id)->orderby('id' , 'desc')->first();  ?> 
-                            @if($messag) 
-                              @if($messag->sent_by == auth()->user()->id)
-                                <strong>You: </strong>      {{$messag->content}}
-                              @else
-                              <strong>{{DB::table('users')->where('id' ,$student->i_u_id)->pluck('name')->first()}}: </strong>      {{$messag->content}}
-                              @endif 
-                            @endif    
-                                </p>
-                            </div>
-
-                          </a>   
-
-                          @endforeach
-                                                              
-               @else
-                     kkkk
-                     @endif                        
-                                    
-
-
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img3.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img2.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img3.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img4.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img5.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
+                                      <div class="msg_listing">
+                                        <div class="msg_styling">
+                                          <div class="msg_img">
+                                            <div class="msg_list_img">
+                                              <img src="../assets/img/latest/msg_img.png" alt="">
+                                            </div>
+                                            <div class="msg_name">
+                                              <h5>Cloie Dacker</h5>
+                                              <p>M.Phil Biology</p>
+                                            </div>
+                                          </div>
+                                          <div class="msg_time">
+                                            <p>2:12 PM</p>
+                                          </div>
+                                        </div>
+                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

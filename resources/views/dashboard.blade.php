@@ -1,4 +1,6 @@
 @extends('layouts.app')
+<link href="../assets/css/calendar.css" rel="stylesheet" />
+
 @section('content')
 
   <div id="message">
