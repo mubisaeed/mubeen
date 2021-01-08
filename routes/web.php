@@ -13,11 +13,13 @@ use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AboutPageController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\CourseResourcesController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\UserGuideController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -31,28 +33,37 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+
+//Default (/) route
 Route::get('/', function () {
     return view('users.loginpage');
 });
 
-Route::get('/userguide', function () {
-    $user = Auth::user();
-    	return view ('userguide', compact('user'));
-});
 
+//User Guide Route
+Route::get('/userguide', [UserGuideController::class, 'index']);
+
+
+//Quiz routes
 Route::get('/quiz', function () {
     $user = Auth::user();
     return view ('quiz', compact('user'));
 });
 
+
+//Assessment Routes
 Route::get('/assessment', function () {
     $user = Auth::user();
     return view ('assessment', compact('user'));
 });
 
 
+//Dashboard Route
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth']);
-Route::get('/showcalender', [AdminController::class, 'show_calender']);
+
+
+//Calender Route
+Route::get('/calender', [CalenderController::class, 'index']);
 
 
 //profile
@@ -61,7 +72,6 @@ Route::get('/editprofile', [ProfileController::class, 'edit_profile']);
 Route::post('/updateprofile/{id}', [ProfileController::class, 'updateprofile']);
 
 //users crud and role
-
 Route::get('/logout', [userscontroller::class, 'logout']);
 Route::get('/loginpage', [userscontroller::class, 'loginpage']);
 Route::post('/loginuser', [userscontroller::class, 'loginuser']);
@@ -78,7 +88,6 @@ Route::post('/update/{id}', [userscontroller::class, 'update']);
 
 
 //course crud
-
 Route::get('/course/{cat}', [CourseController::class, 'course_wise_url']);
 Route::get('/getcourses', [CourseController::class, 'get_courses']);
 
@@ -90,8 +99,9 @@ Route::get('/course/edit/{id}',  [CourseController::class, 'course_edit']);
 Route::post('/course/update/{id}',  [CourseController::class, 'course_update']);
 Route::post('/course/delete',  [CourseController::class, 'destroy']);
 Route::get('search',  [CourseController::class, 'search']);
-//students crud
 
+
+//students crud
 Route::get('/students', [StudentsController::class, 'students'])->name('students');
 Route::get('/studentcreate', [StudentsController::class, 'create']);
 Route::post('/studentstore', [StudentsController::class, 'store']);
@@ -102,7 +112,6 @@ Route::post('/student/delete',  [StudentsController::class, 'destroy']);
 
 
 //classes crud
-
 Route::get('/classes', [ClassController::class, 'index'])->name('classes');
 Route::get('/classcreate', [ClassController::class, 'create']);
 Route::post('/classstore', [ClassController::class, 'store']);
@@ -113,7 +122,6 @@ Route::post('/class/delete',  [ClassController::class, 'destroy']);
 
 
 //School crud
-
 Route::get('/schools', [SchoolsController::class, 'schools'])->name('school');
 Route::get('/schoolcreate', [SchoolsController::class, 'create']);
 Route::post('/schoolstore', [SchoolsController::class, 'store']);
@@ -132,6 +140,7 @@ Route::get('/instructors/show/{id}', [InstructorsController::class, 'show']);
 Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
 Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
+
 //Routes for safety tips functionality:
 Route::get('/safetytips', [SafetytipsController::class, 'index']);
 Route::get('/safetytips/create', [SafetytipsController::class, 'create']);
@@ -139,6 +148,7 @@ Route::post('/safetytips/create', [SafetytipsController::class, 'store']);
 Route::get('/safetytips/delete', [SafetytipsController::class, 'destroy']);
 Route::get('/safetytips/edit/{id}', [SafetytipsController::class, 'edit']);
 Route::put('/safetytips/edit/{id}', [SafetytipsController::class, 'update']);
+
 
 //Routes for discussions functionality:
 Route::get('/discussions', [DiscussionsController::class, 'index']);
@@ -148,6 +158,7 @@ Route::get('/discussions/delete', [DiscussionsController::class, 'destroy']);
 Route::get('/discussions/edit/{id}', [DiscussionsController::class, 'edit']);
 Route::put('/discussions/edit/{id}', [DiscussionsController::class, 'update']);
 
+
 //Routes for departments functionality:
 Route::get('/departments', [DepartmentsController::class, 'index']);
 Route::get('/departments/create', [DepartmentsController::class, 'create']);
@@ -155,6 +166,7 @@ Route::post('/departments/create', [DepartmentsController::class, 'store']);
 Route::get('/departments/delete', [DepartmentsController::class, 'destroy']);
 Route::get('/departments/edit/{id}', [DepartmentsController::class, 'edit']);
 Route::put('/departments/edit/{id}', [DepartmentsController::class, 'update']);
+
 
 //Routes for rooms functionality:
 Route::get('/rooms', [RoomsController::class, 'index']);
@@ -164,6 +176,7 @@ Route::get('/rooms/delete', [RoomsController::class, 'destroy']);
 Route::get('/rooms/edit/{id}', [RoomsController::class, 'edit']);
 Route::put('/rooms/edit/{id}', [RoomsController::class, 'update']);   
 
+
 // icons
 Route::get('/create', [iconsController::class, 'iconpage']);
 Route::post('/createicon', [iconsController::class, 'createicon']);
@@ -172,15 +185,18 @@ Route::get('editicon/{id}',[iconsController::class,'editicon'])->name('editicon'
 Route::post('updateicon/{id}',[iconsController::class,'updateicon'])->name('updateicon');
 Route::get('/deleteicon/{id}', [iconsController::class,'deleteicon'])->name('/deleteicon');
 
+
 // settings
 Route::get('setting', [SettingsController::class, 'setting'])->name('setting');
 Route::post('update',  [SettingsController::class, 'update'])->name('update');
+
 
 // pages
 Route::get('/aboutpage', [AboutPageController::class, 'index']);
 Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
 Route::get('/contactpage', [ContactPageController::class, 'index']);
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
 
 //Routes for Course Resources functionality:
 Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
@@ -192,11 +208,11 @@ Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
 Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
 Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
+
 //messages
 Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');
 Route::get('/chatbox/{id}', [MessagesController::class, 'messages'])->name('Send Message');
 Route::post('/sendmessage', [MessagesController::class, 'sendMessage']);
 
+//IDK
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

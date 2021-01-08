@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Safetytip;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 
 class SafetyTipsController extends Controller
@@ -23,19 +22,12 @@ class SafetyTipsController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'title'=>'required|min:3|max:255',
-            'image'=>'required|max:5000',
-            'description'=>'required|min:10|max:3000'
+            'title'=>'required|min:3|max:50',
+            'description'=>'required|min:10'
         ]);
 
         $safetytip=new Safetytip;
-
-        $image = $request->file('image');
-        $imageName = time().'.'.$image->getClientOriginalName();  
-        $image->move(public_path('img/safetytips'), $imageName);
-
         $safetytip->title=$request->title;
-        $safetytip->image=$imageName;
         $safetytip->description=$request->description;
         $safetytip->save();
         Session::flash('message', 'Successfully Saved');
@@ -45,8 +37,6 @@ class SafetyTipsController extends Controller
     public function destroy(Request $request){
         $id = $request->input("id");
         $safetytip = Safetytip::find($id);
-        $path="img/safetytips/$safetytip->image";
-        File::delete($path);
         $safetytip->delete();
     }
 
@@ -60,24 +50,11 @@ class SafetyTipsController extends Controller
         $safetytip = Safetytip::find($id);
         
         $this->validate($request, [
-            'title'=>'required|min:3|max:255',
-            'image'=>'max:5000',
-            'description'=>'required|min:10|max:3000'
+            'title'=>'required|min:3|max:50',
+            'description'=>'required|min:10'
         ]);
 
-        if ($files = $request->file('image')) {
-            $path="img/safetytips/$safetytip->image";
-            File::delete($path);
-            $image = $request->file('image');
-            $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/safetytips'), $imageName);
-           }
-           else{
-            $imageName = $safetytip->image;
-           }
-        
         $safetytip->title=$request->title;
-        $safetytip->image=$imageName;
         $safetytip->description=$request->description;
         $safetytip->save();
         Session::flash('message', 'Successfully Updated');
