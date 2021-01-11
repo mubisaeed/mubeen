@@ -32,7 +32,7 @@
         </select><br><br>
 
     <label for="title">Titile:</label><br>
-    <input type="text" name="title" value="{{old('title')}}"><br><br>
+    <input type="text" name="title" value="{{old('title')}}" minlength="3" maxlength ="50" autofocus=""><br><br>
 
       @error('title')
       <div>
@@ -41,7 +41,7 @@
       @enderror
 
       <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{old('short_des')}}"><br><br>
+    <input type="text" name="short_des" value="{{old('short_des')}}" minlength="10" maxlength ="1000"><br><br>
 
       @error('short_des')
       <div>
@@ -49,13 +49,14 @@
       </div>
       @enderror
 
-    <label for="file">File:</label><br>
-    <input id="file" type="file" name="file" size="max:10240"><br><br>
-
-      @error('file')
-      <div>
-        {{$message}}
-      </div>
+    
+      <label for="resource">Resource:</label><br>
+      <input class="form-control" type="url" name="resource" value={{old('resource')}} minlength="10" maxlength ="110"><br><br>
+      
+      @error('resource')
+        <div>
+          {{ $message }}
+        </div>
       @enderror
 
     <button type="submit">Submit</button>
