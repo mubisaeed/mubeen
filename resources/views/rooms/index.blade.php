@@ -33,7 +33,7 @@
         <td>{{$room->room_no}}</td>
         <td>{{$room->floor_no}}</td>
         <td>      
-        <a href="/rooms/edit/{{$room->id}}"><button class="btn btn-primary">Edit</button></a>
+        <a href="{{url('/rooms/edit/'.$room->id)}}"><button class="btn btn-primary">Edit</button></a>
         <a class="delete" href="javascript:void(0);" data-id="<?php echo $room->id; ?>"><button class="btn btn-danger">Delete</button></a>
         </td>
         </tr>

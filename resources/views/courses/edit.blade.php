@@ -41,8 +41,8 @@
 
     <div class="breadcrumb_main">
       <ol class="breadcrumb">
-        <li><a href = "#">Home</a></li>
-        <li class = "active">Add New Course</li>
+        <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
       </ol>
     </div>
     <form class="form-horizontal" method="POST" action="{{ url('/course/update/'. $course->id) }}" enctype="multipart/form-data">
@@ -72,6 +72,12 @@
                               <strong>{{ $cname }}</strong>
                               </span>
                             @enderror
+                          </div>
+                          <div class="col-md-6 p_left">
+                            <div class="custom_input_main mobile_field">
+                              <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" autofocus="">
+                              <label>Image<span class="red">*</span></label>
+                            </div>
                           </div>
                           <div class="col-md-6 p_right">
                             <div class="custom_input_main mobile_field">

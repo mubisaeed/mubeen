@@ -17,7 +17,7 @@
       <br><br>
       <div class="footer pull-right">
       <input class="btn btn-primary" type="submit" value="Update">
-      <a href="/departments" class="btn btn-default">Cancel</a>
+      <a href="{{url('/departments')}}" class="btn btn-default">Cancel</a>
       </div>
     </form>
   </div>

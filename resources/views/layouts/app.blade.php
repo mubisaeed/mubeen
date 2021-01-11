@@ -7,7 +7,7 @@
         <link rel="icon" type="image/png" href="{{asset('/assets/img/favicon.png')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
-        Greecon
+        Grecon
         </title>
         <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
         <!--     Fonts and icons     -->
@@ -19,6 +19,7 @@
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
           <!-- CSS Files -->
           <link href="{{asset('/assets/css/main.css')}}" rel="stylesheet" />
+          
           <link href="{{asset('/assets/css/material-dashboard.css?v=2.1.2')}}" rel="stylesheet" />
           <!-- CSS Just for demo purpose, don't include it in your project -->
           <link href="{{asset('/assets/demo/demo.css')}}" rel="stylesheet" />
@@ -89,7 +90,7 @@
       <!-- Chartist JS -->
       <script src="{{asset('/assets/js/plugins/chartist.min.js')}}"></script>
       <!--  Notifications Plugin    -->
-      <script src="{{asset('/asset/js/sweetalert2.js')}}"></script>
+      <script src="{{asset('/assets/js/sweetalert2.js')}}"></script>
       <script src="{{asset('/assets/js/plugins/bootstrap-notify.js')}}"></script>
       <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
       <script src="{{asset('/assets/js/material-dashboard.js?v=2.1.2')}}" type="text/javascript"></script>

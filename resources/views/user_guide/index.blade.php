@@ -2,7 +2,7 @@
 @section('content')
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
-        <li><a href = "/dashboard">Home</a></li>
+        <li><a href = "{{url('/dashboard')}}">Home</a></li>
         <li class = "active">User Guide</li>
     </ol>
   </div>
@@ -16,7 +16,7 @@
             <div class="col-md-6 p_left">
               <div class="box_outline">
                 <div class="ug_img text-center">
-                  <img src="../assets/img/latest/guide1.png" alt="" class="img-fluid">
+                  <img src="{{asset('/assets/img/latest/guide1.png')}}" alt="" class="img-fluid">
                   <h5>1.Scope and Purpose</h5>
                 </div>
                 <div class="ug_description">
@@ -27,7 +27,7 @@
             <div class="col-md-6 p_right">
               <div class="box_outline">
                 <div class="ug_img text-center">
-                  <img src="../assets/img/latest/guide2.png" alt="" class="img-fluid">
+                  <img src="{{asset('/assets/img/latest/guide2.png')}}" alt="" class="img-fluid">
                   <h5>2.Finibus Bonorum</h5>
                 </div>
                 <div class="ug_description">
@@ -38,7 +38,7 @@
             <div class="col-md-6 p_left">
               <div class="box_outline">
                 <div class="ug_img text-center">
-                  <img src="../assets/img/latest/guide3.png" alt="" class="img-fluid">
+                  <img src="{{asset('/assets/img/latest/guide3.png')}}" alt="" class="img-fluid">
                   <h5>3.The standard Lorem</h5>
                 </div>
                 <div class="ug_description">
@@ -49,7 +49,7 @@
             <div class="col-md-6 p_right">
               <div class="box_outline">
                 <div class="ug_img text-center">
-                  <img src="../assets/img/latest/guide4.png" alt="" class="img-fluid">
+                  <img src="{{asset('/assets/img/latest/guide4.png')}}" alt="" class="img-fluid">
                   <h5>4.Ipsum passage</h5>
                 </div>
                 <div class="ug_description">

@@ -25,10 +25,13 @@
           <table class="table table-hover">
             <thead>
               <tr>
+                <th scope="col">School name</th>
+                <th scope="col">School Image</th>
+                <th scope="col">School Address</th>
                 <th scope="col">Father name</th>
                 <th scope="col">Phone</th>
                 <th scope="col">CNIC</th>
-                <th scope="col">Address</th>
+                <th scope="col">Owner Address</th>
                 <th scope="col">Actions</th>
               </tr>
             </thead>
@@ -36,9 +39,12 @@
               <tr>
                 <td class="first_row">
                   <div class="course_td">
-                    <p>{{$schooldetail->father_name}}</p>
+                    <p>{{$schooldetail->school_name}}</p>
                   </div>
                 </td>
+                <td class="first_row"><img src="{{asset('/img/upload/'.$schooldetail->school_image)}}" width ="100" ></td>
+                <td class="first_row">{{$schooldetail->school_address}}</td>
+                <td class="first_row">{{$schooldetail->father_name}}</td>
                 <td class="first_row">{{$schooldetail->phone}}</td>
                 <td class="first_row">{{$schooldetail->cnic}}</td>
                 <td class="first_row">{{$schooldetail->address}}</td>

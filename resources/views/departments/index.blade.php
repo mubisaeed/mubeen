@@ -27,7 +27,7 @@
       <td>{{$department->id}}</td>
       <td>{{$department->name}}</td>
       <td>
-      <a href="/departments/edit/{{$department->id}}"><button class="btn btn-primary">Edit</button></a>
+      <a href="{{url('/departments/edit/'.$department->id)}}"><button class="btn btn-primary">Edit</button></a>
       <a class="delete" href="javascript:void(0);" data-id="<?php echo $department->id; ?>"><button class="btn btn-danger">Delete</button></a>
       </td>
       </tr>
