@@ -1,25 +1,34 @@
 @extends('layouts.app')
 @section('content')   
-
-  <div>
-    <h3>Edit Department</h3>
-    <hr>
-    <form method="POST" action="/departments/edit/{{$department->id}}" enctype="multipart/form-data">
-      @csrf
-      @method('PUT')
-      <label for="name">Enter name:</label>
-      <input type="text" name="name" value="{{old('name', $department->name)}}" required minlength="3" maxlength="255">
-      @error('name')
-      <div>
-        {{$message}}
-      </div>
-      @enderror
-      <br><br>
-      <div class="footer pull-right">
-      <input class="btn btn-primary" type="submit" value="Update">
-      <a href="{{url('/departments')}}" class="btn btn-default">Cancel</a>
-      </div>
-    </form>
+  <div class="breadcrumb_main">
+    <ol class="breadcrumb">
+      <li><a href = "{{url('/dashboard')}}">Home</a></li>
+      <li class = "active">Edit Department</li>
+    </ol>
   </div>
-
+  <div class="assignment">
+    <div class="card-header main_ac">
+      <h3>Edit Department</h3>
+      <div class="ac_add_form">
+        <form method="POST" action="{{url('/departments/edit/'.$department->id)}}" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+          <div class="row">
+            <div class="col-md-6 p_left">
+              <div class="custom_input_main">
+                <input type="text" name="name" class="form-control" value="{{old('name', $department->name)}}" required minlength="3" maxlength="50">
+                <label for="name">Name <span class="red">*</span></label>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="s_form_button text-center">
+                <a href="{{url('/departments')}}" class="btn cncl_btn">Cancel</a>
+                <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
