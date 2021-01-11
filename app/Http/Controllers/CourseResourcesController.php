@@ -16,16 +16,17 @@ use Illuminate\Support\Facades\Session;
 class CourseResourcesController extends Controller
 {
     public function index($id){
+        $id = $id;
         $user = Auth::user();
-        $cress=DB::table('resources')->where('course_id', $id)->get()->all();
-        return view ('course_resources.index', compact ('user','cress'));
+        $cresources=DB::table('resources')->where('course_id', $id)->get()->all();
+        return view ('course_resources.index', compact ('user','cresources', 'id'));
     }
 
-    public function create(){
-        $user = Auth::user();
-        $courses=Course::all();
-    	return view ('course_resources.create', compact('user','courses'));
-    }
+    // public function create(){
+    //     $user = Auth::user();
+    //     $courses=Course::all();
+    // 	return view ('course_resources.create', compact('user','courses'));
+    // }
 
     public function Store(Request $req){
         $this->validate($req,
@@ -36,7 +37,7 @@ class CourseResourcesController extends Controller
         'resource'=>'required',
     ]);
         $cress= new CourseResources;
-        $cress->course_id=$req->input('course');
+        $cress->course_id=$req->input('course_id');
         $cress->title=$req->input('title');
         $cress->short_description=$req->input('short_des');
         $file = $req->file('file');
@@ -47,17 +48,18 @@ class CourseResourcesController extends Controller
         $cress->type=$fileType;
         $cress->resource=$req->input('resource');
         $cress->save();
+        $id = $req->input('course_id');
         if($cress){
             Session::flash('message', 'Resource Stored Successfully');
-            return redirect('/resource/create');
+            return redirect('/courseresourse/'.$id);
         }
     }
 
     public function edit($id){
+        $id = $id;
         $cress = CourseResources::find($id);
         $user = Auth::user();
-        $courses=Course::all();
-    	return view ('course_resources.edit', compact('user', 'cress','courses'));
+    	return view ('course_resources.edit', compact('user', 'cress', 'id'));
     }
 
     public function update($id, Request $request){
@@ -82,15 +84,16 @@ class CourseResourcesController extends Controller
             $fileName = $cress->file;
             $fileType = $cress->type;
         }
-        $cress->course_id=$request->input('course');
+        $cress->course_id=$request->input('course_id');
         $cress->title=$request->input('title');
         $cress->short_description=$request->input('short_des');
         $cress->file=$fileName;
         $cress->type=$fileType;
         $cress->resource=$request->input('resource');
         $cress->save();
+        $id = $request->input('course_id');
         Session::flash('message', 'Resource Updated Successfully');
-        return redirect('/courseresourse');        
+        return redirect('/courseresourse/'.$id);        
     }
 
     public function deleteres(Request $request)

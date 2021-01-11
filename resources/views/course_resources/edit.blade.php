@@ -5,6 +5,8 @@
   <form action="{{route('resource/update',[$cress->id])}}" method="post" enctype="multipart/form-data">
     
     {{@csrf_field()}}
+    <input type="hidden" name="course_id" value="{{$id}}">    
+
 
     <div class="title">
 
@@ -16,15 +18,7 @@
 
     <div class="info">
 
-    <label for="course">Course id:</label>
-
-        <select name="course" id="">
-        @foreach ($courses as $course)
-          <option value="{{$course->id}}">{{$course->course_name}}</option>
-        @endforeach
-        </select><br><br>
-
-    <label for="title">Titile:</label><br>
+    <label for="title">Title:</label><br>
     <input type="text" name="title" value="{{old('title', $cress->title)}}" placeholder="Enter Titile here!" required><br><br>
 
        @error('title')

@@ -17,8 +17,7 @@ class SchoolsController extends Controller
     public function schools()
     {
     	$user = Auth::user();
-        $schoolsdetail = DB::table('schools')->get();
-        $schools = DB::table('users')->where('role_id', 3)->get();
+        $schools = DB::table('school_super')->where('sup_u_id', Auth::user()->id)->get()->all();
         return view('schools.index', compact('schools', 'user'));
     }
     public function create()
@@ -57,10 +56,12 @@ class SchoolsController extends Controller
         $sdata->cnic = $request->cnic;
         $sdata->phone = $request->phno;
         $sdata->address = $request->add;
-
-        $success = $sdata->save();
-        
-        // $success = DB::table('instructor_student')->insert($sdata);
+        $sdata->save();
+        $sup_sch_data = array(
+            'sch_u_id' => $sdata->sch_u_id,
+            'sup_u_id' => Auth::user()->id,
+        );
+        $success = DB::table('school_super')->insert($sup_sch_data);
         if($success){
             Session::flash('message', 'Schodol create successfully');
             return redirect('/schools');
@@ -89,8 +90,6 @@ class SchoolsController extends Controller
        $this->validate($request, [
             'name' => 'required|min:3|max:20',
             'fname' => 'required|min:3|max:50',
-            'password' => 'required|string|min:8|confirmed',
-            'image' => 'required',
             'phno' => 'required|min:12|max:12',
             'cnic' => 'required|min:13|max:15',
             'add' => 'required|min:3|max:200',
@@ -133,10 +132,9 @@ class SchoolsController extends Controller
         $user = DB::table('users')->where('id',$id)->get()->first();
         $path="img/upload/$user->image";
         File::delete($path); 
+        DB::table('school_super')->where('sch_u_id',$id)->delete();
         DB::table('users')->where('id',$id)->delete();
         DB::table('schools')->where('sch_u_id',$id)->delete();
-        // $path="img/upload/$id->image";
-        // File::delete($path);
         Session::flash('message', 'School deleted successfully');
         }
 }

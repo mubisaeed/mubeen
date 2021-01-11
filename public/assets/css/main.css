@@ -1522,12 +1522,14 @@
 }
 
 .ac_add_form .p_left,
-.ug_boxes .p_left {
+.ug_boxes .p_left , 
+.s_profile_fields .p_left  {
   padding-right: 9px;
 }
 
 .ac_add_form .p_right,
-.ug_boxes .p-right {
+.ug_boxes .p-right ,
+.s_profile_fields .p_right {
   padding-left: 9px;
 }
 
