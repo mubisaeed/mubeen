@@ -45,6 +45,15 @@
     <label for="file">File:</label><br>
     <input id="file" type="file" name="file"><br><br>
 
+    <label for="resource">Resource:</label><br>
+    <input class="form-control" type="url" name="resource" value={{old('resource', $cress->resource)}} required><br><br>
+      
+      @error('resource')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
+
     <button type="submit">Update</button>
   </form>
 </div>

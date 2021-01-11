@@ -58,6 +58,15 @@
       </div>
       @enderror
 
+      <label for="resource">Resource:</label><br>
+      <input class="form-control" type="url" name="resource" value={{old('resource')}}><br><br>
+      
+      @error('resource')
+        <div>
+          {{ $message }}
+        </div>
+      @enderror
+
     <button type="submit">Submit</button>
   </form>
 </div>

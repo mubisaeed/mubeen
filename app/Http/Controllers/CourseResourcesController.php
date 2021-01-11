@@ -33,6 +33,7 @@ class CourseResourcesController extends Controller
         'file' => 'required',
         'title'=>'required|min:3|max:20',
         'short_des'=>'required|min:10|max:5000',
+        'resource'=>'required',
     ]);
         $cress= new CourseResources;
         $cress->course_id=$req->input('course');
@@ -44,6 +45,7 @@ class CourseResourcesController extends Controller
         $cress->file=$fileName;
         $fileType =$file->getClientOriginalExtension();
         $cress->type=$fileType;
+        $cress->resource=$req->input('resource');
         $cress->save();
         if($cress){
             Session::flash('message', 'Resource Stored Successfully');
@@ -63,6 +65,7 @@ class CourseResourcesController extends Controller
         $this->validate($request, [
             'title'=>'required|min:3|max:20',
             'short_des'=>'required|min:10|max:5000',
+            'resource'=>'required',
         ]);
 
         $cress = CourseResources::find($id);
@@ -84,6 +87,7 @@ class CourseResourcesController extends Controller
         $cress->short_description=$request->input('short_des');
         $cress->file=$fileName;
         $cress->type=$fileType;
+        $cress->resource=$request->input('resource');
         $cress->save();
         Session::flash('message', 'Resource Updated Successfully');
         return redirect('/courseresourse');        

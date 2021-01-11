@@ -16,6 +16,7 @@
           <td>Short Description</td>
           <td>File</td>
           <td>Download</td>
+          <td>Resource</td>
           <td>Action</td>
         </tr>
         @foreach ($cress as $cres)
@@ -36,6 +37,7 @@
               <a href="/resource/edit/{{$cres->id}}" ><button>Edit</button></a>
               <a class="delete" href="javascript:void(0);" data-id="<?php echo $cres->id; ?>"><button>Delete</button></a>
             </td>
+            <td>{{$cres->resource}}</td>
           </tr>
         @endforeach
       </table>
