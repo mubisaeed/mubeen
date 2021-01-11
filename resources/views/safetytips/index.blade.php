@@ -22,7 +22,9 @@
         @else
           <h3 class="mb-0">No Safety Tips Available</h3>
         @endif
-        <button><a href="{{url('/safetytips/create')}}">Add Safety Tip</a></button>
+        @if(Auth::user()->role_id != 5 && Auth::user()->role_id != 6)
+          <button><a href="{{url('/safetytips/create')}}">Add Safety Tip</a></button>
+        @endif
       </div>
       <div class="panel-group" id="accordion">
         @php $counter=0; @endphp 
@@ -38,11 +40,13 @@
                 <div class="panel-body">
                   <p>{{$safetytip->description}}</p>
                 </div>
-                <div class="sftp_edit_del">
-                  <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
-                  </a>
-                  <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
-                </div>
+                @if(Auth::user()->role_id != 5 && Auth::user()->role_id != 6)
+                  <div class="sftp_edit_del">
+                    <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
+                    </a>
+                    <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
+                  </div>
+                @endif
               </div>
             </div>
           @else
@@ -57,11 +61,13 @@
                 <div class="panel-body">
                   <p>{{$safetytip->description}}</p>
                 </div>
-                <div class="sftp_edit_del">
-                  <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
-                  </a>
-                  <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
-                </div>
+                @if(Auth::user()->role_id != 5 && Auth::user()->role_id != 6)
+                  <div class="sftp_edit_del">
+                    <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
+                    </a>
+                    <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
+                  </div>
+                @endif
               </div>
             </div>
           @endif
