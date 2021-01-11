@@ -75,6 +75,8 @@
                       <label>Image<span class="red">*</span></label>
                     </div>
                   </div>
+
+
                   <div class="col-md-12">
                       <div class="custom_input_main select_plugin mobile_field">
                         <select class="selectpicker" name="role">
@@ -106,7 +108,7 @@
                     </div>
                 <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
                       <label>Father name<span class="red">*</span></label>
                     </div>
                     @error('fname')

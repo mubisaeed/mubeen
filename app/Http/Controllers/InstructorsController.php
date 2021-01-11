@@ -23,11 +23,11 @@ class InstructorsController extends Controller
 
     public function create(){
         $user = Auth::user();
-    	return view ('instructors.create', compact('user'));
+        $schools = DB::table('schools')->get()->all();
+    	return view ('instructors.create', compact('user', 'schools'));
     }
 
     public function store(Request $request){
-        // dd($request);
         $this->validate($request, [
             'name'=>'required|min:3|max:50',
             'image'=>'required|max:5000',
@@ -59,7 +59,7 @@ class InstructorsController extends Controller
         $instructor->cnic=$request->cnic;
         $instructor->address=$request->add;
         $instructor->save();
-        $i_sch_data = array(
+            $i_sch_data = array(
             'i_u_id' => $instructor->i_u_id,
             'sch_u_id' => Auth::user()->id,
         ); 

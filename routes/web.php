@@ -96,6 +96,11 @@ Route::post('/course/update/{id}',  [CourseController::class, 'course_update']);
 Route::post('/course/delete',  [CourseController::class, 'destroy']);
 Route::get('search',  [CourseController::class, 'search']);
 
+// dependent dropdown routes for students
+Route::get('/get-instructors', [StudentsController::class, 'get_instructors']);
+Route::get('/get-students', [StudentsController::class, 'get_students']);
+
+
 
 //students crud
 Route::get('/students', [StudentsController::class, 'students'])->name('students');

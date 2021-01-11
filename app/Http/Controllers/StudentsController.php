@@ -17,23 +17,61 @@ class StudentsController extends Controller
 {
     public function students()
     {
-        
     	$user = Auth::user();
         $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->paginate(5);
         // $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
-        return view('students.index', compact('students', 'user'));
+        $schools  = DB::table('schools')->get()->all();
+        return view('students.index', compact('students', 'user', 'check', 'schools'));
+    }
+
+    public function get_instructors(Request $request)
+    {
+        // dd($request->school_id);
+       $instructors = DB::table("instructor_school")
+                    ->where("sch_u_id", $request->sch_u_id)
+                    ->pluck('i_u_id');
+        $instructors = DB::table('instructors')->whereIn('i_u_id', $instructors)->join('users','instructors.i_u_id','=','users.id')->pluck('i_u_id'); 
+        return response()->json($instructors);
+    }
+
+    public function get_students(Request $request)
+    {
+        // dd($request->i_u_id);
+            $output="";
+            $stds = DB::table("instructor_student")
+                    ->where("i_u_id", $request->i_u_id)
+                    ->pluck('s_u_id');
+            $students = DB::table('students')->whereIn('s_u_id', $stds)->join('users','students.s_u_id','=','users.id')->get()->all();
+            // dd($stds);
+            if($students)
+            {
+                foreach ($students as $key => $student)
+                {
+                    $output.='<tr>'.
+                        '<td>'.$student->name.'</td>'.
+                        '<td>'.$student->email.'</td>'.
+                    '</tr>';
+                }
+                return Response($output);
+            }
+        // $cities = DB::table("cities")
+        //             ->where("state_id",$request->state_id)
+        //             ->lists("name","id");
+        // return response()->json($cities);        
     }
 
     public function create()
     {
     	$user = Auth::user();
-    	return view ('students.create', compact('user'));
+        $schools = DB::table('schools')->get()->all();
+        $instructors = DB::table('users')->where('id', 4)->get()->all();
+    	return view ('students.create', compact('user', 'schools', 'instructors'));
     }
     public function store(Request $request)
     {
 		$this->validate($request, [
             'sname' => 'required|min:3|max:20',
-            'fname' => 'required|min:3|max:50',
+            'fname' => 'required|min:1|max:50',
             'phno' => 'required|min:12|max:12',
             'adate' => 'required|date',
             'password' => 'required|string|min:8|confirmed',
@@ -74,10 +112,10 @@ class StudentsController extends Controller
         $sdata->alergy = $request->alergy;
         $sdata->blood_group = $request->blood;
         $sdata->save();
-        $i_s_data = array(
-            's_u_id' => $sdata->s_u_id,
-            'i_u_id' => Auth::user()->id,
-        ); 
+            $i_s_data = array(
+                's_u_id' => $sdata->s_u_id,
+                'i_u_id' => Auth::user()->id,
+            );
         $success = DB::table('instructor_student')->insert($i_s_data);
         if($success){
             Session::flash('message', 'Student saved successfully');
