@@ -69,8 +69,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                       <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
-                      <a class="dropdown-item" href="{{url('resource/download/'.$course->id)}}" target="_blank"> <i class="fa fa-eye"></i>Links</a>
-                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}" target="_blank"> <i class="fa fa-file" aria-hidden="true"></i>Resourses</a>
+                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
+                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
+                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
                       <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a>
                       <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                       <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>

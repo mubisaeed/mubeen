@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResourcesTable extends Migration
+class CreateResourcelinkTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resources', function (Blueprint $table) {
+        Schema::create('resourcelink', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('course_id');
             $table->string('title');
             $table->string('short_description');
-            $table->string('file');
-            $table->string('type');
+            $table->string('resource');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('resourcelink');
     }
 }

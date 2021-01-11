@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\CourseResources;
+use App\ResourceLink;
 use App\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 
-
-class CourseResourcesController extends Controller
+class ResourceLinkController extends Controller
 {
     public function index($id){
         $id = $id;
@@ -44,11 +42,13 @@ class CourseResourcesController extends Controller
     // }
 
     public function Store(Request $req){
+        dd($req);
         $this->validate($req,
          [
         'file' => 'required',
         'title'=>'required|min:3|max:20',
         'short_des'=>'required|min:10|max:5000',
+        'resource'=>'required',
     ]);
         $cress= new CourseResources;
         $cress->course_id=$req->input('course_id');
@@ -60,6 +60,7 @@ class CourseResourcesController extends Controller
         $cress->file=$fileName;
         $fileType =$file->getClientOriginalExtension();
         $cress->type=$fileType;
+        $cress->resource=$req->input('resource');
         $cress->save();
         $id = $req->input('course_id');
         if($cress){
@@ -80,6 +81,7 @@ class CourseResourcesController extends Controller
         $this->validate($request, [
             'title'=>'required|min:3|max:20',
             'short_des'=>'required|min:10|max:5000',
+            'resource'=>'required',
         ]);
 
         $cress = CourseResources::find($id);
@@ -101,6 +103,7 @@ class CourseResourcesController extends Controller
         $cress->short_description=$request->input('short_des');
         $cress->file=$fileName;
         $cress->type=$fileType;
+        $cress->resource=$request->input('resource');
         $cress->save();
         $id = $request->input('course_id');
         Session::flash('message', 'Resource Updated Successfully');
