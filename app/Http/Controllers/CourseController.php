@@ -27,15 +27,22 @@ class CourseController extends Controller
                 'department' => 'required|min:2|max:200',
                 'rno' => 'required',
                 'sdate' => 'required|date',
+                'image' => 'required',
                 'edate' => 'required|date|after_or_equal:sdate',
                 'ccolor' => 'required',
                 'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
+             if ($files = $request->file('image')) {
+            $name=$files->getClientOriginalName();
+            $image = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path() .'/assets/img/upload', $image);
+       }
     	$str = strtolower($request->cname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = array(
             'course_name'=> $request->cname,
+            'image'=> $image,
             'department'=> $request->department,
             'room_number'=> $request->rno,
             'start_date'=> $request->sdate,
@@ -59,15 +66,9 @@ class CourseController extends Controller
     public function course()
     {
     	$user = Auth::user();
-        $courses = DB::table('courses')->get();
+        // $courses = DB::table('courses')->get();
+        $courses = DB::table('courses')->paginate(5);
         return view('courses.index', compact('courses', 'user'));
-    }
-
-    public function get_courses(Request $request)
-    {
-        dd($request->input('page'));
-        $user = Auth::user();
-         return view('courses.index', Users::paginate($request->get('per_page', $request->num)), compact('user'));
     }
 
     public function course_wise_url(Request $request)
@@ -127,10 +128,20 @@ class CourseController extends Controller
                 'sessions' => 'required',
                 'cdescription' => 'required',
             ]);
+        $course = DB::table('courses')->where('id',$id)->get()->first();
+        if ($files = $request->file('image')) {
+            $name=$files->getClientOriginalName();
+            $image = time().'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path() .'/assets/img/upload', $image);
+           }
+           else{
+            $image = $course->image;
+           }
         $str = strtolower($request->cname);
         $slug = preg_replace('/\s+/', '-', $str);
         $data = Course::find($id);
         $data->course_name=$request->input('cname');
+        $data->image=$image;
         $data->department=$request->input('department');
         $data->room_number=$request->input('rno');
         $data->start_date=$request->input('sdate');
@@ -174,7 +185,10 @@ class CourseController extends Controller
 
     public function destroy(Request $request)
     {
-			$id = $request->id;   
+			$id = $request->id;  
+            // $course = DB::table('courses')->where('id',$id)->get()->first();
+            // $path="/assets/img/upload/$course->image";
+            // File::delete($path);
 			DB::table('courses')->where('id',$id)->delete();
             Session::flash('message', 'Course deleted successfully');
     }

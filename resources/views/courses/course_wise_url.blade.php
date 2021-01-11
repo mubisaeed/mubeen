@@ -3,8 +3,9 @@
 
 <div class="breadcrumb_main">
               <ol class="breadcrumb">
-                <li><a href = "#">Home</a></li>
-                <li><a href="#"> All Courses </a> </li>
+                <li><a href = "{{url('/dashboard')}}">Home</a></li>
+                <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+                <li><a href="{{url('/course')}}"> All Courses </a> </li>
                 <li class = "active">View</li>
               </ol>
             </div>
@@ -22,13 +23,13 @@
                 </div>
                 <div class="cv_img_detail">
                   <div class="cv_img">
-                    <img src="{{asset('img/latest/course_view.png')}}" alt="" class="img-fluid main_image_cv">
+                    <img src="{{asset('assets/img/upload/'.$cat->image)}}" alt="" class="img-fluid main_image_cv">
                     <div class="cv_detail">
                     <div class="cv_box">
                       <h4>Details</h4>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/pill1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/pill1.png')}}" alt="" class="img-fluid">
                           <h5>Course ID</h5>
                         </div>
                         <div class="cv_box_rank">
@@ -37,7 +38,7 @@
                       </div>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/department1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/department1.png')}}" alt="" class="img-fluid">
                           <h5>Department</h5>
                         </div>
                         <div class="cv_box_rank">
@@ -46,7 +47,7 @@
                       </div>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/classroom1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/classroom1.png')}}" alt="" class="img-fluid">
                           <h5>Course Color</h5>
                         </div>
                         <div class="cv_box_rank">
@@ -57,7 +58,7 @@
                       </div>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/whiteboard1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/whiteboard1.png')}}" alt="" class="img-fluid">
                           <h5>Room No.</h5>
                         </div>
                         <div class="cv_box_rank">
@@ -66,7 +67,7 @@
                       </div>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/calendar1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/calendar1.png')}}" alt="" class="img-fluid">
                           <h5>Start Date </h5>
                         </div>
                         <div class="cv_box_rank">
@@ -75,7 +76,7 @@
                       </div>
                       <div class="cv_box_detail">
                         <div class="cv_box_img">
-                          <img src="{{asset('img/latest/calendar1.png')}}" alt="" class="img-fluid">
+                          <img src="{{asset('assets/img/latest/calendar1.png')}}" alt="" class="img-fluid">
                           <h5>End Date</h5>
                         </div>
                         <div class="cv_box_rank">

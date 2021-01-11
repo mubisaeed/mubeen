@@ -16,17 +16,18 @@ class InstructorsController extends Controller
 {
     public function index(){
         $user = Auth::user();
-        $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->get()->all();
+        $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->paginate(5);
+        // $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->get()->all();
     	return view ('instructors.index', compact('user', 'instructors'));
     }
 
     public function create(){
         $user = Auth::user();
-    	return view ('instructors.create', compact('user'));
+        $schools = DB::table('schools')->get()->all();
+    	return view ('instructors.create', compact('user', 'schools'));
     }
 
     public function store(Request $request){
-        // dd($request);
         $this->validate($request, [
             'name'=>'required|min:3|max:50',
             'image'=>'required|max:5000',
@@ -39,7 +40,7 @@ class InstructorsController extends Controller
         if ($files = $request->file('image')) {
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();
-            $request->image->move(public_path() .'\img\upload', $imageName);
+            $request->image->move(public_path() .'/assets/img/upload', $imageName);
         }
 
         $udata = new User();
@@ -58,7 +59,7 @@ class InstructorsController extends Controller
         $instructor->cnic=$request->cnic;
         $instructor->address=$request->add;
         $instructor->save();
-        $i_sch_data = array(
+            $i_sch_data = array(
             'i_u_id' => $instructor->i_u_id,
             'sch_u_id' => Auth::user()->id,
         ); 
@@ -76,7 +77,7 @@ class InstructorsController extends Controller
     {
         $id = $request->id;   
         $user = DB::table('users')->where('id',$id)->get()->first();
-        $path="img/upload/$user->image";
+        $path="assets/img/upload/$user->image";
         File::delete($path);
         DB::table('instructor_school')->where('i_u_id',$id)->delete();
         DB::table('instructors')->where('i_u_id',$id)->delete();
@@ -116,7 +117,7 @@ class InstructorsController extends Controller
             @unlink($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/upload'), $imageName);
+            $image->move(public_path() .'/assets/img/upload', $imageName);
            }
            else{
             $imageName = $user->image;

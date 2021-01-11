@@ -10,8 +10,8 @@
 </div>
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New School</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/schoolcreate')}}">Add New School</a></li>
   </ol>
 </div>
 <div class="content_main">
@@ -31,8 +31,36 @@
                 <div class="row">
                   <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control" value="{{old('name',$school->name)}}"  name="name" required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{old('sname',$school->school_name)}}"  name="sname" required="" minlength="3" maxlength ="50" autofocus="">
                       <label>School name<span class="red">*</span></label>
+                    </div>
+                    @error('sname')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                  </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="file" name="simage" value="{{old('simage',$school->school_image)}}"  class="mb-4" accept="image/x-png,image/gif,image/jpeg" autofocus="">
+                      <label>School Image<span class="red">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 p_right">
+                    <div class="custom_input_main mobile_field">
+                      <input type="text" class="form-control" value="{{old('sadd',$school->school_address)}}"  name="sadd" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
+                      <label>School Address<span class="red">*</span></label>
+                    </div>
+                    @error('saddress')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message}}</strong>
+                      </span>
+                    @enderror
+                  </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="text" class="form-control" value="{{old('name',$school->name)}}"  name="name" required="" minlength="3" maxlength ="50" autofocus="">
+                      <label>Owner name<span class="red">*</span></label>
                     </div>
                     @error('name')
                       <span class="invalid-feedback" role="alert">
@@ -54,7 +82,7 @@
                   <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
                       <input type="file" name="image" value="{{old('image',$school->image)}}"  class="mb-4" accept="image/x-png,image/gif,image/jpeg" autofocus="">
-                      <label>Image<span class="red">*</span></label>
+                      <label>Owner Image<span class="red">*</span></label>
                     </div>
                   </div>
                   <div class="col-md-6 p_right">
@@ -101,7 +129,7 @@
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
                       <input type="text" class="form-control" value="{{old('add',$school->address)}}"  name="add" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
-                      <label>Address<span class="red">*</span></label>
+                      <label>Owner Address<span class="red">*</span></label>
                     </div>
                     @error('address')
                       <span class="invalid-feedback" role="alert">
