@@ -1378,7 +1378,7 @@
   margin: 20px 0;
 }
 
-.s_form_button .cncl_btn {
+.s_form_button .cncl_btn  {
   background: #FFFFFF;
   box-shadow: 0px 1px 11px rgba(0, 0, 0, 0.06), 0px 4px 10px rgba(0, 0, 0, 0.14);
   border-radius: 3px;
@@ -1387,6 +1387,7 @@
   font-weight: 500;
   font-size: 14px;
 }
+
 
 .s_form_button .save_btn {
   background: #3366cc;
@@ -1916,4 +1917,29 @@
 }
 .sftp_edit_del a.delete {
   background: #f44336;
+}
+
+
+.example button {
+  float: left;
+  background-color: #4E3E55;
+  color: white;
+  border: none;
+  box-shadow: none;
+  font-size: 17px;
+  font-weight: 500;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 15px 35px;
+  margin: 26px 5px 0 5px;
+  cursor: pointer; 
+}
+.example button:focus{
+  outline: none; 
+}
+.example button:hover{
+  background-color: #33DE23; 
+}
+.example button:active{
+  background-color: #81ccee; 
 }

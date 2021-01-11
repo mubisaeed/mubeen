@@ -13,16 +13,14 @@ class ProfileController extends Controller
     public function show_profile()
     {
     	$user = Auth::user();
-    	return view ('showprofile', compact('user'));
+    	return view ('profile.show', compact('user'));
     }
 
     public function edit_profile()
     {
-        // dd('hlo');
     	$user = Auth::user();
         // $password = Crypt::decrypt($user->password);
-        // dd($password);
-    	return view ('editprofile', compact('user'));
+    	return view ('profile.edit', compact('user'));
     }
 
     public function updateprofile(Request $request, $id)
@@ -51,7 +49,6 @@ class ProfileController extends Controller
         else {
         $password = $user->password;
     }
-        // dd($password);
         $data = User::find($id);
         $data->name=$request->input('name');
         $data->email=$request->input('email');

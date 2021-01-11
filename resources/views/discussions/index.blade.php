@@ -30,10 +30,10 @@
     <td>{{$discussion->id}}</td>
     <td>{{$discussion->title}}</td>
     <td>
-    <img height="50px" width="50px" src="img/discussions/{{$discussion->image}}">
+    <img height="50px" width="50px" src="{{asset('/assets/img/discussions/'.$discussion->image)}}">
     </td>
     <td>{{$discussion->description}}</td>
-    <td><a href="/discussions/edit/{{$discussion->id}}"><button class="btn btn-primary">Edit</button></a>
+    <td><a href="{{url('/discussions/edit/'.$discussion->id)}}"><button class="btn btn-primary">Edit</button></a>
     <a class="delete" href="javascript:void(0);" data-id="<?php echo $discussion->id; ?>"><button class="btn btn-danger">Delete</button></a></td>
     </tr>
     @endforeach

@@ -27,7 +27,7 @@
       <div class="text-left">
         <label class="mb-1"><h6 class="mb-0 text-sm">Image</h6></label> <br>
         <input type="file" name="image"  class="mb-4"  accept="image/x-png,image/gif,image/jpeg">
-        <img class="img-fluid" src="{{asset('/img/upload/'.$about->image)}}" width ="100" height="100">
+        <img class="img-fluid" src="{{asset('/assets/img/upload/'.$about->image)}}" width ="100" height="100">
         @error('image')
           <div>
             {{$message}}

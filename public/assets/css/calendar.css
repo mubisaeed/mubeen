@@ -875,7 +875,16 @@ NOTE: use percentage font sizes or else old IE chokes
 
 /* button layering (for border precedence) */
 .fc-toolbar button {
-  position: relative; }
+  position: relative; 
+  
+
+}
+
+.fc-right .btn-group button {
+  padding: 20px !important;
+  display: flex;
+  align-items: center;
+}
 
 .fc-toolbar .fc-state-hover,
 .fc-toolbar .ui-state-hover {
