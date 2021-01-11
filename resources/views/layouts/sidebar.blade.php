@@ -1,6 +1,6 @@
 @if(Auth::user()->role_id == 1)
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
         <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
@@ -8,7 +8,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/assets/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -208,7 +208,7 @@
 
 @elseif(Auth::user()->role_id == 3)
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
         <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
@@ -216,7 +216,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/assets/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -324,7 +324,7 @@
 
 @elseif(Auth::user()->role_id == 4)
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
         <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
@@ -332,7 +332,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/assets/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -428,7 +428,7 @@
 
 @elseif(Auth::user()->role_id == 5)
   <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('img/sidebar-1.jpg')}}">
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
       <div class="logo"><a href="{{url('/dashboard')}}" class="simple-text logo-normal">
         <img src="{{asset('/assets/img/latest/logo.png')}}" alt="" class="img-fluid">
       </a>
@@ -436,7 +436,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <div class="admin_image text-center">
-          <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
+          <img src="{{asset('/assets/img/upload/'.$user->image)}}" alt="" class="admin_pic img-fluid">
           <h3>{{$user->name}}</h3>
           <li class="arrow_dropdown dropdown">
             <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

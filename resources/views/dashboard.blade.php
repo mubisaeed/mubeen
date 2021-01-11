@@ -282,7 +282,7 @@
                         @if($st->image == null)
                           <img src="{{asset('/assets/img/man.png')}}" width="50" alt="">
                         @else
-                          <img src="{{asset('/img/upload/'.$st->image)}}" width="50" alt="">
+                          <img src="{{asset('/assets/img/upload/'.$st->image)}}" width="50" alt="">
                         @endif
                         <a href="{{url('/chatbox/'.$st->id)}}">
                           <div class="ib_text">
@@ -315,7 +315,7 @@
                     ?>
                     @if(count($messages) > 0)
                       <div class="ib_img">
-                        <img src="{{asset('/img/upload/'.$ins->image)}}" width="50" alt="">
+                        <img src="{{asset('/assets/img/upload/'.$ins->image)}}" width="50" alt="">
                         <a href="{{url('/chatbox/'.$ins->id)}}">
                           <div class="ib_text">
                             <h4>{{$ins->name}}</h4>

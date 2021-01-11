@@ -2,7 +2,7 @@
 @section('content')
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
-      <li><a href = "/dashboard">Home</a></li>
+      <li><a href = "{{url('/dashboard')}}">Home</a></li>
       <li class = "active">Add a New Safety Tip</li>
     </ol>
   </div>  
@@ -15,7 +15,7 @@
             @foreach ($errors->all() as $error)
               <div class="alert alert-danger">{{ $error }}</div>
             @endforeach
-            <form method="POST" action="/safetytips/create" enctype="multipart/form-data">
+            <form method="POST" action="{{url('/safetytips/create')}}" enctype="multipart/form-data">
               @csrf
               <div class="tab-pane active" id="tab_default_3">
                 <div class="s_profile_fields">
@@ -36,7 +36,7 @@
                     </div>
                   </div>
                   <div class="s_form_button text-center">
-                    <a href="/safetytips" class="btn cncl_btn">Cancel</a>
+                    <a href="{{url('/safetytips')}}" class="btn cncl_btn">Cancel</a>
                     <button type="submit" class="btn save_btn">Save</button>
                   </div>
                 </div>

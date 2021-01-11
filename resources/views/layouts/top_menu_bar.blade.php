@@ -1,11 +1,11 @@
 <div class="header_2">
   <div class="main_heding">
     <div class="hed_img">
-      <img src="{{asset('img/latest/DouglasElem_63471360.png')}}" alt="" class="img-fluid">
+      <img src="{{asset('/assets/img/latest/DouglasElem_63471360.png')}}" alt="" class="img-fluid">
       <h3>{{$user->name}} Dashboard</h3>
     </div>
     <div class="live_button">
-      <button type="button"><img src="{{asset('img/latest/man-talking.png')}}" alt="" class="img-fluid">Live Instructor</button>
+      <button type="button"><img src="{{asset('/assets/img/latest/man-talking.png')}}" alt="" class="img-fluid">Live Instructor</button>
     </div>
   </div>
   <div class="top_menu_bar">
@@ -17,7 +17,7 @@
       </div>
       <div class="col-md-2">
         <div class="top_menu_link @if(Request::segment(1) == 'course')  active_link arrow_box @endif ">
-          <a href="{{url('/course')}}">Cources</a>
+          <a href="{{url('/course')}}">Courses</a>
         </div>
       </div>
       <div class="col-md-3">

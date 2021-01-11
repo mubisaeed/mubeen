@@ -4,7 +4,7 @@
   <div>
     <h3>Edit Room</h3>
     <hr>
-    <form method="POST" action="/rooms/edit/{{$room->id}}" enctype="multipart/form-data">
+    <form method="POST" action="{{url('/rooms/edit/'.$room->id)}}" enctype="multipart/form-data">
       @csrf
       @method('PUT')
       <label for="name">Enter Name:</label>
@@ -33,7 +33,7 @@
       <br><br>
       <div class="footer pull-right">
       <button class="btn btn-success" type="submit">Update</button>
-      <a href="/rooms" class="btn btn-default">Cancel</a>
+      <a href="{{url('/rooms')}}" class="btn btn-default">Cancel</a>
       </div>
     </form>
   </div>

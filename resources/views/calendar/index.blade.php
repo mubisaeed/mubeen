@@ -1,5 +1,5 @@
 @extends('layouts.app')
-<link href="../assets/css/calendar.css" rel="stylesheet" />
+<link href="{{asset('/assets/css/calendar.css')}}" rel="stylesheet" />
 @section('content')
             <div class="breadcrumb_main">
               <ol class="breadcrumb">

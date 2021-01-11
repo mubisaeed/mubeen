@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login || Dummy</title>
+        <title>Grecon - Login</title>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <!-- jQuery library -->
@@ -26,7 +26,7 @@
                     </div>
                     
                     <div class="col-lg-6">
-                        <form method="POST" action="/loginuser">
+                        <form method="POST" action="{{url('/loginuser')}}">
                             @csrf
                             <div class="card2 card border-0 px-4 py-5">
                                 <div class="login_text">

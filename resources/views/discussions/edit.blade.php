@@ -18,7 +18,7 @@
       <div class="text-left">
       <label for="image">Upload an image:</label>
       <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
-      <img height="100px" width="100px" src="{{asset('img/discussions/'.$discussion->image)}}">
+      <img height="100px" width="100px" src="{{asset('assets/img/discussions/'.$discussion->image)}}">
       @error('image')
       <div>
         {{$message}}
@@ -35,7 +35,7 @@
       <br><br><br>
       <div class="footer pull-right">
       <input class="btn btn-primary" type="submit" value="Update">
-      <a class="btn btn-default" href="/discussions">Cancel</a>
+      <a class="btn btn-default" href="{{url('/discussions')}}">Cancel</a>
       </div>
     </form>
   </div>
