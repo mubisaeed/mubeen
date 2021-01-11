@@ -4,7 +4,7 @@
   <div>
     <h3>Add new Room</h3>
     <hr>
-    <form method="POST" action="/rooms/create" enctype="multipart/form-data">
+    <form method="POST" action="{{url('/rooms/create')}}" enctype="multipart/form-data">
       @csrf
       <label style="color: black" for="name">Enter Name:</label>
       <input class="form-control" type="text" name="name" value="{{old('name')}}" required minlength="3" maxlength="255">
@@ -32,7 +32,7 @@
       <br><br>
       <div class="footer pull-right">
       <button class="btn btn-success" type="submit">Add</button>
-      <a href="/rooms" class="btn btn-default">Cancel</a>
+      <a href="{{url('/rooms')}}" class="btn btn-default">Cancel</a>
       </div>
     </form>
   </div>

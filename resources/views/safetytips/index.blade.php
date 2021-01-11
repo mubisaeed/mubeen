@@ -10,7 +10,7 @@
   </div>
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
-      <li><a href = "/dashboard">Home</a></li>
+      <li><a href = "{{url('/dashboard')}}">Home</a></li>
       <li class = "active">Grecon Safety Tips</li>
     </ol>
   </div>
@@ -22,7 +22,7 @@
         @else
           <h3 class="mb-0">No Safety Tips Available</h3>
         @endif
-        <button><a href="/safetytips/create">Add Safety Tip</a></button>
+        <button><a href="{{url('/safetytips/create')}}">Add Safety Tip</a></button>
       </div>
       <div class="panel-group" id="accordion">
         @php $counter=0; @endphp 
@@ -41,7 +41,7 @@
                 <div class="sftp_edit_del">
                   <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
                   </a>
-                  <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+                  <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@
                 <div class="sftp_edit_del">
                   <a class="delete" href="javascript:void(0);" data-id="<?php echo $safetytip->id; ?>">Delete
                   </a>
-                  <a href="/safetytips/edit/{{$safetytip->id}}">Edit</a>
+                  <a href="{{url('/safetytips/edit/'.$safetytip->id)}}">Edit</a>
                 </div>
               </div>
             </div>
