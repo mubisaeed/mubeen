@@ -3,8 +3,8 @@
 
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Student</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/studentcreate')}}">Add New Student</a></li>
   </ol>
 </div>
 <div id="message">
@@ -40,9 +40,11 @@
             <thead>
               <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
+                <th scope="col">Students</th>
                 <th scope="col">Email</th>
-                <th scope="col">Image</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Admission Date</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -51,18 +53,19 @@
               <tr>
                 <?php
                   $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
+                  $stdd = DB::table('students')->where('s_u_id', $std->s_u_id)->get()->first();
                 ?>
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
-                    <!-- <img src="{{asset('img/latest/Simple03.png')}}" alt="" class="img-fluid"> -->
+                    <img src="{{asset('assets/img/upload/'.$st->image)}}" width="50" alt="" class="img-fluid">
                     <p>{{$st->name}}</p>
                   </div>
                 </td>
                 <td class="first_row">{{$st->email}}</td>
-                <td class="first_row">
-                  <img src="{{asset('/img/upload/'.$st->image)}}" width ="100" >
-                </td>
+                <td class="first_row">{{$st->contact}}</td>
+                <td class="first_row">{{$stdd->gender}}</td>
+                <td class="first_row">{{date('d-m-Y', strtotime($stdd->admission_date))}}</td>
                 <td class="align_ellipse first_row">
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -82,7 +85,8 @@
               @endforeach
             </tbody>
           </table>   
-          <div class="table_footer">
+          {{ $students->links() }}
+<!--           <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager">
@@ -106,7 +110,7 @@
                 </select>
               </div>
             </div>
-          </div>
+          </div> -->
          @else
           <p>There is no Student</p>
         @endif

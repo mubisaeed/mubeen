@@ -11,8 +11,8 @@
 </div>
   <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Student</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/studentcreate')}}">Add New Student</a></li>
   </ol>
 </div>
 <div class="content_main">
@@ -83,6 +83,27 @@
                         <label class="select_lable">Role</label>
                       </div>
                   </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="date" class="form-control" name="adate" value="{{old('adate')}}" onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
+                      <label>Admission Date
+                        <span class="red">*</span></label>
+                      </div>
+                    </div>
+                    <div class="row px-3"> 
+                      <label class="mb-1">
+                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Gender</h6>
+                      </label> 
+                      <label class="mb-1">
+                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Male</h6>
+                      <input type="radio" value="male" name="gender" class="mb-4" checked="checked">
+                      </label> 
+                      <label class="mb-1">
+                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Female</h6>
+                      <input type="radio" value="female" name="gender" class="mb-4">
+                      </label> 
+                          
+                    </div>
                 <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
                       <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
@@ -140,7 +161,7 @@
                   </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control" value="{{ old('rno')}}" name="rno" required="" minlength="3" maxlength ="200" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('rno')}}" name="rno" required="" minlength="1" maxlength ="200" autofocus="">
                       <label>Roll No<span class="red">*</span></label>
                     </div>
                     @error('rno')

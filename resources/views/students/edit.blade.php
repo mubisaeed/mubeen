@@ -11,8 +11,8 @@
 </div>
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Student</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/studentcreate')}}">Add New Student</a></li>
   </ol>
 </div>
 <div class="content_main">
@@ -57,6 +57,27 @@
                       <input type="file" name="image" value="{{old('image',$student->image)}}"  class="mb-4" accept="image/x-png,image/gif,image/jpeg" autofocus="">
                       <label>Image<span class="red">*</span></label>
                     </div>
+                  </div>
+                   <div class="col-md-6 p_left">
+                      <div class="custom_input_main mobile_field">
+                        <input type="date" class="form-control" name="adate" value="{{old('adate',$student->admission_date)}}"  onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
+                        <label>Admission Date
+                          <span class="red">*</span></label>
+                        </div>
+                      </div>
+                      <div class="row px-3"> 
+                        <label class="mb-1">
+                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Gender</h6>
+                        </label> 
+                        <label class="mb-1">
+                            <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Male</h6>
+                        <input type="radio"  name="gender" value="male" {{ (isset($student->gender) && $student->gender == 'male') ? 'checked' : '' }}>
+                        </label> 
+                        <label class="mb-1">
+                            <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Female</h6>
+                        <input type="radio" name="gender" value="no" {{ (isset($student->gender) && $student->gender == 'female') ? 'checked' : '' }}>
+                        </label> 
+                        
                   </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
@@ -123,7 +144,7 @@
                   </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control"  name="rno" value="{{old('rno',$student->rollno)}}" required="" minlength="3" maxlength ="200" autofocus="">
+                      <input type="text" class="form-control"  name="rno" value="{{old('rno',$student->rollno)}}" required="" minlength="1" maxlength ="200" autofocus="">
                       <label>Roll No<span class="red">*</span></label>
                     </div>
                     @error('rno')
@@ -150,11 +171,11 @@
                     </label> 
                     <label class="mb-1">
                         <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Yes</h6>
-                    <input type="radio" value="yes" name="diabetes" {{ (isset($student->diabetes) && $student->diabetes == 'yes') ? 'checked' : '' }} class="mb-4" >
+                    <input type="radio"  name="diabetes" value="yes" {{ (isset($student->diabetes) && $student->diabetes == 'yes') ? 'checked' : '' }}>
                     </label> 
                     <label class="mb-1">
                         <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">No</h6>
-                    <input type="radio" value="no" {{ (isset($student->diabetes) && $student->diabetes == 'no') ? 'checked' : '' }} name="diabetes" class="mb-4">
+                    <input type="radio" name="diabetes" value="no" {{ (isset($student->diabetes) && $student->diabetes == 'no') ? 'checked' : '' }}>
                     </label> 
                         
                   </div>
@@ -174,7 +195,7 @@
                   </div>
 
                   <div class="s_form_button text-center">
-                      <a  href="{{url('/student')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                      <a  href="{{url('/students')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
                       <button type="submit" class="btn save_btn">Update</button>
                     </div>
                   </div>

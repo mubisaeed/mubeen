@@ -34,8 +34,8 @@
 
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Course</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
   </ol>
 </div>
 <div class="content_main">
@@ -63,6 +63,12 @@
                       <strong>{{ $cname }}</strong>
                       </span>
                     @enderror
+                  </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+                      <label>Image<span class="red">*</span></label>
+                    </div>
                   </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
@@ -92,7 +98,7 @@
 
                     <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control"  value="{{ old('rno')}}" name="rno"  required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control"  value="{{ old('rno')}}" name="rno"  required="" minlength="1" maxlength ="50" autofocus="">
                       <label>Room No.
                         <span class="red">*</span></label>
                       </div>

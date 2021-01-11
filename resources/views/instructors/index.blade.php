@@ -3,8 +3,8 @@
 
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Instructor</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/instructors/create')}}">Add New Instructor</a></li>
   </ol>
 </div>
 <div id="message">
@@ -42,7 +42,6 @@
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Image</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -55,13 +54,14 @@
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
+                    <img src="{{asset('assets/img/upload/'.$ins->image)}}" width="50" alt="" class="img-fluid">
                     <p>{{$ins->name}}</p>
                   </div>
                 </td>
                 <td class="first_row">{{$ins->email}}</td>
-                <td class="first_row">
-                  <img src="{{asset('/img/upload/'.$ins->image)}}" width ="100" >
-                </td>
+                <!-- <td class="first_row">
+                  <img src="{{asset('/assets/img/upload/'.$ins->image)}}" width ="100" >
+                </td> -->
                 <td class="align_ellipse first_row">
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,8 +80,9 @@
               </tr>
               @endforeach
             </tbody>
-          </table>   
-          <div class="table_footer">
+          </table>  
+          {{ $instructors->links() }} 
+         <!--  <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager">
@@ -105,7 +106,7 @@
                 </select>
               </div>
             </div>
-          </div>
+          </div> -->
          @else
           <p>There is no Instructor</p>
         @endif

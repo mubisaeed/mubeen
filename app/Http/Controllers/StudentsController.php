@@ -19,7 +19,8 @@ class StudentsController extends Controller
     {
         
     	$user = Auth::user();
-        $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
+        $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->paginate(5);
+        // $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
         return view('students.index', compact('students', 'user'));
     }
 
@@ -34,6 +35,7 @@ class StudentsController extends Controller
             'sname' => 'required|min:3|max:20',
             'fname' => 'required|min:3|max:50',
             'phno' => 'required|min:12|max:12',
+            'adate' => 'required|date',
             'password' => 'required|string|min:8|confirmed',
             'image' => 'required',
             'cnic' => 'required|min:13|max:15',
@@ -41,12 +43,13 @@ class StudentsController extends Controller
             'class' => 'required|min:3|max:20',
             'diabetes' => 'required',
             'alergy' => 'required',
+            'gender' => 'required',
             'rno' => 'required',
         ]);
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
+            $request->image->move(public_path() .'/assets/img/upload', $image);
        }
         $udata = new User();
         $udata->name=$request->input('sname');
@@ -61,7 +64,9 @@ class StudentsController extends Controller
         $sdata->s_u_id = $udata->id;
         $sdata->father_name = $request->fname;
         $sdata->cnic = $request->cnic;
+        $sdata->admission_date = $request->adate;
         $sdata->phone = $request->phno;
+        $sdata->gender = $request->gender;
         $sdata->address = $request->add;
         $sdata->class = $request->class;
         $sdata->rollno = $request->rno;
@@ -102,6 +107,7 @@ class StudentsController extends Controller
             'sname' => 'required|min:3|max:20',
             'fname' => 'required|min:3|max:50',
             'phno' => 'required|min:12|max:12',
+            'adate' => 'required|date',
             'cnic' => 'required|min:13|max:15',
             'add' => 'required|min:3|max:200',
             'class' => 'required|min:3|max:20',
@@ -114,7 +120,7 @@ class StudentsController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
+            $request->image->move(public_path() .'/assets/img/upload', $image);
            }
            else{
             $image = $user->image;
@@ -131,6 +137,8 @@ class StudentsController extends Controller
             $data->phone=$request->input('phno');
             $data->cnic=$request->input('cnic');
             $data->address=$request->input('add');
+            $data->admission_date=$request->input('adate');
+            $data->gender=$request->input('gender');
             $data->class=$request->input('class');
             $data->rollno=$request->input('rno');
             $data->blood_group=$request->input('blood');
@@ -144,7 +152,7 @@ class StudentsController extends Controller
       {
           $id = $request->id;   
           $user = DB::table('users')->where('id',$id)->get()->first();
-          $path="img/upload/$user->image";
+          $path="assets/img/upload/$user->image";
           File::delete($path);
           DB::table('instructor_student')->where('s_u_id',$id)->delete();
           DB::table('students')->where('s_u_id',$id)->delete();

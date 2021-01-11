@@ -11,8 +11,8 @@
 </div>
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Instructor</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/instructors/create')}}">Add New Instructor</a></li>
   </ol>
 </div>
 <div class="content_main">
