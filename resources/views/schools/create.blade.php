@@ -8,8 +8,8 @@
 @endif 
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New School</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/schoolcreate')}}">Add New School</a></li>
   </ol>
 </div>
 <div class="content_main">
@@ -29,7 +29,7 @@
                 <div class="row">
                   <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
-                      <input type="text" class="form-control" value="{{ old('name')}}" name="name" required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('sname')}}" name="sname" required="" minlength="3" maxlength ="50" autofocus="">
                       <label>School name<span class="red">*</span></label>
                     </div>
                     @error('name')
@@ -38,10 +38,38 @@
                       </span>
                     @enderror
                   </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="file" name="simage" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+                      <label>School Image<span class="red">*</span></label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 p_right">
+                    <div class="custom_input_main mobile_field">
+                      <input type="text" class="form-control" value="{{ old('sadd')}}" name="sadd" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
+                      <label>School Address<span class="red">*</span></label>
+                    </div>
+                    @error('name')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                  </div>
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <input type="text" class="form-control" value="{{ old('name')}}" name="name" required="" minlength="3" maxlength ="50" autofocus="">
+                      <label>Owner name<span class="red">*</span></label>
+                    </div>
+                    @error('oname')
+                      <span class="invalid-feedback" role="alert">
+                      <strong>{{ $message }}</strong>
+                      </span>
+                    @enderror
+                  </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
                       <input type="email" class="form-control" name="email" value="{{old('email')}}" required maxlength="255"autofocus="">
-                      <label>Email<span class="red">*</span></label>
+                      <label>Owner Email<span class="red">*</span></label>
                     </div>
                     @error('email')
                       <span class="invalid-feedback" role="alert">
@@ -69,7 +97,7 @@
                   <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
                       <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
-                      <label>Image<span class="red">*</span></label>
+                      <label>Owner Image<span class="red">*</span></label>
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -116,7 +144,7 @@
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
                       <input type="text" class="form-control" value="{{ old('add')}}" name="add" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
-                      <label>Address<span class="red">*</span></label>
+                      <label>Owner Address<span class="red">*</span></label>
                     </div>
                     @error('name')
                       <span class="invalid-feedback" role="alert">

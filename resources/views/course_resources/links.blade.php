@@ -8,7 +8,8 @@
     @endif
   </div>
 
-    <form action="{{url('/resource/create')}}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('/linkcreate')}}" method="POST" enctype="multipart/form-data">
+
     
     {{@csrf_field()}}
     <input type="hidden" name="course_id" value="{{$id}}">    
@@ -24,7 +25,7 @@
     <div class="info">
 
     <label for="title">Title:</label><br>
-    <input type="text" name="title" value="{{old('title')}}" required="" minlength="3" maxlength ="50" autofocus=""><br><br>
+    <input type="text" name="title" value="{{old('title')}}" minlength="3" maxlength ="50" autofocus=""><br><br>
 
       @error('title')
       <div>
@@ -33,7 +34,7 @@
       @enderror
 
     <label for="short_des">Short Description:</label><br>
-    <textarea name="short_des" rows="4" cols="50" value="{{old('short_des')}}" minlength="10" maxlength ="1000"></textarea><br><br>
+    <input type="text" name="short_des" value="{{old('short_des')}}" minlength="10" maxlength ="1000"><br><br>
 
       @error('short_des')
       <div>
@@ -41,25 +42,16 @@
       </div>
       @enderror
 
-    <label for="file">File:</label><br>
-    <input id="file" type="file" name="file" accept="application/pdf,application/vnd.ms-excel/application/vnd.ms-doc" size="max:10240"><br><br>
+    <label for="link">Link:</label><br>
+    <input type="url" name="link" value="{{old('link')}}" size="max:10240"><br><br>
 
-      @error('file')
+      @error('link')
       <div>
         {{$message}}
       </div>
       @enderror
 
-    {{-- <label for="resource">Resource:</label><br>
-    <input type="url" name="resource" value="{{old('resource')}}" size="max:10240"><br><br>
-
-      @error('resource')
-      <div>
-        {{$message}}
-      </div>
-      @enderror --}}
-
-    <button class="btn btn-success" type="submit">Submit</button>
+    <button type="submit">Submit</button>
   </form>
 
 <script>
@@ -84,7 +76,7 @@ uploadField.onchange = function() {
       <div class="course card-header card-header-warning card-header-icon">
         
         <h3>Course Resources</h3>
-        @if(count($cresources)>0)
+        @if(count($courselink)>0)
           <div class="table_filters">
             <div class="table_search">
               <input type="text" name="search" id="search" value="" placeholder="Search...">
@@ -105,27 +97,22 @@ uploadField.onchange = function() {
                 <th scope="col">ID</th>
                 <th scope="col">Title</th>
                 <th scope="col">Short Description</th>
-                <th scope="col">File</th>
-                <th scope="col">Download</th>
+                <th scope="col">Resource</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($cresources as $index =>$cr)
+              @foreach($courselink as $index =>$cl)
               <tr>
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
                     <!-- <img src="{{asset('img/latest/Simple03.png')}}" alt="" class="img-fluid"> -->
-                    <p>{{$cr->title}}</p>
+                    <p>{{$cl->title}}</p>
                   </div>
                 </td>
-                <td class="first_row">{{$cr->short_description}}</td>
-                @if ($cr->type=='pdf')
-                  <td class="first_row"><embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf"  
-                  height="80" width="80" download></td>
-                @endif
-                <td class="first_row"><a href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td>
+                <td class="first_row">{{$cl->short_description}}</td>
+                <td class="first_row"><a href="{{$cl->link}}">{{$cl->link}}</a></td>
                 <td class="align_ellipse first_row">
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -135,8 +122,8 @@ uploadField.onchange = function() {
                       <div class="ripple-container"></div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                      <a class="dropdown-item" href="{{url('/resource/edit/' . $cr->id)}}"><i class="fa fa-cogs"></i>Edit</a>
-                      <a href="javascript:void(0);" data-id="<?php echo $cr->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
+                      <a class="dropdown-item" href="{{url('/linkedit/' . $cl->id.'/'.$id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                      <a href="javascript:void(0);" data-id="<?php echo $cl->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
                     </div>
                   </li>
                 </td>
@@ -206,7 +193,7 @@ uploadField.onchange = function() {
   $.ajax( {
   type: 'get',
 
-  url: '<?php echo url("/deleteres/{id}"); ?>',
+  url: '<?php echo url("/linkdelete/{id}"); ?>',
   data: form_data,
   success: function ( msg ) {
   swal( "@lang('Resourse Deleted')", '', 'success' )

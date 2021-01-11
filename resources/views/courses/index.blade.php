@@ -2,8 +2,8 @@
 @section('content')
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
-    <li><a href = "#">Home</a></li>
-    <li class = "active">Add New Course</li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
   </ol>
 </div>
 <div id="message">
@@ -52,7 +52,7 @@
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
-                    <!-- <img src="{{asset('img/latest/Simple03.png')}}" alt="" class="img-fluid"> -->
+                    <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
                     <p>{{$course->course_name}}</p>
                   </div>
                 </td>
@@ -69,8 +69,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                       <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
-                      <a class="dropdown-item" href="{{url('resource/download/'.$course->id)}}" target="_blank"> <i class="fa fa-eye"></i>Links</a>
-                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}" target="_blank"> <i class="fa fa-file" aria-hidden="true"></i>Resourses</a>
+                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
+                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
+                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
                       <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a>
                       <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                       <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
@@ -81,7 +82,8 @@
               @endforeach
             </tbody>
           </table>   
-          <div class="table_footer">
+            {{ $courses->links() }}
+<!--           <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager">
@@ -96,19 +98,17 @@
               </nav>
             </div>
             <div class="table_rows">
-              <form action="/getcourses">
                 <div class="rows_main">
                   <p>Rows per page</p>
-                  <select name="page">
+                  <select>
                     <option value="6">6</option>
                     <option value="7">7</option>
                     <option value="8">8</option>
                   </select>
                 </div>
                 <input type="submit" value="pagenate"/>
-              </form>
             </div>
-          </div>
+          </div> -->
          @else
           <p>There is no Course</p>
         @endif
