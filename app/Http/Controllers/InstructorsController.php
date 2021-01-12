@@ -113,7 +113,7 @@ class InstructorsController extends Controller
         
         $user = DB::table('users')->where('id',$instructor->i_u_id)->get()->first();
         if ($files = $request->file('image')) {
-            $path="img/upload/$user->image";
+            $path="assets/img/upload/$user->image";
             @unlink($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  

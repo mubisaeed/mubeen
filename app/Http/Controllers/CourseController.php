@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Course;
+use File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -36,6 +37,7 @@ class CourseController extends Controller
              if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
+            // $request->image->move(public_path('storage/'), $image);
             $request->image->move(public_path() .'/assets/img/upload', $image);
        }
     	$str = strtolower($request->cname);
@@ -91,6 +93,7 @@ class CourseController extends Controller
             'course_name'=> $oldcourse->course_name,
             'department'=> $oldcourse->department,
             'room_number'=> $oldcourse->room_number,
+            'image'=> $oldcourse->image,
             'start_date'=> $oldcourse->start_date,
             'end_date'=> $oldcourse->end_date,
             'course_color'=> $oldcourse->course_color,
@@ -131,8 +134,11 @@ class CourseController extends Controller
             ]);
         $course = DB::table('courses')->where('id',$id)->get()->first();
         if ($files = $request->file('image')) {
+            $path="assets/img/upload/$course->image";
+            @unlink($path);
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
+            // $request->image->move(public_path('storage/'), $image);
             $request->image->move(public_path() .'/assets/img/upload', $image);
            }
            else{
@@ -161,35 +167,13 @@ class CourseController extends Controller
             return redirect()->back()->with('alert', 'Update Unsuccessfuly');
         }
     }
-    public function search(Request $request)
-    {
-        if($request->ajax())
-        {
-            $output="";
-            $courses=DB::table('courses')->where('course_name','LIKE','%'.$request->search."%")->get();
-            if($courses)
-            {
-                foreach ($courses as $key => $course)
-                {
-                    $output.='<tr>'.
-                        '<td>'.$course->id.'</td>'.
-                        '<td>'.$course->course_name.'</td>'.
-                        '<td>'.$course->start_date - $course->end_date.'</td>'.
-                        '<td>'.$course->department.'</td>'.
-                        '<td>'.$course->room_number.'</td>'.
-                    '</tr>';
-                }
-                return Response($output);
-            }
-        }
-    }
 
     public function destroy(Request $request)
     {
 			$id = $request->id;  
-            // $course = DB::table('courses')->where('id',$id)->get()->first();
-            // $path="/assets/img/upload/$course->image";
-            // File::delete($path);
+            $course = DB::table('courses')->where('id',$id)->get()->first();
+            $path="/assets/img/upload/$course->image";
+            File::delete($path);
 			DB::table('courses')->where('id',$id)->delete();
             Session::flash('message', 'Course deleted successfully');
     }

@@ -7,6 +7,13 @@
     <li class = "active">Add Quizzes/Tests</li>
   </ol>
 </div> 
+<div id="message">
+	@if (Session::has('message'))
+	    <div class="alert alert-info">
+	    {{ Session::get('message') }}
+	    </div>
+	@endif  
+</div>
 <div class="content_main">
   <div class="card-header assesment_main">
     <h3>Add Quizzes/Tests</h3>
@@ -46,6 +53,10 @@
 		                        <input type="text" class="form-control" name="opt1" value="{{old('opt1')}}" required="" autofocus="">
 		                        <label>Option - 1.
 		                          <span class="red">*</span></label>
+		                          <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="opt1" name="correct" class="btn" checked="checked"/>
+		                    </div>
 		                      </div>
 		                    </div>
 		                    <div class="col-md-12">
@@ -53,6 +64,10 @@
 		                        <input type="text" class="form-control" name="opt2" value="{{old('opt2')}}" required="" autofocus="">
 		                        <label>Option - 2.
 		                          <span class="red">*</span></label>
+		                          <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="opt2" name="correct" class="btn"/>
+		                    </div>
 		                      </div>
 		                    </div>
 		                    <div class="col-md-12">
@@ -60,6 +75,10 @@
 		                        <input type="text" class="form-control" name="opt3" value="{{old('opt3')}}" required="" autofocus="">
 		                        <label>Option - 3.
 		                          <span class="red">*</span></label>
+		                          <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="opt3" name="correct" class="btn" />
+		                    </div>
 		                      </div>
 		                    </div>
 		                    <div class="col-md-12">
@@ -67,6 +86,10 @@
 		                        <input type="text" class="form-control" name="opt4" value="{{old('opt4')}}" required="" autofocus="">
 		                        <label>Option - 4.
 		                          <span class="red">*</span></label>
+		                          <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="opt4" name="correct" class="btn"/>
+		                    </div>
 		                      </div>
 		                    </div>
 		                  </div>
@@ -74,7 +97,23 @@
 		                    <div class="quiz_ans">
 		                      <h4>Answer</h4>
 		                    </div>
+		                    <!-- <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="correct" name="correct" class="btn" checked="checked"/>
+		                    </div>
 		                    <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="correct" name="correct" class="btn"/>
+		                    </div>
+		                    <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="correct" name="correct" class="btn"/>
+		                    </div>
+		                    <div class="cr_btn">
+		                    	<label>Correct</label>
+		                      <input type="radio" value="correct" name="correct" class="btn"/>
+		                    </div> -->
+		                    <!-- <div class="cr_btn">
 		                      <button type="button" class="btn">Correct</button>
 		                    </div>
 		                    <div class="cr_btn active_cr_btn">
@@ -85,7 +124,7 @@
 		                    </div>
 		                    <div class="cr_btn">
 		                      <button type="button" class="btn">Correct</button>
-		                    </div>
+		                    </div> -->
 		                  </div>
 		                  <div class="save_next_btn text-center w-100">
 		                  <button type="submit" class="btn">Save and next</button>
@@ -105,4 +144,9 @@
 <script>
   CKEDITOR.replace( 'txtEditor' );
 </script>
+   <script type="text/javascript">
+      setTimeout(function() {
+        $('#message').fadeOut('fast');
+    }, 2000);
+    </script> 
 @endsection

@@ -21,43 +21,7 @@ class StudentsController extends Controller
         $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->paginate(5);
         // $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
         $schools  = DB::table('schools')->get()->all();
-        return view('students.index', compact('students', 'user', 'check', 'schools'));
-    }
-
-    public function get_instructors(Request $request)
-    {
-        // dd($request->school_id);
-       $instructors = DB::table("instructor_school")
-                    ->where("sch_u_id", $request->sch_u_id)
-                    ->pluck('i_u_id');
-        $instructors = DB::table('instructors')->whereIn('i_u_id', $instructors)->join('users','instructors.i_u_id','=','users.id')->pluck('i_u_id'); 
-        return response()->json($instructors);
-    }
-
-    public function get_students(Request $request)
-    {
-        // dd($request->i_u_id);
-            $output="";
-            $stds = DB::table("instructor_student")
-                    ->where("i_u_id", $request->i_u_id)
-                    ->pluck('s_u_id');
-            $students = DB::table('students')->whereIn('s_u_id', $stds)->join('users','students.s_u_id','=','users.id')->get()->all();
-            // dd($stds);
-            if($students)
-            {
-                foreach ($students as $key => $student)
-                {
-                    $output.='<tr>'.
-                        '<td>'.$student->name.'</td>'.
-                        '<td>'.$student->email.'</td>'.
-                    '</tr>';
-                }
-                return Response($output);
-            }
-        // $cities = DB::table("cities")
-        //             ->where("state_id",$request->state_id)
-        //             ->lists("name","id");
-        // return response()->json($cities);        
+        return view('students.index', compact('students', 'user', 'schools'));
     }
 
     public function create()
@@ -156,6 +120,8 @@ class StudentsController extends Controller
         $student = DB::table('students')->where('id',$id)->get()->first();
         $user = DB::table('users')->where('id',$student->s_u_id)->get()->first();
         if ($files = $request->file('image')) {
+            $path="assets/img/upload/$user->image";
+            @unlink($path);
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
             $request->image->move(public_path() .'/assets/img/upload', $image);
