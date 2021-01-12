@@ -22,7 +22,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UserGuideController;
-use App\Http\Controllers\QuizzesController;
+use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -48,7 +48,12 @@ Route::get('/userguide', [UserGuideController::class, 'index']);
 
 
 //Quizzes routes
-Route::get('/quizzes/create', [QuizzesController::class, 'create']);
+Route::get('/quizzes/create', [QuestionsController::class, 'create']);
+Route::get('/mcq/create', [QuestionsController::class, 'mcqcreate']);
+Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
+Route::get('/tf/create', [QuestionsController::class, 'tfcreate']);
+Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
+
 
 
 //Assignments Routes
@@ -67,6 +72,7 @@ Route::get('/calendar', [CalendarController::class, 'index']);
 Route::get('/showprofile', [ProfileController::class, 'show_profile']);
 Route::get('/editprofile', [ProfileController::class, 'edit_profile']);
 Route::post('/updateprofile/{id}', [ProfileController::class, 'updateprofile']);
+Route::post('/updatecontact', [ProfileController::class, 'updatecontact']);
 
 //users crud and role
 Route::get('/logout', [userscontroller::class, 'logout']);
@@ -79,9 +85,6 @@ Route::post('/setpassword', [userscontroller::class, 'setpassword']);
 Route::get('/resetpassword', [userscontroller::class, 'resetpassword']);
 Route::get('/edit/{id}', [userscontroller::class, 'edit']);
 Route::post('/update/{id}', [userscontroller::class, 'update']);
-// Route::post('/createstudent', [userscontroller::class, 'createstudent']);
-// Route::post('/createinstructor', [userscontroller::class, 'createinstructor']);
-// Route::post('/createschool', [userscontroller::class, 'createschool']);
 
 
 //course crud
@@ -95,7 +98,6 @@ Route::get('/course/replicate/{id}',  [CourseController::class, 'course_replicat
 Route::get('/course/edit/{id}',  [CourseController::class, 'course_edit']);
 Route::post('/course/update/{id}',  [CourseController::class, 'course_update']);
 Route::post('/course/delete',  [CourseController::class, 'destroy']);
-Route::get('search',  [CourseController::class, 'search']);
 
 // dependent dropdown routes for students
 Route::get('/get-instructors', [StudentsController::class, 'get_instructors']);
@@ -203,13 +205,17 @@ Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 //Routes for Course Resources functionality:
 Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
 Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideo']);
-Route::get('/courseresourselink/{id}', [CourseResourcesController::class, 'resourcelink']);
+Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideos']);
 Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
 Route::get('/resources', [CourseResourcesController::class, 'resources'])->name('/resources');
-Route::post('/resource/create', [CourseResourcesController::class, 'store']);
+Route::post('/resource/create', [CourseResourcesController::class, 'storefile']);
+Route::post('/resourcevid/create', [CourseResourcesController::class, 'storevid']);
 Route::get('/deleteres/{id}', [CourseResourcesController::class, 'deleteres']);
-Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
-Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
+Route::get('/deletevid/{id}', [CourseResourcesController::class, 'deletevid']);
+Route::get('/resource/edit/{id}/{main}', [CourseResourcesController::class, 'editfile']);
+Route::get('resource/editvid/{id}/{main}', [CourseResourcesController::class, 'editvid']);
+Route::post('/resource/update/{id}', [CourseResourcesController::class, 'updateres'])->name('resource/update');
+Route::post('/resourcevid/update', [CourseResourcesController::class, 'updatevid'])->name('resourcevid/update');
 Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
 

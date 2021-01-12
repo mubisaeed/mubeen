@@ -111,6 +111,8 @@ class SchoolsController extends Controller
     	$school = DB::table('schools')->where('id',$id)->get()->first();
         $user = DB::table('users')->where('id',$school->sch_u_id)->get()->first();
         if ($files = $request->file('image')) {
+            $path="assets/img/upload/$user->image";
+            @unlink($path);
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
             $request->image->move(public_path() .'/assets/img/upload', $image);

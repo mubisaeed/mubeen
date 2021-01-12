@@ -3,7 +3,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">All Courses</li>
   </ol>
 </div>
 <div id="message">
@@ -46,13 +46,13 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="mybody">
               @foreach($courses as $index =>$course)
               <tr>
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
-                    <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
+                      <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
                     <p>{{$course->course_name}}</p>
                   </div>
                 </td>
@@ -70,6 +70,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                       <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
                       <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
+                      <a class="dropdown-item" href="{{url('/mcq/create')}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Questions</a>
                       <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
                       <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
                       <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a>
@@ -82,22 +83,21 @@
               @endforeach
             </tbody>
           </table>   
-            {{ $courses->links() }}
-<!--           <div class="table_footer">
-            <div class="table_pegination">
-              <nav>
-                <ul class="pager">
-                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+          <!-- <div class="table_footer"> -->
+            <!-- <div class="table_pegination"> -->
+              <!-- <nav> -->
+                <!-- <ul class="pager"> -->
+                  <!-- <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
                   <i class="fa fa-angle-left"></i></a></li>
                   <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
                   <li class="pager__item"><a class="align_hash" href="#">/</a></li>
                   <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
                   <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
-                  <i class="fa fa-angle-right"></i></a></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="table_rows">
+                  <i class="fa fa-angle-right"></i></a></li> -->
+                <!-- </ul> -->
+              <!-- </nav> -->
+            <!-- </div> -->
+            <!-- <div class="table_rows">
                 <div class="rows_main">
                   <p>Rows per page</p>
                   <select>
@@ -107,8 +107,8 @@
                   </select>
                 </div>
                 <input type="submit" value="pagenate"/>
-            </div>
-          </div> -->
+            </div> -->
+          <!-- </div> -->
          @else
           <p>There is no Course</p>
         @endif
@@ -116,20 +116,17 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('#search').on('keyup',function(){
-    $value=$(this).val();
-    // alert($value);
-    $.ajax({
-      type : 'get',
-      url : 'search',
-      data:{'search':$value},
-      success:function(data){
-        $('tbody').html(data);
-      }
+<script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        // alert(value);
+        $("#mybody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  })
-</script>
+  </script>
 <script type="text/javascript">
   $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 </script>

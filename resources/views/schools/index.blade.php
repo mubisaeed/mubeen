@@ -4,7 +4,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/schoolcreate')}}">Add New School</a></li>
+    <li class = "active">All Schools</li>
   </ol>
 </div>
 <div id="message">
@@ -45,7 +45,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="mybody">
               @foreach($schools as $index =>$schl)
               <tr>
                 <?php
@@ -114,20 +114,17 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('#search').on('keyup',function(){
-    $value=$(this).val();
-    // alert($value);
-    $.ajax({
-      type : 'get',
-      url : 'search',
-      data:{'search':$value},
-      success:function(data){
-        $('tbody').html(data);
-      }
+<script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        // alert(value);
+        $("#mybody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  })
-</script>
+  </script>
 <script type="text/javascript">
   setTimeout(function() {
     $('#message').fadeOut('fast');

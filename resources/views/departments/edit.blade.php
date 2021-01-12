@@ -16,7 +16,7 @@
           <div class="row">
             <div class="col-md-6 p_left">
               <div class="custom_input_main">
-                <input type="text" name="name" class="form-control" value="{{old('name', $department->name)}}" required minlength="3" maxlength="50">
+                <input type="text" name="name" class="form-control" value="{{old('name', $department->name)}}" required minlength="1" maxlength="50">
                 <label for="name">Name <span class="red">*</span></label>
               </div>
             </div>
