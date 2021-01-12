@@ -4,7 +4,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/studentcreate')}}">Add New Student</a></li>
+    <li class = "active">All Students</li>
   </ol>
 </div>
 <div id="message">

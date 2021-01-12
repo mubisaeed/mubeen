@@ -95,7 +95,7 @@
           </a>
           <div id="collapseTen" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-2 collapse-inner rounded">
-              <a class="collapse-item" href="{{url('/quizzes/create')}}">Add New Quiz</a>
+              <a class="collapse-item" href="{{url('/mcq/create')}}">Add New Quiz</a>
             </div>
           </div>
         </li>

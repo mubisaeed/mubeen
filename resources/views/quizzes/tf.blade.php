@@ -13,18 +13,18 @@
     <div class="main_quiz">
       <div class="quiz_tabs">
         <ul class="nav nav-tabs ">
-          <li class="quiz_tab_link active">
+          <li class="quiz_tab_link">
             <a href="{{url('/mcq/create')}}">
             Multiple Choice </a>
           </li>
-          <li class="quiz_tab_link second">
+          <li class="quiz_tab_link second active">
             <a href="{{url('/tf/create')}}">
             True/False </a>
           </li>
           
         </ul>
         <div class="tab-content">
-          <div class="tab-pane active" id="tab_default_1">
+          <!-- <div class="tab-pane active" id="tab_default_1">
             <div class="quiz_head">
               <h5>Question -1</h5>
               <div class="quiz_form">
@@ -67,7 +67,7 @@
                           <span class="red">*</span></label>
                       </div>
                     </div>
-                    <!-- <div class="custom_input_main select_plugin">
+                    <div class="custom_input_main select_plugin">
                       <select class="selectpicker">
                         <option>Magic</option>
                         <option>Macro Economics II</option>
@@ -93,7 +93,7 @@
                         <option>Finance 101</option>
                       </select>
                       <label class="select_lable">Option - 3  <span class="grey">*</span></label>
-                    </div> -->
+                    </div>
                   </div>
                   <div class="col-md-2 p_right">
                     <div class="quiz_ans">
@@ -119,8 +119,8 @@
                 
               </div>
             </div>
-          </div>
-          <div class="tab-pane" id="tab_default_2">
+          </div> -->
+          <div class="tab-pane active" id="tab_default_2">
             <div class="quiz_head">
               <h5>Question -1</h5>
               <div class="quiz_form">

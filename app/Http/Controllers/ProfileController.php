@@ -16,6 +16,19 @@ class ProfileController extends Controller
     	return view ('profile.show', compact('user'));
     }
 
+    public function updatecontact(Request $request)
+    {
+        $user = User::find($request->id);
+        $this->validate($request, [
+            'contact' => 'required|min:12|max:12',
+        ]);
+        $data = User::find($request->id);
+        $data->contact=$request->input('contact');
+        $data->save();
+        Session::flash('message', 'Updated  successfully');
+        return redirect('/showprofile');
+    }
+
     public function edit_profile()
     {
     	$user = Auth::user();
@@ -34,7 +47,7 @@ class ProfileController extends Controller
     	if ($files = $request->file('image')) {
 	    	$name=$files->getClientOriginalName();
 	        $image = time().'.'.$request->image->getClientOriginalExtension();
-	        $request->image->move(public_path() .'\img\upload', $image);
+	        $request->image->move(public_path() .'/assets/img/upload', $image);
 	       }
        else{
        	$image = $user->image;
