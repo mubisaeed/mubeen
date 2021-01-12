@@ -167,7 +167,7 @@ class CourseController extends Controller
             return redirect()->back()->with('alert', 'Update Unsuccessfuly');
         }
     }
-
+    
     public function destroy(Request $request)
     {
 			$id = $request->id;  
