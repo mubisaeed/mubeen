@@ -12,7 +12,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/studentcreate')}}">Add New Student</a></li>
+    <li class = "active">Edit Student</li>
   </ol>
 </div>
 <div class="content_main">
@@ -25,8 +25,8 @@
             <form class="form-horizontal" method="POST" action="{{ url('/student/update/'. $student->id) }}" enctype="multipart/form-data">
               @csrf
                 @foreach ($errors->all() as $error)
-                          <div class="alert alert-danger">{{ $error }}</div>
-                        @endforeach
+                  <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
               <div class="tab-pane active" id="tab_default_3">
               <div class="s_profile_fields">
                 <div class="row">

@@ -66,6 +66,7 @@ Route::get('/calendar', [CalendarController::class, 'index']);
 Route::get('/showprofile', [ProfileController::class, 'show_profile']);
 Route::get('/editprofile', [ProfileController::class, 'edit_profile']);
 Route::post('/updateprofile/{id}', [ProfileController::class, 'updateprofile']);
+Route::post('/updatecontact', [ProfileController::class, 'updatecontact']);
 
 //users crud and role
 Route::get('/logout', [userscontroller::class, 'logout']);

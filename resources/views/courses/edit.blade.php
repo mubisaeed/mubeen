@@ -42,7 +42,7 @@
     <div class="breadcrumb_main">
       <ol class="breadcrumb">
         <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">Edit Course</li>
       </ol>
     </div>
     <form class="form-horizontal" method="POST" action="{{ url('/course/update/'. $course->id) }}" enctype="multipart/form-data">

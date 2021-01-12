@@ -3,7 +3,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">All Courses</li>
   </ol>
 </div>
 <div id="message">
@@ -81,22 +81,22 @@
               @endforeach
             </tbody>
           </table>   
-            {{ $courses->links() }}
-<!--           <div class="table_footer">
+          <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager">
-                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
+                  {{ $courses->links() }}
+                  <!-- <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
                   <i class="fa fa-angle-left"></i></a></li>
                   <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
                   <li class="pager__item"><a class="align_hash" href="#">/</a></li>
                   <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
                   <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
-                  <i class="fa fa-angle-right"></i></a></li>
+                  <i class="fa fa-angle-right"></i></a></li> -->
                 </ul>
               </nav>
             </div>
-            <div class="table_rows">
+            <!-- <div class="table_rows">
                 <div class="rows_main">
                   <p>Rows per page</p>
                   <select>
@@ -106,8 +106,8 @@
                   </select>
                 </div>
                 <input type="submit" value="pagenate"/>
-            </div>
-          </div> -->
+            </div> -->
+          </div>
          @else
           <p>There is no Course</p>
         @endif

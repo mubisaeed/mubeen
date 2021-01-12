@@ -35,7 +35,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">Add New Course</li>
   </ol>
 </div>
 <div class="content_main">

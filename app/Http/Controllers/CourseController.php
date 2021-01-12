@@ -67,7 +67,7 @@ class CourseController extends Controller
     {
     	$user = Auth::user();
         // $courses = DB::table('courses')->get();
-        $courses = DB::table('courses')->paginate(5);
+        $courses = DB::table('courses')->paginate(2);
         return view('courses.index', compact('courses', 'user'));
     }
 
