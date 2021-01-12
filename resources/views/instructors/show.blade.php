@@ -31,7 +31,7 @@
                 <th scope="col">Actions</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="mybody">
               <tr>
                 <td class="first_row">{{$instructordetail->phone}}</td>
                 <td class="first_row">{{$instructordetail->cnic}}</td>
@@ -83,4 +83,15 @@
     </div>
   </div>
 </div>
+<script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        // alert(value);
+        $("#mybody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script>
 @endsection

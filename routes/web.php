@@ -22,7 +22,7 @@ use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
 use App\Http\Controllers\UserGuideController;
-use App\Http\Controllers\QuizzesController;
+use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -48,11 +48,11 @@ Route::get('/userguide', [UserGuideController::class, 'index']);
 
 
 //Quizzes routes
-Route::get('/quizzes/create', [QuizzesController::class, 'create']);
-Route::get('/mcq/create', [QuizzesController::class, 'mcqcreate']);
-Route::post('/mcq/store', [QuizzesController::class, 'mcqstore']);
-Route::get('/tf/create', [QuizzesController::class, 'tfcreate']);
-Route::post('/tf/store', [QuizzesController::class, 'tfstore']);
+Route::get('/quizzes/create', [QuestionsController::class, 'create']);
+Route::get('/mcq/create', [QuestionsController::class, 'mcqcreate']);
+Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
+Route::get('/tf/create', [QuestionsController::class, 'tfcreate']);
+Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
 
 
 
@@ -85,9 +85,6 @@ Route::post('/setpassword', [userscontroller::class, 'setpassword']);
 Route::get('/resetpassword', [userscontroller::class, 'resetpassword']);
 Route::get('/edit/{id}', [userscontroller::class, 'edit']);
 Route::post('/update/{id}', [userscontroller::class, 'update']);
-// Route::post('/createstudent', [userscontroller::class, 'createstudent']);
-// Route::post('/createinstructor', [userscontroller::class, 'createinstructor']);
-// Route::post('/createschool', [userscontroller::class, 'createschool']);
 
 
 //course crud
@@ -101,7 +98,6 @@ Route::get('/course/replicate/{id}',  [CourseController::class, 'course_replicat
 Route::get('/course/edit/{id}',  [CourseController::class, 'course_edit']);
 Route::post('/course/update/{id}',  [CourseController::class, 'course_update']);
 Route::post('/course/delete',  [CourseController::class, 'destroy']);
-Route::get('search',  [CourseController::class, 'search']);
 
 // dependent dropdown routes for students
 Route::get('/get-instructors', [StudentsController::class, 'get_instructors']);

@@ -49,7 +49,7 @@
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="mybody">
                 @foreach($students as $index =>$std)
                 <tr>
                   <?php
@@ -120,20 +120,17 @@
     </div>
   </div>
 
-<script type="text/javascript">
-  $('#search').on('keyup',function(){
-    $value=$(this).val();
-    // alert($value);
-    $.ajax({
-      type : 'get',
-      url : 'search',
-      data:{'search':$value},
-      success:function(data){
-        $('tbody').html(data);
-      }
+<script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        // alert(value);
+        $("#mybody tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  })
-</script>
+  </script>
 <script type="text/javascript">
   $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 </script>
