@@ -170,12 +170,12 @@ class CourseController extends Controller
             {
                 foreach ($courses as $key => $course)
                 {
-                    $output.='<tr>'.
-                        '<td>'.$course->id.'</td>'.
-                        '<td>'.$course->course_name.'</td>'.
-                        '<td>'.$course->start_date - $course->end_date.'</td>'.
-                        '<td>'.$course->department.'</td>'.
-                        '<td>'.$course->room_number.'</td>'.
+                    $output+='<tr>'+
+                        '<td>'+$course->id+'</td>'+
+                        '<td>'+$course->course_name+'</td>'+
+                        '<td>'+$course->start_date - $course->end_date+'</td>'+
+                        '<td>'+$course->department+'</td>'+
+                        '<td>'+$course->room_number+'</td>'+
                     '</tr>';
                 }
                 return Response($output);
