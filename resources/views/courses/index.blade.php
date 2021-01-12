@@ -82,11 +82,10 @@
               @endforeach
             </tbody>
           </table>   
-          <div class="table_footer">
-            <div class="table_pegination">
-              <nav>
-                <ul class="pager">
-                  {{ $courses->links() }}
+          <!-- <div class="table_footer"> -->
+            <!-- <div class="table_pegination"> -->
+              <!-- <nav> -->
+                <!-- <ul class="pager"> -->
                   <!-- <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
                   <i class="fa fa-angle-left"></i></a></li>
                   <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
@@ -94,9 +93,9 @@
                   <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
                   <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
                   <i class="fa fa-angle-right"></i></a></li> -->
-                </ul>
-              </nav>
-            </div>
+                <!-- </ul> -->
+              <!-- </nav> -->
+            <!-- </div> -->
             <!-- <div class="table_rows">
                 <div class="rows_main">
                   <p>Rows per page</p>
@@ -108,7 +107,7 @@
                 </div>
                 <input type="submit" value="pagenate"/>
             </div> -->
-          </div>
+          <!-- </div> -->
          @else
           <p>There is no Course</p>
         @endif
@@ -130,6 +129,17 @@
     });
   })
 </script>
+<!-- <script>
+    $(document).ready(function(){
+      $("#search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        // alert(value);
+        $("#search tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+  </script> -->
 <script type="text/javascript">
   $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
 </script>

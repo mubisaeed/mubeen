@@ -16,15 +16,15 @@ class CourseController extends Controller
     public function coursecreate()
     {
     	$user = Auth::user();
-    	return view ('courses.create', compact('user'));
+        $departments = DB::table('departments')->get()->all();
+    	return view ('courses.create', compact('user', 'departments'));
     }
 
     public function coursestore(Request $request)
     {
-        // dd($request->sessions);
     		 $this->validate($request, [
                 'cname' => 'min:3|max:50',
-                'department' => 'required|min:2|max:200',
+                'department' => 'required|min:1|max:200',
                 'rno' => 'required',
                 'sdate' => 'required|date',
                 'image' => 'required',
@@ -66,8 +66,8 @@ class CourseController extends Controller
     public function course()
     {
     	$user = Auth::user();
-        // $courses = DB::table('courses')->get();
-        $courses = DB::table('courses')->paginate(2);
+        $courses = DB::table('courses')->get();
+        // $courses = DB::table('courses')->paginate(2);
         return view('courses.index', compact('courses', 'user'));
     }
 
@@ -112,7 +112,8 @@ class CourseController extends Controller
     {
     	$user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        return view('courses.edit', compact('course', 'user'));
+        $departments = DB::table('departments')->get()->all();
+        return view('courses.edit', compact('course', 'user', 'departments'));
     }
 
    public function course_update(Request $request, $id)
