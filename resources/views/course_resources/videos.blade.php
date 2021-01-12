@@ -24,7 +24,7 @@
     <div class="info">
 
     <label for="title">Title:</label><br>
-    <input type="text" name="title" value="{{old('title')}}" required="" minlength="3" maxlength ="50" autofocus=""><br><br>
+    <input type="text" name="title" value="{{old('title')}}" minlength="3" maxlength ="50" autofocus=""><br><br>
 
       @error('title')
       <div>
@@ -35,14 +35,17 @@
     <label for="short_des">Short Description:</label><br>
     <textarea name="short_des" rows="4" cols="50" value="{{old('short_des')}}" minlength="10" maxlength ="1000"></textarea><br><br>
 
+    {{-- <label for="short_des">Short Description:</label><br>
+    <input type="text" name="short_des" value="{{old('short_des')}}"><br><br> --}}
+
       @error('short_des')
       <div>
         {{$message}}
       </div>
       @enderror
 
-    <label for="file">File:</label><br>
-    <input id="file" type="file" name="file" accept="application/pdf,application/vnd.ms-excel/application/vnd.ms-doc" size="max:10240"><br><br>
+    <label for="file">Video:</label><br>
+    <input id="file" type="file" name="file" accept="video/mp4,video/x-m4v,video/x-wmv,video/*" size="max:10240"><br><br>
 
       @error('file')
       <div>
@@ -59,7 +62,7 @@
       </div>
       @enderror --}}
 
-    <button class="btn btn-success" type="submit">Submit</button>
+    <button type="submit">Submit</button>
   </form>
 
 <script>
@@ -121,9 +124,8 @@ uploadField.onchange = function() {
                   </div>
                 </td>
                 <td class="first_row">{{$cr->short_description}}</td>
-                @if ($cr->type=='pdf')
-                  <td class="first_row"><embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf"  
-                  height="80" width="80" download></td>
+                @if($cr->type=='mp4' || $cr->type=='wmv')
+                  <td class="first_row"><iframe src="{{asset('storage/'.$cr->file)}}"></iframe></td>
                 @endif
                 <td class="first_row"><a href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td>
                 <td class="align_ellipse first_row">

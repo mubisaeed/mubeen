@@ -17,6 +17,7 @@ use App\Http\Controllers\AssignmentsController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\CourseResourcesController;
+use App\Http\Controllers\CourseLinkController;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomsController;
@@ -202,6 +203,8 @@ Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:
 Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideo']);
+Route::get('/courseresourselink/{id}', [CourseResourcesController::class, 'resourcelink']);
 Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
 Route::get('/resources', [CourseResourcesController::class, 'resources'])->name('/resources');
 Route::post('/resource/create', [CourseResourcesController::class, 'store']);
@@ -210,6 +213,13 @@ Route::get('/resource/edit/{id}', [CourseResourcesController::class, 'edit']);
 Route::post('/resource/update/{id}', [CourseResourcesController::class, 'update'])->name('resource/update');
 Route::get('resource/download/{id}', [CourseResourcesController::class, 'download'])->name('/download');
 
+
+// Routes for Course Link:
+Route::get('courselink/{id}', [CourseLinkController::class, 'index']);
+Route::post('/linkcreate', [CourseLinkController::class, 'store']);
+Route::get('/linkedit/{id}/{main}', [CourseLinkController::class, 'edit']);
+Route::post('/linkupdate', [CourseLinkController::class, 'update']);
+Route::get('/linkdelete/{id}', [CourseLinkController::class, 'delete']);
 
 //messages
 Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');

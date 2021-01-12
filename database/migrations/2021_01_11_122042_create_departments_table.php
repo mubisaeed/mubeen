@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnToResources extends Migration
+class CreateDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddColumnToResources extends Migration
      */
     public function up()
     {
-        Schema::table('resources', function (Blueprint $table) {
-           $table->integer('course_id');
+        Schema::create('departments', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('school_id')->unsigned()->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddColumnToResources extends Migration
      */
     public function down()
     {
-        Schema::table('resources', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('departments');
     }
 }
