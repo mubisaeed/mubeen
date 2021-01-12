@@ -8,62 +8,103 @@
     @endif
   </div>
 
-    <form action="{{url('/resource/create')}}" method="POST" enctype="multipart/form-data">
-    
+    {{-- <form action="{{url('/resource/create')}}" method="POST" enctype="multipart/form-data">
     {{@csrf_field()}}
     <input type="hidden" name="course_id" value="{{$id}}">    
-
     <div class="title">
-
       <i class="fas fa-pencil-alt"></i> 
-
     <h2>Course Resources</h2>
-
     </div>
-
     <div class="info">
-
     <label for="title">Title:</label><br>
     <input type="text" name="title" value="{{old('title')}}" minlength="3" maxlength ="50" autofocus=""><br><br>
-
       @error('title')
       <div>
         {{$message}}
       </div>
       @enderror
-
     <label for="short_des">Short Description:</label><br>
     <textarea name="short_des" rows="4" cols="50" value="{{old('short_des')}}" minlength="10" maxlength ="1000"></textarea><br><br>
-
-    {{-- <label for="short_des">Short Description:</label><br>
-    <input type="text" name="short_des" value="{{old('short_des')}}"><br><br> --}}
-
       @error('short_des')
       <div>
         {{$message}}
       </div>
       @enderror
-
     <label for="file">Video:</label><br>
     <input id="file" type="file" name="file" accept="video/mp4,video/x-m4v,video/x-wmv,video/*" size="max:10240"><br><br>
-
       @error('file')
       <div>
         {{$message}}
       </div>
       @enderror
-
-    {{-- <label for="resource">Resource:</label><br>
-    <input type="url" name="resource" value="{{old('resource')}}" size="max:10240"><br><br>
-
-      @error('resource')
-      <div>
-        {{$message}}
-      </div>
-      @enderror --}}
-
     <button type="submit">Submit</button>
-  </form>
+  </form> --}}
+
+
+<div class="breadcrumb_main">
+              <ol class="breadcrumb">
+                <li><a href = "#">Home</a></li>
+                <li class = "active">Add New Course</li>
+              </ol>
+            </div>
+            <div class="assignment">
+              <div class="card-header main_ac">
+                <h3>Course Resources</h3>
+                <div class="ac_add_form">
+                  <div class="row">
+                   <form action="{{url('resourcevid/create')}}" method="POST" enctype="multipart/form-data">
+                      {{@csrf_field()}}
+                      @foreach ($errors->all() as $error)
+                      <div class="alert alert-danger">{{ $error }}</div>
+                      @endforeach
+                      <input type="hidden" name="course_id" value="{{$id}}">
+                    <div class="col-md-6 p_left">
+                      <div class="custom_input_main">
+                        <input type="text" class="form-control" value="{{ old('title')}}" name="title" required="" minlength="3" maxlength ="50" autofocus="">
+                        <label>Title <span class="red">*</span></label>
+                      </div>
+                          @error('title')
+                          <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
+                      </div>
+                    <div class="col-md-12">
+                      <div class="custom_input_main">
+                        <textarea class="form-control" name="short_des" rows="4" cols="50" value="{{old('short_des')}}" minlength="10" maxlength ="1000" style="height: 100px !important;"></textarea>
+                        <label>Course description...</label>
+                      </div>
+                          @error('short_des')
+                          <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="file_spacing">
+                        <input id="file" type="file" class="choose" name="video" accept="video/mp4,video/x-m4v,video/x-wmv,video/*" size="max:10240">
+                      </div>
+                          @error('video')
+                          <span class="invalid-feedback" role="alert">
+                          <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
+                    </div>
+                    <div class="col-md-12">
+                      <div class="s_form_button text-center">
+                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
+                      </div>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
 
 <script>
 
@@ -119,13 +160,13 @@ uploadField.onchange = function() {
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
-                    <!-- <img src="{{asset('img/latest/Simple03.png')}}" alt="" class="img-fluid"> -->
+                    
                     <p>{{$cr->title}}</p>
                   </div>
                 </td>
                 <td class="first_row">{{$cr->short_description}}</td>
                 @if($cr->type=='mp4' || $cr->type=='wmv')
-                  <td class="first_row"><iframe src="{{asset('storage/'.$cr->file)}}"></iframe></td>
+                  <td class="first_row"><iframe src="{{asset('storage/'.$cr->file)}}">{{($cr->file)}}</iframe></td>
                 @endif
                 <td class="first_row"><a href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td>
                 <td class="align_ellipse first_row">
@@ -137,7 +178,7 @@ uploadField.onchange = function() {
                       <div class="ripple-container"></div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                      <a class="dropdown-item" href="{{url('/resource/edit/' . $cr->id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                      <a class="dropdown-item" href="{{url('/resource/editvid/' . $cr->id.'/'.$id)}}"><i class="fa fa-cogs"></i>Edit</a>
                       <a href="javascript:void(0);" data-id="<?php echo $cr->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
                     </div>
                   </li>
@@ -208,7 +249,7 @@ uploadField.onchange = function() {
   $.ajax( {
   type: 'get',
 
-  url: '<?php echo url("/deleteres/{id}"); ?>',
+  url: '<?php echo url("/deletevid/{id}"); ?>',
   data: form_data,
   success: function ( msg ) {
   swal( "@lang('Resourse Deleted')", '', 'success' )
