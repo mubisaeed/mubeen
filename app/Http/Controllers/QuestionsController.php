@@ -26,7 +26,7 @@ class QuestionsController extends Controller
 
     public function mcqstore(Request $request)
     {
-        // dd($request->input('correct'));
+        dd($request->input('correct'));
     	$this->validate($request, [
     		'label' => 'required',
     	]);

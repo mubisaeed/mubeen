@@ -456,7 +456,7 @@
             </div>
           </div>
         </li>
-        <li class="nav-item dropdown_item">
+     <!--    <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
             <i class="fa fa-pencil"></i>
             <span>Quizzes</span>
@@ -466,7 +466,7 @@
               <a class="collapse-item" href="{{url('/mcq/create')}}">Add New Quiz</a>
             </div>
           </div>
-        </li>
+        </li> -->
 <!--         <li class="nav-item dropdown_item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
             <i class="fa fa-file-text-o"></i>
