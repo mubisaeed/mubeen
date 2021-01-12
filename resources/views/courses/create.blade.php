@@ -35,7 +35,7 @@
 <div class="breadcrumb_main">
   <ol class="breadcrumb">
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">Add New Course</li>
   </ol>
 </div>
 <div class="content_main">
@@ -70,17 +70,18 @@
                       <label>Image<span class="red">*</span></label>
                     </div>
                   </div>
-                  <div class="col-md-6 p_right">
-                    <div class="custom_input_main mobile_field">
+                  
+                  <!-- <div class="col-md-6 p_right"> -->
+                    <!-- <div class="custom_input_main mobile_field">
                       <input type="text" class="form-control" value="{{ old('department')}}" name="department" required="" minlength="3" maxlength ="200" autofocus="">
                       <label>Derpartment<span class="red">*</span></label>
-                    </div>
-                    @error('department')
+                    </div> -->
+                   <!--  @error('department')
                       <span class="invalid-feedback" role="alert">
                       <strong>{{ $department }}</strong>
                       </span>
                     @enderror
-                  </div>
+                  </div> -->
                   <div class="col-md-6 p_left">
                     <div class="custom_input_main mobile_field">
                       <input type="date" class="form-control" name="sdate" value="{{old('sdate')}}" onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
@@ -121,7 +122,16 @@
                           <span class="red">*</span></label>
                         </div>
                       </div>
-
+                      <div class="col-md-12">
+                    <div class="custom_input_main select_plugin mobile_field">
+                      <select class="selectpicker" name="department">
+                        @foreach($departments as $department)
+                          <option value="{{$department->name}}">{{$department->name}}</option>
+                        @endforeach  
+                      </select>
+                      <label class="select_lable">Department</label>
+                    </div>
+                  </div>
                       <div class="col-md-12">
                         <div class="custom_input_main select_plugin mobile_field">
                         <select class="selectpicker" name="sessions">
@@ -183,8 +193,8 @@
   </script>
 
 
-    <script>
-CKEDITOR.replace( 'txtEditor' );
+<script>
+  CKEDITOR.replace( 'txtEditor' );
 </script>
 <!-- <script src="{{asset('js/bootstrap-colorpicker.min.js')}}"></script> -->
                 <!-- <script src="//unpkg.com/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script> -->

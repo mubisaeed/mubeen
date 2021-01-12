@@ -49,7 +49,7 @@
                                       <div class="col-md-3">
                                         <div class="p_img">
                                           <div class="p_img_edit">
-                                            <img src="{{asset('/img/upload/'.$user->image)}}" alt="" class="img-fluid">
+                                            <img src="{{asset('assets/img/upload/'.$user->image)}}" alt="" class="img-fluid">
                                             <div class="edit_pic">
                                               <form>
                                               <a> <i class="fa fa-pencil"></i> </a>
@@ -125,14 +125,19 @@
       </button>
     </div>
     <div class="modal-body">
-     <div class="custom_input_main">
-        <input type="text" class="form-control" placeholder="(132) 11425 4521">
-        <label>Mobile <span class="grey">*</span></label>
-      </div>
-      <div class="s_form_button">
-        <button type="button" class="btn cncl_btn">Cancel</button>
-        <button type="button" class="btn save_btn">Save</button>
-      </div>
+      <form method="POST" action="/updatecontact">
+        @csrf
+        <input type="hidden" name="id" value="{{$user->id}}">
+        <div class="custom_input_main">
+          <input type="tel" class="form-control" name="contact" value="{{$user->contact}}" placeholder="xxxx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required="" minlength="12" maxlength = "12">
+
+          <label>Mobile <span class="grey">*</span></label>
+        </div>
+        <div class="s_form_button">
+          <a href="/showprofile"><button type="button" class="btn cncl_btn">Cancel</button></a>
+          <button type="submit" class="btn save_btn">Save</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

@@ -25,7 +25,7 @@ class DepartmentsController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'name'=>'required|min:3|max:50'
+            'name'=>'required|min:1|max:50'
         ]);
 
         $id = $request->user()->id;
@@ -54,7 +54,7 @@ class DepartmentsController extends Controller
         $department = Department::find($id);
         
         $this->validate($request, [
-            'name'=>'required|min:3|max:50',
+            'name'=>'required|min:1|max:50',
         ]);
         
         $department->name=$request->name;

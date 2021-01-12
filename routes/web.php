@@ -49,6 +49,11 @@ Route::get('/userguide', [UserGuideController::class, 'index']);
 
 //Quizzes routes
 Route::get('/quizzes/create', [QuizzesController::class, 'create']);
+Route::get('/mcq/create', [QuizzesController::class, 'mcqcreate']);
+Route::post('/mcq/store', [QuizzesController::class, 'mcqstore']);
+Route::get('/tf/create', [QuizzesController::class, 'tfcreate']);
+Route::post('/tf/store', [QuizzesController::class, 'tfstore']);
+
 
 
 //Assignments Routes
@@ -67,6 +72,7 @@ Route::get('/calendar', [CalendarController::class, 'index']);
 Route::get('/showprofile', [ProfileController::class, 'show_profile']);
 Route::get('/editprofile', [ProfileController::class, 'edit_profile']);
 Route::post('/updateprofile/{id}', [ProfileController::class, 'updateprofile']);
+Route::post('/updatecontact', [ProfileController::class, 'updatecontact']);
 
 //users crud and role
 Route::get('/logout', [userscontroller::class, 'logout']);

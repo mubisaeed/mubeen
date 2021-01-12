@@ -42,7 +42,7 @@
     <div class="breadcrumb_main">
       <ol class="breadcrumb">
         <li><a href = "{{url('/dashboard')}}">Home</a></li>
-    <li class = "active"><a href="{{url('/courses')}}">Add New Course</a></li>
+    <li class = "active">Edit Course</li>
       </ol>
     </div>
     <form class="form-horizontal" method="POST" action="{{ url('/course/update/'. $course->id) }}" enctype="multipart/form-data">
@@ -79,7 +79,7 @@
                               <label>Image<span class="red">*</span></label>
                             </div>
                           </div>
-                          <div class="col-md-6 p_right">
+                         <!--  <div class="col-md-6 p_right">
                             <div class="custom_input_main mobile_field">
                               <input type="text" class="form-control" name="department" value="{{old('department', $course->department)}}" required="" minlength="3" maxlength ="200" autofocus="">
                               <label>Derpartment<span class="red">*</span></label>
@@ -89,7 +89,7 @@
                               <strong>{{ $department }}</strong>
                               </span>
                             @enderror
-                          </div>
+                          </div> -->
                           <div class="col-md-6 p_left">
                             <div class="custom_input_main mobile_field">
                               <input type="date" class="form-control" name="sdate" value="{{old('sdate',$course->start_date)}}"  onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
@@ -117,16 +117,7 @@
                               </span>
                             @enderror
                             </div>
-
-
-
-
-                 
-
-
-
-
- <div class="col-md-6 p_right colorpicker colorpicker-component">
+                    <div class="col-md-6 p_right colorpicker colorpicker-component">
                       <div class="custom_input_main mobile_field">
                         <span class="color-picker">
                           <label for="colorPicker">
@@ -139,10 +130,16 @@
                           <span class="red">*</span></label>
                         </div>
                       </div>
-
-
-
-
+                      <div class="col-md-12">
+                                <div class="custom_input_main select_plugin mobile_field">
+                                <select class="selectpicker" name="department">
+                                  @foreach($departments as $department)
+                                    <option  {{ ( $course->department) == '$department->name' ? 'selected' : '' }}  value="{{$department->name}}" >{{$department->name}}</option>
+                                  @endforeach
+                                </select>
+                                <label class="select_lable">Department</label>
+                              </div>
+                              </div>
                               <div class="col-md-12">
                                 <div class="custom_input_main select_plugin mobile_field">
                                 <select class="selectpicker" name="sessions">
