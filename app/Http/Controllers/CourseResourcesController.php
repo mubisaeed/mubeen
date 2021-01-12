@@ -30,20 +30,15 @@ class CourseResourcesController extends Controller
         return view ('course_resources.videos', compact ('user','cresources', 'id'));
     }
 
-    public function resourcelink($id){
+    public function resourcevideos($id){
         $id = $id;
         $user = Auth::user();
         $cresources=DB::table('resources')->where('course_id', $id)->get()->all();
-        return view ('course_resources.links', compact ('user','cresources', 'id'));
+        return view ('course_resources.videos', compact ('user','cresources', 'id'));
     }
 
-    // public function create(){
-    //     $user = Auth::user();
-    //     $courses=Course::all();
-    // 	return view ('course_resources.create', compact('user','courses'));
-    // }
 
-    public function Store(Request $req){
+    public function Storefile(Request $req){
         $this->validate($req,
          [
         'file' => 'required',
@@ -68,14 +63,49 @@ class CourseResourcesController extends Controller
         }
     }
 
-    public function edit($id){
+    public function Storevid(Request $req){
+        $this->validate($req,
+         [
+        'video' => 'required',
+        'title'=>'required|min:3|max:20',
+        'short_des'=>'required|min:10|max:5000',
+    ]);
+        $cress= new CourseResources;
+        $cress->course_id=$req->input('course_id');
+        $cress->title=$req->input('title');
+        $cress->short_description=$req->input('short_des');
+        $file = $req->file('video');
+        $fileName = time().'.'.$file->getClientOriginalName();
+        $file->move(public_path('storage/'), $fileName);
+        $cress->file=$fileName;
+        $fileType =$file->getClientOriginalExtension();
+        $cress->type=$fileType;
+        $cress->save();
+        $id = $req->input('course_id');
+        if($cress){
+            Session::flash('message', 'Resource Stored Successfully');
+            return redirect('/courseresoursevideo/'.$id);
+        }
+    }
+
+    public function editfile($id, $main){
+        // dd($id);
         $id = $id;
         $cress = CourseResources::find($id);
         $user = Auth::user();
-    	return view ('course_resources.edit', compact('user', 'cress', 'id'));
+    	return view ('course_resources.edit', compact('user', 'cress', 'id', 'main'));
     }
 
-    public function update($id, Request $request){
+
+    public function editvid($id, $main){
+        // dd($id);
+        $id = $id;
+        $cress = CourseResources::find($id);
+        $user = Auth::user();
+    	return view ('course_resources.editvid', compact('user', 'cress', 'id', 'main'));
+    }
+
+    public function updateres($id, Request $request){
 
         $this->validate($request, [
             'title'=>'required|min:3|max:20',
@@ -96,21 +126,67 @@ class CourseResourcesController extends Controller
             $fileName = $cress->file;
             $fileType = $cress->type;
         }
-        $cress->course_id=$request->input('course_id');
+        // $cress->course_id=$request->input('course_id');
         $cress->title=$request->input('title');
         $cress->short_description=$request->input('short_des');
         $cress->file=$fileName;
         $cress->type=$fileType;
         $cress->save();
-        $id = $request->input('course_id');
+        // $id = $request->input('course_id');
         Session::flash('message', 'Resource Updated Successfully');
-        return redirect('/courseresourse/'.$id);        
+        return redirect('courseresourse/'.$request->main);        
+    }
+
+
+    public function updatevid(Request $request){
+
+        $this->validate($request, [
+            'title'=>'required|min:3|max:20',
+            'short_des'=>'required|min:10|max:5000',
+        ]);
+
+        $cress = CourseResources::find($request->id);
+        $user = Auth::user();   
+        if ($files = $request->file('video')) {
+            $path="storage/$cress->file";
+            File::delete($path);
+            $file = $request->file('video');
+            $fileName = time().'.'.$file->getClientOriginalName();  
+            $file->move(public_path('storage/'), $fileName);
+            $fileType =$file->getClientOriginalExtension();
+        }
+        else{
+            $fileName = $cress->file;
+            $fileType = $cress->type;
+        }
+        $cress->title=$request->input('title');
+        $cress->short_description=$request->input('short_des');
+        $cress->file=$fileName;
+        $cress->type=$fileType;
+        $cress->save();
+        // $id = $request->input('course_id');
+        Session::flash('message', 'Resource Updated Successfully');
+        return redirect('courseresoursevideo/'.$request->main);        
     }
 
     public function deleteres(Request $request)
     {
         $id = $request->input("id");
+        $res = CourseResources::find($id);
+        $path="storage/$res->file";
+        File::delete($path);
         CourseResources::where("id", $id)->delete();
+        
+    }
+
+    public function deletevid(Request $request)
+    {
+        $id = $request->input("id");
+        $res = CourseResources::find($id);
+        $path="storage/$res->file";
+        File::delete($path);
+        CourseResources::where("id", $id)->delete();
+
     }
 
     public function download($id){

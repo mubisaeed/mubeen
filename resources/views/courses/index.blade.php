@@ -52,7 +52,7 @@
                 <th scope="row">#{{$index+1}}</th>
                 <td class="first_row">
                   <div class="course_td">
-                    <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
+                      <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
                     <p>{{$course->course_name}}</p>
                   </div>
                 </td>
