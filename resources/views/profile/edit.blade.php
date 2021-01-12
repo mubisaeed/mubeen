@@ -116,7 +116,7 @@
                             </div>
                           </div>
                           <div class="s_form_button text-center">
-                            <a href=""><button type="button" class="btn cncl_btn">Cancel</button></a>
+                            <a href="/showprofile"><button type="button" class="btn cncl_btn">Cancel</button></a>
                             <button type="submit" class="btn save_btn">Save</button>
                           </div>
                         </div>

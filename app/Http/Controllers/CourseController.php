@@ -36,6 +36,7 @@ class CourseController extends Controller
              if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
+            // $request->image->move(public_path('storage/'), $image);
             $request->image->move(public_path() .'/assets/img/upload', $image);
        }
     	$str = strtolower($request->cname);
@@ -133,6 +134,7 @@ class CourseController extends Controller
         if ($files = $request->file('image')) {
             $name=$files->getClientOriginalName();
             $image = time().'.'.$request->image->getClientOriginalExtension();
+            // $request->image->move(public_path('storage/'), $image);
             $request->image->move(public_path() .'/assets/img/upload', $image);
            }
            else{
