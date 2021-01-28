@@ -13,12 +13,12 @@ class RoomsController extends Controller
     public function index(){
         $rooms = Room::all();
         $user = Auth::user();
-    	return view ('rooms.index', ['rooms'=>$rooms], compact('user'));
+        return view ('rooms.index', ['rooms'=>$rooms], compact('user'));
     }
 
     public function create(){
         $user = Auth::user();
-    	return view ('rooms.create', compact('user'));
+        return view ('rooms.create', compact('user'));
     }
 
     public function store(Request $request){
@@ -46,7 +46,7 @@ class RoomsController extends Controller
     public function edit($id){
         $room = Room::find($id);
         $user = Auth::user();
-    	return view ('rooms.edit', ['room'=>$room], compact('user'));
+        return view ('rooms.edit', ['room'=>$room], compact('user'));
     }
 
     public function update($id, Request $request){

@@ -13,8 +13,8 @@ class ContactPageController extends Controller
 {
     public function index()
     {
-    	$user = Auth::user();
-    	$contact = DB::table('contactpage')->where('id', 1)->first();
+        $user = Auth::user();
+        $contact = DB::table('contactpage')->where('id', 1)->first();
         return view('pages.contact', compact('contact', 'user'));
     }
     public function update(Request $request)
@@ -22,19 +22,19 @@ class ContactPageController extends Controller
         $contact = DB::table('contactpage')->where('id',1)->get()->first();
         
         $this->validate($request, [
-            'title'=>'required|min:3|max:50',
-            'image'=>'max:5000',
+            'title'=>'required|min:1|max:50',
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'email'=>'required|email|max:255',
             'phno'=>'required|min:12|max:12',
             'add'=>'required|min:3|max:200'
         ]);
 
         if ($files = $request->file('image')) {
-            $path="img/upload/$contact->image";
+            $path="assets/img/upload/$contact->image";
             @unlink($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/upload'), $imageName);
+            $image->move(public_path('assets/img/upload'), $imageName);
         }
         else{
          $imageName = $contact->image;
