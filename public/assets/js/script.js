@@ -1,3 +1,13 @@
+jQuery(document).ready(function(){
+	$(function(){
+		$('.nav a').click(function(){
+			$(this).parent().addClass('active').siblings().removeClass('active')	
+		})
+	})
+
+});
+
+
 jQuery(document).ready(function($) {
 
   	$('.selectpicker').selectpicker();
