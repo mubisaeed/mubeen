@@ -13,27 +13,37 @@ class AboutPageController extends Controller
 {
     public function index()
     {
-    	$user = Auth::user();
-    	$about = DB::table('aboutpage')->where('id', 1)->first();
+        $user = Auth::user();
+        $about = DB::table('aboutpage')->where('id', 1)->first();
         return view('pages.about', compact('about', 'user'));
     }
     public function update(Request $request)
     {
-    	$about = DB::table('aboutpage')->where('id',1)->get()->first();
+        $about = DB::table('aboutpage')->where('id',1)->get()->first();
+        
+        $this->validate($request, [
+            'title'=>'required|min:1|max:255',
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'content'=>'required'
+        ]);
+
         if ($files = $request->file('image')) {
-            $name=$files->getClientOriginalName();
-            $image = time().'.'.$request->image->getClientOriginalExtension();
-            $request->image->move(public_path() .'\img\upload', $image);
-           }
-           else{
-            $image = $about->image;
-           }
+            $path="assets/img/upload/$about->image";
+            @unlink($path);
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalName();  
+            $image->move(public_path('assets/img/upload'), $imageName);
+        }
+        else{
+         $imageName = $about->image;
+        }
+
            $data = AboutPage::find(1);
             $data->title=$request->input('title');
             $data->content=$request->input('content');
-            $data->image = $image;
+            $data->image = $imageName;
             $data->save();
-            Session::flash('message', 'Updated successfully');
+            Session::flash('message', 'Updated Successfully');
             return redirect('/aboutpage');
     }
 }

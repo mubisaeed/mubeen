@@ -1,439 +1,397 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="{{asset('img/apple-icon.png')}}">
-    <link rel="icon" type="image/png" href="{{asset('img/favicon.png')}}">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>
-    Greecon
-    </title>
-    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-      <!-- CSS Files -->
-      <link href="{{asset('css/material-dashboard.css?v=2.1.2')}}" rel="stylesheet" />
+@extends('layouts.app')
 
-      <!-- CSS Just for demo purpose, don't include it in your project -->
-      <link href="{{asset('demo/demo.css')}}" rel="stylesheet" />
-      <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.css">
-      <script src="https://cdn.rawgit.com/nizarmah/calendar-javascript-lib/master/calendarorganizer.min.js"></script>
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <link href="{{asset('css/bootstrap-colorpicker.css')}}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    </head>
-    <body class="">
-      @include('layouts.sidebar')
-      <div class="main-panel">
-        <!-- Navbar -->
-       @include('layouts.navbar')
-        <!-- End Navbar -->
-        <div class="content">
-          <div class="container-fluid">
-            
-            @include('layouts.top_menu_bar')
+@section('content')
 
-                    <form method="POST" action="/schoolstore" enctype="multipart/form-data">
-                    @csrf
-                        <div class="card2 card border-0 px-4 py-5">
-                          @foreach ($errors->all() as $error)
 
-                          <div class="alert alert-danger">{{ $error }}</div>
 
-                            @endforeach
-                            <div class="login_text">
-                                <h3>create Student</h3>
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School name</h6>
-                                </label> 
-                                <input type="text" value="{{ old('sname')}}" name="sname" class="mb-4" placeholder="Enter class name" required="" minlength="3" maxlength ="50">
-                                @error('sname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">School logo</h6>
-                                </label> 
-                                <input type="file" name="image">
-           
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Address</h6>
-                                </label> 
-                                <input type="text" value="{{ old('add')}}" name="add" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
-                                @error('add')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm"style="color:black; margin-right: 10px">Owner Name</h6>
-                                </label> 
-                                <input type="text" value="{{ old('oname')}}" name="oname" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="70">
-                                @error('oname')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            <br><br>
-                            <div class="row px-3"> 
-                                <label class="mb-1">
-                                    <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Owner Address</h6>
-                                </label> 
-                                <input type="text" value="{{ old('oadd')}}" name="oadd" class="mb-4" placeholder="Enter room number" required="" minlength="3" maxlength ="200">
-                                @error('oadd')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                            </div>
-                            
-                            <div class="row px-3 mb-4">
-                                <div class="custom-control custom-checkbox custom-control-inline">   </div>
-                            </div>
-                            <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Create</button> </div>
-                        </div>
-                    </form>
+@if (Session::has('message'))
+
+  <div class="alert alert-info">
+
+    {{ Session::get('message') }}
+
+  </div>
+
+@endif 
+
+<div class="breadcrumb_main">
+
+  <ol class="breadcrumb">
+
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+
+    <li class = "active">Add New School</li>
+
+  </ol>
+
+</div>
+
+<div class="content_main">
+
+  <div class="profile_main">
+
+    <div class="profile mt-0">
+
+      <div class="course card-header card-header-warning card-header-icon">
+
+        
+
+        <h3 class="main_title_ot">Add New School</h3>
+
+        <div class="tab-content">
+
+          <form method="POST" action="/schoolstore" enctype="multipart/form-data">
+
+            @csrf
+
+            @foreach ($errors->all() as $error)
+
+              <div class="alert alert-danger">{{ $error }}</div>
+
+            @endforeach
+
+            <div class="tab-pane active" id="tab_default_3">
+
+              <div class="s_profile_fields">
+
+                <div class="row">
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('sname')}}" name="sname" required="" minlength="3" maxlength ="50" autofocus="">
+
+                      <label>School name<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('name')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+
+                    <div class="inputfile-box">
+                      <input type="file" id="file" class="inputfile" onchange='uploadFile(this)'>
+                      <label for="file" class="lable_file">
+                        <span id="file-name" class="file-box"></span>
+                        <span class="file-button">
+                          School image
+                        </span>
+                      </label>
+                    </div>
+                      <!-- <div class="custom_input_main mobile_field">
+
+                      <input type="file" name="simage" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+
+                      <label>School Image<span class="red">*</span></label>
+
+                    </div>
+ -->                   <!--  <div class="file_spacing">
+                        <input  type="file" name="simage" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="" class="choose">
+                        
+                      </div> -->
+
+                  </div>
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('sadd')}}" name="sadd" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
+
+                      <label>School Address<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('name')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('name')}}" name="name" required="" minlength="3" maxlength ="50" autofocus="">
+
+                      <label>Owner name<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('oname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="email" class="form-control" name="email" value="{{old('email')}}" required maxlength="255"autofocus="">
+
+                      <label>Owner Email<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('email')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" autofocus="">
+
+                      <label>Password<span class="red">*</span></label>
+
+                      @error('password')
+
+                      <span class="invalid-feedback" role="alert">
+
+                          <strong>{{ $message }}</strong>
+
+                      </span>
+
+                      @enderror
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" autofocus="">
+
+                      <label>Confirm Password<span class="red">*</span></label>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+
+                      <label>Owner Image<span class="red">*</span></label>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12">
+
+                      <div class="custom_input_main select_plugin mobile_field">
+
+                        <select class="selectpicker" name="role">
+
+                          <option value="3">School</option>
+
+                        </select>
+
+                        <label class="select_lable">Role</label>
+
+                      </div>
+
+                  </div>
+
+                <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
+
+                      <label>Father name<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('fname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
                 </div>
-                <script src="{{('js/core/jquery.min.js')}}"></script>
-              <script src="{{('js/core/popper.min.js')}}"></script>
-              <script src="{{('js/core/bootstrap-material-design.min.js')}}"></script>
-              <script src="{{('js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-              <!-- Plugin for the momentJs  -->
-              <script src="{{('js/plugins/moment.min.js')}}"></script>
-              <!--  Plugin for Sweet Alert -->
-              <script src="{{('js/plugins/sweetalert2.js')}}"></script>
-              <!-- Forms Validations Plugin -->
-              <script src="{{('js/plugins/jquery.validate.min.js')}}"></script>
-              <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-              <script src="{{('js/plugins/jquery.bootstrap-wizard.js')}}"></script>
-              <!--  Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-              <script src="{{('js/plugins/bootstrap-selectpicker.js')}}"></script>
-              <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-              <script src="{{('js/plugins/bootstrap-datetimepicker.min.js')}}"></script>
-              <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-              <script src="{{('js/plugins/jquery.dataTables.min.js')}}"></script>
-              <!--  Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-              <script src="{{('js/plugins/bootstrap-tagsinput.js')}}"></script>
-              <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-              <script src="{{('js/plugins/jasny-bootstrap.min.js')}}"></script>
-              <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-              <script src="{{('js/plugins/fullcalendar.min.js')}}"></script>
-              <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-              <script src="{{('js/plugins/jquery-jvectormap.js')}}"></script>
-              <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-              <script src="{{('js/plugins/nouislider.min.js')}}"></script>
-              <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js')}}"></script>
-              <!-- Library for adding dinamically elements -->
-              <script src="{{('js/plugins/arrive.min.js')}}"></script>
-              <!--  Google Maps Plugin    -->
-              <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-              <!-- Chartist JS -->
-              <script src="{{('js/plugins/chartist.min.js')}}"></script>
-              <!--  Notifications Plugin    -->
-              <script src="{{('js/plugins/bootstrap-notify.js')}}"></script>
-              <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-              <script src="{{('js/material-dashboard.js?v=2.1.2')}}" type="text/javascript"></script>
-              <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-              <script src="{{('demo/demo.js')}}"></script>
-              <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-              <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.js"></script>
-              <script>
-              $(document).ready(function() {
-              $().ready(function() {
-              $sidebar = $('.sidebar');
-              $sidebar_img_container = $sidebar.find('.sidebar-background');
-              $full_page = $('.full-page');
-              $sidebar_responsive = $('body > .navbar-collapse');
-              window_width = $(window).width();
-              fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
-              if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-              if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-              $('.fixed-plugin .dropdown').addClass('open');
-              }
-              }
-              $('.fixed-plugin a').click(function(event) {
-              // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-              if ($(this).hasClass('switch-trigger')) {
-              if (event.stopPropagation) {
-              event.stopPropagation();
-              } else if (window.event) {
-              window.event.cancelBubble = true;
-              }
-              }
-              });
-              $('.fixed-plugin .active-color span').click(function() {
-              $full_page_background = $('.full-page-background');
-              $(this).siblings().removeClass('active');
-              $(this).addClass('active');
-              var new_color = $(this).data('color');
-              if ($sidebar.length != 0) {
-              $sidebar.attr('data-color', new_color);
-              }
-              if ($full_page.length != 0) {
-              $full_page.attr('filter-color', new_color);
-              }
-              if ($sidebar_responsive.length != 0) {
-              $sidebar_responsive.attr('data-color', new_color);
-              }
-              });
-              $('.fixed-plugin .background-color .badge').click(function() {
-              $(this).siblings().removeClass('active');
-              $(this).addClass('active');
-              var new_color = $(this).data('background-color');
-              if ($sidebar.length != 0) {
-              $sidebar.attr('data-background-color', new_color);
-              }
-              });
-              $('.fixed-plugin .img-holder').click(function() {
-              $full_page_background = $('.full-page-background');
-              $(this).parent('li').siblings().removeClass('active');
-              $(this).parent('li').addClass('active');
-              var new_image = $(this).find("img").attr('src');
-              if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-              $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-              });
-              }
-              if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-              var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-              $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-              });
-              }
-              if ($('.switch-sidebar-image input:checked').length == 0) {
-              var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-              var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              }
-              if ($sidebar_responsive.length != 0) {
-              $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-              }
-              });
-              $('.switch-sidebar-image input').change(function() {
-              $full_page_background = $('.full-page-background');
-              $input = $(this);
-              if ($input.is(':checked')) {
-              if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-              }
-              if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-              }
-              background_image = true;
-              } else {
-              if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-              }
-              if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-              }
-              background_image = false;
-              }
-              });
-              $('.switch-sidebar-mini input').change(function() {
-              $body = $('body');
-              $input = $(this);
-              if (md.misc.sidebar_mini_active == true) {
-              $('body').removeClass('sidebar-mini');
-              md.misc.sidebar_mini_active = false;
-              $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-              } else {
-              $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-              setTimeout(function() {
-              $('body').addClass('sidebar-mini');
-              md.misc.sidebar_mini_active = true;
-              }, 300);
-              }
-              // we simulate the window Resize so the charts will get updated in realtime.
-              var simulateWindowResize = setInterval(function() {
-              window.dispatchEvent(new Event('resize'));
-              }, 180);
-              // we stop the simulation of Window Resize after the animations are completed
-              setTimeout(function() {
-              clearInterval(simulateWindowResize);
-              }, 1000);
-              });
-              });
-              });
-              </script>
-              <script>
-              $(document).ready(function() {
-              // Javascript method's body can be found in assets/js/demos.js
-              md.initDashboardPageCharts();
-              });
-              </script>
-              <script>
-              window.onload = function () {
-              var chart = new CanvasJS.Chart("chartContainer", {
-              animationEnabled: true,
-              title:{
-              text: "Music Album Sales by Year"
-              },
-              axisY: {
-              title: "Units Sold",
-              valueFormatString: "#0,,.",
-              suffix: "mn",
-              stripLines: [{
-              value: 3366500,
-              label: "Average"
-              }]
-              },
-              data: [{
-              yValueFormatString: "#,### Units",
-              xValueFormatString: "YYYY",
-              type: "spline",
-              dataPoints: [
-              {x: new Date(2002, 0), y: 2506000},
-              {x: new Date(2003, 0), y: 2798000},
-              {x: new Date(2004, 0), y: 3386000},
-              {x: new Date(2005, 0), y: 6944000},
-              {x: new Date(2006, 0), y: 6026000},
-              {x: new Date(2007, 0), y: 2394000},
-              {x: new Date(2008, 0), y: 1872000},
-              {x: new Date(2009, 0), y: 2140000},
-              {x: new Date(2010, 0), y: 7289000},
-              {x: new Date(2011, 0), y: 4830000},
-              {x: new Date(2012, 0), y: 2009000},
-              {x: new Date(2013, 0), y: 2840000},
-              {x: new Date(2014, 0), y: 2396000},
-              {x: new Date(2015, 0), y: 1613000},
-              {x: new Date(2016, 0), y: 2821000},
-              {x: new Date(2017, 0), y: 2000000}
-              ]
-              }]
-              });
-              chart.render();
-              }
-              </script>
-              <script>
-              // chart colors
-              var colors = ['#007bff','#28a745','#444444','#c3e6cb','#dc3545','#6c757d'];
-              var chBar = document.getElementById("chBar");
-              var chartData = {
-              labels: ["S", "M", "T", "W", "T", "F", "S"],
-              datasets: [{
-              data: [589, 445, 483, 503, 689, 692, 634],
-              backgroundColor: colors[0]
-              },
-              {
-              data: [209, 245, 383, 403, 589, 692, 580],
-              backgroundColor: colors[1]
-              },
-              {
-              data: [489, 135, 483, 290, 189, 603, 600],
-              backgroundColor: colors[2]
-              },
-              {
-              data: [639, 465, 493, 478, 589, 632, 674],
-              backgroundColor: colors[4]
-              }]
-              };
-              if (chBar) {
-              new Chart(chBar, {
-              type: 'bar',
-              data: chartData,
-              options: {
-              scales: {
-              xAxes: [{
-              barPercentage: 0.4,
-              categoryPercentage: 0.5
-              }],
-              yAxes: [{
-              ticks: {
-              beginAtZero: false
-              }
-              }]
-              },
-              legend: {
-              display: false
-              }
-              }
-              });
-              }
-              </script>
-              <script>
-              "use strict";
-              // function that creates dummy data for demonstration
-              function createDummyData() {
-              var date = new Date();
-              var data = {};
-              for (var i = 0; i < 10; i++) {
-              data[date.getFullYear() + i] = {};
-              for (var j = 0; j < 12; j++) {
-              data[date.getFullYear() + i][j + 1] = {};
-              for (var k = 0; k < Math.ceil(Math.random() * 10); k++) {
-              var l = Math.ceil(Math.random() * 28);
-              try {
-              data[date.getFullYear() + i][j + 1][l].push({
-              startTime: "10:00",
-              endTime: "12:00",
-              text: "Some Event Here"
-              });
-              } catch (e) {
-              data[date.getFullYear() + i][j + 1][l] = [];
-              data[date.getFullYear() + i][j + 1][l].push({
-              startTime: "10:00",
-              endTime: "12:00",
-              text: "Some Event Here"
-              });
-              }
-              }
-              }
-              }
-              return data;
-              }
-              // creating the dummy static data
-              var data = createDummyData();
-              // initializing a new calendar object, that will use an html container to create itself
-              var calendar = new Calendar(
-              "calendarContainer", // id of html container for calendar
-              "small", // size of calendar, can be small | medium | large
-              [
-              "Wednesday", // left most day of calendar labels
-              3 // maximum length of the calendar labels
-              ],
-              [
-              "#E91E63", // primary color
-              "#C2185B", // primary dark color
-              "#FFFFFF", // text color
-              "#F8BBD0" // text dark color
-              ]
-              );
-              // initializing a new organizer object, that will use an html container to create itself
-              var organizer = new Organizer(
-              "organizerContainer", // id of html container for calendar
-              calendar, // defining the calendar that the organizer is related to
-              data // giving the organizer the static data that should be displayed
-              );
-              </script>
-</body>
-</html>
-       
+
+                <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="tell" class="form-control" name="phno" value="{{ old('phno')}}" placeholder="xxxx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required="" minlength="12" maxlength = "12" autofocus="">
+
+                      <label>Phone No<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('phno')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('cnic')}}" name="cnic"class="mb-4" minlength="13" maxlength="15"  placeholder="XXXXX-XXXXXXX-X"  required="" autofocus="">
+
+                      <label>CNIC<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('cnic')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('add')}}" name="add" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
+
+                      <label>Owner Address<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('name')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+
+
+                  <div class="s_form_button text-center w-100">
+
+                      <a  href="{{url('/schools')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+
+                      <button type="submit" class="btn save_btn">Save</button>
+
+                    </div>
+
+                  </div>
+
+              </form>
+
+            </div>
+
+            
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+<script>
+  function uploadFile(target) {
+    document.getElementById("file-name").innerHTML = target.files[0].name;
+}
+</script>
+
+<script type="text/javascript">
+
+  var password = document.getElementById("password");
+
+  var confirm_password = document.getElementById("password_confirmation");
+
+
+
+function validatePassword(){
+
+  if(password.value != confirm_password.value) {
+
+    confirm_password.setCustomValidity("Passwords Don't Match");
+
+  } else {
+
+    confirm_password.setCustomValidity('');
+
+  }
+
+}
+
+
+
+password.onchange = validatePassword;
+
+confirm_password.onkeyup = validatePassword;
+
+</script>  
+
+<script type="text/javascript">
+
+  setTimeout(function() {
+
+    $('#message').fadeOut('fast');
+
+}, 2000);
+
+</script>   
+
+@endsection

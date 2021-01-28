@@ -20,7 +20,12 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $this->validate($request, [
-        'phone' => 'max:11|min:11',
+        'fb' => 'required',
+        'twitter' => 'required',
+        'youtube' => 'required',
+        'contact'=>'required|email|max:255',
+        'Noti'=>'required|email|max:255',
+        'phone' => 'max:12|min:12'
         ]);
 
         $data=Setting::where('id', 1)->first();
@@ -31,39 +36,7 @@ class SettingsController extends Controller
         $data->notification_email=$request->input('Noti');
         $data->phone_number=$request->input('phone');
         $data->save();
-        // Session::flash('message', 'Updated successfully');
+        Session::flash('message', 'Updated Successfully');
         return redirect('/setting');
     }
 }
-
-
-
-
-// public function update(Request $request, $id)
-//     {
-//     	$school = DB::table('schools')->where('id',$id)->get()->first();
-//     	$this->validate($request, [
-//                 'sname' => ['required', 'string', 'max:255'],
-//                 'image' => ['mimes:jpeg,png'],
-//                 'add' => ['required'],
-//                 'oname' => ['required'],
-//                 'oadd' => ['required'],
-//             ]);
-//         if ($files = $request->file('image')) {
-// 	    	$name=$files->getClientOriginalName();
-// 	        $image = time().'.'.$request->image->getClientOriginalExtension();
-// 	        $request->image->move(public_path() .'\img\upload', $image);
-// 	       }
-// 	       else{
-// 	       	$image = $school->logo;
-// 	       }
-// 	       	$data = School::find($id);
-// 	        $data->name=$request->input('sname');
-// 	        $data->owner_name=$request->input('oname');
-// 	        $data->owner_address=$request->input('oadd');
-// 	        $data->address=$request->input('add');
-// 	        $data->logo = $image;
-// 	        $data->save();
-//             Session::flash('message', 'Updated successfully');
-//             return redirect('/schools');
-//     }
