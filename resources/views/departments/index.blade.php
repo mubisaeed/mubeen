@@ -19,35 +19,43 @@
         <div class="course card-header card-header-warning card-header-icon">
           @if(count($departments)>0)
             <h3>All Departments</h3>
-          @else
-            <h3>No Departments Available</h3>
-          @endif
           <div class="table_filters">
             <div class="table_search">
               <input id="myInput" type="text" name="myInput" value="" placeholder="Search...">
               <a href="#"> <i class="fa fa-search"></i> </a>
             </div>
-            {{-- <div class="table_select">
-              <select class="selectpicker">
-                <option>All Departments</option>
-                <option>Macro Economics I</option>
-                <option>Macro Economics II</option>
-              </select>
-            </div> --}}
+            
           </div>
           <table class="table table-hover" id="table-id">
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col">Serial</th>
                 <th scope="col">Name</th>
+                <th scope="col"> Add Class </th>
+                <th> Seel all classes</th>
+                @if(auth()->user()->role_id != '5')
                 <th scope="col">Action</th>
+                @endif
               </tr>
             </thead>
             <tbody id="myTable">
+                <?php $count = 1;  ?>
               @foreach ($departments as $department)
                 <tr>
-                  <th scope="row">{{$department->id}}</th>
+                  <th scope="row">{{$count}}   </th>
+                     <?php $count++; ?>
                   <td class="first_row">{{$department->name}}</td>
+                  <td>
+                    
+                      <a href="{{url('/departments/addclass/todepartment/'.$department->id)}}" class="btn btn-success"> Add class to {{$department->name}} department </a>
+                      
+                      
+                  </td>
+                  <td>
+                      <a class="btn btn-primary" href="{{url('/departments/seeclasses/'.$department->id)}}"> See All Classes</a>
+                      
+                  </td>
+                    @if(auth()->user()->role_id != '5')
                   <td class="align_ellipse first_row">
                     <li class="nav-item dropdown">
                       <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,16 +65,19 @@
                         <div class="ripple-container"></div>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                       
                         <a class="dropdown-item" href="{{url('/departments/edit/'.$department->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                         <a class="dropdown-item delete" href="javascript:void(0);" data-id="<?php echo $department->id; ?>"> <i class="fa fa-trash"></i>Delete</a>
+                      
                       </div>
                     </li>
                   </td>
+                    @endif
                 </tr>
               @endforeach
             </tbody>
           </table>
-          <div class="table_footer">
+<div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager pagination">
@@ -89,67 +100,30 @@
               </div>
             </div>
           </div>
+
+           @else
+
+            <p>There is no Department</p>
+
+          @endif
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
-  <script type="text/javascript">
-    setTimeout(function() {
-      $('#message').fadeOut('fast');
-    }, 2000);
-  </script>
-  <script type="text/javascript">
-    $("body").on( "click", ".delete", function () {
-    var task_id = $( this ).attr( "data-id" );
-    console.log(task_id);
-    var form_data = {
-    id: task_id
-    };
-    swal({
-    title: "Do you want to delete this department?",
-    type: 'info',
-    showCancelButton: true,
-    confirmButtonColor: '#F79426',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes',
-    showLoaderOnConfirm: true
-    }).then( ( result ) => {
-    if ( result.value == true ) {
-    $.ajax( {
-    type: 'get',
-    url: '<?php echo url("/departments/delete"); ?>',
-    data: form_data,
-    success: function ( msg ) {
-    swal( "@lang('Department Deleted')", '', 'success' )
-    setTimeout( function () {
-    location.reload();
-    }, 1000 );
-    }
-    } );
-    }
-    } );
-    } );
-  </script>
-  <script>
-    $(document).ready(function(){
-      $("#myInput").on("keyup", function() {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function() {
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-        });
-      });
-    });
-  </script>
   <script>
     getPagination('#table-id');
-	
+  
     function getPagination(table) {
       var lastPage = 1;
 
       $('#maxRows')
         .on('change', function(evt) {
-          //$('.paginationprev').html('');						// reset pagination
+          //$('.paginationprev').html('');            // reset pagination
 
         lastPage = 1;
           $('.pagination')
@@ -181,7 +155,7 @@
           if (totalRows > maxRows) {
             // if tr total rows gt max rows option
             var pagenum = Math.ceil(totalRows / maxRows); // ceil total(rows/maxrows) to get ..
-            //	numbers of pages
+            //  numbers of pages
             for (var i = 1; i <= pagenum; ) {
               // for each page append pagination li
               $('.pagination #prev')
@@ -223,7 +197,7 @@
             var trIndex = 0; // reset tr counter
             $('.pagination li').removeClass('active'); // remove active class from all li
             $('.pagination [data-page="' + lastPage + '"]').addClass('active'); // add active class to the clicked
-            // $(this).addClass('active');					// add active class to the clicked
+            // $(this).addClass('active');          // add active class to the clicked
           limitPagging();
             $(table + ' tr:gt(0)').each(function() {
               // each tr in table not the header
@@ -267,6 +241,127 @@
 
         }
       }
+      if($('.pagination li').length == 2){
+        document.getElementsByClassName('pagination').hide();
+      }
     }
+    
   </script>
+
+<script>
+
+    $(document).ready(function(){
+
+      $("#search").on("keyup", function() {
+
+        var value = $(this).val().toLowerCase();
+
+        // alert(value);
+
+        $("#mybody tr").filter(function() {
+
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+<script type="text/javascript">
+
+  $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+</script>
+
+<script type="text/javascript">
+
+  setTimeout(function() {
+
+    $('#message').fadeOut('fast');
+
+}, 2000);
+
+</script>
+
+          <!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
+
+<script type="text/javascript">
+
+  $( "body" ).on( "click", ".delete", function () {
+
+    var task_id = $( this ).attr( "data-id" );
+
+    var form_data = {
+
+        id: task_id
+
+    };
+
+    swal({
+
+        title: "Do you want to delete this Department",
+
+        //text: "@lang('category.delete_category_msg')",
+
+        type: 'info',
+
+        showCancelButton: true,
+
+        confirmButtonColor: '#F79426',
+
+        cancelButtonColor: '#d33',
+
+        confirmButtonText: 'Yes',
+
+        showLoaderOnConfirm: true
+
+    }).then( ( result ) => {
+
+        if ( result.value == true ) {
+
+            $.ajax( {
+
+                type: 'POST',
+
+                headers: {
+
+                    'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
+
+                },
+
+                url: '<?php echo url("/departments/delete"); ?>',
+
+                data: form_data,
+
+                success: function ( msg ) {
+
+                    swal( "@lang('Department Deleted Successfully')", '', 'success' )
+
+                    setTimeout( function () {
+
+                        location.reload();
+
+                    }, 900 );
+
+                }
+
+            } );
+
+        }
+
+    } );
+
+  } );
+
+</script>
+
+
+
+
+
+
+
 @endsection

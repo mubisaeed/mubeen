@@ -13,8 +13,8 @@ class AboutPageController extends Controller
 {
     public function index()
     {
-    	$user = Auth::user();
-    	$about = DB::table('aboutpage')->where('id', 1)->first();
+        $user = Auth::user();
+        $about = DB::table('aboutpage')->where('id', 1)->first();
         return view('pages.about', compact('about', 'user'));
     }
     public function update(Request $request)
@@ -22,17 +22,17 @@ class AboutPageController extends Controller
         $about = DB::table('aboutpage')->where('id',1)->get()->first();
         
         $this->validate($request, [
-            'title'=>'required|min:3|max:255',
-            'image'=>'max:5000',
+            'title'=>'required|min:1|max:255',
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'content'=>'required'
         ]);
 
         if ($files = $request->file('image')) {
-            $path="img/upload/$about->image";
+            $path="assets/img/upload/$about->image";
             @unlink($path);
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalName();  
-            $image->move(public_path('img/upload'), $imageName);
+            $image->move(public_path('assets/img/upload'), $imageName);
         }
         else{
          $imageName = $about->image;

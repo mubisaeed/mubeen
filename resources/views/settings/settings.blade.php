@@ -1,72 +1,208 @@
 @extends('layouts.app')
+
 @section('content')
 
 <div id="message">
-  @if (Session::has('message'))
-    <div class="alert alert-info">
-      {{ Session::get('message') }}
-    </div>
-  @endif
-</div>
-<div>
-    <form action="{{url('update/')}}" method="POST" enctype="multipart/form-data">
-      {{@csrf_field()}} 
-      <h2>Settings</h2>
-      <label for="fb">Facebook Link:</label>      
-      <input class="form-control" type="url" name="fb" value={{old('fb', $setting->facebook_url)}} required><br><br>
-      @error('fb')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      
-      <label for="twitter">Twitter Link:</label>
-      <input class="form-control" type="url" name="twitter" value={{old('twitter', $setting->twitter_url)}} required><br><br>
-      @error('twitter')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      <label for="youtube">Youtube Link:</label>
-      <input class="form-control" type="url" name="youtube" value={{old('youtube', $setting->youtube_url)}} required><br><br>
-      @error('youtube')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      <label for="contact">Contact Us:</label>
-      <input class="form-control" type="email" name="contact" value={{old('contact', $setting->contact_email)}} required><br><br>
-      @error('contact')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      <label for="Noti">Notification Email:</label>
-      <input class="form-control" type="email" name="Noti" value={{old('Noti', $setting->notification_email)}} required><br><br>
-      @error('Noti')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      <label for="phone">Phone Number:</label>
-      <input class="form-control" type="tel" name="phone" value={{old('phone', $setting->phone_number)}}  class="mb-4" placeholder="03xx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required minlength="12" maxlength = "12"><br><br>
-      @error('phone')
-        <div>
-          {{ $message }}
-        </div>
-      @enderror
-      <div class="footer pull-right">
-      <button type="submit" class="btn btn-success">Update</button>
-      <a href='setting' class="btn btn-default" >Cancel</a>
-      </div>
 
-    </form>
+  @if (Session::has('message'))
+
+    <div class="alert alert-info">
+
+      {{ Session::get('message') }}
+
+    </div>
+
+  @endif
+
+</div>
+
+<div class="breadcrumb_main">
+
+  <ol class="breadcrumb">
+
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
+
+    <li class = "active">Edit Settings</li>
+
+  </ol>
+
+</div>
+
+<div class="content_main">
+  <div class="profile_main">
+    <div class="profile mt-0">
+      <div class="course card-header card-header-warning card-header-icon">
+        <h3 class="main_title_ot">Edit Setting</h3>
+        <div class="tab-content">
+          <form action="{{url('update/')}}" method="POST" enctype="multipart/form-data">
+
+            {{@csrf_field()}} 
+
+              <div class="s_profile_fields">
+
+                <div class="row">
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="url" class="form-control" name="fb" value="{{old('fb', $setting->facebook_url)}}" required minlength="3" maxlength="50" autofocus="">
+
+                      <label>Facebook Link<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('fb')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="url" class="form-control" name="twitter" value="{{old('twitter', $setting->twitter_url)}}" required minlength="3" maxlength="50" autofocus="">
+
+                      <label>Twitter Link<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('twitter')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="url" class="form-control" name="youtube" value="{{old('youtube', $setting->youtube_url)}}" required minlength="3" maxlength="50" autofocus="">
+
+                      <label>Youtube Link<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('youtube')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input class="form-control" type="email" name="contact" value="{{old('contact', $setting->contact_email)}}" required minlength="3" maxlength="50" autofocus="">
+
+                      <label>Contact Email<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('contact')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input class="form-control" type="email" name="Noti" value="{{old('Noti', $setting->notification_email)}}" required minlength="3" maxlength="50" autofocus="">
+
+                      <label>Notification Email<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('Noti')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="tel" class="form-control" name="phone" value="{{old('phone', $setting->phone_number)}}" placeholder="xxxx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required="" minlength="12" maxlength = "12" autofocus="">
+
+
+                      <label>Phone No<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('phno')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+                  <div class="s_form_button text-center w-100">
+
+                    <a  href="{{url('setting')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+
+                    <button type="submit" class="btn save_btn">Update</button>
+
+                  </div>
+                  </div>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
 
 <script type="text/javascript">
+
   setTimeout(function() {
+
     $('#message').fadeOut('fast');
+
   }, 2000);
+
 </script>
+
+
 
 @endsection
