@@ -535,7 +535,7 @@
       
         @if(  in_array('Add New Assignment', $data) )
         <!--assignment-->
-          <li class="nav-item dropdown_item">
+         <!--  <li class="nav-item dropdown_item">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
 
@@ -555,7 +555,7 @@
 
             </div>
 
-          </li>
+          </li> -->
         @endif    
 
         @endif

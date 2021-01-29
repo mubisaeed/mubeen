@@ -375,6 +375,11 @@ Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
 
 Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
+Route::get('/lecture/create/{id}', [InstructorsController::class, 'create_lecture']);
+
+Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
+
+
 
 
 

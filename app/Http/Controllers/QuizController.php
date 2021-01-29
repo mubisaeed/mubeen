@@ -114,7 +114,7 @@ class QuizController extends Controller
 
     public function storequestion_to_quiz(Request $request)
     {
-        if(count($request->question_id) > 0 )
+        if(!empty($request->question_id))
         {
              $so = '1';
             foreach( $request->question_id  as $question_id)

@@ -29,7 +29,7 @@ class ZoomController extends Controller
     public function create_meeting($user_id,$topic){
 
         $user = Zoom::user()->find($user_id);
-
+        // dd($user);
         $meeting = Zoom::meeting();
         $meeting = Zoom::meeting()->make([
             'topic' => $topic,
@@ -51,7 +51,8 @@ class ZoomController extends Controller
             'waiting_room' => false
         ]);
         $user->meetings()->save($meeting);
-        return $meeting;        
+        return $meeting;     
+
     }
 
     public function meeting_list($user_id){

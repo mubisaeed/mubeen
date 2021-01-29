@@ -45,9 +45,23 @@ class ClasController extends Controller
         if(auth()->user()->role_id == '4')
         {
             $courses = DB::table('course_instructor')->where('i_u_id', auth()->user()->id)->pluck('course_id');
-            $course_classes = DB::table('courses')->where('id', $courses)->pluck('clas_id');
-            $classes = DB::table('classes')->where('id', $course_classes)->get()->all();
-            return view ('clases.index', compact('classes'));
+            if(count($courses)>0)
+            {
+                $course_classes = DB::table('courses')->whereIn('id', $courses)->pluck('clas_id');
+                if(count($course_classes)>0)
+                {
+                    $classes = DB::table('classes')->where('id', $course_classes)->get()->all();
+                    return view ('clases.index', compact('classes'));
+                }
+                else{
+                Session::flash('message', 'you have not assigned any class.');
+                return redirect()->back();
+            }
+            }
+            else{
+                Session::flash('message', 'you have not assigned any class.');
+                return redirect()->back();
+            }
         }
 
         else

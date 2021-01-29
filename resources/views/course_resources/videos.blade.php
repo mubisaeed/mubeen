@@ -16,7 +16,7 @@
 
   </div>
 
-
+@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
               <ol class="breadcrumb">
@@ -172,7 +172,7 @@
             </div>
 
           </div>
-
+@endif
 
 <div class="content_main content">
 
