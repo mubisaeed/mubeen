@@ -125,9 +125,17 @@ Route::get('/mcq/create/{id}', [QuestionsController::class, 'mcqcreate']);
 
 Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
 
+Route::get('/mcq/edit/{id}/{courseid}',  [QuestionsController::class, 'mcq_edit']);
+
+Route::post('/mcq/update/{id}',  [QuestionsController::class, 'mcq_update']);
+
 Route::get('/q/create/{id}', [QuestionsController::class, 'qcreate']);
 
 Route::post('/q/store', [QuestionsController::class, 'qstore']);
+
+Route::get('/q/edit/{id}/{courseid}',  [QuestionsController::class, 'q_edit']);
+
+Route::post('/q/update/{id}',  [QuestionsController::class, 'q_update']);
 
 Route::get('/mcq/show', [QuestionsController::class, 'see_all_mcqs']);
 
@@ -136,6 +144,10 @@ Route::get('/tf/show', [QuestionsController::class, 'see_all_tf']);
 Route::get('/tf/create/{id}', [QuestionsController::class, 'tfcreate']);
 
 Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
+
+Route::get('/tf/edit/{id}/{courseid}',  [QuestionsController::class, 'tf_edit']);
+
+Route::post('/tf/update/{id}',  [QuestionsController::class, 'tf_update']);
 
 Route::get('/filterall/{id}/{qid}', [QuestionsController::class, 'filterall']);
 
@@ -249,7 +261,10 @@ Route::get('/get-instructors', [StudentsController::class, 'get_instructors']);
 
 Route::get('/get-students', [StudentsController::class, 'get_students']);
 
+//filter students
 
+
+Route::get('/filter_recent_students/{id}', [StudentsController::class, 'filterrecent']);
 
 
 

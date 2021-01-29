@@ -117,6 +117,7 @@
                         </div>
                         </div>
                         <div class="save_next_btn text-center w-100">
+                          <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
                           <button type="submit" class="btn">Save and next</button>
                           
                         </div>
@@ -194,7 +195,7 @@
                         <div class="ripple-container"></div>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="{{url('student/edit/' . $mcq->id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                        <a class="dropdown-item" href="{{url('/mcq/edit/' . $mcq->id, $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                         <a href="javascript:void(0);" data-id="<?php echo $mcq->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
                       </div>
                     </li>

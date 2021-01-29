@@ -57,22 +57,21 @@
                 <a href="#"> <i class="fa fa-search"></i> </a>
 
               </div>
+              
 
-              <div class="table_select">
+<!--               <div class="table_select">
 
                 <select class="selectpicker">
 
                   <option>All Students</option>
 
-                  <option>Today </option>
+                  <option>Latest Created</option>
 
-                  <option>Macro Economics I</option>
-
-                  <option>Macro Economics II</option>
+                  <option>Filter By Course</option>
 
                 </select>
 
-              </div>
+              </div> -->
 
             </div>
 

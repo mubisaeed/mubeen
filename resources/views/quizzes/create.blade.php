@@ -327,7 +327,7 @@
 
                   <div class="s_form_button text-center">
 
-                    <a  href="{{url('/quizzes')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                    <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                     <button type="submit" class="btn save_btn">Add</button>
 
