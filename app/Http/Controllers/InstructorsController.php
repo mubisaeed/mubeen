@@ -334,9 +334,7 @@ class InstructorsController extends Controller
 
             
 
-             $all_perm = DB::table('module_permissions_instructors')->pluck('module')->toArray();
-
-          
+            $all_perm = DB::table('module_permissions_instructors')->pluck('module')->toArray();
 
             $new = implode(',', $all_perm);
 
@@ -347,11 +345,9 @@ class InstructorsController extends Controller
                  "allowed_module" => $new
 
             ]);
-
-            
-
-            
-
+            $zoom = new ZoomController();
+            $zoom_user = $zoom->create_user($request->input('name'),$request->input('name'),$request->input('email'),$request->input('name'),'12345678');
+        
             Session::flash('message', 'Instructor create successfully');
 
             return redirect('/instructors');
