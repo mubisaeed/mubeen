@@ -229,6 +229,7 @@ Route::get('/course', [CourseController::class, 'course'])->name('courses');
 Route::get('/studentcourses/{id}', [CourseController::class, 'students_courses']);
 
 Route::get('/showcourseofclass/{id}', [CourseController::class, 'class_course'])->name('courses');
+Route::get('/showstudentsofclass/{id}', [CourseController::class, 'class_stds'])->name('students');
 
 Route::get('/courses', [CourseController::class, 'coursecreate']);
 

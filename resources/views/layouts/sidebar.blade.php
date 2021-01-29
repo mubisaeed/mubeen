@@ -492,9 +492,9 @@
             <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
-                   @if(  in_array('All Students', $data) )
+                  <!--  @if(  in_array('All Students', $data) )
                 <a class="collapse-item" href="{{url('/students')}}">All Students</a>
-                   @endif
+                   @endif -->
                    @if(  in_array('Add New Student', $data) )
                 <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a>
                    @endif
@@ -510,7 +510,7 @@
        
         @if(  in_array('Add Questions', $data) )
          <!--quiz-->
-         <li class="nav-item dropdown_item">
+<!--          <li class="nav-item dropdown_item">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
 
@@ -530,7 +530,7 @@
 
             </div>
 
-          </li>
+          </li> -->
         @endif   
       
         @if(  in_array('Add New Assignment', $data) )

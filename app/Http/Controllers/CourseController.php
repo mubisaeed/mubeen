@@ -239,6 +239,14 @@ class CourseController extends Controller
 
     }
 
+    public function class_stds($id)
+
+    { 
+        $stds = DB::table('classes_students')->where('class_id', $id)->get()->all();
+        return view('students.instructor_students', compact('students'));
+
+    }
+
 
     public function course_wise_url(Request $request)
 

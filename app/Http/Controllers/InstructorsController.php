@@ -223,8 +223,7 @@ class InstructorsController extends Controller
         //     'course_id' => $request->input('course_id'),
         // ]);
         $zoom = new ZoomController();
-        $zoom_user = $zoom->create_meeting($user->zoom_id,$request->input('topic'));
-        dd($meeting);
+        $meeting = $zoom->create_meeting($user->zoom_id,$request->input('topic'));
         $lecture = DB::table('lectures')->insertGetId([
             'topic' => $request->input('topic'),
             'instructor_id' => Auth::user()->id,

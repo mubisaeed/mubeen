@@ -178,7 +178,7 @@
 
                       <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
 
-                      <!-- <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a> -->
+                      <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a>
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
 
