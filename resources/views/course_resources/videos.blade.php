@@ -187,7 +187,7 @@
 
         
 
-        <h3>Videos</h3>
+        <h3>All Videos</h3>
 
         @if(count($cresources)>0)
 
