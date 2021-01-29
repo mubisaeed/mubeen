@@ -105,12 +105,7 @@ class GreetingsController extends Controller
      */
     public function edit($id)
     {
-        // $user = Auth::user();
-
         $greeting = DB::table('greetings')->where('id',$id)->first();
-
-        // dd($greeting);
-
         return view('greetings.edit', compact('greeting'));
     }
 
@@ -128,54 +123,35 @@ class GreetingsController extends Controller
             'title'=>'required|max:50',
             'description'=>'required|max:255',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
         ]);
-
-        // $greetings = greetings::find($id);
-        // dd($id);
-
         if ($files = $request->file('image')) {
-
         $path="assets/img/upload/$request->image";
-
         File::delete($path);
-
         $image = $request->file('image');
-
         $imageName = time().'.'.$image->getClientOriginalName();
-
         $request->image->move(public_path() .'/assets/img/upload', $imageName);
-
-        }
-
-        else {
-
         $greetings = DB::table('greetings')->where('id', $id)->update([
-
-        'title' => $request->title,
-
-        'description'=> $request->description,
-
-        'image'=> $imageName,
-        ]);
-
+            'title' => $request->title,
+            'description'=> $request->description,
+            'image'=> $imageName,
+            ]);
+        }else {
+        $greetings = DB::table('greetings')->where('id', $id)->update([
+             'title' => $request->title,
+             'description'=> $request->description,
+            ]);
         }
-
-        // dd($greetings);
-
-        if($greetings){
-
+        if($request){
         return redirect('/greetings/index')->with('message', 'Greeting Successfully Update');
-
         }else{
-
         Session::flash('message', 'Something went wrong');
-
         return back();
-
-    }
+        }
     
     }
+
+
+
 
     /**
      * Remove the specified resource from storage.

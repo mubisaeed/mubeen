@@ -49,7 +49,7 @@
                     
 
                     <form action="{{url('/greetings/edit', $greeting->id)}}" method="POST" enctype="multipart/form-data" class="w-100">
-                     {{@csrf_field()}}
+                     @csrf
                      
                      <div class="row">
 
