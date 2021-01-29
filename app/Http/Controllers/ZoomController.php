@@ -2,42 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Zoom;
 use Illuminate\Http\Request;
+use Zoom;
 
 class ZoomController extends Controller
 {
-    public function create_user(Request $request){
+    public function create_user($f_name,$l_name,$email,$password){
         $user =     Zoom::user();
         return $user->create([
-            'first_name' => $request->f_name,
-            'last_name' => $request->l_name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'type'=> $request->type ? $request->type : 1
+            'first_name' => $f_name,
+            'last_name' => $l_name,
+            'email' => $email,
+            'password' => $password,
+            'type'=> 1
         ]);
     }
 
-    public function  get_user($id){
+    public function  get_user($user_id){
         $user =     Zoom::user();
-        return $user->find($id);
+        return $user->find($user_id);
     }
     public function user_list(){
         $user =     Zoom::user();
         return $user->all();
     }
-    public function create_meeting($user_id){
-        if($user_id){
-            $user = Zoom::user()->find($user_id);
+    public function create_meeting($user_id,$topic){
 
-        }else{
-            return false;
-        }
         $user = Zoom::user()->find($user_id);
 
         $meeting = Zoom::meeting();
         $meeting = Zoom::meeting()->make([
-            'topic' => 'Class 9 English with Sir Ali',
+            'topic' => $topic,
             'type' => 8
         ]);
         $meeting->recurrence()->make([
@@ -66,28 +61,28 @@ class ZoomController extends Controller
         return $user->meetings()->all();
     
     }
-    public function get_meeting(){
+    public function get_meeting($meeting_id){
         $meeting = Zoom::meeting();
-        return $meeting->find($id);
+        return $meeting->find($meeting_id);
     }
 
-    public function add_student_to_meeting(){
+    public function add_student_to_meeting($meeting_id,$email,$f_name,$l_name,$address,$city,$country,$zip,$state,$phone,$industry,$org,$job_title){
         $meeting = Zoom::meeting()->find($meeting_id);
         return $meeting->registrants;
     
         $registrant = Zoom::meeting()->registrants()->create([
-            "email" => $request->email,
-            "first_name" => $request->f_name,
-            "last_name" => $request->l_name,
-            "address" => $request->address,
-            "city" => $request->city,
-            "country" => $request->country,
-            "zip" => $request->zip,
-            "state" => $request->state,
-            "phone" => $request->phone,
-            "industry" => $request->industry,
-            "org" => $request->org,
-            "job_title" => $request->job_title,
+            "email" => $email,
+            "first_name" => $f_name,
+            "last_name" => $l_name,
+            "address" => $address,
+            "city" => $city,
+            "country" => $country,
+            "zip" => $zip,
+            "state" => $state,
+            "phone" => $phone,
+            "industry" => $industry,
+            "org" => $org,
+            "job_title" => $job_title,
             "purchasing_time_frame" => "More Than 6 Months",
             "role_in_purchase_process" => "Influencer",
             "no_of_employees" => '10',
