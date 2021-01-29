@@ -26,7 +26,7 @@
 div.mm-dropdown ul {
   list-style: none;
   padding: 0;
-  border: 1px solid;
+  /*border: 1px solid;*/
   margin: 0;
   border-top: 0;
   border-radius: 5px;
@@ -55,7 +55,8 @@ div.mm-dropdown ul li {
   display: none;
   padding-left: 25px;
       padding: 6px 22px;
-    border-bottom: 1px solid;
+    border: 1px solid;
+    border-top: 0;
 }
 
 div.mm-dropdown ul li.main {
@@ -163,7 +164,7 @@ div.mm-dropdown ul li img {
                   </div>
 
 
-                  <div class="s_form_button text-center">
+                  <div class="s_form_button w-100 text-center">
 
                       <a  href="{{url('/classes')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
