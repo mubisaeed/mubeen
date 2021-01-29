@@ -565,9 +565,9 @@ Route::get('/special_education/notification',  [Special_educationController::cla
 
 // Routes for Sub Addmin:
 
-Route::get('/Sub_admincreate', [Sub_adminsController::class, 'create'])->name('Sub_admincreate');
+Route::get('/Sub_admin/create', [Sub_adminsController::class, 'create']);
 
-Route::post('/sub_adminstore', [Sub_adminsController::class, 'store']);
+Route::post('/sub_admin/store', [Sub_adminsController::class, 'store']);
 
 Route::get('/subadmin/show', [Sub_adminsController::class, 'show']);
 

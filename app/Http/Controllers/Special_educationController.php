@@ -66,12 +66,12 @@ class Special_educationController extends Controller
 
             $request->image->move(public_path() .'/assets/img/upload', $imageName);
 
-            $students = DB::table('students')->where('s_u_id', auth()->user()->id)->get()->first();
+            // $students = DB::table('students')->where('s_u_id', auth()->user()->id)->get()->first();
 
             $schools = DB::table('schools')->where('sch_u_id', auth()->user()->id)->get()->first();
 
             $special_educations = DB::table('special_educations')->insert([
-            'sch_id' => $schools->sch_u_id,
+            // 'sch_id' => $schools->sch_u_id,
             'student_id' => $students->s_u_id,
             'upload_file' => $fileName,
             'parent_comments' => $request->comments,

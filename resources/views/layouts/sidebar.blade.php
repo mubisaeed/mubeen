@@ -153,7 +153,7 @@
 
                 @if($user->role_id == '1')
 
-                  <a class="collapse-item" href="{{url('/Sub_admincreate')}}">Add New Sub Admin</a>
+                  <a class="collapse-item" href="{{url('/Sub_admin/create')}}">Add New Sub Admin</a>
 
                 @endif
 

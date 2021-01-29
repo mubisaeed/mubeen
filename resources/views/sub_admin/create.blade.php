@@ -47,7 +47,7 @@
 
             @endforeach
 
-          <form method="POST" action="/sub_adminstore" enctype="multipart/form-data">
+          <form method="POST" action="/sub_admin/store" enctype="multipart/form-data">
 
             @csrf
 
