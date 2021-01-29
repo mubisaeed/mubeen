@@ -7,8 +7,18 @@
 
 <style type="text/css">
   
+.textfirst {
+      padding: 7px 10px;
+    border: 1px solid #585858;
+    box-sizing: border-box;
+    border-radius: 5px;
+    transition: .3s;
+    transition: .3s ease-out;
+    color: #585858 !important;
+}
+
   div.mm-dropdown {
-  border: 1px solid #ddd;
+  /*border: 1px solid #ddd;*/
   width: 100%;
   border-radius: 3px;
 }
@@ -16,8 +26,12 @@
 div.mm-dropdown ul {
   list-style: none;
   padding: 0;
+  border: 1px solid;
   margin: 0;
-  border: 0;
+  border-top: 0;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 div.mm-dropdown ul li,
@@ -40,6 +54,8 @@ div.mm-dropdown ul li:last-child {
 div.mm-dropdown ul li {
   display: none;
   padding-left: 25px;
+      padding: 6px 22px;
+    border-bottom: 1px solid;
 }
 
 div.mm-dropdown ul li.main {

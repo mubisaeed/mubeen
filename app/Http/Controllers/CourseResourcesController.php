@@ -126,9 +126,7 @@ class CourseResourcesController extends Controller
 
     public function Storevid(Request $req){
 
-        $this->validate($req,
-
-         [
+        $this->validate($req,[
 
         'video' => 'max:2048|mimes:mp4,wmv',
 
@@ -284,9 +282,7 @@ class CourseResourcesController extends Controller
 
 
 
-        $this->validate($request, [
-
-            'video' => 'max:2048|mimes:mp4,wmv',
+        $this->validate($request, ['video' => 'max:2048|mimes:mp4,wmv',
 
             'title'=>'required|min:3|max:20',
 
@@ -318,24 +314,23 @@ class CourseResourcesController extends Controller
 
             $fileType =$file->getClientOriginalExtension();
 
-        // }
+        }
 
-        // else{
+        else{
 
-        //     $fileName = $cress->file;
+            $fileName = $cress->file;
 
-        //     $fileType = $cress->type;
+            $fileType = $cress->type;
 
-        // }
+        }
 
-        
+        $cress->title=$request->input('title');
+
+        $cress->short_description=$request->input('short_des');
 
         $cress->file=$fileName;
 
         $cress->type=$fileType;
-
-    }
-    else
 
     $cress->link=$req->input('link');
 

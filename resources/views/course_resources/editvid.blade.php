@@ -43,15 +43,6 @@
 
                         <input type="hidden" name="main" value="{{$main}}"> 
 
-                          
-
-                    <div class="col-md-6 p_left">
-
-                      <div class="custom_input_main">
-
-                        <input type="text" class="form-control" value="{{old('title', $cress->title)}}" name="title" required="" minlength="3" maxlength ="50" autofocus="">
-
-                        <label>Title <span class="red">*</span></label>
 
                       </div>
 

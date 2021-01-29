@@ -40,15 +40,12 @@
         <h3 class="main_title_ot">Edit Sub Admin</h3>
 
         <div class="tab-content">
-
         @foreach ($errors->all() as $error)
 
               <div class="alert alert-danger">{{ $error }}</div>
 
             @endforeach
  
-          <form method="POST" action="{{ url('/subadmin/edit/'. $sbadmn->id) }}" enctype="multipart/form-data">
-
             @csrf
 
             

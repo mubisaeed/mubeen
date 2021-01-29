@@ -368,7 +368,7 @@ class SchoolsController extends Controller
 
             'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
 
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'fname' => 'required|min:3|max:50',
 
