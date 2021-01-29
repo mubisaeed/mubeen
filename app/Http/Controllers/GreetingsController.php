@@ -49,8 +49,13 @@ class GreetingsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
 
-        // dd($request);
+            'title'=>'required',
+            'description'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
 
         $image = $request->file('image');
 
@@ -70,7 +75,7 @@ class GreetingsController extends Controller
 
         if($greetings){
 
-            return redirect('/greetings/index')->with('message', 'Successfully Send');
+            return redirect('/greetings/index')->with('message', 'Greeting Create Successfully');
     
             }else{
     
@@ -118,7 +123,19 @@ class GreetingsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+
+            'title'=>'required|max:50',
+            'description'=>'required|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
+
+        // $greetings = greetings::find($id);
         // dd($id);
+
+        if ($files = $request->file('image')) {
+
         $path="assets/img/upload/$request->image";
 
         File::delete($path);
@@ -129,6 +146,10 @@ class GreetingsController extends Controller
 
         $request->image->move(public_path() .'/assets/img/upload', $imageName);
 
+        }
+
+        else {
+
         $greetings = DB::table('greetings')->where('id', $id)->update([
 
         'title' => $request->title,
@@ -138,11 +159,13 @@ class GreetingsController extends Controller
         'image'=> $imageName,
         ]);
 
-        dd($greetings);
+        }
+
+        // dd($greetings);
 
         if($greetings){
 
-        return redirect('/greetings/index')->with('message', 'Successfully Update');
+        return redirect('/greetings/index')->with('message', 'Greeting Successfully Update');
 
         }else{
 
@@ -151,6 +174,7 @@ class GreetingsController extends Controller
         return back();
 
     }
+    
     }
 
     /**

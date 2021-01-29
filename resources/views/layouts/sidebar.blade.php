@@ -153,7 +153,7 @@
 
                 @if($user->role_id == '1')
 
-                  <a class="collapse-item" href="{{url('/Sub_admincreate')}}">Add New Sub Admin</a>
+                  <a class="collapse-item" href="{{url('/Sub_admin/create')}}">Add New Sub Admin</a>
 
                 @endif
 
@@ -726,15 +726,9 @@
           </li>
         <!--user guide-->
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
-<<<<<<< HEAD
 
             <a class="nav-link" href="{{url('userguide')}}">
 
-=======
-
-            <a class="nav-link" href="{{url('userguide')}}">
-
->>>>>>> b446e6570ee97e457782c70f82f80acf8b5ed922
               <i class="fa fa-address-book-o"></i>
 
               <p>User Guide</p>
