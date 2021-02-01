@@ -271,8 +271,8 @@
                           <h4>No.of Courses: {{$noOfCourses}}</h4>
                         </div>
                                     
-                        <a class="btn btn-primary btn-sm" href="{{url('/showcourseofclass/'.$class->id)}}">Show Courses</a>
-                                    
+                        <a class="btn btn-primary btn-sm" href="{{url('/showcourseofclass/'.$class->id)}}">Show Courses</a><!-- 
+                        <a class="btn btn-primary btn-sm" href="{{url('/showstudentsofclass/'.$class->id)}}">Show Students</a> -->            
                        </div>
                       </div>   
                     </a>

@@ -208,6 +208,39 @@ class InstructorsController extends Controller
 
     }
 
+    public function create_lecture($id)
+    {
+        $course = DB::table('courses')->where('id', $id)->get()->first();
+        return view('instructors.create_lecture', compact('course'));
+    }
+
+    public function store_lecture(Request $request)
+    {
+        $user = DB::table('instructors')->where('i_u_id', Auth::user()->id)->get()->first();
+        // $lecture = DB::table('lectures')->insertGetId([
+        //     'topic' => $request->input('topic'),
+        //     'instructor_id' => Auth::user()->id,
+        //     'course_id' => $request->input('course_id'),
+        // ]);
+        $zoom = new ZoomController();
+        $meeting = $zoom->create_meeting($user->zoom_id,$request->input('topic'));
+        $lecture = DB::table('lectures')->insertGetId([
+            'topic' => $request->input('topic'),
+            'instructor_id' => Auth::user()->id,
+            'meeting_id' => $meeting->id,
+            'course_id' => $request->input('course_id'),
+        ]);
+        dd($lecture);
+
+
+
+    
+        Session::flash('message', 'Lecture create successfully');
+
+        return redirect()->back();
+
+
+    }
 
 
     public function create(){
@@ -260,7 +293,7 @@ class InstructorsController extends Controller
 
             'name'=>'required|min:3|max:50',
 
-            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image'=>'required|max:2048',
 
             'email'=>'required|email|unique:users|max:255',
 
@@ -318,7 +351,7 @@ class InstructorsController extends Controller
 
         $instructor->save();
 
-            $i_sch_data = array(
+        $i_sch_data = array(
 
             'i_u_id' => $instructor->i_u_id,
 
@@ -346,7 +379,11 @@ class InstructorsController extends Controller
 
             ]);
             $zoom = new ZoomController();
-            $zoom_user = $zoom->create_user($request->input('name'),$request->input('name'),$request->input('email'),$request->input('name'),'12345678');
+            $zoom_user = $zoom->create_user($request->input('name'),$request->input('name'),$request->input('email'),$request->input('password'));
+
+            DB::table('instructors')->where('i_u_id', $instructor->i_u_id)->update([
+                'zoom_id' => $zoom_user->id,
+            ]);
         
             Session::flash('message', 'Instructor create successfully');
 

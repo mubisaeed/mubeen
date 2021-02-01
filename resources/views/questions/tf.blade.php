@@ -111,14 +111,14 @@
 
                   <button type="button" class="btn true_btn active_tf_btn">True <input type="radio" value="true" name="correct" class="btn"/></button>
 
-                  <button type="button" class="btn true_btn false_btn add_margin_to_f">False <input type="radio" value="true" name="correct" class="btn"/></button>
+                  <button type="button" class="btn true_btn false_btn add_margin_to_f">False <input type="radio" value="false" name="correct" class="btn"/></button>
 
                 </div>
 
               </div>
 
               <div class="save_next_btn text-center w-100">
-
+                  <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
                   <button type="submit" class="btn">Save and next</button>
 
                 </div>
@@ -256,7 +256,7 @@
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
 
-                        <a class="dropdown-item" href="{{url('student/edit/' . $tf->id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                        <a class="dropdown-item" href="{{url('/tf/edit/' . $tf->id, $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 
                         <a href="javascript:void(0);" data-id="<?php echo $tf->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
 

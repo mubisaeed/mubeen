@@ -44,7 +44,7 @@
 
      
 
-{{-- @if(count($greetings)>0)         --}}
+@if(count($greetings)>0)        
 
         <h3>All greetings</h3>
 
@@ -109,7 +109,11 @@
 
 <td class="first_row">{{$greeting->title}}</td>
 
-<td class="first_row">  <img src="{{asset('public/assets/img/upload/'.$greeting->image)}}" width="50" alt="" class="img-fluid">
+<td class="first_row">  
+
+{{-- src="{{asset('assets/img/upload/'.$sp_edu->signature)}}" --}}
+
+<img src="{{asset('assets/img/upload/'.$greeting->image)}}" width="50" alt="" class="img-fluid">
 
   {{-- <p>{{$greeting->ImageName}}</p> --}}
   
@@ -176,12 +180,12 @@
               </div>
             </div>
           </div>
-{{-- 
+
          @else
 
-          <p>There is no Sub Admin</p>
+          <p>There is no Greetings</p>
 
-        @endif --}}
+        @endif
 
       </div>
 
@@ -260,7 +264,7 @@
 
                 success: function ( msg ) {
 
-                    swal( "@lang('Greeting Deelete Successfully')", '', 'success' )
+                    swal( "@lang('Greeting Delete Successfully')", '', 'success' )
 
                     setTimeout( function () {
 

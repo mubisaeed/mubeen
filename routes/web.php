@@ -137,9 +137,17 @@ Route::get('/mcq/create/{id}', [QuestionsController::class, 'mcqcreate']);
 
 Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
 
+Route::get('/mcq/edit/{id}/{courseid}',  [QuestionsController::class, 'mcq_edit']);
+
+Route::post('/mcq/update/{id}',  [QuestionsController::class, 'mcq_update']);
+
 Route::get('/q/create/{id}', [QuestionsController::class, 'qcreate']);
 
 Route::post('/q/store', [QuestionsController::class, 'qstore']);
+
+Route::get('/q/edit/{id}/{courseid}',  [QuestionsController::class, 'q_edit']);
+
+Route::post('/q/update/{id}',  [QuestionsController::class, 'q_update']);
 
 Route::get('/mcq/show', [QuestionsController::class, 'see_all_mcqs']);
 
@@ -148,6 +156,10 @@ Route::get('/tf/show', [QuestionsController::class, 'see_all_tf']);
 Route::get('/tf/create/{id}', [QuestionsController::class, 'tfcreate']);
 
 Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
+
+Route::get('/tf/edit/{id}/{courseid}',  [QuestionsController::class, 'tf_edit']);
+
+Route::post('/tf/update/{id}',  [QuestionsController::class, 'tf_update']);
 
 Route::get('/filterall/{id}/{qid}', [QuestionsController::class, 'filterall']);
 
@@ -229,6 +241,7 @@ Route::get('/course', [CourseController::class, 'course'])->name('courses');
 Route::get('/studentcourses/{id}', [CourseController::class, 'students_courses']);
 
 Route::get('/showcourseofclass/{id}', [CourseController::class, 'class_course'])->name('courses');
+Route::get('/showstudentsofclass/{id}', [CourseController::class, 'class_stds'])->name('students');
 
 Route::get('/courses', [CourseController::class, 'coursecreate']);
 
@@ -261,7 +274,10 @@ Route::get('/get-instructors', [StudentsController::class, 'get_instructors']);
 
 Route::get('/get-students', [StudentsController::class, 'get_students']);
 
+//filter students
 
+
+Route::get('/filter_recent_students/{id}', [StudentsController::class, 'filterrecent']);
 
 
 
@@ -371,6 +387,11 @@ Route::get('/instructors/show/{id}', [InstructorsController::class, 'show']);
 Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
 
 Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
+
+Route::get('/lecture/create/{id}', [InstructorsController::class, 'create_lecture']);
+
+Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
+
 
 
 
@@ -557,9 +578,9 @@ Route::get('/special_education/notification',  [Special_educationController::cla
 
 // Routes for Sub Addmin:
 
-Route::get('/Sub_admincreate', [Sub_adminsController::class, 'create'])->name('Sub_admincreate');
+Route::get('/Sub_admin/create', [Sub_adminsController::class, 'create']);
 
-Route::post('/sub_adminstore', [Sub_adminsController::class, 'store']);
+Route::post('/sub_admin/store', [Sub_adminsController::class, 'store']);
 
 Route::get('/subadmin/show', [Sub_adminsController::class, 'show']);
 

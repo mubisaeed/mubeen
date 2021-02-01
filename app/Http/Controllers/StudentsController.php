@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\DB;
 class StudentsController extends Controller
 
 {
-
     public function students()
 
     {

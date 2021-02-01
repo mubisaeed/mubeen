@@ -153,7 +153,7 @@
 
                 @if($user->role_id == '1')
 
-                  <a class="collapse-item" href="{{url('/Sub_admincreate')}}">Add New Sub Admin</a>
+                  <a class="collapse-item" href="{{url('/Sub_admin/create')}}">Add New Sub Admin</a>
 
                 @endif
 
@@ -492,9 +492,9 @@
             <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
-                   @if(  in_array('All Students', $data) )
+                  <!--  @if(  in_array('All Students', $data) )
                 <a class="collapse-item" href="{{url('/students')}}">All Students</a>
-                   @endif
+                   @endif -->
                    @if(  in_array('Add New Student', $data) )
                 <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a>
                    @endif
@@ -510,7 +510,7 @@
        
         @if(  in_array('Add Questions', $data) )
          <!--quiz-->
-         <li class="nav-item dropdown_item">
+<!--          <li class="nav-item dropdown_item">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
 
@@ -530,12 +530,12 @@
 
             </div>
 
-          </li>
+          </li> -->
         @endif   
       
         @if(  in_array('Add New Assignment', $data) )
         <!--assignment-->
-          <li class="nav-item dropdown_item">
+         <!--  <li class="nav-item dropdown_item">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwelve" aria-expanded="false" aria-controls="collapseTwelve">
 
@@ -555,7 +555,7 @@
 
             </div>
 
-          </li>
+          </li> -->
         @endif    
 
         @endif
@@ -726,15 +726,9 @@
           </li>
         <!--user guide-->
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
-<<<<<<< HEAD
 
             <a class="nav-link" href="{{url('userguide')}}">
 
-=======
-
-            <a class="nav-link" href="{{url('userguide')}}">
-
->>>>>>> b446e6570ee97e457782c70f82f80acf8b5ed922
               <i class="fa fa-address-book-o"></i>
 
               <p>User Guide</p>

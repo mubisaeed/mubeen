@@ -49,8 +49,13 @@ class GreetingsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
 
-        // dd($request);
+            'title'=>'required',
+            'description'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
+        ]);
 
         $image = $request->file('image');
 
@@ -70,7 +75,7 @@ class GreetingsController extends Controller
 
         if($greetings){
 
-            return redirect('/greetings/index')->with('message', 'Successfully Send');
+            return redirect('/greetings/index')->with('message', 'Greeting Create Successfully');
     
             }else{
     
@@ -100,12 +105,7 @@ class GreetingsController extends Controller
      */
     public function edit($id)
     {
-        // $user = Auth::user();
-
         $greeting = DB::table('greetings')->where('id',$id)->first();
-
-        // dd($greeting);
-
         return view('greetings.edit', compact('greeting'));
     }
 
@@ -118,40 +118,40 @@ class GreetingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id);
-        $path="assets/img/upload/$request->image";
+        $this->validate($request, [
 
-        File::delete($path);
-
-        $image = $request->file('image');
-
-        $imageName = time().'.'.$image->getClientOriginalName();
-
-        $request->image->move(public_path() .'/assets/img/upload', $imageName);
-
-        $greetings = DB::table('greetings')->where('id', $id)->update([
-
-        'title' => $request->title,
-
-        'description'=> $request->description,
-
-        'image'=> $imageName,
+            'title'=>'required|max:50',
+            'description'=>'required|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        dd($greetings);
-
-        if($greetings){
-
-        return redirect('/greetings/index')->with('message', 'Successfully Update');
-
+        if ($files = $request->file('image')) {
+        $path="assets/img/upload/$request->image";
+        File::delete($path);
+        $image = $request->file('image');
+        $imageName = time().'.'.$image->getClientOriginalName();
+        $request->image->move(public_path() .'/assets/img/upload', $imageName);
+        $greetings = DB::table('greetings')->where('id', $id)->update([
+            'title' => $request->title,
+            'description'=> $request->description,
+            'image'=> $imageName,
+            ]);
+        }else {
+        $greetings = DB::table('greetings')->where('id', $id)->update([
+             'title' => $request->title,
+             'description'=> $request->description,
+            ]);
+        }
+        if($request){
+        return redirect('/greetings/index')->with('message', 'Greeting Successfully Update');
         }else{
-
         Session::flash('message', 'Something went wrong');
-
         return back();
+        }
+    
+    }
 
-    }
-    }
+
+
 
     /**
      * Remove the specified resource from storage.

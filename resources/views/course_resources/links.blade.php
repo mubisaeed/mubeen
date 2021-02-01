@@ -17,18 +17,18 @@
   </div>
 
 
-
+@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
-              <ol class="breadcrumb">
+  <ol class="breadcrumb">
 
-                <li><a href = "{{url('/dashboard')}}">Home</a></li>
+    <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-                <li class = "active">Add New Link</li>
+    <li class = "active">Add New Link</li>
 
-              </ol>
+  </ol>
 
-            </div>
+</div>
 
             <div class="assignment">
 
@@ -146,9 +146,11 @@
 
               </div>
 
+
             </div>
 
           </div>
+@endif
 
  <div class="content_main content">
 

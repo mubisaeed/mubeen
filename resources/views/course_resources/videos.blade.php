@@ -16,7 +16,7 @@
 
   </div>
 
-
+@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
               <ol class="breadcrumb">
@@ -172,7 +172,7 @@
             </div>
 
           </div>
-
+@endif
 
 <div class="content_main content">
 
@@ -187,7 +187,7 @@
 
         
 
-        <h3>Videos</h3>
+        <h3>All Videos</h3>
 
         @if(count($cresources)>0)
 

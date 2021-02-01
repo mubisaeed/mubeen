@@ -125,10 +125,8 @@
 		                  </div>
 
 		                  <div class="save_next_btn text-center w-100">
-
-		                  <button type="submit" class="btn">Save and next</button>
-
-		              
+                        <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
+		                    <button type="submit" class="btn">Save and next</button>
 		                </div>
 
 		                </div>
@@ -262,7 +260,7 @@
 
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
 
-                        <a class="dropdown-item" href="{{url('student/edit/' . $q->id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                        <a class="dropdown-item" href="{{url('/q/edit/' . $q->id, $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 
                         <a href="javascript:void(0);" data-id="<?php echo $q->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
 
