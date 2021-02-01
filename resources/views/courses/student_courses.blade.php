@@ -135,7 +135,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
 
-                      @if(auth()->user()->role_id == '3' && auth()->user()->role_id == '4')
+                      @if(auth()->user()->role_id == '3' || auth()->user()->role_id == '4')
 
                       <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
 
@@ -151,6 +151,8 @@
                       <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
+
+                      <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
 
                       <a class="dropdown-item" href="{{url('/quiz/showquiz_to_student/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>
 

@@ -108,29 +108,11 @@
                 </td>
 
                 <td class="align_ellipse first_row">
-
-                  <li class="nav-item dropdown">
-
-                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                      <span class="material-icons">
-
-                        more_horiz
-
-                      </span>
-
-                      <div class="ripple-container"></div>
-
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-
-                      <a class="dropdown-item" href="{{url('/instructor/launchmeeting/' . $lec->id)}}"><i class="fa fa-eye"></i>Launch Meeting</a>
-
-                    </div>
-
-                  </li>
-
+                      <a class="dropdown-item" href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
+                        <button class="btn btn-sm" style="background-color: white; color: black">
+                          <i class="fa fa-rocket"></i>Launch Meeting    
+                        </button>
+                      </a>
                 </td>
 
               </tr>
