@@ -48,7 +48,7 @@
         ZoomMtg.prepareJssdk();
         const zoomMeeting = document.getElementById("zmmtg-root");
         ZoomMtg.init({
-            leaveUrl: "{{url('/courses')}}"
+            leaveUrl: "{{url('/course')}}"
         });
         ZoomMtg.join({
             signature: "{!! $a !!}",
