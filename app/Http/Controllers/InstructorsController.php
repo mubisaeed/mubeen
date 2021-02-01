@@ -213,9 +213,18 @@ class InstructorsController extends Controller
 
     public function live_fun($lec_meeting)
     {
+      $user = Auth::user();
+      if($user->role_id == '4')
+      {
+        $role = 1;
+      }
+      elseif($user->role_id == '5')
+      {
+        $role = 0;
+      }
       $api_key = "qrmEqiqIS7C244YKZoJyMw";
       $meeting_number = $lec_meeting;
-      $role = 1;
+      $role = $role;
       $api_secret = "0l4FeTaZLT7MRTdbCMZePDKqAfaTvLjfYhDj";
 
       $time = time() * 1000 - 30000;//time in milliseconds (or close enough)
