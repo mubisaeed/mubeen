@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+<div id="message">
+    @if (Session::has('message'))
+        <div class="alert alert-info">
+        {{ Session::get('message') }}
+        </div>
+    @endif  
+</div>
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
       <li><a href = "{{asset('/dashboard')}}">Home</a></li>
@@ -30,7 +37,7 @@
                       </div><br>
             <div class="col-md-12">
               <div class="s_form_button text-center">
-                <a href="{{url('/viewicon')}}" class="btn cncl_btn">Cancel</a>
+                <a href="{{url('/course')}}" class="btn cncl_btn">Cancel</a>
                 <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
               </div>
             </div>
@@ -39,4 +46,10 @@
       </div>
     </div>
   </div>
+
+<script type="text/javascript">
+  setTimeout(function() {
+    $('#message').fadeOut('fast');
+}, 2000);
+</script>
  @endsection

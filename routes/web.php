@@ -380,7 +380,9 @@ Route::get('/lecture/create/{id}', [InstructorsController::class, 'create_lectur
 
 Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
 
+Route::get('/lectures/{id}', [InstructorsController::class, 'show_lecture']);
 
+Route::get('/instructor/launchmeeting/{id}', [InstructorsController::class, 'launch_meeting']);
 
 
 

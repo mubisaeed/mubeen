@@ -9,8 +9,6 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li><a href="{{url('/courses')}}">Add New Course</a></li>
-
     <li><a href="{{url('/course')}}"> All Courses </a> </li>
 
     <li class = "active">View</li>

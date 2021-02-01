@@ -85,7 +85,6 @@
                 @foreach($instructors as $ins)
 
                 <?php
-                // dd($ins);
                   $instructor = DB::table('users')->where('id', $ins->i_u_id)->get()->first();
                 ?>
 
@@ -161,76 +160,6 @@
     </div>
 
   </div>
-
-<script type="text/javascript">
-
-        $( "body" ).on( "click", ".delete", function () {
-
-            var task_id = $( this ).attr( "data-id" );
-
-            var form_data = {
-
-                id: task_id
-
-            };
-
-            swal({
-
-                title: "Do you want to Remove this Student",
-
-                //text: "@lang('category.delete_category_msg')",
-
-                type: 'info',
-
-                showCancelButton: true,
-
-                confirmButtonColor: '#F79426',
-
-                cancelButtonColor: '#d33',
-
-                confirmButtonText: 'Yes',
-
-                showLoaderOnConfirm: true
-
-            }).then( ( result ) => {
-
-                if ( result.value == true ) {
-
-                    $.ajax( {
-
-                        type: 'POST',
-
-                        headers: {
-
-                            'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
-
-                        },
-
-                        url: '<?php echo url("/class/destroystudent"); ?>',
-
-                        data: form_data,
-
-                        success: function ( msg ) {
-
-                            swal( "@lang('Instructor Removed Successfully')", '', 'success' )
-
-                            setTimeout( function () {
-
-                                location.reload();
-
-                            }, 900 );
-
-                        }
-
-                    } );
-
-                }
-
-            } );
-
-        } );
-
-</script>
 
 @endsection
 

@@ -8,7 +8,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Courses</li>
+    <li class = "active">All Lectures</li>
 
   </ol>
 
@@ -40,9 +40,9 @@
 
         
 
-        <h3>All Course</h3>
+        <h3>All Lectures</h3>
 
-        @if(count($courses)>0)
+        @if(count($lectures)>0)
 
           <div class="table_filters">
 
@@ -54,13 +54,13 @@
 
             </div>
 
-<!--             <div class="table_select">
+            <div class="table_select">
 
               <select class="selectpicker">
 
-                <option>All Courses</option>
+                <option>All Lectures</option>
 
-                <option>Filter by Class</option>
+                <option>Today </option>
 
                 <option>Macro Economics I</option>
 
@@ -68,7 +68,7 @@
 
               </select>
 
-            </div> -->
+            </div>
 
           </div>
 
@@ -80,21 +80,8 @@
 
                 <th scope="col">ID</th>
 
-                <th scope="col">Courses</th>
+                <th scope="col">Topic</th>
 
-                <th scope="col">Date</th>
-
-                <th scope="col">Room No.</th>
-
-                @if(auth()->user()->role_id != '5' && auth()->user()->role_id != '4')
-                
-                <th scope="col"> See Instructors </th>
-
-                <th scope="col"> Add Instructor </th>
-
-
-
-                @endif
                 <th scope="col">Action</th>
 
               </tr>
@@ -103,7 +90,7 @@
 
             <tbody id="mybody">
 
-              @foreach($courses as $index =>$course)
+              @foreach($lectures as $index =>$lec)
 
               <tr>
 
@@ -113,46 +100,13 @@
 
                   <div class="course_td">
 
-                      <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
 
-                    <p>{{$course->course_name}}</p>
-
-                  </div>
-
-                </td>
-
-
-                <td class="first_row">{{date('d-m-Y', strtotime($course->start_date))}} - {{date('d-m-Y', strtotime($course->end_date))}}</td>
-
-                <td class="first_row">{{$course->room_number}}</td>
-
-
-                @if(auth()->user()->role_id != '5' && auth()->user()->role_id != '4')
-
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                  <a href="{{url('/course/addinstructor/tocourse/' .$course->id)}}" class="btn btn-success"> Add Instructor </a>
+                    <p>{{$lec->topic}}</p>
 
                   </div>
 
                 </td>
 
-                </td>
-
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                  <a href="{{url('/course/seeinstructors/' .$course->id)}}" class="btn btn-primary"> See Instructors </a>
-
-                  </div>
-
-                </td>
-
-
-                @endif
                 <td class="align_ellipse first_row">
 
                   <li class="nav-item dropdown">
@@ -171,48 +125,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
 
-                      <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
-
-                      @if(auth()->user()->role_id == '4' || '5')
-
-                      <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
-                      @endif
-
-                      @if(auth()->user()->role_id == '4')
-
-                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
-
-                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
-
-                      <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a>
-
-                      <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
-
-                      <a class="dropdown-item" href="{{url('/quizzes/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>
-
-                      <a class="dropdown-item" href="{{url('/quiz/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Quiz</a>
-
-                      <a class="dropdown-item" href="{{url('/mcq/create/'. $course->id)}}"><i class="fa fa-pencil" aria-hidden="true"></i>Quiz/Questions</a>
-
-                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
-
-                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
-                      
-
-                      <a class="dropdown-item duplicate" href="#" data-toggle="modal" id = "{{$course->id}}" data-target="#exampleModalCenter" onclick="dupid(this.id);"><i class="fa fa-copy"></i>Duplicate</a>
-                      @endif
-
-                      @if(auth()->user()->role_id == '3')
-
-                        
-
-                      <!-- <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a> -->
-
-                      <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
-
-                      <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
-
-                      @endif
+                      <a class="dropdown-item" href="{{url('/instructor/launchmeeting/' . $lec->id)}}"><i class="fa fa-eye"></i>Launch Meeting</a>
 
                     </div>
 
@@ -221,9 +134,6 @@
                 </td>
 
               </tr>
-
-
-
 
               @endforeach
 
@@ -256,7 +166,7 @@
 
          @else
 
-          <p>There is no Course</p>
+          <p>There is no Lecture</p>
 
         @endif
 
@@ -267,88 +177,6 @@
   </div>
 
 </div>
-
-
-
-
-
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-
-<div class="modal-dialog modal-dialog-centered" role="document">
-
-  <div class="modal-content">
-
-    <div class="cross_modal">
-
-      <div class="modal_title">
-
-        <h3>Select items to duplicate</h3>
-
-      </div>
-
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-        <span aria-hidden="true" class="cross_btn">&times;</span>
-
-      </button>
-
-    </div>
-
-    <div class="modal-body">
-
-      <form method="POST" action="{{url('/course/replicate')}}">
-
-        @csrf
-
-        <input type="hidden" name="course_id" value=" " id="datasid">
-
-        <div class="custom_input_main">
-          <input type="checkbox" value="quiz" name="selected[]" class="btn"/>
-          <label>Quizzes <span class="grey"></span></label>
-
-        </div>
-
-        <div class="custom_input_main">
-          <input type="checkbox" value="links" name="selected[]" class="btn"/>
-          <label>Links <span class="grey"></span></label>
-
-        </div>
-
-        <div class="custom_input_main">
-          <input type="checkbox" value="downloadables" name="selected[]" class="btn"/>
-          <label>Downloadables <span class="grey"></span></label>
-
-        </div>
-
-        <div class="s_form_button">
-
-          <a href="/course"><button type="button" class="btn cncl_btn">Cancel</button></a>
-
-          <button type="submit" class="btn save_btn">Save</button>
-
-        </div>
-
-      </form>
-
-    </div>
-
-  </div>
-
-</div>
-
-</div>
-
-<script type="text/javascript">
-
-    function dupid(dataid)
-    {
-      document.getElementById("datasid").value = dataid;
-    }
-
-
-</script>
-
-
 
 <script>
 
@@ -406,7 +234,7 @@
 
             swal({
 
-                title: "Do you want to delete this Course",
+                title: "Do you want to delete this Lecture",
 
                 //text: "@lang('category.delete_category_msg')",
 

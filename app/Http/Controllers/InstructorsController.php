@@ -158,32 +158,19 @@ class InstructorsController extends Controller
 
     
 
-    public function index(){
-
-        
-
-          
-
+    public function index()
+    {
           $user = Auth::user()->id;
-
-          
-
           if(auth()->user()->role_id != '5'){
 
             $assigned_permissions =array();
 
             $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
-
-
-
             if($data != null){
 
                  foreach ($data as $value) {
 
                 $assigned_permissions = explode(',',$value);
-
-                 
-
             }
 
             }
@@ -195,8 +182,6 @@ class InstructorsController extends Controller
             }
 
           }
-
-            
 
         $user = Auth::user();
 
@@ -213,40 +198,72 @@ class InstructorsController extends Controller
         $course = DB::table('courses')->where('id', $id)->get()->first();
         return view('instructors.create_lecture', compact('course'));
     }
+    public function show_lecture($id)
+    {
+        $lectures = DB::table('lectures')->where('course_id', $id)->get();
+        // dd($lectures);
+        return view('instructors.show_lectures', compact('lectures'));
+    }
+    public function launch_meeting($id)
+    {
+      $lec = DB::table('lectures')->where('id', $id)->get()->first();
+      $a = $this->live_fun($lec->meeting_id);  
+      return view('instructors.launch_meeting', compact('a', 'lec'));
+    }
+
+    public function live_fun($lec_meeting)
+    {
+      $api_key = "qrmEqiqIS7C244YKZoJyMw";
+      $meeting_number = $lec_meeting;
+      $role = 1;
+      $api_secret = "0l4FeTaZLT7MRTdbCMZePDKqAfaTvLjfYhDj";
+
+      $time = time() * 1000 - 30000;//time in milliseconds (or close enough)
+    
+      $data = base64_encode($api_key . $meeting_number . $time . $role);
+      
+      $hash = hash_hmac('sha256', $data, $api_secret, true);
+      
+      $_sig = $api_key . "." . $meeting_number . "." . $time . "." . $role . "." . base64_encode($hash);
+      
+      //return signature, url safe base64 encoded
+      $a = rtrim(strtr(base64_encode($_sig), '+/', '-_'), '=');
+
+      return $a;
+    }
 
     public function store_lecture(Request $request)
     {
+        $this->validate($request, [
+          'topic' => 'required|min:3|max:50',
+        ]);
         $user = DB::table('instructors')->where('i_u_id', Auth::user()->id)->get()->first();
-        // $lecture = DB::table('lectures')->insertGetId([
-        //     'topic' => $request->input('topic'),
-        //     'instructor_id' => Auth::user()->id,
-        //     'course_id' => $request->input('course_id'),
-        // ]);
         $zoom = new ZoomController();
         $meeting = $zoom->create_meeting($user->zoom_id,$request->input('topic'));
         $lecture = DB::table('lectures')->insertGetId([
             'topic' => $request->input('topic'),
             'instructor_id' => Auth::user()->id,
             'meeting_id' => $meeting->id,
+            'join_url' => $meeting->join_url,
+            'start_url' => $meeting->start_url,
             'course_id' => $request->input('course_id'),
         ]);
-        dd($lecture);
-
-
-
+        $class  =DB::table('courses')->where('id', $request->input('course_id'))->get()->pluck('clas_id');
+        $students = DB::table('classes_students')->whereIn('class_id', $class)->get()->pluck('s_u_id');
+        $student = DB::table('users')->join('students','students.s_u_id','=','users.id')->whereIn('users.id',$students)->get();
+        // foreach($student as $std)
+        // {
+        //   $zoom = new ZoomController();
+        //   $registrant = $zoom->add_student_to_meeting($meeting->id, $std->email, $std->name, $std->name, $std->address, 'lahore', 'US', '95055', 'CA', $std->phone, 'Tech', 'IT', 'DA');
+        //   dd($registrant);
+        // }
     
-        Session::flash('message', 'Lecture create successfully');
+        Session::flash('message', 'Lecture created successfully');
 
         return redirect()->back();
-
-
     }
 
-
     public function create(){
-
-        
-
          $user = Auth::user()->id;
 
             $assigned_permissions =array();
@@ -254,14 +271,11 @@ class InstructorsController extends Controller
             $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
 
 
-
             if($data != null){
 
                  foreach ($data as $value) {
 
                 $assigned_permissions = explode(',',$value);
-
-                 
 
             }
 
@@ -273,10 +287,6 @@ class InstructorsController extends Controller
 
             }
 
-            
-
-            
-
         $user = Auth::user();
 
         $schools = DB::table('schools')->get()->all();
@@ -284,7 +294,6 @@ class InstructorsController extends Controller
     	return view ('instructors.create', compact('user', 'schools'));
 
     }
-
 
 
     public function store(Request $request){
@@ -317,8 +326,6 @@ class InstructorsController extends Controller
 
         }
 
-
-
         $udata = new User();
 
         $udata->name=$request->input('name');
@@ -336,9 +343,7 @@ class InstructorsController extends Controller
         $udata->save();
 
 
-
         $instructor=new Instructor;
-
 
 
         $instructor->i_u_id=$udata->id;
@@ -362,11 +367,6 @@ class InstructorsController extends Controller
         $success = DB::table('instructor_school')->insert($i_sch_data);
 
         if($success){
-
-            
-
-            
-
             $all_perm = DB::table('module_permissions_instructors')->pluck('module')->toArray();
 
             $new = implode(',', $all_perm);
@@ -394,9 +394,7 @@ class InstructorsController extends Controller
             Session::flash('message', 'Something went wrong');
 
             return redirect()->back();
-
         }
-
     }
 
     
@@ -426,13 +424,11 @@ class InstructorsController extends Controller
     public function show($id)
 
     {
-
         $user = Auth::user();
 
         $instructordetail = DB::table('instructors')->where('i_u_id',$id)->get()->first();
 
         return view('instructors.show', compact('instructordetail', 'user'));
-
     }
 
    
@@ -452,8 +448,6 @@ class InstructorsController extends Controller
     public function update($id, Request $request)
 
     {
-
-        // dd($request->all());
 
         $instructor = DB::table('instructors')->where('id',$id)->get()->first();
 
@@ -475,13 +469,6 @@ class InstructorsController extends Controller
             'add' => 'required|min:3|max:200'
 
         ]);
-
-        // $instructor = Instructor::find($id);
-
-       
-        
-
-       
 
         if ($files = $request->file('image')) {
 
@@ -536,4 +523,3 @@ class InstructorsController extends Controller
     }
 
 }
-

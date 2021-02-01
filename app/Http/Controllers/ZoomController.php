@@ -7,7 +7,8 @@ use Zoom;
 
 class ZoomController extends Controller
 {
-    public function create_user($f_name,$l_name,$email,$password){
+    public function create_user($f_name,$l_name,$email,$password)
+    {
         $user =     Zoom::user();
         return $user->create([
             'first_name' => $f_name,
@@ -18,7 +19,8 @@ class ZoomController extends Controller
         ]);
     }
 
-    public function  get_user($user_id){
+    public function  get_user($user_id)
+    {
         $user =     Zoom::user();
         return $user->find($user_id);
     }
@@ -26,14 +28,14 @@ class ZoomController extends Controller
         $user =     Zoom::user();
         return $user->all();
     }
-    public function create_meeting($user_id,$topic){
-
+    public function create_meeting($user_id,$topic)
+    {
         $user = Zoom::user()->find($user_id);
-        // dd($user);
         $meeting = Zoom::meeting();
         $meeting = Zoom::meeting()->make([
             'topic' => $topic,
-            'type' => 8
+            'type' => 3,
+            'password' => '123456789'
         ]);
         $meeting->recurrence()->make([
             'type' => 1,
@@ -46,7 +48,6 @@ class ZoomController extends Controller
             'participant_video' => true,
             'join_before_host' => true,
             'approval_type' => 0,
-            'registration_type' => 1,
             'enforce_login' => false,
             'waiting_room' => false
         ]);
@@ -69,8 +70,6 @@ class ZoomController extends Controller
 
     public function add_student_to_meeting($meeting_id,$email,$f_name,$l_name,$address,$city,$country,$zip,$state,$phone,$industry,$org,$job_title){
         $meeting = Zoom::meeting()->find($meeting_id);
-        return $meeting->registrants;
-    
         $registrant = Zoom::meeting()->registrants()->create([
             "email" => $email,
             "first_name" => $f_name,
@@ -86,9 +85,15 @@ class ZoomController extends Controller
             "job_title" => $job_title,
             "purchasing_time_frame" => "More Than 6 Months",
             "role_in_purchase_process" => "Influencer",
-            "no_of_employees" => '10',
-            "comments" => 'No Comment',
-        ]);
+            "no_of_employees" => "1-20",
+            "comments" => "Excited to host you.",
+            "custom_questions" => [
+                [
+                "title" => "Favorite thing about Zoom",
+                "value" => "Meet Happy"
+                ]
+            ]
+            ]);
         return $registrant;
     }
 }
