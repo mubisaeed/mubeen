@@ -24,7 +24,9 @@ class ZoomController extends Controller
         $user =     Zoom::user();
         return $user->find($user_id);
     }
-    public function user_list(){
+
+    public function user_list()
+    {
         $user =     Zoom::user();
         return $user->all();
     }
