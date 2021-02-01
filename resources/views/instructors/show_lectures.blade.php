@@ -108,9 +108,9 @@
                 </td>
 
                 <td class="align_ellipse first_row">
-                      <a class="dropdown-item" href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
-                        <button class="btn btn-sm" style="background-color: white; color: black">
-                          <i class="fa fa-rocket"></i>Launch Meeting    
+                      <a href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
+                        <button class="btn btn-sm btn-success">
+                          <i class="fa fa-rocket" aria-hidden="true"></i>Launch Meeting    
                         </button>
                       </a>
                 </td>
