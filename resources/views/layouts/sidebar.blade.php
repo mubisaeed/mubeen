@@ -796,6 +796,13 @@
         <!--user guide-->
         @if(auth()->user()->role_id == '1' || auth()->user()->role_id == '3')
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
+<<<<<<< HEAD
+
+
+            <a class="nav-link" href="{{url('userguide')}}">
+
+=======
+>>>>>>> 110be6c0220a9e20f053d1f11ed4aaea1f0445e2
 
             <a class="nav-link" href="{{url('userguide')}}">
 

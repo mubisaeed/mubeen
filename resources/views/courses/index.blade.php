@@ -299,13 +299,31 @@
 
     <div class="modal-body">
 
-      <form method="POST" action="{{url('/course/replicate')}}">
+      <form method="POST" class="w-100" action="{{url('/course/replicate')}}">
 
         @csrf
 
         <input type="hidden" name="course_id" value=" " id="datasid">
 
-        <div class="custom_input_main">
+        <div class="row">
+          <div class="col-md-4">
+            <button type="button" class="btn w-100 parent_input parent_input1" >
+              Quizzes <input type="checkbox" value="quiz" name="selected[]" class="btn"/> <i class="fa fa-check-square-o"></i>
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn w-100 parent_input parent_input2" >
+              Links <input type="checkbox" value="links" name="selected[]" class="btn"/> <i class="fa fa-check-square-o"></i>
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn w-100 parent_input parent_input3" >
+              Downloadables <input type="checkbox" value="downloadables" name="selected[]" class="btn"/> <i class="fa fa-check-square-o" ></i>
+            </button>
+          </div>
+        </div>
+
+       <!--  <div class="custom_input_main">
           <input type="checkbox" value="quiz" name="selected[]" class="btn"/>
           <label>Quizzes <span class="grey"></span></label>
 
@@ -321,7 +339,7 @@
           <input type="checkbox" value="downloadables" name="selected[]" class="btn"/>
           <label>Downloadables <span class="grey"></span></label>
 
-        </div>
+        </div> -->
 
         <div class="s_form_button">
 
@@ -462,6 +480,27 @@
             } );
 
         } );
+
+</script>
+
+<script>
+  $('.parent_input , .parent_input2 , .parent_input3').click(function(event) {
+    /* Act on the event */
+    $(this).toggleClass('btn-success');
+  });
+$('.parent_input1').click(function(event) {
+    /* Act on the event */
+     $('.parent_input1 i').toggle();
+  });
+$('.parent_input2').click(function(event) {
+    /* Act on the event */
+     $('.parent_input2 i').toggle();
+  });
+
+$('.parent_input3').click(function(event) {
+    /* Act on the event */
+     $('.parent_input3 i').toggle();
+  });
 
 </script>
 
