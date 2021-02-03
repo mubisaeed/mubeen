@@ -219,7 +219,7 @@
 
                     </div>
 
-                    <div class="col-md-6 p_right colorpicker colorpicker-component">
+                    <div class="col-md-6  colorpicker colorpicker-component">
 
                       <div class="custom_input_main mobile_field">
 

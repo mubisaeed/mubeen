@@ -222,9 +222,11 @@
                   <div class="col-md-12">
                     @for($i = 1; $i <= $weeks; $i++)
 
-                      <input type="radio" name="week" value="{{$i}}" required="">
+                      <!-- <input type="radio" name="week" value="{{$i}}" required=""> -->
 
-                      <label class="select_lable">Week {{$i}}</label>
+                      <button type="button" class="btn week_btn">Week {{$i}} <input type="radio" name="week" value="{{$i}}" required=""> </button>
+
+                      <!-- <label class="select_lable">Week {{$i}}</label> -->
 
                     @endfor
 
@@ -255,6 +257,11 @@
         $('.radio_btn').removeClass('active');
         $(this).addClass('active');
       }); 
+      $('.week_btn').click(function(event) {
+        /* Act on the event */
+        $('.week_btn').removeClass('btn-primary');
+        $(this).addClass('btn-primary');
+      });
    });
 </script>
 
