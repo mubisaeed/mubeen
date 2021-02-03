@@ -3966,7 +3966,7 @@
   background: #3366cc;
 }
 .yes_no_radio_button button input , .cr_btn button input , .true_false_btns button input , 
-.parent_input input , .gender_buttons button input , .diabities_buttons button input {
+.parent_input input , .gender_buttons button input , .diabities_buttons button input , .week_btn input {
   position: absolute;
     width: 100%;
     top: 1px;
@@ -4036,4 +4036,76 @@
 }
 .gender_buttons button , .diabities_buttons button {
   position: relative;
+}
+
+.add_zindex {
+  z-index: 999999 !important;
+}
+.week_btn {
+  position: relative;
+}
+.fix_height {
+  height: 200px;
+  overflow-y: scroll;
+}
+.color-picker label {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.member {
+    position: relative;
+    box-shadow: 0px 2px 15px rgb(0 0 0 / 10%);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+.member .pic {
+    overflow: hidden;
+    width: 150px;
+    border-radius: 50%;
+    margin: 0 auto 20px auto;
+}
+.member .pic img {
+    transition: ease-in-out 0.3s;
+    width: 150px;
+    height: 150px;
+}
+.member h4 {
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: #36343a;
+}
+.member span {
+    display: block;
+    font-size: 15px;
+    padding-bottom: 10px;
+    position: relative;
+    font-weight: 500;
+    color: grey;
+}
+.member span::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 1px;
+    background: #b5b3ba;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.img_buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0 4px;
+}
+.member:hover img {
+    transform: scale(1.1);
+}
+.img_buttons a {
+  padding: 10px 18px;
 }

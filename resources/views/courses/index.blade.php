@@ -169,7 +169,7 @@
 
                     </a>
 
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+                    <div class="dropdown-menu dropdown-menu-right add_zindex" aria-labelledby="navbarDropdownProfile">
 
                       <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
 
@@ -177,29 +177,29 @@
 
                       <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a>
 
-                      <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
+                      <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-users" aria-hidden="true"></i>Show lectures</a>
 
-                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
-
-
+                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-link"></i>Links</a>
 
 
 
 
 
-                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
 
-                      <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
+
+                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Create Assigment</a>
+
+                      <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Show Assigment</a>
 
                       <a class="dropdown-item" href="{{url('/quizzes/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>
 
-                      <a class="dropdown-item" href="{{url('/quiz/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Quiz</a>
+                      <a class="dropdown-item" href="{{url('/quiz/create/'. $course->id)}}"><i class="fa fa-pencil" aria-hidden="true"></i>Create Quiz</a>
 
-                      <a class="dropdown-item" href="{{url('/mcq/create/'. $course->id)}}"><i class="fa fa-pencil" aria-hidden="true"></i>Quiz/Questions</a>
+                      <a class="dropdown-item" href="{{url('/mcq/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Quiz/Questions</a>
 
-                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
+                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-download" aria-hidden="true"></i>Downloadables</a>
 
-                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
+                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-play" aria-hidden="true"></i>Videos</a>
 
                       <a class="dropdown-item duplicate" href="#" data-toggle="modal" id = "{{$course->id}}" data-target="#exampleModalCenter" onclick="dupid(this.id);"><i class="fa fa-copy"></i>Duplicate</a>
                        

@@ -61,7 +61,7 @@
                   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     All Quizzes
                   </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <div class="dropdown-menu fix_height" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="{{url('/quizzes/'. $course_id)}}">All Quizzes</a>
 
                     <?php
