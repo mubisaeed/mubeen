@@ -225,6 +225,24 @@
 
                   </div>
 
+
+                  <?php
+                        $course = DB::table('courses')->where('id', $qcourse->id)->get()->first();
+                        $weeks = $course->weeks;
+                      ?>
+
+                    <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
+
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($quiz->week == $i) Checked @endif>
+
+
+                      <label class="select_lable">Week {{$i}}</label>
+
+                    @endfor
+
+                  </div>
+
                   <div class="s_form_button text-center">
 
                     <a  href="{{url('/quizzes')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>

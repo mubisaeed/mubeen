@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\DB;
 class QuestionsController extends Controller
 {
 
+    public function search_by_week($insid, $courseid, $week)
+    {
+        $week = $week;
+        $course_id = $courseid;
+        $instructor_id = $insid;
+        $course = DB::table('courses')->where('id', $course_id)->get()->first();
+
+        $mcqs = DB::table('questions')->where('type', 'mcq')->where('instructor_id', $instructor_id)->where('course_id', $course_id)->where('week', $week)->orderBy('id', 'desc')->get()->all();
+        $instructor_id = Auth::user()->id;
+        return view ('questions.mcq', compact('user', 'mcqs', 'course', 'instructor_id'));
+
+    }
+
     public function filterall($id, $qid)
     {
         // dd($id. ' ' .$qid);
@@ -44,7 +57,8 @@ class QuestionsController extends Controller
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
         $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
-        return view ('questions.mcq', compact('user', 'mcqs', 'course'));
+        $instructor_id = Auth::user()->id;
+        return view ('questions.mcq', compact('user', 'mcqs', 'course', 'instructor_id'));
     }
 
     public function mcqstore(Request $request)
@@ -69,7 +83,9 @@ class QuestionsController extends Controller
         $mcq = new Question();
         $mcq->label=$request->input('label');
         $mcq->type=$type;
+        $mcq->week=$request->input('week');
         $mcq->course_id=$request->course_id;
+        $mcq->instructor_id=Auth::user()->id;
         $mcq->options=serialize($opts);
         $mcq->save();
         Session::flash('message', 'Question create successfully');
@@ -166,6 +182,7 @@ class QuestionsController extends Controller
         );
         $success = DB::table('questions')->where('id', $id)->update([
             'label' => $request->input('label'),
+            'week' => $request->input('week'),
             'type' => $type,
             'course_id' => $request->course_id,
             'options' => serialize($opts),

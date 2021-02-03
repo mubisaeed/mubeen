@@ -33,16 +33,26 @@
                   <form action="{{route('resourcevid/update')}}" method="post" enctype="multipart/form-data" class="w-100">
 
 
+                      {{@csrf_field()}}
                   <div class="row">
 
                    
 
-                      {{@csrf_field()}}
 
                         <input type="hidden" name="id" value="{{$id}}">
 
                         <input type="hidden" name="main" value="{{$main}}"> 
 
+
+                      </div>
+
+                      <div class="col-md-6 p_left">
+
+                      <div class="custom_input_main">
+
+                        <input type="text" class="form-control" value="{{ $cress->title }}" name="title" required="" minlength="3" maxlength ="50" autofocus="">
+
+                        <label>Title <span class="red">*</span></label>
 
                       </div>
 
@@ -58,13 +68,15 @@
 
                       </div>
 
+                      </div>
+
                        @if($cress->type == 'mp4')
 
                     <div class="col-md-6 p_left">
 
                       <div class="file_spacing">
 
-                        <input id="file" class="choose" type="file" name="video" accept="video/mp4,video/x-m4v,video/x-wmv,video/*" size="max:10240" required="">
+                        <input id="file" class="choose" type="file" name="video" accept="video/mp4,video/x-m4v,video/x-wmv,video/*" size="max:10240">
 
                       </div>
 
@@ -86,7 +98,7 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="url" class="form-control" name="link" value="{{old('link', $cress->link)}}" required minlength="3" maxlength="120" autofocus="">
+                      <input type="url" class="form-control" name="link" value="{{old('link', $cress->link)}}" minlength="3" maxlength="120" autofocus="">
 
                       <label>Youtube Video Link<span class="red">*</span></label>
 
@@ -106,38 +118,15 @@
 
                   @endif
 
-                    {{-- <div class="col-md-6 p_left">
-
-                      <div class="custom_input_main">
-
-                        <textarea class="form-control" name="short_des" rows="4" cols="50" value="{!!old('short_des', $cress->short_description)!!}" minlength="10" maxlength ="1000" style="height: 100px !important;" required="">
-                        
-                        {{old('short_des', $cress->short_description)}}
-                        
-                        </textarea>
-
-                        <label>Video description...</label>
-
-                      </div>
-
-                          @error('short_des')
-
-                          <span class="invalid-feedback" role="alert">
-
-                          <strong>{{ $message }}</strong>
-
-                          </span>
-
-                          @enderror
-
-                      </div> --}}
-
 
                       <div class="col-md-12 p_left">
 
                       <div class="custom_input_main">
 
-                        <textarea class="form-control" name="short_des" rows="4" cols="50" value="{!!old('short_des', $cress->short_description)!!}" minlength="10" maxlength ="1000" style="height: 100px !important;"required=""></textarea>
+                        <textarea class="form-control" name="short_des" rows="4" cols="50" value="{!! old('short_des', $cress->short_description) !!}" minlength="10" maxlength ="1000" style="height: 100px !important;"required="">
+                          
+                          {!! $cress->short_description !!}
+                        </textarea>
 
                         <label>Video description<span class="red">*</span></label>
 
@@ -154,6 +143,24 @@
                           @enderror
 
                       </div>
+
+
+                      <?php
+                        $course = DB::table('courses')->where('id', $main)->get()->first();
+                        $weeks = $course->weeks;
+                      ?>
+
+                    <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
+
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($cress->week == $i) Checked @endif>
+
+
+                      <label class="select_lable">Week {{$i}}</label>
+
+                    @endfor
+
+                  </div>
 
                   
 

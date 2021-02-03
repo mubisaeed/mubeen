@@ -133,7 +133,7 @@
 
           </li>
           
-          {{-- sub admin --}}
+         
 
           <li class="nav-item dropdown_item  {{ Request::is('subadmin/show') ? 'active' : '' }}">
 
@@ -489,35 +489,6 @@
             </li>
           @endif
 
-          @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
-          <!--discussions-->
-           <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
-
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-
-                <i class="fa fa-calendar-o"></i>
-
-                <span>Discussions</span>
-
-              </a>
-
-              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-                <div class="py-2 collapse-inner rounded">
-                 @if(  in_array('All Discussions', $data)  ) 
-                  <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
-                @endif
-                @if(  in_array('Add Discussion', $data)  )
-                  <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
-                @endif  
-
-                </div>
-
-              </div>
-
-            </li>
-          @endif
-
           @if(  in_array('All Courses', $data)|| in_array('Add New Course', $data))
 
           <li class="nav-item dropdown_item  {{ Request::is('course') ? 'active' : '' }}">
@@ -625,7 +596,36 @@
             </div>
 
           </li> -->
-        @endif    
+        @endif  
+
+                  @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
+          <!--discussions-->
+           <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
+
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                <i class="fa fa-calendar-o"></i>
+
+                <span>Discussions</span>
+
+              </a>
+
+              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+
+                <div class="py-2 collapse-inner rounded">
+                 @if(  in_array('All Discussions', $data)  ) 
+                  <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
+                @endif
+                @if(  in_array('Add Discussion', $data)  )
+                  <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
+                @endif  
+
+                </div>
+
+              </div>
+
+            </li>
+          @endif  
 
         @endif
         
@@ -693,16 +693,7 @@
 
           
 
-          {{-- <li class="nav-item">
-
-            <a class="nav-link" href="{{url('/special_education')}}" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-
-              <i class="fa fa-book"></i>
-
-              <span>Special Education</span>
-
-            </a> --}}
-
+          
             
 
              <li class="nav-item dropdown_item">
@@ -759,26 +750,7 @@
           </li>
 
 
-         {{-- <li class="nav-item dropdown_item  {{ Request::is('Departments') ? 'active' : '' }}">
-
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-
-              <i class="fa fa-graduation-cap"></i>
-
-              <span>Departments</span>
-
-            </a>
-
-            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-              <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
-            
-              </div>
-
-            </div>
-
-          </li> --}}
+  
     
         @endif
         <!--safty -->
@@ -796,9 +768,6 @@
         <!--user guide-->
         @if(auth()->user()->role_id == '1' || auth()->user()->role_id == '3')
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
-
-            <a class="nav-link" href="{{url('userguide')}}">
-
 
             <a class="nav-link" href="{{url('userguide')}}">
 

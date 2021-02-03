@@ -122,9 +122,6 @@
                       </div>
 
 
-                      
-
-
                     <div class="col-md-6 p_right">
 
                       <div class="file_spacing">
@@ -145,6 +142,23 @@
 
                     </div>
 
+
+                        <?php
+                          $course = DB::table('courses')->where('id', $id)->get()->first();
+                          $weeks = $course->weeks;
+                        ?>
+
+                        <div class="col-md-12">
+                          @for($i = 1; $i <= $weeks; $i++)
+
+                            <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
+
+                            <label class="select_lable">Week {{$i}}</label>
+
+                          @endfor
+
+                        </div>
+
                     
 
                     <div class="col-md-12">
@@ -153,7 +167,7 @@
 
                         <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn save_btn" id="sub_button">Save<div class="ripple-container"></div></button>
 
                       </div>
 
@@ -201,21 +215,15 @@
 
             </div>
 
-            <div class="table_select">
 
-              <select class="selectpicker">
 
-                <option>All Videos</option>
 
-                <option>Today </option>
 
-                <option>Macro Economics I</option>
 
-                <option>Macro Economics II</option>
 
-              </select>
 
-            </div>
+
+
 
           </div>
 
@@ -386,7 +394,18 @@ uploadField.onchange = function() {
 </script>
 
 
+<script type="text/javascript">  
+  $(document).ready(function(){
+     $('#sub_button').hide();
+  });
+</script>
+<script type="text/javascript">
 
+  function showbtn()
+  {
+    $('#sub_button').show();
+  }
+</script>
 
 
 
