@@ -150,8 +150,6 @@ class StudentsController extends Controller
 
         $sdata->alergy = $request->alergy;
 
-        $sdata->blood_group = $request->blood;
-
         $sdata->save();
 
         $success = DB::table('users')->where('id' , $udata->id)->update([
@@ -300,8 +298,6 @@ class StudentsController extends Controller
             $data->class=$request->input('class');
 
             $data->rollno=$request->input('rno');
-
-            $data->blood_group=$request->input('blood');
 
             $data->diabetes=$request->input('diabetes');
 

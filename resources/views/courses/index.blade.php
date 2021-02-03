@@ -40,7 +40,7 @@
 
         
 
-        <h3>All Course</h3>
+        <h3>All Courses</h3>
 
         @if(count($courses)>0)
 
@@ -175,13 +175,19 @@
 
                       @if(auth()->user()->role_id == '4')
 
-                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
-
-                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
-
                       <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a>
 
                       <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
+
+                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-eye"></i>Links</a>
+
+
+
+
+
+
+
+                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create Assigment</a>
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
 
@@ -194,15 +200,12 @@
                       <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
 
                       <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Videos</a>
-                      
 
                       <a class="dropdown-item duplicate" href="#" data-toggle="modal" id = "{{$course->id}}" data-target="#exampleModalCenter" onclick="dupid(this.id);"><i class="fa fa-copy"></i>Duplicate</a>
-
-                       <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                        
                       @endif
 
-                      @if(auth()->user()->role_id == '3')
+                      @if(auth()->user()->role_id == '3' || auth()->user()->role_id == '4')
 
                         
 

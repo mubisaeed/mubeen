@@ -170,6 +170,8 @@ Route::get('/filternotused/{id}/{qid}', [QuestionsController::class, 'filternotu
 
 
 //Quiz Routes
+Route::get('/quizzesweek/{insid}/{courseid}/{week}', [QuizController::class, 'search_by_week'])->name('week');
+
 Route::get('/quizzes/{id}', [QuizController::class, 'index'])->name('Quizzes');
 
 Route::get('/quiz/create/{id}', [QuizController::class, 'create']);
@@ -200,6 +202,7 @@ Route::get('/quiz/show/{id}',  [QuizController::class, 'show']);
 
 Route::post('/quiz/delete',  [QuizController::class, 'destroy']);
 
+
 //User Guide Route
 
 Route::get('/userguide', [UserGuideController::class, 'index']);
@@ -227,6 +230,8 @@ Route::get('/resetpassword', [userscontroller::class, 'resetpassword']);
 Route::get('/edit/{id}', [userscontroller::class, 'edit']);
 
 Route::post('/update/{id}', [userscontroller::class, 'update']);
+
+
 
 //course crud
 
@@ -506,6 +511,7 @@ Route::post('/updateabout/{id}',[AboutPageController::class,'update']);
 Route::get('/contactpage', [ContactPageController::class, 'index']);
 
 Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
+
 
 
 //Routes for Course Resources functionality:

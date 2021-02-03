@@ -190,6 +190,30 @@
 
                               </div>
 
+                               <div class="col-md-6 p_left">
+
+                            <div class="custom_input_main mobile_field">
+
+                              <input type="text" class="form-control"  name="building" value="{{old('building',$course->building)}}" required="" minlength="3" maxlength ="50" autofocus="">
+
+                              <label>Building Name
+
+                                <span class="red">*</span></label>
+
+                              </div>
+
+                              @error('building')
+
+                              <span class="invalid-feedback" role="alert">
+
+                              <strong>{{ $building }}</strong>
+
+                              </span>
+
+                            @enderror
+
+                            </div>
+
 
 
                             <div class="col-md-6 p_left">

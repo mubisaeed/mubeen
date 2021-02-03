@@ -20,7 +20,7 @@
                         <div class="clndr_event_list">
                           <button type="button">Add Event</button>
                           <div class="radio_event_list">
-                            <label class="container_radio">All
+                            <label class="container_radio">School Calendar
                               <input type="radio" checked="checked" name="radio">
                               <span class="checkmark"></span>
                             </label>
@@ -36,10 +36,10 @@
                               <input type="radio" name="radio">
                               <span class="checkmark"></span>
                             </label>
-                            <label class="container_radio">Populated
+                            <!-- <label class="container_radio">Populated
                               <input type="radio" name="radio">
                               <span class="checkmark"></span>
-                            </label>
+                            </label> -->
                           </div>
                         </div>
                       </div>

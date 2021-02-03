@@ -160,21 +160,6 @@
 
                       </label> 
 
-                     <!--  <label class="mb-1">
-
-                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Yes</h6>
-
-                      <input type="radio" value="1" name="nm" class="mb-4">
-
-                      </label> 
-
-                      <label class="mb-1">
-
-                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">No</h6>
-
-                          <input type="radio" value="0" name="nm" class="mb-4" checked="checked">
-
-                      </label>  -->
 
                       <div class="yes_no_radio_button">
                         <button type="button" class="btn radio_btn">No <input type="radio" value="1" name="nm" class="mb-4"> </button>
@@ -191,27 +176,6 @@
                     <br><br>
 
 
-                    <!-- <div class="col-md-6 p_left"> -->
-
-<!--                     <div class="custom_input_main select_plugin mobile_field">
-
-                    <select class="selectpicker" name="duration">
-                      <?php
-                        // $total = 100;
-                      ?>
-
-                      @for($i = 1; $i <= $total; $i++)
-
-                        <option value="{{$i}}">{{$i}}</option>
-
-                      @endfor
-
-                    </select>
-
-                    <label class="select_lable">No.of Multiple Choice Questions</label>
-
-                  </div> -->
-
                   <div class="col-md-4 p_left">
 
                     <div class="custom_input_main select_plugin mobile_field">
@@ -224,27 +188,6 @@
 
                   </div>
 
-                  <!-- </div>
-                  <div class="col-md-6 p_left"> -->
-
-<!--                     <div class="custom_input_main select_plugin mobile_field">
-
-                    <select class="selectpicker" name="duration">
-                      <?php
-                        // $total = 100;
-                      ?>
-
-                      @for($i = 1; $i <= $total; $i++)
-
-                        <option value="{{$i}}">{{$i}}</option>
-
-                      @endfor
-
-                    </select>
-
-                    <label class="select_lable">No.of True False</label>
-
-                  </div> -->
                   <div class="col-md-4 p_left">
 
                     <div class="custom_input_main select_plugin mobile_field">
@@ -257,27 +200,6 @@
 
                   </div>
 
-                  <!-- </div>
-                  <div class="col-md-6 p_left"> -->
-
-<!--                     <div class="custom_input_main select_plugin mobile_field">
-
-                    <select class="selectpicker" name="duration">
-                      <?php
-                        // $total = 100;
-                      ?>
-
-                      @for($i = 1; $i <= $total; $i++)
-
-                        <option value="{{$i}}">{{$i}}</option>
-
-                      @endfor
-
-                    </select>
-
-                    <label class="select_lable">No.of Questions ans Answers</label>
-
-                  </div> -->
                   <div class="col-md-4 p_left">
 
                     <div class="custom_input_main select_plugin mobile_field">
@@ -290,40 +212,24 @@
 
                   </div>
 
-                  <!-- </div>
-                  <div class="col-md-6 p_left"> -->
-<!-- 
-                    <div class="custom_input_main select_plugin mobile_field">
+                  </div>
 
-                    <select class="selectpicker" name="duration">
-                      <?php
-                        // $total = 100;
-                      ?>
+                  <?php
+                    $course = DB::table('courses')->where('id', $course->id)->get()->first();
+                    $weeks = $course->weeks;
+                  ?>
 
-                      @for($i = 1; $i <= $total; $i++)
+                  <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
 
-                        <option value="{{$i}}">{{$i}}</option>
+                      <input type="radio" name="week" value="{{$i}}" required="">
 
-                      @endfor
+                      <label class="select_lable">Week {{$i}}</label>
 
-                    </select>
-
-                    <label class="select_lable">No.of Fill in the blanks</label>
-
-                  </div> -->
-                <!--   <div class="col-md-6 p_left">
-
-                    <div class="custom_input_main select_plugin mobile_field">
-
-                      <input type="number" name="blankmarks" value="{{old('blankmarks')}}">
-
-                    <label class="select_lable">Marks per blank</label>
+                    @endfor
 
                   </div>
 
-                  </div> -->
-
-                  </div>
 
                   <div class="s_form_button text-center">
 

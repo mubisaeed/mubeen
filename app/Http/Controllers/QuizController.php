@@ -67,7 +67,9 @@ class QuizController extends Controller
     public function index($id)
     {
         $quizzes = DB::table('quizzes')->where('instructor_id', Auth::user()->id)->where('course_id', $id)->orderBy('id', 'desc')->get();
-        return view('quizzes.index', compact('quizzes'));
+        $course_id = $id;
+        $instructor_id =  Auth::user()->id;
+        return view('quizzes.index', compact('quizzes', 'course_id', 'instructor_id'));
     }
 
     public function show_solved_quiz($id)
@@ -172,6 +174,7 @@ class QuizController extends Controller
             'mr_per_mcq' => $request->mcqmarks,
             'mr_per_qa' => $request->qmarks,
             'mr_per_tf' => $request->tfmarks,
+            'week' => $request->week,
             'instructor_id' => Auth::user()->id,
             'course_id' => $request->course_id,
         );
@@ -223,5 +226,16 @@ class QuizController extends Controller
         DB::table('quizzes')->where('id',$id)->delete();
 
         Session::flash('message', 'Quiz deleted successfully');
+    }
+
+    public function search_by_week($insid, $courseid, $week)
+    {
+        $week = $week;
+        $course_id = $courseid;
+        $instructor_id = $insid;
+
+        $quizzes = DB::table('quizzes')->where('instructor_id', $instructor_id)->where('course_id', $course_id)->where('week', $week)->orderBy('id', 'desc')->get();
+        return view('quizzes.index', compact('quizzes', 'course_id', 'instructor_id'));
+
     }
 }

@@ -346,30 +346,6 @@
 
                   </div>
 
-                  <div class="col-md-12">
-
-                      <div class="custom_input_main select_plugin mobile_field">
-
-                        <select class="selectpicker" name="blood">
-
-                          <option value="A+">A+</option>
-
-                          <option value="B+">B+</option>
-
-                          <option value="AB+">AB+</option>
-
-                          <option value="O+">O+</option>
-
-                          <option value="O-">O-</option>
-
-                        </select>
-
-                        <label class="select_lable">Blood Group</label>
-
-                      </div>
-
-                  </div>
-
           <div class="row px-3"> 
 
             <label class="mb-1">

@@ -217,6 +217,34 @@
             </a>
 
           </li>
+
+          @if(  in_array('All Departments', $data) || in_array('Add Department', $data) ) 
+            <li class="nav-item dropdown_item  {{ Request::is('departments') ? 'active' : '' }}">
+
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
+              <i class="fa fa-graduation-cap"></i>
+
+              <span>Departments</span>
+
+            </a>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+
+              <div class="py-2 collapse-inner rounded">
+              @if(  in_array('All Departments', $data) )
+                <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
+                @endif
+              @if(  in_array('Add Department', $data) )
+                <a class="collapse-item" href="{{url('/departments/create')}}">Add Department</a>
+              @endif
+              </div>
+
+            </div>
+
+          </li>
+        @endif
+
            @if(  in_array('All Classes', $data) || in_array('Add New Class', $data) ) 
             <!--classes-->
               <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
@@ -420,33 +448,8 @@
           </li>
           @endif
           
-          @if(  in_array('All Departments', $data) || in_array('Add Department', $data) ) 
           <!--department-->
-                  <li class="nav-item dropdown_item  {{ Request::is('departments') ? 'active' : '' }}">
-
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-
-              <i class="fa fa-graduation-cap"></i>
-
-              <span>Departments</span>
-
-            </a>
-
-            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-              <div class="py-2 collapse-inner rounded">
-              @if(  in_array('All Departments', $data) )
-                <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
-                @endif
-              @if(  in_array('Add Department', $data) )
-                <a class="collapse-item" href="{{url('/departments/create')}}">Add Department</a>
-              @endif
-              </div>
-
-            </div>
-
-          </li>
-        @endif
+          
     
         @endif 
 
@@ -515,9 +518,9 @@
             </li>
           @endif
 
-          @if(  in_array('All Courses', $data))
+          @if(  in_array('All Courses', $data)|| in_array('Add New Course', $data))
 
-<!--           <li class="nav-item dropdown_item  {{ Request::is('course') ? 'active' : '' }}">
+          <li class="nav-item dropdown_item  {{ Request::is('course') ? 'active' : '' }}">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 
@@ -533,11 +536,14 @@
                  @if(  in_array('All Courses', $data) )
                 <a class="collapse-item" href="{{url('/course')}}">All Courses</a>
                 @endif
+                @if(  in_array('Add New Course', $data) )
+                <a class="collapse-item" href="{{url('/courses')}}">Add New Course</a>
+                   @endif
               </div>
 
             </div>
 
-          </li> --> 
+          </li> 
           @endif
 
           @if(  in_array('All Students', $data) || in_array('Add New Student', $data) ) 
@@ -788,6 +794,7 @@
 
           </li>
         <!--user guide-->
+        @if(auth()->user()->role_id == '1' || auth()->user()->role_id == '3')
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{url('userguide')}}">
@@ -799,6 +806,8 @@
             </a>
 
           </li>
+
+        @endif
          
      
 

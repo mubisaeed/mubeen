@@ -42,7 +42,10 @@ class CourseController extends Controller
 
             $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
 
-
+            if(auth()->user()->role_id == '4')
+            {
+              $data = DB::table('module_permissions_store_instructors')->where('user_id' , $user)->pluck('allowed_module');
+            }
 
             if($data != null){
 
@@ -92,6 +95,9 @@ class CourseController extends Controller
                 'rno' => 'required',
 
 
+                'building' => 'required',
+
+
                 'sdate' => 'required|date',
 
                 'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -101,7 +107,7 @@ class CourseController extends Controller
                 'ccolor' => 'required',
 
                 'sessions' => 'required',
-
+                
                 'cdescription' => 'required',
 
             ]);
@@ -122,15 +128,34 @@ class CourseController extends Controller
 
         $slug = preg_replace('/\s+/', '-', $str);
 
+        if($request->sessions == 1)
+        {
+            $weeks = 9;
+        }
+        elseif($request->sessions == 2)
+        {
+            $weeks = 18;
+        }
+        elseif($request->sessions == 3)
+        {
+            $weeks = 27;
+        }
+        elseif($request->sessions == 4)
+        {
+            $weeks = 36;
+        }
+
         $data = array(
 
             'course_name'=> $request->cname,
 
             'image'=> $image,
 
-            // 'department'=> $request->department,
+            'user_id'=> Auth::user()->id,
 
             'room_number'=> $request->rno,
+
+            'building'=> $request->building,
 
             'start_date'=> $request->sdate,
 
@@ -140,7 +165,7 @@ class CourseController extends Controller
 
             'sessions'=> $request->sessions,
 
-            // 'clas_id'=> $request->cls,
+            'weeks'=> $weeks,
 
             'slug'=> $slug,
 
@@ -175,7 +200,7 @@ class CourseController extends Controller
     { 
 
         
-
+        $user = Auth::user()->id;
          if(auth()->user()->role_id != '5'){
 
           $user = Auth::user()->id;
@@ -189,7 +214,6 @@ class CourseController extends Controller
             {
               $data = DB::table('module_permissions_store_instructors')->where('user_id' , $user)->pluck('allowed_module');
             }
-
 
             if($data != null){
 
@@ -283,8 +307,10 @@ class CourseController extends Controller
 
         $data = new Course();
         $data->course_name = $oldcourse->course_name;
+        $data->building = $oldcourse->building;
         $data->room_number = $oldcourse->room_number;
         $data->image = $oldcourse->image;
+        $data->user_id = $oldcourse->user_id;
         $data->start_date = $oldcourse->start_date;
         $data->end_date = $oldcourse->end_date;
         $data->course_color = $oldcourse->course_color;
@@ -452,6 +478,8 @@ class CourseController extends Controller
 
                 'rno' => 'required',
 
+                'building' => 'required',
+
                 'sdate' => 'required|date',
 
                 'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -501,6 +529,8 @@ class CourseController extends Controller
         $data->image=$image;
 
         $data->room_number=$request->input('rno');
+
+        $data->building=$request->input('building');
 
         $data->start_date=$request->input('sdate');
 

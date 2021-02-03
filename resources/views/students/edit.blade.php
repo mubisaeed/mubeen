@@ -153,7 +153,7 @@
                       </span>
                     @enderror
                   </div>
-                  <div class="col-md-12">
+                  <!-- <div class="col-md-12">
                       <div class="custom_input_main select_plugin mobile_field">
                         <select class="selectpicker" name="blood">
                           <option  {{ ( $student->blood_group) == 'A+' ? 'selected' : '' }} value="A+">A+</option>
@@ -164,7 +164,7 @@
                         </select>
                         <label class="select_lable">Blood Group</label>
                       </div>
-                  </div>
+                  </div> -->
                   <div class="row px-3"> 
                     <label class="mb-1">
                       <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Diabetes</h6>
