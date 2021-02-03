@@ -93,6 +93,8 @@
 
                 <th scope="col">Name</th>
 
+                <th scope="col">Week No</th>
+
                 <th scope="col">Add Questions</th>
 
                 <th scope="col">Show Quiz</th>
@@ -116,6 +118,16 @@
                   <div class="course_td">
 
                     <p>{{$quiz->name}}</p>
+
+                  </div>
+
+                </td>
+
+                <td class="first_row">
+
+                  <div class="course_td">
+
+                    <p>{{$quiz->week}}</p>
 
                   </div>
 

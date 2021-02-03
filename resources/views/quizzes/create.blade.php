@@ -222,7 +222,7 @@
                   <div class="col-md-12">
                     @for($i = 1; $i <= $weeks; $i++)
 
-                      <input type="radio" name="week" value="{{$i}}" required="">
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
 
                       <label class="select_lable">Week {{$i}}</label>
 
@@ -235,7 +235,7 @@
 
                     <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                    <button type="submit" class="btn save_btn">Add</button>
+                    <button type="submit" class="btn save_btn" id="sub_button">Add</button>
 
                   </div>
                   </div>
@@ -247,6 +247,32 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">  
+  $(document).ready(function(){
+     $('#sub_button').hide();
+  });
+</script>
+<script type="text/javascript">
+
+  function showbtn()
+  {
+    $('#sub_button').show();
+  }
+</script>
+
+<!-- <script>
+    $('input[type="radio"]').click(function(){
+      if($("#wk").is(":checked"))
+      {
+        $('#sub_button').show();
+      }
+      else
+      {
+        $('#sub_button').hide();
+      }
+    });
+</script> -->
 
 <script>
    jQuery(document).ready(function() {

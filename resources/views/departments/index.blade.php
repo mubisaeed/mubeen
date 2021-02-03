@@ -42,7 +42,7 @@
                 <?php $count = 1;  ?>
               @foreach ($departments as $department)
                 <tr>
-                  <th scope="row">{{$count}}   </th>
+                  <th scope="row">#{{$count}}   </th>
                      <?php $count++; ?>
                   <td class="first_row">{{$department->name}}</td>
                   <td>

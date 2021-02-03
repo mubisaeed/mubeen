@@ -129,6 +129,23 @@
 
                       </div>
 
+                      <?php
+                        $course = DB::table('courses')->where('id', $main)->get()->first();
+                        $weeks = $course->weeks;
+                      ?>
+
+                    <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
+
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($courselinks->week == $i) Checked @endif>
+
+
+                      <label class="select_lable">Week {{$i}}</label>
+
+                    @endfor
+
+                  </div>
+
 
                     
 
@@ -138,7 +155,7 @@
 
                         <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn save_btn">Update<div class="ripple-container"></div></button>
 
                       </div>
 

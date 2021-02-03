@@ -28,6 +28,19 @@ class CourseLinkController extends Controller
 
 {
 
+
+    public function search_by_week($courseid, $week)
+    {
+        $week = $week;
+        $id = $courseid;
+
+        $courselink = DB::table('courselink')->where('course_id', $id)->where('week', $week)->orderBy('id', 'desc')->get();
+
+        return view ('course_resources.links', compact ('user','courselink', 'id'));
+
+    }
+
+
     public function index($id){
 
         $id = $id;
@@ -36,7 +49,6 @@ class CourseLinkController extends Controller
 
         $courselink=DB::table('courselink')->where('course_id', $id)->get()->all();
 
-        
 
         return view ('course_resources.links', compact ('user','courselink', 'id'));
 
@@ -52,6 +64,8 @@ class CourseLinkController extends Controller
 
         'link' => 'required',
 
+        'week' => 'required',
+
         'title'=>'required|min:3|max:20',
 
         'short_des'=>'required|min:10|max:5000',
@@ -61,6 +75,8 @@ class CourseLinkController extends Controller
         $courselinks= new CourseLink;
 
         $courselinks->course_id=$req->input('course_id');
+
+        $courselinks->week=$req->input('week');
 
         $courselinks->title=$req->input('title');
 
@@ -84,7 +100,7 @@ class CourseLinkController extends Controller
 
     public function edit($id, $main){
 
-        //dd($id);
+        // dd($main);
 
         $id = $id;
 
@@ -117,6 +133,8 @@ class CourseLinkController extends Controller
         $user = Auth::user();
 
         $courselinks->title=$req->input('title');
+
+        $courselinks->week=$req->input('week');
 
         $courselinks->short_description=$req->input('short_des');
 

@@ -203,6 +203,7 @@ class QuizController extends Controller
             'quiz_date' => $request->input('date'),
             'negative_marking' => $request->input('nm'),
             'name' => $request->input('name'),
+            'week' => $request->input('week'),
             'duration' => $request->input('duration'),
             'start_time' => $request->input('stime'),
             'end_time' => $request->input('etime'),

@@ -33,7 +33,7 @@ class CourseResourcesController extends Controller
 {
 
     public function index($id){
-         //dd('asd');
+         dd('downloads');
         $id = $id;
 
         $user = Auth::user();
@@ -61,6 +61,8 @@ class CourseResourcesController extends Controller
 
 
     public function resourcevideos($id){
+        // dd('videos');
+
 
         $id = $id;
 
@@ -139,6 +141,10 @@ class CourseResourcesController extends Controller
         $cress= new CourseResources;
 
         $cress->course_id=$req->input('course_id');
+
+        $cress->week=$req->input('week');
+
+        $cress->instructor_id=Auth::user()->id;
 
         $cress->title=$req->input('title');
 
@@ -262,6 +268,8 @@ class CourseResourcesController extends Controller
 
         $cress->short_description=$request->input('short_des');
 
+        $cress->week=$request->input('week');
+
         $cress->file=$fileName;
 
         $cress->type=$fileType;
@@ -328,11 +336,13 @@ class CourseResourcesController extends Controller
 
         $cress->short_description=$request->input('short_des');
 
+        $cress->week=$request->input('week');
+
         $cress->file=$fileName;
 
         $cress->type=$fileType;
 
-    $cress->link=$req->input('link');
+        $cress->link=$request->input('link');
 
         $cress->save();
 

@@ -123,6 +123,23 @@
                       </div>
 
 
+                      <?php
+                        $course = DB::table('courses')->where('id', $id)->get()->first();
+                        $weeks = $course->weeks;
+                      ?>
+
+                  <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
+
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
+
+                      <label class="select_lable">Week {{$i}}</label>
+
+                    @endfor
+
+                  </div>
+
+
 
 
                     <div class="col-md-12">
@@ -131,7 +148,7 @@
 
                         <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn save_btn" id="sub_button">Save<div class="ripple-container"></div></button>
 
                       </div>
 
@@ -182,7 +199,7 @@
 
             </div>
 
-            <div class="table_select">
+<!--             <div class="table_select">
 
               <select class="selectpicker">
 
@@ -196,7 +213,28 @@
 
               </select>
 
-            </div>
+            </div> -->
+
+
+              <div class="dropdown table_select">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    All Links
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{url('/quizzes/'. $id)}}">All Links</a>
+
+                    <?php
+                      $course = DB::table('courses')->where('id', $id)->get()->first();
+                      $weeks = $course->weeks;
+                    ?>
+                    @for($i = 1; $i <= $weeks; $i++)
+                      
+                      <a class="dropdown-item" href="{{url('/linksweek/'. $id .'/'. $i)}}"> Week {{$i}} </a>
+
+                    @endfor
+
+                  </div>
+                </div>
 
           </div>
 
@@ -209,6 +247,8 @@
                 <th scope="col">ID</th>
 
                 <th scope="col">Title</th>
+
+                <th scope="col">Week No</th>
 
                 <th scope="col">Link Description</th>
 
@@ -233,6 +273,15 @@
                   <div class="course_td">
 
                     <p>{{$cl->title}}</p>
+
+                  </div>
+
+                </td>
+                <td class="first_row">
+
+                  <div class="course_td">
+
+                    <p>{{$cl->week}}</p>
 
                   </div>
 
@@ -352,6 +401,18 @@ uploadField.onchange = function() {
 
   <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script>
 
+<script type="text/javascript">  
+  $(document).ready(function(){
+     $('#sub_button').hide();
+  });
+</script>
+<script type="text/javascript">
+
+  function showbtn()
+  {
+    $('#sub_button').show();
+  }
+</script>
 
 
   <script type="text/javascript">

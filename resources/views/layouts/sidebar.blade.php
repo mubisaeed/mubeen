@@ -489,35 +489,6 @@
             </li>
           @endif
 
-          @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
-          <!--discussions-->
-           <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
-
-              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-
-                <i class="fa fa-calendar-o"></i>
-
-                <span>Discussions</span>
-
-              </a>
-
-              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-                <div class="py-2 collapse-inner rounded">
-                 @if(  in_array('All Discussions', $data)  ) 
-                  <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
-                @endif
-                @if(  in_array('Add Discussion', $data)  )
-                  <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
-                @endif  
-
-                </div>
-
-              </div>
-
-            </li>
-          @endif
-
           @if(  in_array('All Courses', $data)|| in_array('Add New Course', $data))
 
           <li class="nav-item dropdown_item  {{ Request::is('course') ? 'active' : '' }}">
@@ -625,7 +596,36 @@
             </div>
 
           </li> -->
-        @endif    
+        @endif  
+
+                  @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
+          <!--discussions-->
+           <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
+
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                <i class="fa fa-calendar-o"></i>
+
+                <span>Discussions</span>
+
+              </a>
+
+              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+
+                <div class="py-2 collapse-inner rounded">
+                 @if(  in_array('All Discussions', $data)  ) 
+                  <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
+                @endif
+                @if(  in_array('Add Discussion', $data)  )
+                  <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
+                @endif  
+
+                </div>
+
+              </div>
+
+            </li>
+          @endif  
 
         @endif
         
@@ -796,13 +796,6 @@
         <!--user guide-->
         @if(auth()->user()->role_id == '1' || auth()->user()->role_id == '3')
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
-<<<<<<< HEAD
-
-
-            <a class="nav-link" href="{{url('userguide')}}">
-
-=======
->>>>>>> 110be6c0220a9e20f053d1f11ed4aaea1f0445e2
 
             <a class="nav-link" href="{{url('userguide')}}">
 

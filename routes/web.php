@@ -131,6 +131,8 @@ Route::get('/assignment/delete', [AssignmentsController::class, 'destroy']);
 
 //Quizzes routes
 
+Route::get('/questionsweek/{insid}/{courseid}/{week}', [QuestionsController::class, 'search_by_week'])->name('week');
+
 Route::get('/quizzes/create', [QuestionsController::class, 'create']);
 
 Route::get('/mcq/create/{id}', [QuestionsController::class, 'mcqcreate']);
@@ -549,6 +551,9 @@ Route::get('resource/download/{id}', [CourseResourcesController::class, 'downloa
 
 
 // Routes for Course Link:
+
+Route::get('/linksweek/{courseid}/{week}', [CourseLinkController::class, 'search_by_week']);
+
 
 Route::get('courselink/{id}', [CourseLinkController::class, 'index']);
 

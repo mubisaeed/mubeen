@@ -116,9 +116,29 @@
                           </div>
                         </div>
                         </div>
+
+
+
+                        <?php
+                          $course = DB::table('courses')->where('id', $course->id)->get()->first();
+                          $weeks = $course->weeks;
+                        ?>
+
+                        <div class="col-md-12">
+                          @for($i = 1; $i <= $weeks; $i++)
+
+                            <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
+
+                            <label class="select_lable">Week {{$i}}</label>
+
+                          @endfor
+
+                        </div>
+
+
                         <div class="save_next_btn text-center w-100">
                           <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
-                          <button type="submit" class="btn">Save and next</button>
+                          <button type="submit" class="btn" id="sub_button">Save and next</button>
                           
                         </div>
                       </div>
@@ -144,14 +164,30 @@
                 <input type="text" name="search" id="search" value="" placeholder="Search...">
                 <a href="#"> <i class="fa fa-search"></i> </a>
               </div>
-              <div class="table_select">
-                <select class="selectpicker">
-                  <option>All Multiple choice questions</option>
-                  <option>Today </option>
-                  <option>Macro Economics I</option>
-                  <option>Macro Economics II</option>
-                </select>
-              </div>
+
+
+
+                <div class="dropdown table_select">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    All MCQ's
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{url('/quizzes/'. $course->id)}}">All MCQ's</a>
+
+                    <?php
+                      $course = DB::table('courses')->where('id', $course->id)->get()->first();
+                      $weeks = $course->weeks;
+                    ?>
+                    @for($i = 1; $i <= $weeks; $i++)
+                      
+                      <a class="dropdown-item" href="{{url('/questionsweek/'. $instructor_id .'/'. $course->id .'/'. $i)}}"> Week {{$i}} </a>
+
+                    @endfor
+
+                  </div>
+                </div>
+
+
             </div>
             <table class="table table-hover" id="table-id">
               <thead>
@@ -238,6 +274,18 @@
 
 
 
+<script type="text/javascript">  
+  $(document).ready(function(){
+     $('#sub_button').hide();
+  });
+</script>
+<script type="text/javascript">
+
+  function showbtn()
+  {
+    $('#sub_button').show();
+  }
+</script>
 
   <script type="text/javascript">
       jQuery(document).ready(function($) {

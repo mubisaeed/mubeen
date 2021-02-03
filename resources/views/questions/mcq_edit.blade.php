@@ -126,6 +126,26 @@
                       </div>
                     </div>
 
+
+
+
+                      <?php
+                        $course = DB::table('courses')->where('id', $courseid)->get()->first();
+                        $weeks = $course->weeks;
+                      ?>
+
+                    <div class="col-md-12">
+                    @for($i = 1; $i <= $weeks; $i++)
+
+                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($mcq->week == $i) Checked @endif>
+
+
+                      <label class="select_lable">Week {{$i}}</label>
+
+                    @endfor
+
+                  </div>
+
                     <div class="s_form_button text-center">
 
                       <a  href="{{url('/mcq/create/'.$courseid)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
