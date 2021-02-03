@@ -238,7 +238,7 @@ class CourseController extends Controller
     	$user = Auth::user();
         if(Auth::user()->role_id == '4')
         {
-            $courses = DB::table('course_instructor')->where('i_u_id', Auth::user()->id)->join('courses', 'courses.id', '=', 'course_instructor.course_id')->get();
+            $courses = DB::table('courses')->where('user_id', Auth::user()->id)->get();
 
         }
         else{
