@@ -161,17 +161,7 @@
                       </span>
                     @enderror
                   </div>
-                  <div class="col-md-12">
-                      <div class="custom_input_main select_plugin mobile_field">
-                        <select class="selectpicker" name="blood">
-                          <option  {{ ( $student->blood_group) == 'A+' ? 'selected' : '' }} value="A+">A+</option>
-                          <option {{ ( $student->blood_group) == 'B+' ? 'selected' : '' }} value="B+">B+</option>
-                          <option {{ ( $student->blood_group) == 'AB+' ? 'selected' : '' }} value="AB+">AB+</option>
-                          <option {{ ( $student->blood_group) == 'O+' ? 'selected' : '' }} value="O+">O+</option>
-                          <option {{ ( $student->blood_group) == 'O-' ? 'selected' : '' }} value="O-">O-</option>
-                        </select>
-                        <label class="select_lable">Blood Group</label>
-                      </div>
+                  <div class="row px-3"> 
                   </div>
 
                   <div class="col-md-6 p_right">
@@ -193,36 +183,6 @@
                       </div>
                     </div>
                   </div>
-
-                 <!--  <div class="row px-3"> 
-                    <label class="mb-1">
-                      <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Diabetes</h6>
-                    </label> 
-                    <label class="mb-1">
-                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Yes</h6>
-                    <input type="radio"  name="diabetes" value="yes" {{ (isset($student->diabetes) && $student->diabetes == 'yes') ? 'checked' : '' }}>
-                    </label> 
-                    <label class="mb-1">
-                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">No</h6>
-                    <input type="radio" name="diabetes" value="no" {{ (isset($student->diabetes) && $student->diabetes == 'no') ? 'checked' : '' }}>
-                    </label> 
-                        
-                  </div> -->
-                  <!-- <br><br>
-                  <div class="row px-3"> 
-                    <label class="mb-1">
-                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Alergy</h6>
-                    </label> 
-                    <label class="mb-1">
-                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Yes</h6>
-                    <input type="radio" value="yes" name="alergy" class="mb-4" {{ (isset($student->alergy) && $student->alergy == 'yes') ? 'checked' : '' }}>
-                    </label> 
-                    <label class="mb-1">
-                        <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">No</h6>
-                    <input type="radio" value="no" name="alergy" class="mb-4" {{ (isset($student->alergy) && $student->alergy == 'no') ? 'checked' : '' }}>
-                    </label> 
-                  </div> -->
-
                   <div class="s_form_button text-center">
                       <a  href="{{url('/students')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
                       <button type="submit" class="btn save_btn">Update</button>

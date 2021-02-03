@@ -57,21 +57,29 @@
               
             </div>
 
-            <div class="table_select">
 
-              <select class="selectpicker">
 
-                <option>All quizzes</option>
 
-                <option>Today </option>
 
-                <option>Macro Economics I</option>
+                <div class="dropdown table_select">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    All Quizzes
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{url('/quizzes/'. $course_id)}}">All Quizzes</a>
 
-                <option>Macro Economics II</option>
+                    <?php
+                      $course = DB::table('courses')->where('id', $course_id)->get()->first();
+                      $weeks = $course->weeks;
+                    ?>
+                    @for($i = 1; $i <= $weeks; $i++)
+                      
+                      <a class="dropdown-item" href="{{url('/quizzesweek/'. $instructor_id .'/'. $course_id .'/'. $i)}}"> Week {{$i}} </a>
 
-              </select>
+                    @endfor
 
-            </div>
+                  </div>
+                </div>
 
           </div>
 
@@ -190,6 +198,8 @@
          @else
 
           <p>There is no Quiz</p>
+          <br>
+          <a  href="{{url('/course')}}"><button type="button" class="btn btn-info">Go Back</button></a>
 
         @endif
 
@@ -349,6 +359,69 @@
           $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
 
         });
+
+      });
+
+    });
+
+  </script>
+
+  <script>
+
+    $(document).ready(function(){
+
+      $("#weeksearch").on("keyup", function() {
+
+        var week = $(this).val().toLowerCase();
+        var cor_id = $(this).attr( "data-id" );
+        var ins_id = $(this).attr( "ins-id" );
+        var form_data = {
+
+          week: week,
+          course_id: cor_id,
+          instructor_id: ins_id
+
+        };
+
+           $.ajax( {
+
+            type: 'post',
+            headers: {
+
+              'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
+
+              },
+
+            url: '<?php echo url("/quiz/search/week"); ?>',
+
+            data: form_data,
+
+            success: function ( data ) {
+
+              var res = '';
+              $.each (data, function (key, value){
+                res += 
+                '<tr>'+
+                  '<td>'+value.id+'</td>'+
+                  '<td>'+value.name+'</td>'+
+                  '<td>'+value.name+'</td>'+
+                  '<td>'+value.name+'</td>'+
+                  '<td>'+value.name+'</td>'+
+                '</tr>';
+              });
+
+                $("#mybody tr").html(res);
+
+                setTimeout( function () {
+
+                    location.reload();
+
+                  }, 10000 );
+
+            }
+
+            } );    
+
 
       });
 

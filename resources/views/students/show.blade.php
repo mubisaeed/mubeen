@@ -31,7 +31,6 @@
                 <th scope="col">Address</th>
                 <th scope="col">Class</th>
                 <th scope="col">Roll no</th>
-                <th scope="col">Blood Group</th>
                 <th scope="col">Diabetes</th>
                 <th scope="col">Alergy</th>
                 <th scope="col">Actions</th>
@@ -50,7 +49,6 @@
                 <td class="first_row">{{$st->address}}</td>
                 <td class="first_row">{{$st->class}}</td>
                 <td class="first_row">{{$st->rollno}}</td>
-                <td class="first_row">{{$st->blood_group}}</td>
                 <td class="first_row">{{$st->diabetes}}</td>
                 <td class="first_row">{{$st->alergy}}</td>
                 
