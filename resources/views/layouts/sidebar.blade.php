@@ -726,15 +726,13 @@
           </li>
         <!--user guide-->
           <li class="nav-item  {{ Request::is('userguide') ? 'active' : '' }}">
-<<<<<<< HEAD
+
 
             <a class="nav-link" href="{{url('userguide')}}">
 
-=======
 
             <a class="nav-link" href="{{url('userguide')}}">
 
->>>>>>> b446e6570ee97e457782c70f82f80acf8b5ed922
               <i class="fa fa-address-book-o"></i>
 
               <p>User Guide</p>

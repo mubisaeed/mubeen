@@ -3965,7 +3965,8 @@
 .yes_no_radio_button button.active {
   background: #3366cc;
 }
-.yes_no_radio_button button input , .cr_btn button input , .true_false_btns button input {
+.yes_no_radio_button button input , .cr_btn button input , .true_false_btns button input , 
+.parent_input input , .gender_buttons button input , .diabities_buttons button input {
   position: absolute;
     width: 100%;
     top: 1px;
@@ -3997,5 +3998,42 @@
   border-radius: 0 !important;
 }
 .true_false_btns button {
+  position: relative;
+}
+.remove_padding {
+  padding-left: 0 !important;
+}
+
+.remove_padding .dropdown-item {
+  padding: 0;
+  display: inline;
+}
+
+.no_before_table tbody:before {
+  display: none !important; 
+}
+.custom_width_eye {
+  padding-right: 0;
+  width: 28px;
+}
+.parent_input {
+  position: relative !important;
+  text-align: center !important;
+  padding: 12px 20px !important;
+}
+
+.parent_input i {
+  display: none;
+  font-size: 26px;
+    position: absolute;
+    top: -8px;
+    color: #001d01;
+    right: -8px;
+}
+.align_ellipse .dropdown-menu {
+  max-height: 300px;
+  overflow: scroll;
+}
+.gender_buttons button , .diabities_buttons button {
   position: relative;
 }

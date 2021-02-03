@@ -58,27 +58,35 @@
                       <label>Image<span class="red">*</span></label>
                     </div>
                   </div>
-                   <div class="col-md-6 p_left">
+                    <div class="col-md-6 p_left">
                       <div class="custom_input_main mobile_field">
                         <input type="date" class="form-control" name="adate" value="{{old('adate',$student->admission_date)}}"  onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
                         <label>Admission Date
                           <span class="red">*</span></label>
                         </div>
+                    </div>
+                    <div class="col-md-6 p_right">
+                      <div class="custom_input_main mobile_field">
+                        <div class="gender_buttons">
+                          <button type="button" class="btn gender_btn">Male <input type="radio"  name="gender" value="male" {{ (isset($student->gender) && $student->gender == 'male') ? 'checked' : '' }}></button>
+                          <button type="button" class="btn gender_btn">Female <input type="radio" name="gender" value="no" {{ (isset($student->gender) && $student->gender == 'female') ? 'checked' : '' }}></button>
+                        </div>
+                        <label>Gender
+                          <span class="red">*</span></label>
                       </div>
-                      <div class="row px-3"> 
-                        <label class="mb-1">
+                    </div>
+                        <!-- <label class="mb-1">
                           <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Gender</h6>
-                        </label> 
-                        <label class="mb-1">
-                            <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Male</h6>
-                        <input type="radio"  name="gender" value="male" {{ (isset($student->gender) && $student->gender == 'male') ? 'checked' : '' }}>
+                        </label>  -->
+                        <!-- <label class="mb-1">
+                          <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Male</h6>
+                          <input type="radio"  name="gender" value="male" {{ (isset($student->gender) && $student->gender == 'male') ? 'checked' : '' }}>
                         </label> 
                         <label class="mb-1">
                             <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Female</h6>
                         <input type="radio" name="gender" value="no" {{ (isset($student->gender) && $student->gender == 'female') ? 'checked' : '' }}>
-                        </label> 
+                        </label>  -->
                         
-                  </div>
                   <div class="col-md-6 p_right">
                     <div class="custom_input_main mobile_field">
                       <select required="required" class="form-control" name="role">
@@ -165,7 +173,28 @@
                         <label class="select_lable">Blood Group</label>
                       </div>
                   </div>
-                  <div class="row px-3"> 
+
+                  <div class="col-md-6 p_right">
+                    <div class="custom_input_main mobile_field">
+                      <div class="diabities_buttons">
+                        <button class="btn diabities_btn">Yes <input type="radio"  name="diabetes" value="yes" {{ (isset($student->diabetes) && $student->diabetes == 'yes') ? 'checked' : '' }}></button>
+                        <button type="button" class="btn diabities_btn">No <input type="radio" name="diabetes" value="no" {{ (isset($student->diabetes) && $student->diabetes == 'no') ? 'checked' : '' }}></button>
+                        <label>Diabetes<span class="red">*</span></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 p_left">
+                    <div class="custom_input_main mobile_field">
+                      <div class="diabities_buttons">
+                        <button class="btn alergy_btn">Yes <input type="radio" value="yes" name="alergy" class="mb-4" {{ (isset($student->alergy) && $student->alergy == 'yes') ? 'checked' : '' }}></button>
+                        <button type="button" class="btn alergy_btn">No <input type="radio" value="no" name="alergy" class="mb-4" {{ (isset($student->alergy) && $student->alergy == 'no') ? 'checked' : '' }}></button>
+                        <label>Alergy<span class="red">*</span></label>
+                      </div>
+                    </div>
+                  </div>
+
+                 <!--  <div class="row px-3"> 
                     <label class="mb-1">
                       <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Diabetes</h6>
                     </label> 
@@ -178,8 +207,8 @@
                     <input type="radio" name="diabetes" value="no" {{ (isset($student->diabetes) && $student->diabetes == 'no') ? 'checked' : '' }}>
                     </label> 
                         
-                  </div>
-                  <br><br>
+                  </div> -->
+                  <!-- <br><br>
                   <div class="row px-3"> 
                     <label class="mb-1">
                         <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">Alergy</h6>
@@ -192,7 +221,7 @@
                         <h6 class="mb-0 text-sm" style="color:black; margin-right: 10px">No</h6>
                     <input type="radio" value="no" name="alergy" class="mb-4" {{ (isset($student->alergy) && $student->alergy == 'no') ? 'checked' : '' }}>
                     </label> 
-                  </div>
+                  </div> -->
 
                   <div class="s_form_button text-center">
                       <a  href="{{url('/students')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
@@ -208,6 +237,25 @@
     </div>
 <script>
   $(":input").inputmask();
+</script>
+<script>
+  $('.gender_btn').click(function(event) {
+    /* Act on the event */
+    $('.gender_btn').removeClass('btn-primary');
+    $(this).addClass('btn-primary');
+  });
+
+  $('.diabities_btn').click(function(event) {
+    /* Act on the event */
+    $('.diabities_btn').removeClass('btn-primary');
+    $(this).addClass('btn-primary');
+  }); 
+
+  $('.alergy_btn').click(function(event) {
+    /* Act on the event */
+    $('.alergy_btn').removeClass('btn-primary');
+    $(this).addClass('btn-primary');
+  });
 </script>
 <script type="text/javascript">
   setTimeout(function() {

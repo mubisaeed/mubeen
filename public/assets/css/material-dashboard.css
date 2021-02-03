@@ -4616,7 +4616,9 @@ pre code {
 
   padding: 0.46875rem 1rem;
 
-  font-size: 1rem;
+  font-family: 'Roboto' , sans-serif !important;
+
+  /*font-size: 1rem;*/
 
   line-height: 1.5;
 
@@ -4862,9 +4864,9 @@ fieldset:disabled a.btn {
 
   color: #ffffff;
 
-  background-color: #4caf50;
+  background-color: #23DC2A;
 
-  border-color: #4caf50;
+  border-color: #23DC2A;
 
   box-shadow: none;
 
@@ -4876,9 +4878,9 @@ fieldset:disabled a.btn {
 
   color: #ffffff;
 
-  background-color: #409444;
+  background-color: #23DC2A;
 
-  border-color: #3d8b40;
+  border-color: #23DC2A;
 
 }
 
@@ -20638,7 +20640,7 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 
 .btn .material-icons,
 
-.btn:not(.btn-just-icon):not(.btn-fab) .fa {
+/*.btn:not(.btn-just-icon):not(.btn-fab) .fa*/ {
 
   position: relative;
 

@@ -58,7 +58,7 @@
 
       
 
-      <div class="course_table mt-0">
+      <div class="course_table no_before_table mt-0">
 
         <div class="course card-header card-header-warning card-header-icon">
 
@@ -160,11 +160,11 @@
                   </td>
                   @if(auth()->user()->role_id != '5')
 
-                  <td>
+                  <td class="custom_width_eye">
 
                     {{$noOfInstructors}}
                   </td>
-                  <td>
+                  <td class="remove_padding">
                     <a class="dropdown-item" href="{{url('/class/showinstructor/ofclass/'.$class->id)}}"><i class="fa fa-eye"></i></a>  
                   </td>
 
@@ -184,10 +184,10 @@
                       
                   </td>
 
-                  <td>
+                  <td class="custom_width_eye">
                     {{$stds}}
                   </td>
-                  <td>
+                  <td class="remove_padding">
                       <a class="dropdown-item" href="{{url('/class/seestudents/'.$class->id)}}"><i class="fa fa-eye"></i></a>
                   </td>
                           

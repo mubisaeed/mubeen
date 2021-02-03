@@ -54,7 +54,7 @@
             }
           ?>
           <div>
-            <div>
+            <div class="question_listing">
               <h4>{{$qstn->label}}</h4>
             </div>
             @if($qstn->type == 'mcq')
