@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Session;
 use DB;
 
 
-
 class InstructorsController extends Controller
 
 {
@@ -311,7 +310,7 @@ class InstructorsController extends Controller
 
             'name'=>'required|min:3|max:50',
 
-            'image'=>'required|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'email'=>'required|email|unique:users|max:255',
 

@@ -64,9 +64,13 @@
                 <h5>Answer</h5>
 
                 <div class="true_false_btns">
-                  <button type="button" class="btn true_btn @if($opts['correct'] == "true") false_btn add_margin_to_f active_tf_btn @endif">True <input type="radio" value="true" name="correct" class="btn"/></button>
+                  <button type="button" class="btn true_btn @if($opts['correct'] == 'true') false_btn add_margin_to_f active_tf_btn @endif">True 
+                  <input type="radio" name="correct" class="btn" value="true" {{ $opts['correct'] == 'true' ? 'checked' : ' ' }} >
+                </button>
 
-                  <button type="button" class="btn true_btn  @if($opts['correct'] == "false") false_btn add_margin_to_f active_tf_btn @endif">False <input type="radio" value="false"  name="correct" class="btn"/></button>
+                  <button type="button" class="btn true_btn  @if($opts['correct'] == 'false') false_btn add_margin_to_f active_tf_btn @endif">False 
+                    <input type="radio" value="false"  name="correct" class="btn" {{$opts['correct'] == 'false' ? 'checked' : ' ' }}>
+                  </button>
 
      
 

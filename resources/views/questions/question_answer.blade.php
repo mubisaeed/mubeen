@@ -46,7 +46,7 @@
 
             <a href="{{url('/mcq/create/'. $course->id)}}">
 
-            Multiple Choice </a>
+            Question Answers </a>
 
           </li>
 
@@ -165,7 +165,7 @@
 
           
 
-          <h3>Multiple Choice Questions</h3>
+          <h3>Question Answers</h3>
 
           @if(count($questions)>0)
 

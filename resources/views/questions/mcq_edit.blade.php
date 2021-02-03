@@ -90,39 +90,37 @@
                               
                             </div>
                     </div>
-                      @foreach($opts['correct'] as $corr)
-                       <?php
-                        $cr = $opts[$corr];
-                       ?>
-                      @endforeach
                       
                         <div class="col-md-2 p_right">
                           <div class="quiz_ans">
                             <h4>Answer</h4>
                           </div>
-                          <div class="cr_btn active_cr_btn">
-                            <button type="button" class="btn">
-                            Correct 
-                                <input type="checkbox" value="opt1" 
-                                @if($cr == $opts['opt1']) checked @endif  name="correct[]" class="btn" />
-                            </button>
-                            
-                          </div>
-                          <div class="cr_btn">
-                            <button type="button" class="btn">
-                            Correct <input type="checkbox" value="opt2" @if($cr == $opts['opt2']) checked @endif name="correct[]" class="btn"/>
-                            </button>
-                          </div>
-                          <div class="cr_btn ">
-                            <button type="button" class="btn">
-                            Correct <input type="checkbox" value="opt3" @if($cr == $opts['opt3']) checked @endif name="correct[]" class="btn" />
-                            </button>
-                          </div>
-                          <div class="cr_btn">
-                            <button type="button" class="btn">
-                            Correct <input type="checkbox" value="opt4" @if($cr == $opts['opt4']) checked @endif name="correct[]" class="btn"/>
-                            </button>
-                          </div>
+                          
+                            <div class="cr_btn @if(in_array('opt1', $opts['correct'])) active_cr_btn @endif">
+                              <button type="button" class="btn">
+                              Correct 
+                                  <input type="checkbox" value="opt1" name="correct[]" class="btn" {{ in_array('opt1', $opts['correct']) ? 'checked' : ' ' }}>
+                              </button>
+                            </div>
+                            <div class="cr_btn @if(in_array('opt2', $opts['correct'])) active_cr_btn @endif">
+                              <button type="button" class="btn">
+                              Correct 
+                              <input type="checkbox" value="opt2"  name="correct[]" class="btn"  {{ in_array('opt2', $opts['correct']) ? 'checked' : ' ' }}>
+                              </button>
+                            </div>
+                            <div class="cr_btn @if(in_array('opt3', $opts['correct'])) active_cr_btn @endif">
+                              <button type="button" class="btn">
+                              Correct 
+                              <input type="checkbox" value="opt3" name="correct[]" class="btn"  {{ in_array('opt3', $opts['correct']) ? 'checked' : ' ' }}>
+                              </button>
+                            </div>
+                            <div class="cr_btn @if(in_array('opt4', $opts['correct'])) active_cr_btn @endif">
+                              <button type="button" class="btn">
+                              Correct 
+                              <input type="checkbox" value="opt4" name="correct[]" class="btn"  {{ in_array('opt4', $opts['correct']) ? 'checked' : ' ' }}>
+                              </button>
+                            </div>
+
                         </div>
                         </div>
                       </div>
@@ -144,5 +142,18 @@
     </div>
   </div>
 </div>
+
+  <script type="text/javascript">
+      jQuery(document).ready(function($) {
+      $('.cr_btn').click(function(){
+        if ($(this).hasClass("active_cr_btn")) {
+          $(this).removeClass("active_cr_btn");
+        }
+        else {
+          $(this).addClass("active_cr_btn");
+        }
+    });
+    });
+  </script>
 
 @endsection

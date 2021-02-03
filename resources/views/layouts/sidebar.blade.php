@@ -205,6 +205,7 @@
        
        
         @if( $user->role_id == '3' )
+
           <li class="nav-item  {{ Request::is('calendar') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{url('/calendar')}}">
@@ -272,6 +273,39 @@
 
           </li> 
           @endif    
+
+          <!-- students -->
+
+
+          @if(  in_array('All Students', $data) || in_array('Add New Student', $data) )    
+        <!--courses-->
+          <li class="nav-item dropdown_item  {{ Request::is('students') ? 'active' : '' }}">
+
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+              <i class="fa fa-user"></i>
+
+              <span>Students</span>
+
+            </a>
+
+            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+
+              <div class="py-2 collapse-inner rounded">
+                   @if(  in_array('All Students', $data) )
+                <a class="collapse-item" href="{{url('/students')}}">All Students</a>
+                   @endif
+                   @if(  in_array('Add New Student', $data) )
+                <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a>
+                   @endif
+
+              </div>
+
+            </div>
+
+          </li> 
+          @endif    
+
         <!-- ins-->
         @if(  in_array('All Instructors', $data) || in_array('Add Instructor', $data) ) 
         <li class="nav-item dropdown_item  {{ Request::is('instructors') ? 'active' : '' }}">
@@ -329,9 +363,9 @@
           </li> 
           @endif
           
-           @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
+           <!-- @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) )  -->
           <!--discussions-->
-         <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
+         <!-- <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
 
@@ -355,8 +389,8 @@
 
             </div>
 
-          </li>
-          @endif
+          </li> -->
+          <!-- @endif -->
           @if(  in_array('Icons List', $data) || in_array('Add New Icon', $data) ) 
            <!--icons-->
           <li class="nav-item dropdown_item  {{ Request::is('viewicon') ? 'active' : '' }}">
@@ -428,7 +462,7 @@
             </a>
 
           </li>
-           @if(  in_array('All Classes', $data))
+          @if(  in_array('All Classes', $data))
           <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
           
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
@@ -450,7 +484,36 @@
               </div>
     
             </li>
-            @endif
+          @endif
+
+          @if(  in_array('All Discussions', $data) || in_array('Add Discussion', $data) ) 
+          <!--discussions-->
+           <li class="nav-item dropdown_item  {{ Request::is('discussions') ? 'active' : '' }}">
+
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                <i class="fa fa-calendar-o"></i>
+
+                <span>Discussions</span>
+
+              </a>
+
+              <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+
+                <div class="py-2 collapse-inner rounded">
+                 @if(  in_array('All Discussions', $data)  ) 
+                  <a class="collapse-item" href="{{url('/discussions')}}">All Discussions</a>
+                @endif
+                @if(  in_array('Add Discussion', $data)  )
+                  <a class="collapse-item" href="{{url('/discussions/create')}}">Add Discussion</a>
+                @endif  
+
+                </div>
+
+              </div>
+
+            </li>
+          @endif
 
           @if(  in_array('All Courses', $data))
 
@@ -479,7 +542,7 @@
 
           @if(  in_array('All Students', $data) || in_array('Add New Student', $data) ) 
          <!--student-->
-         <li class="nav-item dropdown_item  {{ Request::is('students') ? 'active' : '' }}">
+         <!-- <li class="nav-item dropdown_item  {{ Request::is('students') ? 'active' : '' }}">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 
@@ -491,19 +554,19 @@
 
             <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
-              <div class="py-2 collapse-inner rounded">
+              <div class="py-2 collapse-inner rounded"> -->
                   <!--  @if(  in_array('All Students', $data) )
                 <a class="collapse-item" href="{{url('/students')}}">All Students</a>
                    @endif -->
-                   @if(  in_array('Add New Student', $data) )
-                <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a>
-                   @endif
+                   <!-- @if(  in_array('Add New Student', $data) ) -->
+                <!-- <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a> -->
+                   <!-- @endif -->
 
-              </div>
+              <!-- </div>
 
             </div>
 
-          </li>
+          </li> -->
           @endif
      
       

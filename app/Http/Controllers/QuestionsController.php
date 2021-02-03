@@ -43,7 +43,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->get()->all();
+        $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.mcq', compact('user', 'mcqs', 'course'));
     }
 
@@ -82,7 +82,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->get()->all();
+        $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.question_answer', compact('user', 'questions', 'course'));
     }
 
@@ -111,7 +111,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->get()->all();
+        $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.tf', compact('user', 'tfs', 'course'));
     }
 
@@ -150,14 +150,26 @@ class QuestionsController extends Controller
         $mcq = Question::find($id);
         $this->validate($request, [
             'label' => 'required',
-            'ans' => 'required',
+            'correct' => 'required',
         ]);
 
+        $user = Auth::user();
         $type = "mcq";
+        $carray = $request->input('correct');
 
-        
-
-        $success = $mcq->save();
+        $opts = array(
+            'opt1' => $request->input('opt1'),
+            'opt2' => $request->input('opt2'),
+            'opt3' => $request->input('opt3'),
+            'opt4' => $request->input('opt4'),
+            'correct' => $carray,
+        );
+        $success = DB::table('questions')->where('id', $id)->update([
+            'label' => $request->input('label'),
+            'type' => $type,
+            'course_id' => $request->course_id,
+            'options' => serialize($opts),
+        ]);
         if($success){
             Session::flash('message', 'MCQ Updated successfully');
             return redirect('/q/create/'. $request->course_id);
@@ -209,23 +221,14 @@ class QuestionsController extends Controller
 
     public function tf_update(Request $request, $id)
     {
-        // dd($request->input('label'));
-
         $tf = Question::find($id);
-        $this->validate($request, [
-            'label' => 'required',
-            'options' => 'required',
-        ]);
 
-
-        dd($request->input('correct'));
         $opts = array(
             'true' => 'true',
             'false' => 'false',
             'correct' => $request->input('correct'),
         ); 
 
-        dd($opts);
         $type = "t/f";
         $tf->label=$request->input('label');
         $tf->type=$type;
@@ -233,7 +236,6 @@ class QuestionsController extends Controller
         $tf->options=serialize($opts);
 
         $success = $tf->save();
-        dd($success);
         if($success){
             Session::flash('message', 'True False Updated successfully');
             return redirect('/q/create/'. $request->course_id);

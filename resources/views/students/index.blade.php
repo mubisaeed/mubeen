@@ -103,14 +103,13 @@
 
                 @foreach($students as $index =>$std)
 
+
                 <tr>
 
                   <?php
 
-                    $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
-
                     $stdd = DB::table('students')->where('s_u_id', $std->s_u_id)->get()->first();
-
+                    $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
                   ?>
 
                   <th scope="row">#{{$index+1}}</th>

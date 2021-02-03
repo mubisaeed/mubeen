@@ -100,7 +100,7 @@
                             <!-- <label>Correct</label> -->
                             <!-- <input type="checkbox" value="opt2" name="correct[]" class="btn"/> -->
                           </div>
-                          <div class="cr_btn ">
+                          <div class="cr_btn">
                             <button type="button" class="btn">
                             Correct <input type="checkbox" value="opt3" name="correct[]" class="btn" />
                             </button>
@@ -234,14 +234,39 @@
             </div>
           </div>
         </div>
-        <script>
+
+
+
+
+
+  <script type="text/javascript">
+      jQuery(document).ready(function($) {
+      $('.cr_btn').click(function(){
+        if ($(this).hasClass("active_cr_btn")) {
+          $(this).removeClass("active_cr_btn");
+        }
+        else {
+          $(this).addClass("active_cr_btn");
+        }
+    });
+    });
+  </script>
+
+
+
+
+
+
+
+<!-- 
+      <script>
         jQuery(document).ready(function($) {
         $('.cr_btn').click(function(event) {
         /* Act on the event */
         $(this).addClass('active_cr_btn');
         });
         });
-        </script>
+      </script> -->
         <script>
         getPagination('#table-id');
         

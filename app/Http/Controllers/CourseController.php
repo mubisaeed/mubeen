@@ -94,7 +94,7 @@ class CourseController extends Controller
 
                 'sdate' => 'required|date',
 
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
                 'edate' => 'required|date|after_or_equal:sdate',
 

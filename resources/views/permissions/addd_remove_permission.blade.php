@@ -4,8 +4,6 @@
 
 
 
-
-
 <style>
 
 .switch {
@@ -182,14 +180,6 @@ input:checked + .slider:before {
 
 </style>
 
-
-
-
-
-
-
-
-
 <div class="breadcrumb_main">
 
   <ol class="breadcrumb">
@@ -230,25 +220,6 @@ input:checked + .slider:before {
 
         <h3>{{$title}}</h3>
 
-       
-
-       
-
-       
-
-       
-
-       
-
-
-
-
-
-
-
-
-
-
 
 @if ($errors->any())
 
@@ -276,13 +247,7 @@ input:checked + .slider:before {
 
 			<div class="col-lg-12">
 
-
-
 				<div class="">
-
-				    
-
-
 
 					<div class=" ">
 
@@ -316,84 +281,60 @@ input:checked + .slider:before {
 
 						{{ csrf_field() }}
 
+              <table class="table">
 
+              
 
-						
+              <tbody>
 
+                <tr>
 
+                  <th class="add_color">Modules</th>
 
+                  <td class="add_color">Permission</td>
 
+                @foreach($permissions as $total_permissions)
 
+                    
 
+                  <tr>
 
-  <table class="table">
-
-  
-
-  <tbody>
-
-    <tr>
-
-      <th class="add_color">Modules</th>
-
-      <td class="add_color">Permission</td>
-
-    @foreach($permissions as $total_permissions)
-
-        
-
-      <tr>
-
-     
+                 
 
 
 
-      <th>{{$total_permissions}}</th>
+                  <th>{{$total_permissions}}</th>
 
-      
+                  
 
-    
+                
 
-      <td>
+                  <td>
 
-        <label class="switch">
+                    <label class="switch">
 
-                    <input name="permiss[]" value="{{$total_permissions}}"   @if(in_array($total_permissions, $granted_permissions) == true) checked="true" @endif type="checkbox">
+                                <input name="permiss[]" value="{{$total_permissions}}"   @if(in_array($total_permissions, $granted_permissions) == true) checked="true" @endif type="checkbox">
 
-                    <span class="slider round"></span>
+                                <span class="slider round"></span>
 
-                </label>
+                            </label>
 
-      </td>
+                  </td>
 
-      
+                  
 
-    </tr>
+                </tr>
 
-     @endforeach
+                 @endforeach
 
-    </tr>
+                </tr>
 
-  </tbody>
+              </tbody>
 
-</table>
-
-
+            </table>
 
 
-
-                                 <input id="file" type="hidden" class="form-control" name="id" value="{{$id}}">
-
-
-
-							
-
-           
-
-
-
-
-
+            <input id="file" type="hidden" class="form-control" name="id" value="{{$id}}">
 
 
 								<div class="form-group row form-btn">
@@ -401,39 +342,19 @@ input:checked + .slider:before {
 
                   <div class="s_form_button text-center w-100">
 
-                    <a href="{{url('users_management')}}"><button type="button" class="btn cncl_btn">@lang('general.cancel')</button></a>
+                    <a href="{{url('/dashboard')}}"><button type="button" class="btn cncl_btn">@lang('cancel')</button></a>
 
-                    <button type="submit" class="btn save_btn">@lang('general.save')</button>
+                    <button type="submit" class="btn save_btn">@lang('save')</button>
 
                   </div>
-
-										<!-- <div class="col-sm-12 text-right">
-
-											<a href="{{url('users_management')}}" class="btn btn-sm btn-secondary">@lang('general.cancel')</a>
-
-											<button type="submit" class="btn btn-sm btn-primary">@lang('general.save') </button>
-
-										</div> -->
 
 									</div>	
 
 							</div>
 
-							
-
 							</form>
 
-
-
-							
-
-
-
 					</div>
-
-
-
-
 
 				</div>
 
@@ -441,23 +362,6 @@ input:checked + .slider:before {
 
 		</div>
 
-
-
-
-
-
-
-       
-
-       
-
-       
-
-       
-
-          
-
-          
 
       </div>
 
@@ -467,27 +371,6 @@ input:checked + .slider:before {
 
 </div>
 
-<script>
-
-    $(document).ready(function(){
-
-      $("#search").on("keyup", function() {
-
-        var value = $(this).val().toLowerCase();
-
-        // alert(value);
-
-        $("#mybody tr").filter(function() {
-
-          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-
-        });
-
-      });
-
-    });
-
-  </script>
 
 <script type="text/javascript">
 
@@ -499,76 +382,5 @@ input:checked + .slider:before {
 
 </script>
 
-          <!-- <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script> -->
-
-<script type="text/javascript">
-
-  $( "body" ).on( "click", ".delete", function () {
-
-    var task_id = $( this ).attr( "data-id" );
-
-    var form_data = {
-
-        id: task_id
-
-    };
-
-    swal({
-
-        title: "Do you want to delete this School",
-
-        //text: "@lang('category.delete_category_msg')",
-
-        type: 'info',
-
-        showCancelButton: true,
-
-        confirmButtonColor: '#F79426',
-
-        cancelButtonColor: '#d33',
-
-        confirmButtonText: 'Yes',
-
-        showLoaderOnConfirm: true
-
-    }).then( ( result ) => {
-
-        if ( result.value == true ) {
-
-            $.ajax( {
-
-                type: 'POST',
-
-                headers: {
-
-                    'X-CSRF-TOKEN': $( 'meta[name="csrf-token"]' ).attr( 'content' )
-
-                },
-
-                url: '<?php echo url("school/delete"); ?>',
-
-                data: form_data,
-
-                success: function ( msg ) {
-
-                    swal( "@lang('School Deleted Successfully')", '', 'success' )
-
-                    setTimeout( function () {
-
-                        location.reload();
-
-                    }, 900 );
-
-                }
-
-            } );
-
-        }
-
-    } );
-
-  } );
-
-</script>
 
 @endsection

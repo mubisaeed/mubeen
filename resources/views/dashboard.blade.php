@@ -21,6 +21,144 @@
     @endif
 
   </div>
+@if(Auth::user()->role_id == '1')
+  <div class="row z_minus">
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-warning card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="graduation_cap"><img src="{{asset('/assets/img/latest/cap.png')}}" alt=""></i>
+
+          </div>
+          <?php
+            // dd($students);
+          ?>
+
+          <p class="card-category">Sub Admins</p>
+
+          <h3 class="card-title">
+            6
+          </h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="javascript:;">90% completed</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+@else
 
   <div class="row z_minus">
 
@@ -173,6 +311,8 @@
     </div>
 
   </div>
+
+@endif
 
   <div class="row">
 

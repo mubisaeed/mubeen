@@ -72,7 +72,7 @@ class Special_educationController extends Controller
 
             $special_educations = DB::table('special_educations')->insert([
             // 'sch_id' => $schools->sch_u_id,
-            'student_id' => $students->s_u_id,
+            // 'student_id' => $students->s_u_id,
             'upload_file' => $fileName,
             'parent_comments' => $request->comments,
             'signature'=> $imageName,
