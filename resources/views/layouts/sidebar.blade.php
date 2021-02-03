@@ -133,7 +133,7 @@
 
           </li>
           
-          {{-- sub admin --}}
+         
 
           <li class="nav-item dropdown_item  {{ Request::is('subadmin/show') ? 'active' : '' }}">
 
@@ -693,16 +693,7 @@
 
           
 
-          {{-- <li class="nav-item">
-
-            <a class="nav-link" href="{{url('/special_education')}}" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-
-              <i class="fa fa-book"></i>
-
-              <span>Special Education</span>
-
-            </a> --}}
-
+          
             
 
              <li class="nav-item dropdown_item">
@@ -759,26 +750,7 @@
           </li>
 
 
-         {{-- <li class="nav-item dropdown_item  {{ Request::is('Departments') ? 'active' : '' }}">
-
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-
-              <i class="fa fa-graduation-cap"></i>
-
-              <span>Departments</span>
-
-            </a>
-
-            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
-
-              <div class="py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
-            
-              </div>
-
-            </div>
-
-          </li> --}}
+  
     
         @endif
         <!--safty -->
