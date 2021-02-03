@@ -43,7 +43,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->get()->all();
+        $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.mcq', compact('user', 'mcqs', 'course'));
     }
 
@@ -82,7 +82,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->get()->all();
+        $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.question_answer', compact('user', 'questions', 'course'));
     }
 
@@ -111,7 +111,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$id)->first();
-        $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->get()->all();
+        $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         return view ('questions.tf', compact('user', 'tfs', 'course'));
     }
 
@@ -137,4 +137,112 @@ class QuestionsController extends Controller
         Session::flash('message', 'Question create successfully');
         return redirect('/tf/create/'. $request->course_id);
     }
+
+    public function mcq_edit($id, $courseid)
+    {
+        $courseid = $courseid;
+        $mcq = DB::table('questions')->where('id', $id)->get()->first();
+        return view('questions.mcq_edit', compact('mcq', 'courseid'));
+    }
+
+    public function mcq_update(Request $request, $id)
+    {
+        $mcq = Question::find($id);
+        $this->validate($request, [
+            'label' => 'required',
+            'correct' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $type = "mcq";
+        $carray = $request->input('correct');
+
+        $opts = array(
+            'opt1' => $request->input('opt1'),
+            'opt2' => $request->input('opt2'),
+            'opt3' => $request->input('opt3'),
+            'opt4' => $request->input('opt4'),
+            'correct' => $carray,
+        );
+        $success = DB::table('questions')->where('id', $id)->update([
+            'label' => $request->input('label'),
+            'type' => $type,
+            'course_id' => $request->course_id,
+            'options' => serialize($opts),
+        ]);
+        if($success){
+            Session::flash('message', 'MCQ Updated successfully');
+            return redirect('/q/create/'. $request->course_id);
+        }else{
+            Session::flash('message', 'Something went wrong');
+            return redirect()->back();
+        }
+    }
+
+    public function q_edit($id, $courseid)
+    {
+        $courseid = $courseid;
+        $q = DB::table('questions')->where('id', $id)->get()->first();
+        return view('questions.q_edit', compact('q', 'courseid'));
+    }
+
+    public function q_update(Request $request, $id)
+    {
+
+        $q = Question::find($id);
+        $this->validate($request, [
+            'label' => 'required',
+            'ans' => 'required',
+        ]);
+
+        $type = "question/answer";
+
+        $q->label=$request->input('label');
+        $q->type=$type;
+        $q->course_id=$request->input('course_id');
+        $q->options=$request->input('ans');
+
+        $success = $q->save();
+        if($success){
+            Session::flash('message', 'Question Updated successfully');
+            return redirect('/q/create/'. $request->course_id);
+        }else{
+            Session::flash('message', 'Something went wrong');
+            return redirect()->back();
+        }
+    }
+
+    public function tf_edit($id, $courseid)
+    {
+        $courseid = $courseid;
+        $tf = DB::table('questions')->where('id', $id)->get()->first();
+        return view('questions.tf_edit', compact('tf', 'courseid'));
+    }
+
+    public function tf_update(Request $request, $id)
+    {
+        $tf = Question::find($id);
+
+        $opts = array(
+            'true' => 'true',
+            'false' => 'false',
+            'correct' => $request->input('correct'),
+        ); 
+
+        $type = "t/f";
+        $tf->label=$request->input('label');
+        $tf->type=$type;
+        $tf->course_id=$request->input('course_id');
+        $tf->options=serialize($opts);
+
+        $success = $tf->save();
+        if($success){
+            Session::flash('message', 'True False Updated successfully');
+            return redirect('/q/create/'. $request->course_id);
+        }else{
+            Session::flash('message', 'Something went wrong');
+            return redirect()->back();
+        }
+    }
 }
+

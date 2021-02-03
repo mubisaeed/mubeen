@@ -14,8 +14,10 @@ class ClasController extends Controller
 {
     public function index()
     {
+        $user = Auth::user()->id;
         //   for permission
-        if(auth()->user()->role_id != '5'){
+        if(auth()->user()->role_id != '5')
+        {
             $user = Auth::user()->id;
             $assigned_permissions =array();
             $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
@@ -25,29 +27,44 @@ class ClasController extends Controller
                 $data = DB::table('module_permissions_store_instructors')->where('user_id' , $user)->pluck('allowed_module');
             }
 
-            if($data != null){
-                 foreach ($data as $value) {
-                $assigned_permissions = explode(',',$value);
-                 
-            }
-            }
+                if($data != null)
+                {
+                    foreach ($data as $value) 
+                        {
+                            $assigned_permissions = explode(',',$value);
+                        }
+                }
             if(!in_array('All Classes', $assigned_permissions)){
                 return redirect('dashboard');
             }
         }
             // end for permission
+
         if(auth()->user()->role_id == '5')
         {
             $classes = DB::table('classes_students')->where('s_u_id', auth()->user()->id)->pluck('class_id');
             return view ('clases.student_classes', compact('classes'));
         }
-
         if(auth()->user()->role_id == '4')
         {
-            $courses = DB::table('course_instructor')->where('i_u_id', auth()->user()->id)->pluck('course_id');
-            $course_classes = DB::table('courses')->where('id', $courses)->pluck('clas_id');
-            $classes = DB::table('classes')->where('id', $course_classes)->get()->all();
-            return view ('clases.index', compact('classes'));
+            $courses = DB::table('course_instructor')->where('i_u_id', $user)->pluck('course_id');
+            if(count($courses)>0)
+            {
+                $course_classes = DB::table('courses')->whereIn('id', $courses)->pluck('clas_id');
+                if(count($course_classes)>0)
+                {
+                    $classes = DB::table('classes')->where('id', $course_classes)->get()->all();
+                    return view ('clases.index', compact('classes'));
+                }
+                else{
+                Session::flash('message', 'you have not assigned any class.');
+                return redirect()->back();
+                }
+            }
+            else{
+                Session::flash('message', 'you have not assigned any class.');
+                return redirect()->back();
+            }
         }
 
         else

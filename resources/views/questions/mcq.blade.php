@@ -100,7 +100,7 @@
                             <!-- <label>Correct</label> -->
                             <!-- <input type="checkbox" value="opt2" name="correct[]" class="btn"/> -->
                           </div>
-                          <div class="cr_btn ">
+                          <div class="cr_btn">
                             <button type="button" class="btn">
                             Correct <input type="checkbox" value="opt3" name="correct[]" class="btn" />
                             </button>
@@ -117,6 +117,7 @@
                         </div>
                         </div>
                         <div class="save_next_btn text-center w-100">
+                          <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
                           <button type="submit" class="btn">Save and next</button>
                           
                         </div>
@@ -194,7 +195,7 @@
                         <div class="ripple-container"></div>
                       </a>
                       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                        <a class="dropdown-item" href="{{url('student/edit/' . $mcq->id)}}"><i class="fa fa-cogs"></i>Edit</a>
+                        <a class="dropdown-item" href="{{url('/mcq/edit/' . $mcq->id, $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
                         <a href="javascript:void(0);" data-id="<?php echo $mcq->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
                       </div>
                     </li>
@@ -233,14 +234,39 @@
             </div>
           </div>
         </div>
-        <script>
+
+
+
+
+
+  <script type="text/javascript">
+      jQuery(document).ready(function($) {
+      $('.cr_btn').click(function(){
+        if ($(this).hasClass("active_cr_btn")) {
+          $(this).removeClass("active_cr_btn");
+        }
+        else {
+          $(this).addClass("active_cr_btn");
+        }
+    });
+    });
+  </script>
+
+
+
+
+
+
+
+<!-- 
+      <script>
         jQuery(document).ready(function($) {
         $('.cr_btn').click(function(event) {
         /* Act on the event */
         $(this).addClass('active_cr_btn');
         });
         });
-        </script>
+      </script> -->
         <script>
         getPagination('#table-id');
         

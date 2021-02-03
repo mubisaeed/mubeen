@@ -107,7 +107,7 @@
 	                    <tr>
 
 
-	                     	<th scope="row">{{$count}}</th>
+	                     	<th scope="row">#{{$count}}</th>
 	                         <?php $count++; ?>
 
 	                      	<td class="first_row">

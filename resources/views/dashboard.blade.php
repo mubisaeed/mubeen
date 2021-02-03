@@ -21,6 +21,144 @@
     @endif
 
   </div>
+@if(Auth::user()->role_id == '1')
+  <div class="row z_minus">
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-warning card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="graduation_cap"><img src="{{asset('/assets/img/latest/cap.png')}}" alt=""></i>
+
+          </div>
+          <?php
+            // dd($students);
+          ?>
+
+          <p class="card-category">Sub Admins</p>
+
+          <h3 class="card-title">
+            6
+          </h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="javascript:;">90% completed</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+
+      <div class="card card-stats">
+
+        <div class="card-header card-header-success card-header-icon">
+
+          <div class="card-icon">
+
+            <i class="daily_usr"><img src="{{asset('/assets/img/latest/checking-attendance.png')}}" alt=""></i>
+
+          </div>
+
+          <p class="card-category">Schools</p>
+
+          <h3 class="card-title">10</h3>
+
+        </div>
+
+        <div class="card-footer">
+
+          <div class="stats">
+
+            <a href="#">20% Absent</a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+@else
 
   <div class="row z_minus">
 
@@ -35,11 +173,29 @@
             <i class="graduation_cap"><img src="{{asset('/assets/img/latest/cap.png')}}" alt=""></i>
 
           </div>
+          <?php
+            $no_courses = DB::table('course_instructor')->where('i_u_id', $user->id)->get()->pluck('course_id');
+            $classes = DB::table('courses')->whereIn('id', $no_courses)->get()->pluck('clas_id');
+            $student_classes = DB::table('classes_students')->whereIn('class_id', $classes)->get()->pluck('s_u_id');
+             $students = DB::table('users')->join('students','students.s_u_id','=','users.id')->whereIn('users.id',$student_classes)->get();
+            $std_classes = DB::table('classes_students')->where('s_u_id', $user->id)->get()->pluck('class_id');
+            $std_courses = DB::table('courses')->whereIn('clas_id', $std_classes)->count();
+            $all_courses = DB::table('courses')->count();
+            // dd($students);
+          ?>
 
           <p class="card-category">Courses</p>
 
-          <h3 class="card-title">4
-
+          <h3 class="card-title">
+            @if($user->role_id == '4')
+              {{count($no_courses)}}
+            @elseif($user->role_id == '5') 
+              {{$std_courses}}
+            @elseif($user->role_id == '3') 
+              {{$all_courses}}
+            @else
+            6
+            @endif
           </h3>
 
         </div>
@@ -155,6 +311,8 @@
     </div>
 
   </div>
+
+@endif
 
   <div class="row">
 
@@ -278,211 +436,85 @@
 
     </div>
 
+
     <div class="col-md-5">
 
-      <div class="student_roaster card-header card-header-warning card-header-icon">
+    @if(Auth::user()->role_id == 4)
+        <div class="student_roaster card-header card-header-warning card-header-icon">
 
-        <div class="card-icon">
+          <div class="card-icon">
 
-          <h2>Student Roster</h2>
+            <h2>Student Roster</h2>
 
-        </div>
+          </div>
 
-        <div class="current_date">
+          <div class="current_date">
 
-          <input type="date" name="" value="" placeholder="Oct - Nov 2019" >
+            <input type="date" name="" value="" placeholder="Oct - Nov 2019" >
 
-        </div>
+          </div>
 
-        <div class="stu_list">
+          @foreach($students as $std)
+            <div class="stu_list">
+                <div class="stu_img">
 
-          <div class="stu_img">
+                  <img src="{{asset('/assets/img/upload/'.$std->image)}}" alt="" width="50" height="50">
 
-            <img src="{{asset('/assets/img/latest/Oval.png')}}" alt="">
+                  <div class="stu_text">
 
-            <div class="stu_text">
+                    <h4>{{$std->name}}</h4>
 
-              <h4>Mr Wick</h4>
+                    <p>{{$std->rollno}}</p>
 
-              <p>60%</p>
+                  </div>
+
+                </div>
+
+              <div class="stu_sub">
+
+                <p>Mathematics</p>
+
+                <p>#{{$std->rollno}}</p>
+
+              </div>
+
+            </div>
+          @endforeach
+
+          <!-- <div class="stu_list border-0">
+
+            <div class="stu_img">
+
+              <img src="{{asset('/assets/img/latest/Oval4.png')}}" alt="">
+
+              <div class="stu_text">
+
+                <h4>Cloi claver</h4>
+
+                <p>73%</p>
+
+              </div>
 
             </div>
 
-          </div>
+            <div class="stu_sub">
 
-          <div class="stu_sub">
+              <p>Mathematics</p>
 
-            <p>Mathematics</p>
-
-            <p>#1232</p>
-
-          </div>
-
-        </div>
-
-        <div class="stu_list">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval2.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Lily Joe</h4>
-
-              <p>68%</p>
+              <p>#1342</p>
 
             </div>
 
-          </div>
+          </div> -->
 
-          <div class="stu_sub">
+          <div class="all_result text-center">
 
-            <p>Mathematics</p>
-
-            <p>#4355</p>
+            <a href="#">See all Students</a>
 
           </div>
 
         </div>
-
-        <div class="stu_list">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval3.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Jone dakker</h4>
-
-              <p>70%</p>
-
-            </div>
-
-          </div>
-
-          <div class="stu_sub">
-
-            <p>Mathematics</p>
-
-            <p>#1532</p>
-
-          </div>
-
-        </div>
-
-        <div class="stu_list">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval4.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Cloi claver</h4>
-
-              <p>73%</p>
-
-            </div>
-
-          </div>
-
-          <div class="stu_sub">
-
-            <p>Mathematics</p>
-
-            <p>#1342</p>
-
-          </div>
-
-        </div>
-
-        <div class="stu_list">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Mr Wick</h4>
-
-              <p>60%</p>
-
-            </div>
-
-          </div>
-
-          <div class="stu_sub">
-
-            <p>Mathematics</p>
-
-            <p>#1232</p>
-
-          </div>
-
-        </div>
-
-        <div class="stu_list">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval2.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Lily Joe</h4>
-
-              <p>68%</p>
-
-            </div>
-
-          </div>
-
-          <div class="stu_sub">
-
-            <p>Mathematics</p>
-
-            <p>#4355</p>
-
-          </div>
-
-        </div>
-
-        <div class="stu_list border-0">
-
-          <div class="stu_img">
-
-            <img src="{{asset('/assets/img/latest/Oval4.png')}}" alt="">
-
-            <div class="stu_text">
-
-              <h4>Cloi claver</h4>
-
-              <p>73%</p>
-
-            </div>
-
-          </div>
-
-          <div class="stu_sub">
-
-            <p>Mathematics</p>
-
-            <p>#1342</p>
-
-          </div>
-
-        </div>
-
-        <div class="all_result text-center">
-
-          <a href="#">See all results</a>
-
-        </div>
-
-      </div>
+    @endif
 
       @if(Auth::user()->role_id == 4 || Auth::user()->role_id == 5)
 

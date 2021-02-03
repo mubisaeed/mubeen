@@ -22,7 +22,7 @@
         
         <h3 class="main_title_ot">Add New Instructor</h3>
         <div class="tab-content">
-          <form method="POST" action="/instructors/create" enctype="multipart/form-data">
+          <form method="POST" action="{{ url('/instructors/create') }}" enctype="multipart/form-data">
                  @csrf
             @foreach ($errors->all() as $error)
               <div class="alert alert-danger">{{ $error }}</div>

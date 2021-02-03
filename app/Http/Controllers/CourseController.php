@@ -94,7 +94,7 @@ class CourseController extends Controller
 
                 'sdate' => 'required|date',
 
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
                 'edate' => 'required|date|after_or_equal:sdate',
 
@@ -239,6 +239,13 @@ class CourseController extends Controller
 
     }
 
+    public function class_stds($id)
+    { 
+        $students = DB::table('classes_students')->where('class_id', $id)->get()->all();
+        return view('clases.no_students_of_class', compact('students'));
+
+    }
+
 
     public function course_wise_url(Request $request)
 
@@ -253,7 +260,6 @@ class CourseController extends Controller
         if($cat){
 
                $course_name = $cat->course_name;
-                // dd($course_name);
 
                return view('courses.course_wise_url', compact('course_name','cat', 'user'));
 
@@ -493,10 +499,6 @@ class CourseController extends Controller
         $data->course_name=$request->input('cname');
 
         $data->image=$image;
-
-        // $data->department=$request->input('department');
-
-        // $data->clas_id=$request->input('cls');
 
         $data->room_number=$request->input('rno');
 

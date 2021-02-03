@@ -156,6 +156,13 @@
             </tbody>
 
           </table>  
+
+          <div class="s_form_button text-center">
+
+            <a  href="{{url('/course')}}"><button type="button" class="btn btn-info">Go Back</button></a>
+
+
+          </div>
           <div class="table_footer">
             <div class="table_pegination">
               <nav>

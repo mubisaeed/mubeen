@@ -34,7 +34,10 @@ class DiscussionsController extends Controller
 
             $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
 
-
+            if(auth()->user()->role_id == '4')
+            {
+                $data = DB::table('module_permissions_store_instructors')->where('user_id' , $user)->pluck('allowed_module');
+            }
 
             if($data != null){
 
@@ -76,7 +79,7 @@ class DiscussionsController extends Controller
 
             $assigned_permissions =array();
 
-            $data = DB::table('module_permissions_users')->where('user_id' , $user)->pluck('allowed_module');
+            $data = DB::table('module_permissions_store_instructors')->where('user_id' , $user)->pluck('allowed_module');
 
 
 

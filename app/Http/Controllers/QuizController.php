@@ -15,7 +15,7 @@ class QuizController extends Controller
     public function student_quizzes($id)
     {
         $quizzes = DB::table('solved_quizzes')->pluck('quiz_id');
-        $quizzes = DB::table('quizzes')->where('course_id', $id)->whereNotIn('id', $quizzes)->get()->all();
+        $quizzes = DB::table('quizzes')->where('course_id', $id)->whereNotIn('id', $quizzes)->orderBy('id', 'desc')->get()->all();
         return view('quizzes.student_quizzes', compact('quizzes'));
     }
 
@@ -66,7 +66,7 @@ class QuizController extends Controller
 
     public function index($id)
     {
-        $quizzes = DB::table('quizzes')->where('instructor_id', Auth::user()->id)->where('course_id', $id)->get();
+        $quizzes = DB::table('quizzes')->where('instructor_id', Auth::user()->id)->where('course_id', $id)->orderBy('id', 'desc')->get();
         return view('quizzes.index', compact('quizzes'));
     }
 
@@ -114,7 +114,7 @@ class QuizController extends Controller
 
     public function storequestion_to_quiz(Request $request)
     {
-        if(count($request->question_id) > 0 )
+        if(!empty($request->question_id))
         {
              $so = '1';
             foreach( $request->question_id  as $question_id)

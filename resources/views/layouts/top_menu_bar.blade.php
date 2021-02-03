@@ -1,4 +1,5 @@
 <?php
+  $user_role = DB::table('role')->where('id', Auth::user()->role_id)->get()->first();
   $user = Auth::user();
 ?>
 
@@ -15,7 +16,7 @@ $special= DB::table('special_educations')->get();
 
       <img src="{{asset('/assets/img/upload/'.$user->image)}}" alt="" class="img-fluid" width="50" height="50">
 
-      <h3>{{$user->name}} Dashboard</h3>
+      <h3>{{$user_role->name}} Dashboard</h3>
 
     </div>
 

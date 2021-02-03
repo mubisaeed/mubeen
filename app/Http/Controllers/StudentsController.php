@@ -31,14 +31,14 @@ use Illuminate\Support\Facades\DB;
 class StudentsController extends Controller
 
 {
-
     public function students()
 
     {
 
-    	$user = Auth::user();
+           $user = Auth::user()->id;
 
-        $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        // $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+           $students = DB::table('students')->get()->all();
 
         $schools  = DB::table('schools')->get()->all();
 
@@ -50,8 +50,9 @@ class StudentsController extends Controller
     public function create()
 
     {
+        $user = Auth::user()->id;
+    	
 
-    	$user = Auth::user();
 
         $schools = DB::table('schools')->get()->all();
 
@@ -79,7 +80,7 @@ class StudentsController extends Controller
 
             'password' => 'required|string|min:8|confirmed',
 
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'cnic' => 'required|min:13|max:15',
 
@@ -153,19 +154,19 @@ class StudentsController extends Controller
 
         $sdata->save();
 
-        DB::table('users')->where('id' , $udata->id)->update([
+        $success = DB::table('users')->where('id' , $udata->id)->update([
             'unique_id' => $udata->name . '' . $udata->id,
         ]);
 
-            $i_s_data = array(
+            // $i_s_data = array(
 
-                's_u_id' => $sdata->s_u_id,
+            //     's_u_id' => $sdata->s_u_id,
 
-                'i_u_id' => Auth::user()->id,
+            //     'i_u_id' => Auth::user()->id,
 
-            );
+            // );
 
-        $success = DB::table('instructor_student')->insert($i_s_data);
+        // $success = DB::table('instructor_student')->insert($i_s_data);
 
         if($success){
 

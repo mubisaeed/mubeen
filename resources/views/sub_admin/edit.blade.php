@@ -46,13 +46,17 @@
 
             @endforeach
  
-            @csrf
+            
 
             
 
             <div class="tab-pane active" id="tab_default_3">
 
               <div class="s_profile_fields">
+
+              <form action="{{url('/subadmin/edit', $sbadmn->id)}}" method="POST" enctype="multipart/form-data" class="w-100">
+
+              @csrf
 
                 <div class="row">
 

@@ -57,22 +57,21 @@
                 <a href="#"> <i class="fa fa-search"></i> </a>
 
               </div>
+              
 
-              <div class="table_select">
+<!--               <div class="table_select">
 
                 <select class="selectpicker">
 
                   <option>All Students</option>
 
-                  <option>Today </option>
+                  <option>Latest Created</option>
 
-                  <option>Macro Economics I</option>
-
-                  <option>Macro Economics II</option>
+                  <option>Filter By Course</option>
 
                 </select>
 
-              </div>
+              </div> -->
 
             </div>
 
@@ -104,14 +103,13 @@
 
                 @foreach($students as $index =>$std)
 
+
                 <tr>
 
                   <?php
 
-                    $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
-
                     $stdd = DB::table('students')->where('s_u_id', $std->s_u_id)->get()->first();
-
+                    $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
                   ?>
 
                   <th scope="row">#{{$index+1}}</th>

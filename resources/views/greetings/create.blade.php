@@ -30,6 +30,12 @@
 
             </div>
 
+            @foreach ($errors->all() as $error)
+
+            <div class="alert alert-danger">{{ $error }}</div>
+
+            @endforeach
+
             <div class="assignment">
 
               <div class="card-header main_ac">
@@ -38,11 +44,7 @@
 
                 <div class="ac_add_form">
 
-                    @foreach ($errors->all() as $error)
-
-                    <div class="alert alert-danger">{{ $error }}</div>
-
-                    @endforeach
+                    
 
                     <form action="{{url('/greetings/store')}}" method="POST" enctype="multipart/form-data" class="w-100">
                      <div class="row">
@@ -59,7 +61,7 @@
 
                       </div>
 
-                          {{-- @error('title')
+                          @error('title')
 
                           <span class="invalid-feedback" role="alert">
 
@@ -67,7 +69,7 @@
 
                           </span>
 
-                          @enderror --}}
+                          @enderror
 
                     </div>
 
@@ -78,7 +80,7 @@
                             <input type="file" class="choose" name="image" accept="image/x-png,image/gif,image/jpeg" size="max:255" required>
                         </div>
 
-                          {{-- @error('image')
+                          @error('image')
 
                           <span class="invalid-feedback" role="alert">
 
@@ -86,7 +88,7 @@
 
                           </span>
 
-                          @enderror --}}
+                          @enderror
 
                     </div>
 
@@ -94,15 +96,13 @@
 
                       <div class="custom_input_main">
 
-                          <textarea name="description" cols="8" id="txtEditor" value="{!!old('description')!!}" class="form-control" style="height: 100px !important;width: 100%;" required="" minlength="3" maxlength ="255">
-                          
-                          </textarea>
-
+                          <input name="description" value="{!!old('description')!!}" class="form-control"  required="" minlength="3" maxlength ="255">
+                      
                           <label>Description<span class="red">*</span></label>
 
                       </div>
 
-                          {{-- @error('short_des')
+                          @error('description')
 
                           <span class="invalid-feedback" role="alert">
 
@@ -110,7 +110,7 @@
 
                           </span>
 
-                          @enderror --}}
+                          @enderror
 
                       </div>
 
@@ -121,7 +121,7 @@
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/dashboard')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                         <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
 
