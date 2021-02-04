@@ -30,7 +30,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Classes</li>
+    <li class = "active">All Terms/sections</li>
 
   </ol>
 
@@ -64,7 +64,7 @@
 
           
 
-          <h3>All Classes</h3>
+          <h3>All Terms/sections</h3>
 
           @if(count($classes)>0)
 

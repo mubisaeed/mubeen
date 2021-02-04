@@ -75,7 +75,7 @@ div.mm-dropdown ul li img {
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">Add New Class</li>
+    <li class = "active">Add New Term/section</li>
 
   </ol>
 
@@ -91,7 +91,7 @@ div.mm-dropdown ul li img {
 
         
 
-        <h3 class="main_title_ot">Add New Class</h3>
+        <h3 class="main_title_ot">Add New Term/section</h3>
 
         <div class="tab-content">
 
@@ -117,7 +117,7 @@ div.mm-dropdown ul li img {
 
                       <input type="text" class="form-control" value="{{ old('name')}}" name="name" required="" minlength="1" maxlength ="50" autofocus="">
 
-                      <label>Class name<span class="red">*</span></label>
+                      <label>Term/section name<span class="red">*</span></label>
 
                     </div>
 
