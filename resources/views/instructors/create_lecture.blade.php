@@ -23,6 +23,8 @@
         <form action="{{url('/lecture/create')}}" method="post" enctype="multipart/form-data">
           @csrf
           <input type="hidden" name="course_id" value="{{$course->id}}">
+          <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+          <input type="hidden" name="week" value="{{$week}}">
           <div class="row">
             <div class="col-md-6 p_left">
                       <div class="custom_input_main">
@@ -37,7 +39,7 @@
                       </div><br>
             <div class="col-md-12">
               <div class="s_form_button text-center">
-                <a href="{{url('/course')}}" class="btn cncl_btn">Cancel</a>
+                <a href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $week)}}" class="btn cncl_btn">Cancel</a>
                 <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
               </div>
             </div>

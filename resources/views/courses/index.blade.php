@@ -155,7 +155,12 @@
                 @endif
                 <td class="align_ellipse first_row">
 
-                  <li class="nav-item dropdown">
+                  <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a>
+
+                  <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}">Course View</a>
+
+
+<!--                   <li class="nav-item dropdown">
 
                     <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -182,11 +187,6 @@
                       <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-link"></i>Links</a>
 
 
-
-
-
-
-
                       <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Create Assigment</a>
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Show Assigment</a>
@@ -207,10 +207,6 @@
 
                       @if(auth()->user()->role_id == '3' || auth()->user()->role_id == '4')
 
-                        
-
-                      <!-- <a class="dropdown-item" href="{{url('course/replicate/' . $course->id)}}"> <i class="fa fa-copy"></i>Duplicate</a> -->
-
                       <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 
                       <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
@@ -219,7 +215,7 @@
 
                     </div>
 
-                  </li>
+                  </li> -->
 
                 </td>
 

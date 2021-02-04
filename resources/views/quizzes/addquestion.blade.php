@@ -19,6 +19,8 @@
           <div class="course card-header card-header-warning card-header-icon">
             <h3>Add question to quiz</h3>
 
+             @if(count($questions)>0)
+
             <div class="table_filters">
 
               <div class="table_search">
@@ -71,7 +73,7 @@
                 -->
             </div>
 
-          @if(count($questions)>0)
+         
           
           <!--<div class="table_filters">-->
              <table class="table table-hover" id="table-id">
@@ -126,7 +128,7 @@
               </div>
             </div>
             @else
-              <h3>No Question Created Yet</h3>
+              <p>No Question Created Yet</p>
             @endif
                
           </div>

@@ -106,7 +106,7 @@ div.mm-dropdown ul li img {
 
         
 
-        <h3 class="main_title_ot">Edit Class</h3>
+        <h3 class="main_title_ot">Edit Term/section</h3>
 
         <div class="tab-content">
 
@@ -132,7 +132,7 @@ div.mm-dropdown ul li img {
 
                       <input type="text" class="form-control" value="{{old('name',$class->name)}}"  name="name" required="" minlength="1" maxlength ="50" autofocus="">
 
-                      <label>Class name<span class="red">*</span></label>
+                      <label>Term name<span class="red">*</span></label>
 
                     </div>
 

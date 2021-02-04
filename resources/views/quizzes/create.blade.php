@@ -53,6 +53,8 @@
                     <div class="custom_input_main mobile_field">
 
                       <input type="hidden" name="course_id" value="{{$course->id}}">
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+                      <input type="hidden" name="week" value="{{$week}}">
                       <input class="form-control" type="text" name="name" value="{{old('name')}}" required minlength="1" maxlength="255" autofocus="">
 
                       <label>Quiz Name<span class="red">*</span></label>
@@ -214,31 +216,12 @@
 
                   </div>
 
-                  <?php
-                    $course = DB::table('courses')->where('id', $course->id)->get()->first();
-                    $weeks = $course->weeks;
-                  ?>
-
-                  <div class="col-md-12">
-                    @for($i = 1; $i <= $weeks; $i++)
-
-                      <!-- <input type="radio" name="week" value="{{$i}}" required=""> -->
-                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
-
-                      <button type="button" class="btn week_btn">Week {{$i}} <input type="radio" name="week" value="{{$i}}" required=""> </button>
-
-                      <!-- <label class="select_lable">Week {{$i}}</label> -->
-
-                    @endfor
-
-                  </div>
-
 
                   <div class="s_form_button text-center">
 
-                    <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                    <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                    <button type="submit" class="btn save_btn" id="sub_button">Add</button>
+                    <button type="submit" class="btn save_btn">Add</button>
 
                   </div>
                   </div>
@@ -251,7 +234,7 @@
   </div>
 </div>
 
-<script type="text/javascript">  
+<!-- <script type="text/javascript">  
   $(document).ready(function(){
      $('#sub_button').hide();
   });
@@ -262,20 +245,8 @@
   {
     $('#sub_button').show();
   }
-</script>
-
-<!-- <script>
-    $('input[type="radio"]').click(function(){
-      if($("#wk").is(":checked"))
-      {
-        $('#sub_button').show();
-      }
-      else
-      {
-        $('#sub_button').hide();
-      }
-    });
 </script> -->
+
 
 <script>
    jQuery(document).ready(function() {

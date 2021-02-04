@@ -147,7 +147,7 @@ class QuizController extends Controller
         return view ('quizzes.show_quiz', compact('questions', 'id', 'quiz_details'));
     }
 
-    public function create($id)
+    public function create($insid, $cid, $week)
     {
             // $quiz= new Quiz;
     
@@ -156,9 +156,11 @@ class QuizController extends Controller
             // $columns  = \Schema::getColumnListing($table);
 
             // dd($columns);
+        $instructor_id = $insid;
+        $week = $week;
 
-        $course = DB::table('courses')->where('id',$id)->first();
-        return view ('quizzes.create', compact('course'));
+        $course = DB::table('courses')->where('id',$cid)->first();
+        return view ('quizzes.create', compact('course', 'instructor_id', 'week'));
     }
 
 
@@ -181,7 +183,7 @@ class QuizController extends Controller
         $success = DB::table('quizzes')->insert($quiz);
         if($success){
             Session::flash('message', 'Quiz created successfully');
-            return redirect('/quizzes/'. $request->course_id);
+            return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
         }else{
             Session::flash('message', 'Something went wrong');
             return redirect()->back();
@@ -191,10 +193,14 @@ class QuizController extends Controller
     public function edit($id)
     {
         $quiz = DB::table('quizzes')->where('id', $id)->get()->first();
+
+        $week = $quiz->week;
         $course = DB::table('quizzes')->where('instructor_id', Auth::user()->id)->where('id', $id)->pluck('course_id');
         $qcourse = DB::table('courses')->where('id', $course)->get()->first();
 
-        return view('quizzes.edit', compact('quiz', 'qcourse'));
+        $instructor_id = Auth::user()->id;
+
+        return view('quizzes.edit', compact('quiz', 'qcourse', 'instructor_id', 'week'));
     }
 
     public function update(Request $request, $id)
@@ -203,7 +209,7 @@ class QuizController extends Controller
             'quiz_date' => $request->input('date'),
             'negative_marking' => $request->input('nm'),
             'name' => $request->input('name'),
-            'week' => $request->input('week'),
+            'week' => $request->week,
             'duration' => $request->input('duration'),
             'start_time' => $request->input('stime'),
             'end_time' => $request->input('etime'),
@@ -213,7 +219,7 @@ class QuizController extends Controller
         ]);
         if($success){
             Session::flash('message', 'Quiz Updated successfully');
-            return redirect('/quizzes/'. $request->course_id);
+            return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
         }else{
             Session::flash('message', 'Something went wrong');
             return redirect()->back();

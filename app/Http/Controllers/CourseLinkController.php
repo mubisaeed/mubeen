@@ -41,16 +41,18 @@ class CourseLinkController extends Controller
     }
 
 
-    public function index($id){
+    public function index($insid, $cid, $week){
 
-        $id = $id;
+        $course_id = $cid;
 
         $user = Auth::user();
+        $instructor_id = $insid;
+        $week = $week;
 
-        $courselink=DB::table('courselink')->where('course_id', $id)->get()->all();
+        $courselink=DB::table('courselink')->where('course_id', $cid)->get()->all();
 
 
-        return view ('course_resources.links', compact ('user','courselink', 'id'));
+        return view ('course_resources.links', compact ('user','courselink', 'course_id', 'week', 'instructor_id'));
 
     }
 
@@ -78,6 +80,8 @@ class CourseLinkController extends Controller
 
         $courselinks->week=$req->input('week');
 
+        $courselinks->instructor_id=$req->input('instructor_id');
+
         $courselinks->title=$req->input('title');
 
         $courselinks->short_description=$req->input('short_des');
@@ -86,13 +90,12 @@ class CourseLinkController extends Controller
 
         $courselinks->save();
 
-        $id = $req->input('course_id');
 
         if($courselinks){
 
             Session::flash('message', 'Link Stored Successfully');
 
-            return redirect()->back();
+            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week);
 
         }
 
@@ -100,15 +103,18 @@ class CourseLinkController extends Controller
 
     public function edit($id, $main){
 
-        // dd($main);
 
         $id = $id;
 
         $courselinks = CourseLink::find($id);
 
-        $user = Auth::user();
+        $week = $courselinks->week;
 
-    	return view ('course_resources.linkedit', compact('user', 'courselinks', 'id','main'));
+        $instructor_id = Auth::user()->id;
+
+        $course_id = $main;
+
+    	return view ('course_resources.linkedit', compact('courselinks', 'id','course_id', 'instructor_id', 'week'));
 
     }
 
@@ -144,9 +150,11 @@ class CourseLinkController extends Controller
 
         $id = $req->input('course_id');
 
+        $id = $req->input('instructor_id');
+
         Session::flash('message', 'Link Updated Successfully');
 
-        return redirect('courselink/'.$req->main);      
+        return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week);     
 
     }
 

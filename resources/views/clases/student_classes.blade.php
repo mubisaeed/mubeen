@@ -30,7 +30,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Classes</li>
+    <li class = "active">All Terms/sections</li>
 
   </ol>
 

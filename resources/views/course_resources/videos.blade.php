@@ -16,7 +16,6 @@
 
   </div>
 
-@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
               <ol class="breadcrumb">
@@ -43,7 +42,7 @@
 
                       @endforeach
 
-                <form action="{{url('resourcevid/create')}}" method="POST" enctype="multipart/form-data" class="w-100">
+                <form action="{{url('/resourcevid/create')}}" method="POST" enctype="multipart/form-data" class="w-100">
 
                   <div class="row">
 
@@ -53,7 +52,9 @@
 
                       
 
-                      <input type="hidden" name="course_id" value="{{$id}}">
+                      <input type="hidden" name="course_id" value="{{$course_id}}">
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}">  
+                      <input type="hidden" name="week" value="{{$week}}"> 
 
                     <div class="col-md-6 p_left">
 
@@ -141,33 +142,15 @@
                           @enderror
 
                     </div>
-
-
-                        <?php
-                          $course = DB::table('courses')->where('id', $id)->get()->first();
-                          $weeks = $course->weeks;
-                        ?>
-
-                        <div class="col-md-12">
-                          @for($i = 1; $i <= $weeks; $i++)
-
-                            <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
-
-                            <label class="select_lable">Week {{$i}}</label>
-
-                          @endfor
-
-                        </div>
-
                     
 
                     <div class="col-md-12">
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                        <button type="submit" class="btn save_btn" id="sub_button">Save<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
 
                       </div>
 
@@ -186,185 +169,6 @@
             </div>
 
           </div>
-@endif
-
-<div class="content_main content">
-
-    <div class="container-fluid"> 
-        <div class="all_courses_main">
-
-    
-
-    <div class="course_table mt-0">
-
-      <div class="course card-header card-header-warning card-header-icon">
-
-        
-
-        <h3>All Videos</h3>
-
-        @if(count($cresources)>0)
-
-          <div class="table_filters">
-
-            <div class="table_search">
-
-              <input type="text" name="search" id="search" value="" placeholder="Search...">
-
-              <a href="#"> <i class="fa fa-search"></i> </a>
-
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-          </div>
-
-          <table class="table table-hover" id="table-id">
-
-            <thead>
-
-              <tr>
-
-                <th scope="col">ID</th>
-
-                <th scope="col">Title</th>
-
-                <th scope="col">Video Description</th>
-
-                <th scope="col">Resource</th>                
-
-                {{-- <th scope="col">Download</th> --}}
-                
-                <th scope="col">Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-
-              @foreach($cresources as $index =>$cr)
-                 {{-- @if($cr->type=='mp4' || $cr->type=='wmv') --}}
-              <tr>
-
-                <th scope="row">#{{$index+1}}</th>
-
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                    
-
-                    <p>{{$cr->title}}</p>
-
-                  </div>
-
-                </td>
-
-                <td class="first_row"><div class="limit_description">{{$cr->short_description}}</div></td>
-
-                @if($cr->type =='mp4')
-
-                  <td class="first_row"><iframe src="{{asset('storage/'.$cr->file)}}" height="60" width="85">{{($cr->file)}}</iframe><br>
-                  <a class ="btn btn-primary" href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td>
-                @else
-                  <td class="first_row"><a href="{{$cr->link}}">{{$cr->link}}</a></td>
-
-              @endif
-
-                {{-- <td class="first_row"><a href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td> --}}
-
-
-                <td class="align_ellipse first_row">
-
-                  <li class="nav-item dropdown">
-
-                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                      <span class="material-icons">
-
-                        more_horiz
-
-                      </span>
-
-                      <div class="ripple-container"></div>
-
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-
-                      <a class="dropdown-item" href="{{url('/resource/editvid/' . $cr->id.'/'.$id)}}"><i class="fa fa-cogs"></i>Edit</a>
-
-                      <a href="javascript:void(0);" data-id="<?php echo $cr->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
-
-                    </div>
-
-                  </li>
-
-                </td>
-
-              </tr>
-              
-                {{-- @endif --}}
-
-              @endforeach
-              
-
-            </tbody>
-
-          </table>
-
-          <div class="table_footer">
-<div class="table_pegination">
-<nav>
-<ul class="pager pagination">
-<li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-<span class="sr-only">(current)</span></span></li>
-<li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-<span class="sr-only">(current)</span></span></li>
-</ul>
-</nav>
-</div>
-<div class="table_rows">
-<div class="rows_main">
-<p>Rows per page</p>
-<select name="state" id="maxRows">
-<option value="5">5</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-</select>
-</div>
-</div>
-</div>
-
-        @else
-
-          <p>There is no Video</p>
-
-        @endif
-
-      </div>
-
-    </div>
-
-  </div>
-    </div>
-
-  
-
-</div>
-
-
 
 
 
@@ -392,21 +196,6 @@ uploadField.onchange = function() {
 
 
 </script>
-
-
-<script type="text/javascript">  
-  $(document).ready(function(){
-     $('#sub_button').hide();
-  });
-</script>
-<script type="text/javascript">
-
-  function showbtn()
-  {
-    $('#sub_button').show();
-  }
-</script>
-
 
 
 

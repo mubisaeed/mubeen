@@ -176,7 +176,7 @@ Route::get('/quizzesweek/{insid}/{courseid}/{week}', [QuizController::class, 'se
 
 Route::get('/quizzes/{id}', [QuizController::class, 'index'])->name('Quizzes');
 
-Route::get('/quiz/create/{id}', [QuizController::class, 'create']);
+Route::get('/quiz/create/{insid}/{courseid}/{week}', [QuizController::class, 'create']);
 
 Route::get('/quiz/addquestion/toquiz/{id}', [QuizController::class, 'addquestion_to_quiz']);
 
@@ -240,6 +240,12 @@ Route::post('/update/{id}', [userscontroller::class, 'update']);
 Route::get('/course/{cat}', [CourseController::class, 'course_wise_url']);
 
 Route::get('/getcourses', [CourseController::class, 'get_courses']);
+
+
+Route::get('/course/showdetails/{id}', [CourseController::class, 'show_details'])->name('Course Details');
+
+
+Route::get('/course/show_week_details/{insid}/{cid}/{week}', [CourseController::class, 'show_week_details'])->name('Course Details');
 
 
 
@@ -395,7 +401,7 @@ Route::get('/instructors/edit/{id}', [InstructorsController::class, 'edit']);
 
 Route::POST('/instructors/edit/{id}', [InstructorsController::class, 'update']);
 
-Route::get('/lecture/create/{id}', [InstructorsController::class, 'create_lecture']);
+Route::get('/lecture/create/{insid}/{courseid}/{week}', [InstructorsController::class, 'create_lecture']);
 
 Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
 
@@ -522,7 +528,7 @@ Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])-
 
 Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideo']);
 
-Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideos']);
+Route::get('/courseresoursevideo/{insid}/{courseid}/{week}', [CourseResourcesController::class, 'resourcevideos']);
 
 Route::get('/resource', [CourseResourcesController::class, 'create'])->name('/resource');
 
@@ -538,7 +544,7 @@ Route::get('/deletevid/{id}', [CourseResourcesController::class, 'deletevid']);
 
 Route::get('/resource/edit/{id}/{main}', [CourseResourcesController::class, 'editfile']);
 
-Route::get('resource/editvid/{id}/{main}', [CourseResourcesController::class, 'editvid']);
+Route::get('/resource/editvid/{id}/{main}', [CourseResourcesController::class, 'editvid']);
 
 Route::post('/resource/update/{id}', [CourseResourcesController::class, 'updateres'])->name('resource/update');
 
@@ -555,7 +561,7 @@ Route::get('resource/download/{id}', [CourseResourcesController::class, 'downloa
 Route::get('/linksweek/{courseid}/{week}', [CourseLinkController::class, 'search_by_week']);
 
 
-Route::get('courselink/{id}', [CourseLinkController::class, 'index']);
+Route::get('/courselink/{insid}/{courseid}/{week}', [CourseLinkController::class, 'index']);
 
 Route::post('/linkcreate', [CourseLinkController::class, 'store']);
 

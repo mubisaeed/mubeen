@@ -45,6 +45,8 @@
             @csrf
 
             <input type="hidden" name="course_id" value="{{$qcourse->id}}">
+            <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+            <input type="hidden" name="week" value="{{$week}}">
 
               <div class="s_profile_fields">
 
@@ -225,27 +227,11 @@
 
                   </div>
 
-
-                  <?php
-                        $course = DB::table('courses')->where('id', $qcourse->id)->get()->first();
-                        $weeks = $course->weeks;
-                      ?>
-
-                    <div class="col-md-12">
-                    @for($i = 1; $i <= $weeks; $i++)
-
-                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($quiz->week == $i) Checked @endif>
-
-
-                      <label class="select_lable">Week {{$i}}</label>
-
-                    @endfor
-
                   </div>
 
                   <div class="s_form_button text-center">
 
-                    <a  href="{{url('/quizzes')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                    <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $qcourse->id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                     <button type="submit" class="btn save_btn">Update</button>
 

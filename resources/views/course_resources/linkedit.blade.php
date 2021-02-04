@@ -57,7 +57,9 @@
 
                       <input type="hidden" name="id" value="{{$id}}">
 
-                      <input type="hidden" name="main" value="{{$main}}"> 
+                      <input type="hidden" name="course_id" value="{{$course_id}}"> 
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}"> 
+                      <input type="hidden" name="week" value="{{$week}}"> 
 
                     <div class="col-md-6 p_left">
 
@@ -129,23 +131,6 @@
 
                       </div>
 
-                      <?php
-                        $course = DB::table('courses')->where('id', $main)->get()->first();
-                        $weeks = $course->weeks;
-                      ?>
-
-                    <div class="col-md-12">
-                    @for($i = 1; $i <= $weeks; $i++)
-
-                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="" @if($courselinks->week == $i) Checked @endif>
-
-
-                      <label class="select_lable">Week {{$i}}</label>
-
-                    @endfor
-
-                  </div>
-
 
                     
 
@@ -153,7 +138,7 @@
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                         <button type="submit" class="btn save_btn">Update<div class="ripple-container"></div></button>
 
