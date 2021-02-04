@@ -248,6 +248,39 @@ class CourseController extends Controller
 
     }
 
+    public function show_details($id)
+    {
+        $course = DB::table('courses')->where('id', $id)->get()->first();
+        $weeks = $course->weeks;
+        $instructor_id = Auth::user()->id;
+        return view('courses.show_details', compact('course', 'weeks', 'instructor_id'));
+    }
+
+    public function show_week_details($insid, $cid, $week)
+    {
+        $quizzes = DB::table('quizzes')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+        ])->get()->all();
+        $links = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+        ])->get()->all();
+        $lectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+        ])->get()->all();
+        $videos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+        ])->get()->all();
+        return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'insid', 'cid', 'week'));
+    }
+
     public function students_courses($id)
     {
         $courses = DB::table('courses')->where('clas_id', $id)->get()->all();

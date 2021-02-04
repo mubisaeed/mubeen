@@ -253,7 +253,7 @@
       
                   <i class="fa fa-graduation-cap"></i>
       
-                  <span>Classes</span>
+                  <span>Terms/Sessions</span>
       
                 </a>
       
@@ -261,10 +261,10 @@
       
                   <div class="py-2 collapse-inner rounded">
                    @if(  in_array('All Classes', $data)  )
-                    <a class="collapse-item" href="{{url('/classes')}}">All Classes</a>
+                    <a class="collapse-item" href="{{url('/classes')}}">All Terms</a>
                     @endif
                        @if(  in_array('Add New Class', $data) )
-                    <a class="collapse-item" href="{{url('/classcreate')}}">Add New Class</a>
+                    <a class="collapse-item" href="{{url('/classcreate')}}">Add New Term</a>
                     @endif
       
                   </div>
@@ -472,14 +472,14 @@
           
                       <i class="fa fa-graduation-cap"></i>
           
-                      <span>Classes</span>
+                      <span>Terms/Sessions</span>
           
                     </a>
     
               <div id="collapseEleven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
     
                 <div class="py-2 collapse-inner rounded">
-                  <a class="collapse-item" href="{{url('/classes')}}">All Classes</a>
+                  <a class="collapse-item" href="{{url('/classes')}}">All Terms</a>
                  
     
                 </div>

@@ -17,7 +17,6 @@
   </div>
 
 
-@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
   <ol class="breadcrumb">
@@ -38,9 +37,9 @@
 
                 <div class="ac_add_form">
 
-                 @foreach ($errors->all() as $error)
+                      @foreach ($errors->all() as $error)
 
-                      <div class="alert alert-danger">{{ $error }}</div>
+                        <div class="alert alert-danger">{{ $error }}</div>
 
                       @endforeach
                     <form action="{{url('/linkcreate')}}" method="POST" enctype="multipart/form-data" class="w-100">
@@ -52,7 +51,9 @@
 
                       
 
-                      <input type="hidden" name="course_id" value="{{$id}}">  
+                      <input type="hidden" name="course_id" value="{{$course_id}}">  
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}">  
+                      <input type="hidden" name="week" value="{{$week}}">  
 
                     <div class="col-md-6 p_left">
 
@@ -123,32 +124,13 @@
                       </div>
 
 
-                      <?php
-                        $course = DB::table('courses')->where('id', $id)->get()->first();
-                        $weeks = $course->weeks;
-                      ?>
-
-                  <div class="col-md-12">
-                    @for($i = 1; $i <= $weeks; $i++)
-
-                      <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
-
-                      <label class="select_lable">Week {{$i}}</label>
-
-                    @endfor
-
-                  </div>
-
-
-
-
                     <div class="col-md-12">
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
-                        <button type="submit" class="btn save_btn" id="sub_button">Save<div class="ripple-container"></div></button>
+                        <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
 
                       </div>
 
@@ -167,206 +149,6 @@
             </div>
 
           </div>
-@endif
-
- <div class="content_main content">
-
-    <div class="container-fluid">
-        
-    
-
-  <div class="all_courses_main">
-
-    
-
-    <div class="course_table mt-0">
-
-      <div class="course card-header card-header-warning card-header-icon">
-
-        
-
-        <h3>Resource Links</h3>
-
-        @if(count($courselink)>0)
-
-          <div class="table_filters">
-
-            <div class="table_search">
-
-              <input type="text" name="search" id="search" value="" placeholder="Search...">
-
-              <a href="#"> <i class="fa fa-search"></i> </a>
-
-            </div>
-
-<!--             <div class="table_select">
-
-              <select class="selectpicker">
-
-                <option>All Resource Links</option>
-
-                <option>Today </option>
-
-                <option>Macro Economics I</option>
-
-                <option>Macro Economics II</option>
-
-              </select>
-
-            </div> -->
-
-
-              <div class="dropdown table_select">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    All Links
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="{{url('/quizzes/'. $id)}}">All Links</a>
-
-                    <?php
-                      $course = DB::table('courses')->where('id', $id)->get()->first();
-                      $weeks = $course->weeks;
-                    ?>
-                    @for($i = 1; $i <= $weeks; $i++)
-                      
-                      <a class="dropdown-item" href="{{url('/linksweek/'. $id .'/'. $i)}}"> Week {{$i}} </a>
-
-                    @endfor
-
-                  </div>
-                </div>
-
-          </div>
-
-          <table class="table table-hover">
-
-            <thead>
-
-              <tr>
-
-                <th scope="col">ID</th>
-
-                <th scope="col">Title</th>
-
-                <th scope="col">Week No</th>
-
-                <th scope="col">Link Description</th>
-
-                <th scope="col">Links</th>
-
-                <th scope="col">Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              @foreach($courselink as $index =>$cl)
-
-              <tr>
-
-                <th scope="row">#{{$index+1}}</th>
-
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                    <p>{{$cl->title}}</p>
-
-                  </div>
-
-                </td>
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                    <p>{{$cl->week}}</p>
-
-                  </div>
-
-                </td>
-
-                <td class="first_row"><div class="limit_description">{{$cl->short_description}}</div></td>
-
-                <td class="first_row"><a href="{{$cl->link}}">{{$cl->link}}</a></td>
-
-                <td class="align_ellipse first_row">
-
-                  <li class="nav-item dropdown">
-
-                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                      <span class="material-icons">
-
-                        more_horiz
-
-                      </span>
-
-                      <div class="ripple-container"></div>
-
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-
-                      <a class="dropdown-item" href="{{url('/linkedit/' . $cl->id.'/'.$id)}}"><i class="fa fa-cogs"></i>Edit</a>
-
-                      <a href="javascript:void(0);" data-id="<?php echo $cl->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
-
-                    </div>
-
-                  </li>
-
-                </td>
-
-              </tr>
-
-              @endforeach
-
-            </tbody>
-
-          </table>
-
-          <div class="table_footer">
-<div class="table_pegination">
-<nav>
-<ul class="pager pagination">
-<li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-<span class="sr-only">(current)</span></span></li>
-<li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-<span class="sr-only">(current)</span></span></li>
-</ul>
-</nav>
-</div>
-<div class="table_rows">
-<div class="rows_main">
-<p>Rows per page</p>
-<select name="state" id="maxRows">
-<option value="5">5</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-</select>
-</div>
-</div>
-</div>
-
-        @else
-
-          <p>There is no resource link</p>
-
-        @endif
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-</div>
-
 
 
 <script>
@@ -400,19 +182,6 @@ uploadField.onchange = function() {
 
 
   <script src="{{url('backend/sweetalerts/sweetalert2.all.js')}}"></script>
-
-<script type="text/javascript">  
-  $(document).ready(function(){
-     $('#sub_button').hide();
-  });
-</script>
-<script type="text/javascript">
-
-  function showbtn()
-  {
-    $('#sub_button').show();
-  }
-</script>
 
 
   <script type="text/javascript">

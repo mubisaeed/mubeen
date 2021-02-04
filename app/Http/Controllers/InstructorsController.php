@@ -192,10 +192,12 @@ class InstructorsController extends Controller
 
     }
 
-    public function create_lecture($id)
+    public function create_lecture($insid, $cid, $week)
     {
-        $course = DB::table('courses')->where('id', $id)->get()->first();
-        return view('instructors.create_lecture', compact('course'));
+        $course = DB::table('courses')->where('id', $cid)->get()->first();
+        $instructor_id = $insid;
+        $week = $week;
+        return view('instructors.create_lecture', compact('course', 'instructor_id', 'week'));
     }
     public function show_lecture($id)
     {
@@ -250,7 +252,8 @@ class InstructorsController extends Controller
         $meeting = $zoom->create_meeting($user->zoom_id,$request->input('topic'));
         $lecture = DB::table('lectures')->insertGetId([
             'topic' => $request->input('topic'),
-            'instructor_id' => Auth::user()->id,
+            'instructor_id' => $request->input('instructor_id'),
+            'week' => $request->input('week'),
             'meeting_id' => $meeting->id,
             'join_url' => $meeting->join_url,
             'start_url' => $meeting->start_url,
@@ -268,7 +271,7 @@ class InstructorsController extends Controller
     
         Session::flash('message', 'Lecture created successfully');
 
-        return redirect()->back();
+        redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
     }
 
     public function create(){
