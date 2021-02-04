@@ -60,6 +60,10 @@
 
 }
 
+.select_plugin  .dropdown-toggle {
+  margin-top: 0;
+}
+
 </style>
 
 
@@ -195,7 +199,7 @@
                     </div>
 
 
-                    <div class="col-md-6 p_left">
+                    <div class="col-md-6 p_right">
 
                     <div class="custom_input_main mobile_field">
 
@@ -219,7 +223,7 @@
 
                     </div>
 
-                    <div class="col-md-6  colorpicker colorpicker-component">
+                    <div class="col-md-6  colorpicker colorpicker-component p_left">
 
                       <div class="custom_input_main mobile_field">
 
@@ -243,7 +247,7 @@
 
                       </div>
 
-                      <div class="col-md-12">
+                      <div class="col-md-6 p_right">
 
                         <div class="custom_input_main select_plugin mobile_field">
 
