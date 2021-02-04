@@ -45,7 +45,15 @@
 
       <div class="panel-group" id="accordion">
 
+        <?php
+          $q = count($quizzes);
+          $lec = count($lectures);
+          $link = count($links);
+          $vid = count($videos);
+          $down = count($downloadables);
+        ?>
 
+        <!-- start quizzes tab -->
 
         <div class="panel panel-default" data-toggle="collapse" data-target="#table">
 
@@ -53,7 +61,7 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">Quizzes</a>
+            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$q}}  Quizzes</a>
 
             </h4>
 
@@ -180,7 +188,9 @@
 
         </div>
 
+        <!-- end quizzes tab -->
 
+        <!-- start lectures tab -->
 
 
         <div class="panel panel-default" data-toggle="collapse" data-target="#tablelecture">
@@ -189,7 +199,7 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">Lectures</a>
+            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$lec}} Lectures</a>
 
             </h4>
 
@@ -301,7 +311,10 @@
 
 
 
+        <!-- end lectures tab -->
 
+
+        <!-- start links tab -->
 
 
 
@@ -311,7 +324,7 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">Links</a>
+            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$link}} Links</a>
 
             </h4>
 
@@ -434,16 +447,9 @@
 
         </div>
 
+        <!-- end links tabs -->
 
-
-
-
-
-
-
-
-
-
+        <!-- start videos tab -->
 
 
         <div class="panel panel-default" data-toggle="collapse" data-target="#videostable">
@@ -452,7 +458,7 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">Videos</a>
+            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$vid}} Videos</a>
 
             </h4>
 
@@ -584,9 +590,172 @@
 
         </div>
 
+        <!-- end videos tab -->
+
+        <!-- start downloads tabs -->
 
 
+        <div class="panel panel-default" data-toggle="collapse" data-target="#downloadablestable">
 
+          <div class="panel-heading">
+
+            <h4 class="panel-title">
+
+            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$down}} Downloadables</a>
+
+            </h4>
+
+          </div>
+
+
+          <div id="downloadablestable" class="collapse">
+
+              <div class="panel-body">
+
+
+                <div class="table_filters">
+
+
+                  <div>
+                    <a href="{{url('/courseresourse/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Downloadable</a>
+                  </div>
+
+                </div>
+                @if(count($downloadables)>0)
+
+                  <div class="table_filters">
+
+                    <div class="table_search">
+
+                      <input type="text" name="search" id="search" value="" placeholder="Search...">
+
+                      <a href="#"> <i class="fa fa-search"></i> </a>
+                      
+                    </div>
+                  </div>
+
+                  <table class="table table-hover" id="table-id">
+
+                    <thead>
+
+                      <tr>
+
+                        <th scope="col">ID</th>
+
+                        <th scope="col">Title</th>
+
+                        <th scope="col">File Description</th>
+
+                        <th scope="col">File</th>
+
+                        <th scope="col">Downloadable</th>
+
+                        <th scope="col">Action</th>
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="mybody">
+
+                      @foreach($downloadables as $index =>$cr)
+
+                        @if ($cr->type=='pdf' || $cr->type=='docx' || $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt' || $cr->type=='jpg' || $cr->type=='jpeg' || $cr->type=='png' || $cr->type=='gif')
+
+                        <tr>
+
+                          <th scope="row">#{{$index+1}}</th>
+
+                          <td class="first_row">
+
+                            <div class="course_td">
+
+                              <p>{{$cr->title}}</p>
+
+                            </div>
+
+                          </td>
+
+                          <td class="first_row">{{$cr->short_description}}</td>
+
+                              @if ($cr->type=='pdf')
+
+                                <td class="first_row"><embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf" height="50" width="50"></td>
+
+                              @elseif ($cr->type=='docx'|| $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt')
+                        
+                                <td>
+                              
+                                  <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{asset('storage/'.$cr->file)}}" frameborder="0" height="50" width="50"></iframe>
+
+                                </td>
+
+                              @elseif ($cr->type=='png'|| $cr->type=='jpeg' || $cr->type=='jpg' || $cr->type=='gif' )
+
+                                <td class="first_row">
+
+                                  <img src="{{asset('storage/'.$cr->file)}}" height="50" width="50">
+
+                                </td>
+
+                               @endif
+
+                          <td class="first_row"><a href="{{route('/download', $cr->id)}}" download>{{$cr->type}}</a></td>
+
+                          <td class="align_ellipse first_row">
+
+                            <li class="nav-item dropdown">
+
+                              <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                <span class="material-icons">
+
+                                  more_horiz
+
+                                </span>
+
+                                <div class="ripple-container"></div>
+
+                              </a>
+
+                              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+
+                                <a class="dropdown-item" href="{{url('/resource/edit/' . $cr->id.'/'.$cid)}}"><i class="fa fa-cogs"></i>Edit</a>
+
+                                <a href="javascript:void(0);" data-id="<?php echo $cr->id; ?>" class="dropdown-item deletedown"><i class="fa fa-trash"></i>Delete</a>
+
+                              </div>
+
+                            </li>
+
+                          </td>
+
+                        </tr>
+
+                        @endif
+
+                      @endforeach
+
+                    </tbody>
+
+                  </table>  
+
+               @else
+
+                <p>There is no Downloadable data</p>
+
+              @endif
+
+              </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- end downloads tab -->
+
+        <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
 
 
 
@@ -596,6 +765,74 @@
 
   </div>
 
+
+<script type="text/javascript">
+
+  $("body").on( "click", ".deletedown", function () {
+
+  var task_id = $( this ).attr( "data-id" );
+
+  console.log(task_id);
+
+  var form_data = {
+
+  id: task_id
+
+  };
+
+  swal({
+
+  title: "Do you want to delete this file",
+
+
+
+  type: 'info',
+
+  showCancelButton: true,
+
+  confirmButtonColor: '#F79426',
+
+  cancelButtonColor: '#d33',
+
+  confirmButtonText: 'Yes',
+
+  showLoaderOnConfirm: true
+
+  }).then( ( result ) => {
+
+  if ( result.value == true ) {
+
+  $.ajax( {
+
+  type: 'get',
+
+
+
+  url: '<?php echo url("/deleteres/{id}"); ?>',
+
+  data: form_data,
+
+  success: function ( msg ) {
+
+  swal( "@lang('File Deleted')", '', 'success' )
+
+  setTimeout( function () {
+
+  location.reload();
+
+  }, 1000 );
+
+  }
+
+  } );
+
+  }
+
+  } );
+
+  } );
+
+  </script>
 
 
 <script type="text/javascript">

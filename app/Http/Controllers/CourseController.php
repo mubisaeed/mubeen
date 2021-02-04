@@ -278,7 +278,13 @@ class CourseController extends Controller
             ['course_id', '=', $cid],
             ['week', '=', $week],
         ])->get()->all();
-        return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'insid', 'cid', 'week'));
+        $downloadables = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+        ])->get()->all();
+        
+        return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'downloadables', 'insid', 'cid', 'week'));
     }
 
     public function students_courses($id)

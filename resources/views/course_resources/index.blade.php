@@ -16,7 +16,6 @@
 
   </div>
 
-@if(Auth::user()->role_id != '5')
 <div class="breadcrumb_main">
 
               <ol class="breadcrumb">
@@ -53,7 +52,9 @@
 
                       
 
-                      <input type="hidden" name="course_id" value="{{$id}}">
+                      <input type="hidden" name="course_id" value="{{$course_id}}">
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+                      <input type="hidden" name="week" value="{{$week}}">
 
                     <div class="col-md-6 p_left">
 
@@ -127,7 +128,7 @@
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course')}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                         <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
 
@@ -148,249 +149,7 @@
             </div>
 
           </div>
-        @endif
-  <div class="content_main content">
-    
-    <div class="container-fluid">
-    
-        <div class="all_courses_main">
-
-    
-
-    <div class="course_table mt-0">
-
-      <div class="course card-header card-header-warning card-header-icon">
-
-        
-
-        <h3>Downloadables</h3>
-
-        @if(count($cresources)>0)
-
-          <div class="table_filters">
-
-            <div class="table_search">
-
-              <input type="text" name="search" id="search" value="" placeholder="Search...">
-
-              <a href="#"> <i class="fa fa-search"></i> </a>
-
-            </div>
-
-            <div class="table_select">
-
-              <select class="selectpicker">
-
-                <option>All Downloadables</option>
-
-                <option>Today </option>
-
-                <option>Macro Economics I</option>
-
-                <option>Macro Economics II</option>
-
-              </select>
-
-            </div>
-
-          </div>
-
-          <table class="table table-hover" id="table-id">
-
-            <thead>
-
-              <tr>
-
-                <th scope="col">ID</th>
-
-                <th scope="col">Title</th>
-
-                <th scope="col">File Description</th>
-
-                <th scope="col">File</th>
-
-                <th scope="col">Downloadable</th>
-
-                <th scope="col">Action</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              @foreach($cresources as $index =>$cr)
-
-              @if ($cr->type=='pdf' || $cr->type=='docx' || $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt' || $cr->type=='jpg' || $cr->type=='jpeg' || $cr->type=='png' || $cr->type=='gif')
-
-              <tr>
-
-                <th scope="row">#{{$index+1}}</th>
-
-                <td class="first_row">
-
-                  <div class="course_td">
-
-                    <p>{{$cr->title}}</p>
-
-                  </div>
-
-                </td>
-
-                <td class="first_row">{{$cr->short_description}}</td>
-
-            @if ($cr->type=='pdf')
-
-              <td class="first_row"><embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf" height="50" width="50"></td>
-
-            @elseif ($cr->type=='docx'|| $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt')
-            
-              <td>
-            
-                <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{asset('storage/'.$cr->file)}}" frameborder="0" height="50" width="50"></iframe>
-
-              </td>
-
-            @elseif ($cr->type=='png'|| $cr->type=='jpeg' || $cr->type=='jpg' || $cr->type=='gif' )
-
-              <td class="first_row">
-
-                <img src="{{asset('storage/'.$cr->file)}}" height="50" width="50">
-
-              </td>
-
-            @endif
-
-                <td class="first_row"><a href="{{route('/download', $cr->id)}}" download>{{$cr->type}}</a></td>
-
-                <td class="align_ellipse first_row">
-
-                  <li class="nav-item dropdown">
-
-                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                      <span class="material-icons">
-
-                        more_horiz
-
-                      </span>
-
-                      <div class="ripple-container"></div>
-
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-
-                      <a class="dropdown-item" href="{{url('/resource/edit/' . $cr->id.'/'.$id)}}"><i class="fa fa-cogs"></i>Edit</a>
-
-                      <a href="javascript:void(0);" data-id="<?php echo $cr->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
-
-                    </div>
-
-                  </li>
-
-                </td>
-
-              </tr>
-
-              @endif
-
-              @endforeach
-
-            </tbody>
-
-          </table>
-
-          {{-- <div class="table_footer">
-
-            <div class="table_pegination">
-
-              <nav>
-
-                <ul class="pager">
-
-                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
-
-                  <i class="fa fa-angle-left"></i></a></li>
-
-                  <li class="pager__item"><a class="pager__link active" href="#">1</a></li>
-
-                  <li class="pager__item"><a class="align_hash" href="#">/</a></li>
-
-                  <li class="pager__item"><a class="pager__link no_border" href="#">16</a></li>
-
-                  <li class="pager__item pager__item--prev"><a class="pager__link" href="#">
-
-                  <i class="fa fa-angle-right"></i></a></li>
-
-                </ul>
-
-              </nav>
-
-            </div>
-
-            <div class="table_rows">
-
-              <div class="rows_main">
-
-                <p>Rows per page</p>
-
-                <select>
-
-                  <option>6</option>
-
-                  <option>7</option>
-
-                  <option>8</option>
-
-                </select>
-
-              </div>
-
-            </div>
-
-          </div> --}}
-
-
-          <div class="table_footer">
-<div class="table_pegination">
-<nav>
-<ul class="pager pagination">
-<li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-<span class="sr-only">(current)</span></span></li>
-<li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-<span class="sr-only">(current)</span></span></li>
-</ul>
-</nav>
-</div>
-<div class="table_rows">
-<div class="rows_main">
-<p>Rows per page</p>
-<select name="state" id="maxRows">
-<option value="5">5</option>
-<option value="10">10</option>
-<option value="15">15</option>
-<option value="20">20</option>
-</select>
-</div>
-</div>
-</div>
-
-        @else
-
-          <p>There is no file</p>
-
-        @endif
-
-      </div>
-
-    </div>
-
-  </div>
-
-    </div>
-
-</div>
+ 
 
 <script>
 

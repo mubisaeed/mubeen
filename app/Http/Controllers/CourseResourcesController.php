@@ -32,15 +32,18 @@ class CourseResourcesController extends Controller
 
 {
 
-    public function index($id){
-         dd('downloads');
-        $id = $id;
+    public function index($insid, $cid, $week){
+        $course_id = $cid;
 
         $user = Auth::user();
 
-        $cresources=DB::table('resources')->where('course_id', $id)->get()->all();
+        $instructor_id = $insid;
 
-        return view ('course_resources.index', compact ('user','cresources', 'id'));
+        $week = $week;
+
+        $cresources=DB::table('resources')->where('course_id', $cid)->get()->all();
+
+        return view ('course_resources.index', compact ('user','cresources', 'course_id', 'week', 'instructor_id'));
 
     }
 
@@ -97,6 +100,10 @@ class CourseResourcesController extends Controller
 
         $cress->course_id=$req->input('course_id');
 
+        $cress->instructor_id=$req->input('instructor_id');
+
+        $cress->week=$req->input('week');
+
         $cress->title=$req->input('title');
 
         $cress->short_description=$req->input('short_des');
@@ -121,7 +128,7 @@ class CourseResourcesController extends Controller
 
             Session::flash('message', 'File Stored Successfully');
 
-            return redirect('/courseresourse/'.$id);
+            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week);
 
         }
 
