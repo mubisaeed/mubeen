@@ -285,9 +285,9 @@
                             </div>
                             <div class="member-info">
                                 <h4>{{$class->name}}</h4>
-                                <span>No.of Students: {{$stds}}</span>
-                                <span>No.of Instructors: {{$noOfInstructors}}</span>
-                                <span>No.of Courses: {{$noOfCourses}}</span>
+                                <span> <p class="make_round_no">{{$stds}} </p>: Students</span>
+                                <span> <p class="make_round_no">{{$noOfInstructors}}</p> : Instructors </span>
+                                <span> <p class="make_round_no">{{$noOfCourses}}</p> : Courses </span>
                                 <div class="img_buttons">
                                     <a class="btn btn-primary" href="{{url('/showcourseofclass/'.$class->id)}}">Show Courses</a>
                                     <a class="btn btn-primary" href="{{url('/showstudentsofclass/'.$class->id)}}">Show Students</a> 
