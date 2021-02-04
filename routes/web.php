@@ -524,7 +524,7 @@ Route::post('/updatecontact/{id}',[ContactPageController::class,'update']);
 
 //Routes for Course Resources functionality:
 
-Route::get('/courseresourse/{id}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
+Route::get('/courseresourse/{insid}/{courseid}/{week}', [CourseResourcesController::class, 'index'])->name('/courseresourse');
 
 Route::get('/courseresoursevideo/{id}', [CourseResourcesController::class, 'resourcevideo']);
 

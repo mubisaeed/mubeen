@@ -30,7 +30,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Weeks</li>
+    <li class = "active">All Weekly Details</li>
 
   </ol>
 
@@ -64,7 +64,7 @@
 
           
 
-          <h3>Weekly Details</h3>
+          <h3>{{$course->course_name}} Weekly Details</h3>
 
           @if($weeks > 0)
 
@@ -100,6 +100,35 @@
                 <div class="container">
                   <div class="row">
                     @for($i = 1; $i <= $weeks; $i++)
+
+
+                      <?php
+                        $quizzes = DB::table('quizzes')->where([
+                              ['instructor_id', '=', $instructor_id],
+                              ['course_id', '=', $course->id],
+                              ['week', '=', $i],
+                          ])->count();
+                        $lectures = DB::table('lectures')->where([
+                              ['instructor_id', '=', $instructor_id],
+                              ['course_id', '=', $course->id],
+                              ['week', '=', $i],
+                          ])->count();
+                        $links = DB::table('courselink')->where([
+                              ['instructor_id', '=', $instructor_id],
+                              ['course_id', '=', $course->id],
+                              ['week', '=', $i],
+                          ])->count();
+                        $videos = DB::table('resources')->where([
+                              ['instructor_id', '=', $instructor_id],
+                              ['course_id', '=', $course->id],
+                              ['week', '=', $i],
+                          ])->count();
+                        $downloadables = DB::table('resources')->where([
+                              ['instructor_id', '=', $instructor_id],
+                              ['course_id', '=', $course->id],
+                              ['week', '=', $i],
+                          ])->count();
+                      ?>
                     <div class="col-md-4">
                       <a href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i)}}">
                         <div class="member aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
@@ -108,8 +137,13 @@
                             </div>
                             <div class="member-info">
                                 <h4>Week {{$i}}</h4>
+                                <span>{{$links}} Links</span>
+                                <span>{{$videos}} Videos</span>
+                                <span>{{$quizzes}} Quizzes</span>
+                                <span>{{$lectures}} Lectures</span>
+                                <span>{{$downloadables}} Downloadables</span>
                                 <div class="img_buttons">
-                                    <a class="btn btn-primary" href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i)}}">Show Course Details</a>
+                                    <a class="btn btn-primary" href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i)}}">View Resources</a>
                                 </div>
                             </div>
                         </div>
