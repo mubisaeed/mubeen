@@ -4065,12 +4065,13 @@
     overflow: hidden;
     width: 150px;
     border-radius: 50%;
+        border: 2px solid #3399ff;
     margin: 0 auto 20px auto;
 }
 .member .pic img {
     transition: ease-in-out 0.3s;
     width: 150px;
-    height: 150px;
+    height: 140px;
 }
 .member h4 {
     font-weight: 700;
@@ -4079,12 +4080,29 @@
     color: #36343a;
 }
 .member span {
-    display: block;
     font-size: 15px;
     padding-bottom: 10px;
+    align-items: baseline;
     position: relative;
     font-weight: 500;
     color: grey;
+    display: flex;
+    margin: 0 auto;
+    padding-left: 65px;
+    text-align: center;
+}
+.member span .make_round_no {
+    padding: 0px 8px;
+    border: 1px solid #3366cc;
+    border-radius: 50%;
+    margin-right: 10px;
+    color: #fff;
+    transition: .3s;
+    background: #3366cc;
+}
+.member span .make_round_no:hover {
+  background: transparent;
+  color: grey;
 }
 .member span::after {
     content: "";
