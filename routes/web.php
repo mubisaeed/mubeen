@@ -112,6 +112,8 @@ Route::get('/dashboard', [DashboardController::class, 'index']);
 
 //Calendar Route
 
+Route::post('/addevent', [CalendarController::class, 'addevent']);
+
 Route::get('/calendar', [CalendarController::class, 'index']);
 
 //Assignments Routes
@@ -135,7 +137,7 @@ Route::get('/questionsweek/{insid}/{courseid}/{week}', [QuestionsController::cla
 
 Route::get('/quizzes/create', [QuestionsController::class, 'create']);
 
-Route::get('/mcq/create/{id}', [QuestionsController::class, 'mcqcreate']);
+Route::get('/mcq/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'mcqcreate']);
 
 Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
 
@@ -143,7 +145,7 @@ Route::get('/mcq/edit/{id}/{courseid}',  [QuestionsController::class, 'mcq_edit'
 
 Route::post('/mcq/update/{id}',  [QuestionsController::class, 'mcq_update']);
 
-Route::get('/q/create/{id}', [QuestionsController::class, 'qcreate']);
+Route::get('/q/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'qcreate']);
 
 Route::post('/q/store', [QuestionsController::class, 'qstore']);
 
@@ -155,7 +157,7 @@ Route::get('/mcq/show', [QuestionsController::class, 'see_all_mcqs']);
 
 Route::get('/tf/show', [QuestionsController::class, 'see_all_tf']);
 
-Route::get('/tf/create/{id}', [QuestionsController::class, 'tfcreate']);
+Route::get('/tf/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'tfcreate']);
 
 Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
 
@@ -178,7 +180,7 @@ Route::get('/quizzes/{id}', [QuizController::class, 'index'])->name('Quizzes');
 
 Route::get('/quiz/create/{insid}/{courseid}/{week}', [QuizController::class, 'create']);
 
-Route::get('/quiz/addquestion/toquiz/{id}', [QuizController::class, 'addquestion_to_quiz']);
+Route::get('/quiz/addquestion/toquiz/{insid}/{courseid}/{week}/{qid}', [QuizController::class, 'addquestion_to_quiz']);
 
 Route::post('/quiz/addquestion/toquiz', [QuizController::class, 'storequestion_to_quiz'])->name('add.question.to.quiz');
 

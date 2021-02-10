@@ -88,7 +88,7 @@ class CourseResourcesController extends Controller
 
          [
 
-        'file' => 'max:10000|mimes:doc,docx,ppt,pptx,pdf|max:2048',
+        'file' => 'max:10000|mimes:doc,docx,ppt,pptx,txt,pdf|max:2048',
 
         'title'=>'required|min:3|max:20',
 
@@ -209,7 +209,13 @@ class CourseResourcesController extends Controller
 
         $user = Auth::user();
 
-    	return view ('course_resources.edit', compact('user', 'cress', 'id', 'main'));
+        $week = $cress->week;
+
+        $course_id = $main;
+
+        $instructor_id = Auth::user()->id;
+
+    	return view ('course_resources.edit', compact('user', 'cress', 'id', 'course_id', 'instructor_id', 'week'));
 
     }
 
@@ -242,7 +248,7 @@ class CourseResourcesController extends Controller
 
         $this->validate($request, [
 
-            'file' => 'max:2048|mimes:doc,docx,ppt,pptx,pdf|max:2048',
+            'file' => 'max:2048|mimes:doc,docx,ppt,pptx,rtf,pdf|max:2048',
 
             'title'=>'required|min:3|max:20',
 
@@ -286,6 +292,10 @@ class CourseResourcesController extends Controller
 
         $cress->week=$request->input('week');
 
+        $cress->course_id=$request->input('course_id');
+
+        $cress->instructor_id=$request->input('instructor_id');
+
         $cress->file=$fileName;
 
         $cress->type=$fileType;
@@ -294,7 +304,7 @@ class CourseResourcesController extends Controller
 
         Session::flash('message', 'File Updated Successfully');
 
-        return redirect('courseresourse/'.$request->main);        
+        return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);         
 
     }
 

@@ -262,27 +262,27 @@ class CourseController extends Controller
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $links = DB::table('courselink')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $lectures = DB::table('lectures')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $videos = DB::table('resources')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $downloadables = DB::table('resources')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         
         return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'downloadables', 'insid', 'cid', 'week'));
     }

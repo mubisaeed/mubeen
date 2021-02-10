@@ -107,9 +107,9 @@
                 <tr>
 
                   <?php
-
                     $stdd = DB::table('students')->where('s_u_id', $std->s_u_id)->get()->first();
-                    $st = DB::table('users')->where('id', $std->s_u_id)->get()->first();
+                    $st = DB::table('users')->where('id', $stdd->s_u_id)->get()->first();
+                    // dd($st);
                   ?>
 
                   <th scope="row">#{{$index+1}}</th>
@@ -117,7 +117,6 @@
                   <td class="first_row">
 
                     <div class="course_td">
-
                       <img src="{{asset('assets/img/upload/'.$st->image)}}" width="50" alt="" class="img-fluid">
 
                       <p>{{$st->name}}</p>

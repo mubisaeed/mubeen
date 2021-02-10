@@ -28,7 +28,6 @@ class QuestionsController extends Controller
 
     public function filterall($id, $qid)
     {
-        // dd($id. ' ' .$qid);
         $questions = DB::table('questions')->where('course_id', $id)->get()->all();
         $course = DB::table('courses')->where('id', $id)->get()->first();
         $quiz_id = $qid;
@@ -52,13 +51,15 @@ class QuestionsController extends Controller
         return view ('quizzes.addquestion', compact('questions', 'course', 'quiz_id'));
     }
 
-    public function mcqcreate($id)
+    public function mcqcreate($insid, $cid, $week, $qid)
     {
         $user = Auth::user();
-        $course = DB::table('courses')->where('id',$id)->first();
+        $course = DB::table('courses')->where('id',$cid)->first();
         $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
         $instructor_id = Auth::user()->id;
-        return view ('questions.mcq', compact('user', 'mcqs', 'course', 'instructor_id'));
+        $week = $week;
+        $qid = $qid;
+        return view ('questions.mcq', compact('user', 'mcqs', 'course', 'instructor_id', 'week', 'qid'));
     }
 
     public function mcqstore(Request $request)
@@ -83,23 +84,27 @@ class QuestionsController extends Controller
         $mcq = new Question();
         $mcq->label=$request->input('label');
         $mcq->type=$type;
-        $mcq->week=$request->input('week');
         $mcq->course_id=$request->course_id;
-        $mcq->instructor_id=Auth::user()->id;
+        $mcq->instructor_id=$request->instructor_id;
+        $mcq->quiz_id=$request->qid;
+        $mcq->week=$request->week;
         $mcq->options=serialize($opts);
         $mcq->save();
         Session::flash('message', 'Question create successfully');
-        return redirect('/mcq/create/'. $request->course_id);
+        return redirect('/mcq/create/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week .'/'. $request->qid);
     }
 
 
 
-    public function qcreate($id)
+    public function qcreate($insid, $cid, $week, $qid)
     {
         $user = Auth::user();
-        $course = DB::table('courses')->where('id',$id)->first();
+        $course = DB::table('courses')->where('id',$cid)->first();
         $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
-        return view ('questions.question_answer', compact('user', 'questions', 'course'));
+        $instructor_id = Auth::user()->id;
+        $week = $week;
+        $qid = $qid;
+        return view ('questions.question_answer', compact('user', 'questions', 'course','instructor_id', 'week', 'qid'));
     }
 
     public function qstore(Request $request)
@@ -116,19 +121,25 @@ class QuestionsController extends Controller
         $q->label=$request->input('label');
         $q->type=$type;
         $q->course_id=$request->course_id;
+        $q->instructor_id=$request->instructor_id;
+        $q->quiz_id=$request->qid;
+        $q->week=$request->week;
         $q->options = $request->input('ans');
         $q->save();
         Session::flash('message', 'Question create successfully');
-        return redirect('/q/create/'. $request->course_id);
+        return redirect('/q/create/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week .'/'. $request->qid);
     }
 
 
-    public function tfcreate($id)
+    public function tfcreate($insid, $cid, $week, $qid)
     {
         $user = Auth::user();
-        $course = DB::table('courses')->where('id',$id)->first();
+        $course = DB::table('courses')->where('id',$cid)->first();
         $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
-        return view ('questions.tf', compact('user', 'tfs', 'course'));
+        $instructor_id = Auth::user()->id;
+        $week = $week;
+        $qid = $qid;
+        return view ('questions.tf', compact('user', 'tfs', 'course','instructor_id', 'week', 'qid'));
     }
 
     public function tfstore(Request $request)
@@ -148,10 +159,13 @@ class QuestionsController extends Controller
         $tf->label=$request->input('label');
         $tf->type=$type;
         $tf->course_id=$request->course_id;
+        $tf->instructor_id=$request->instructor_id;
+        $tf->week=$request->week;
+        $tf->quiz_id=$request->qid;
         $tf->options=serialize($opts);
         $tf->save();
-        Session::flash('message', 'Question create successfully');
-        return redirect('/tf/create/'. $request->course_id);
+        Session::flash('message', 'True False create successfully');
+        return redirect('/tf/create/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week .'/'. $request->qid);
     }
 
     public function mcq_edit($id, $courseid)
@@ -262,4 +276,3 @@ class QuestionsController extends Controller
         }
     }
 }
-

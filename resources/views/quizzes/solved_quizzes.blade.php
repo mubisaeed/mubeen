@@ -42,7 +42,7 @@
 
         
 
-        <h3>All Solved Quizzes</h3> 
+        <h3>My Quizzes</h3> 
        
 
         @if(count($quizzes)>0)
@@ -61,7 +61,7 @@
 
               <select class="selectpicker">
 
-                <option>All Solved quizzes</option>
+                <option>My quizzes</option>
 
                 <option>Today </option>
 

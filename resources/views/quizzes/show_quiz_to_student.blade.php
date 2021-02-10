@@ -46,14 +46,14 @@
             @foreach($questions as $q)
               <?php 
                 $qstn = DB::table('questions')->where('id', $q->question_id)->get()->first();
-                if($qstn->type == 'question/answer')
+                if($qstn->type == "question/answer")
                   {
                     $opts = $qstn->options;
                   }
                 else
-                {
-                  $opts = unserialize($qstn->options);
-                }
+                  {
+                    $opts = unserialize($qstn->options);
+                  }
               ?>
               <div>
                 <div>
@@ -65,19 +65,19 @@
                   <div class="row">
                     <div class="col-md-3">
                       <label>{{$opts['opt1']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
+                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct{{$qstn->id}}[]" class="btn"/>
                     </div>
                     <div class="col-md-3">
                       <label>{{$opts['opt2']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
+                      <input type="checkbox" value="{{$opts['opt2']}}" name="correct{{$qstn->id}}[]" class="btn"/>
                     </div>
                     <div class="col-md-3">
                       <label>{{$opts['opt3']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
+                      <input type="checkbox" value="{{$opts['opt3']}}" name="correct{{$qstn->id}}[]" class="btn"/>
                     </div>
                     <div class="col-md-3">
                       <label>{{$opts['opt4']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
+                      <input type="checkbox" value="{{$opts['opt4']}}" name="correct{{$qstn->id}}[]" class="btn"/>
                     </div>
                   </div>
                 @elseif($qstn->type == 't/f')
@@ -88,13 +88,12 @@
                       <div class="col-md-6 p_left">
                         <label>{{$opts['true']}}</label>
 
-                        <input type="radio" value="true" name="correcttf" class="btn"/>
+                        <input type="radio" value="true" name="correcttf{{$qstn->id}}" class="btn"/>
 
                         <label>{{$opts['false']}}</label>
 
-                        <input type="radio" value="false" name="correcttf" class="btn"/>
-                                  
-                                  
+                        <input type="radio" value="false" name="correcttf{{$qstn->id}}" class="btn"/>
+                                           
                       </div>
                     </div>
                   </div>

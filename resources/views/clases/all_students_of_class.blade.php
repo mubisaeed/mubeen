@@ -85,6 +85,7 @@
                 @foreach($stds as $index =>$std)
 
                 <?php
+                  $stdd = DB::table('students')->where('s_u_id', $std->s_u_id)->get()->first();
                   $student = DB::table('users')->where('id', $std->s_u_id)->get()->first();
                 ?>
 

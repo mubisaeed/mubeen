@@ -15,15 +15,22 @@ class QuizController extends Controller
     public function student_quizzes($id)
     {
         $quizzes = DB::table('solved_quizzes')->pluck('quiz_id');
-        $quizzes = DB::table('quizzes')->where('course_id', $id)->whereNotIn('id', $quizzes)->orderBy('id', 'desc')->get()->all();
-        return view('quizzes.student_quizzes', compact('quizzes'));
+        $cdate = \Carbon\Carbon::now();
+        $date = $cdate->toDateString();
+        $quizzes = DB::table('quizzes')->where('course_id', $id)->where('quiz_date', $date)->whereNotIn('id', $quizzes)->orderBy('id', 'desc')->get()->all();
+        
+        $ctime = \Carbon\Carbon::now();
+        $time = $ctime->toTimeString();
+
+        return view('quizzes.student_quizzes', compact('quizzes', 'time', 'date'));
     }
 
     public function show_quiz_to_student($id)
     {
         $id = $id;
         $questions = DB::table('quiz_questions')->where('quiz_id', $id)->orderBy('sort_order', 'desc')->get()->all();
-        $quiz_details  = DB::table('quizzes')->where('id', $id)->get()->first();        
+        
+        $quiz_details  = DB::table('quizzes')->where('id', $id)->orderBy('id', 'desc')->get()->first();        
         return view ('quizzes.show_quiz_to_student', compact('questions', 'id', 'quiz_details'));
     }
     public function solved_quiz_by_student(Request $request)
@@ -33,17 +40,20 @@ class QuizController extends Controller
         foreach($no_of_questions as $q)
         {    
             $question = DB::table('questions')->where('id', $q)->get()->first();
-            if($question->type == 'question/answer')
+            
+            if( $question->type == 'question/answer' )
             {
                 $correct = $request->ans;
             }
+            
             elseif($question->type == 't/f')
             {
-                $correct = $request->correcttf;
+                $correct = $request->input('correcttf'.$question->id);
             }
+            
             elseif($question->type == 'mcq')
             {
-                $crct = $request->correct1;
+                $crct = $request->input('correct'.$question->id);
                 $correct = serialize($crct);
             }
             $data = array(
@@ -55,14 +65,176 @@ class QuizController extends Controller
             );
             $success = DB::table('solved_quizzes')->insert($data);
         }
-        if($success){
+
+        $quiz_questions = DB::table('solved_quizzes')->where('solved_quizzes.quiz_id', $quiz_id)->where('student_id', Auth::user()->id)->join('questions', 'questions.id', 'solved_quizzes.question_id')->get()->unique();
+
+            $qstn_marks = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->get()->first();
+            
+            if($qstn_marks == null)
+            {
+                $obtained_marks = array(
+                    's_u_id' => Auth::user()->id,
+                    'quiz_id' => $quiz_id,
+                    'mcq_marks' => 0,
+                    'tf_marks' => 0,
+                    'questions_marks' => 0,
+                );
+                $success = DB::table('obtained_marks_quiz')->insert($obtained_marks);
+
+                foreach($quiz_questions as $qq)
+                {
+                    if($qq->type == 'question/answer' )
+                    {
+                        $correct = $qq->options;
+                        $correct_option = $qq->correct;
+                        if($correct == $correct_option)
+                        {
+                            
+                            $qmarks = $obtained_marks['questions_marks'];
+                            $marks = DB::table('quizzes')->where('id', $quiz_id)->get()->first();
+                            $qa_marks = $marks->mr_per_qa;
+                            $final_q_marks = $qmarks + $qa_marks;
+
+                            $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                's_u_id' => Auth::user()->id,
+                                'quiz_id' => $quiz_id,
+                                'questions_marks' => $final_q_marks,
+                            ]);
+                        }
+                        else
+                        {
+                            $qmarks = $obtained_marks['questions_marks'];
+                            $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                    'questions_marks' => $qmarks,
+                                ]);
+
+                        }
+                    }
+                    elseif($qq->type == 'mcq')
+                    {
+                        $q_type = $qq->type;
+                            
+                        $qstn_option = unserialize($qq->options);
+
+                        $correct_option = unserialize($qq->correct);  
+                        foreach($qstn_option['correct'] as $corr)
+                        {
+                            $correct = $qstn_option[$corr];
+                            foreach($correct_option as $cp)
+                            {
+
+                                if($correct == $cp)
+                                {
+                                    $q_type = $qq->type;
+                                    $mcqmarks = $obtained_marks['mcq_marks'];
+                                    $marks = DB::table('quizzes')->where('id', $quiz_id)->get()->first();
+                                    $mcq_marks = $marks->mr_per_mcq;
+                                    $final_m_marks = $mcqmarks + $mcq_marks;
+
+                                    $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                        's_u_id' => Auth::user()->id,
+                                        'quiz_id' => $quiz_id,
+                                        'mcq_marks' => $final_m_marks,
+                                    ]);
+                                }
+                    
+                                else
+                                {
+                                    $q_type = $qq->type;
+                                    $mcqmarks = $obtained_marks['mcq_marks'];
+                                    $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                            'mcq_marks' => $mcqmarks,
+                                        ]);
+
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+
+                        $qstn_option = unserialize($qq->options);
+                        $correct_option = $qq->correct;
+                          if($qstn_option['correct'] == $correct_option)
+                            {
+                                $tfmarks = $obtained_marks['tf_marks'];
+                                $marks = DB::table('quizzes')->where('id', $quiz_id)->get()->first();
+                                $tf_marks = $marks->mr_per_tf;
+                                $final_tf_marks = $tfmarks + $tf_marks;
+
+                                $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                    's_u_id' => Auth::user()->id,
+                                    'quiz_id' => $quiz_id,
+                                    'tf_marks' => $final_tf_marks,
+                                ]);
+                            }
+                
+                            else
+                            {
+                                $tfmarks = $obtained_marks['tf_marks'];
+                                $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                                        'tf_marks' => $tfmarks,
+                                    ]);
+
+                            }
+                    } 
+                }
+            }
+
+            $quiz = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->get()->first();
+        
+            $mcq_marks = $quiz->mcq_marks;
+            $tf_marks = $quiz->tf_marks;
+            $qa_marks = $quiz->questions_marks;
+
+            $total_marks = $mcq_marks + $tf_marks + $qa_marks;
+
+            $original_quiz_marks = DB::table('quizzes')->where('id', $quiz_id)->get()->first();
+            $original_mcq_marks = $original_quiz_marks->mr_per_mcq; 
+            $original_tf_marks = $original_quiz_marks->mr_per_tf; 
+            $original_qa_marks = $original_quiz_marks->mr_per_qa; 
+
+            
+            $no_of_qa = 0;
+            $no_of_mcq = 0;
+            $no_of_tf = 0;
+            foreach ($quiz_questions as $q) 
+            {
+
+
+                if($q->type == 'question/answer')
+                {
+                    $no_of_qa = $no_of_qa + 1;
+                }
+
+                elseif($q->type == 'mcq')
+                {
+                    $no_of_mcq = $no_of_mcq + 1;
+                }
+
+                else
+                {
+                    $no_of_tf = $no_of_tf + 1;
+                }
+            }
+
+            $original_qa_marks = $no_of_mcq * $original_qa_marks;
+            $original_mcq_marks = $no_of_mcq * $original_mcq_marks;
+            $original_tf_marks = $no_of_mcq * $original_tf_marks;
+
+            $original_marks = $original_qa_marks + $original_mcq_marks + $original_tf_marks;
+
+            $percntage = $total_marks/$original_marks * 100;
+
+             $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+                        'total_marks' => $total_marks,
+                        'percentage' => $percntage,
+                    ]);
+        
             Session::flash('message', 'Quiz submitted successfully');
-            return redirect('/course');
-        }else{
-            Session::flash('message', 'Something went wrong');
-            return redirect()->back();
-        }
+            return redirect('/classes');
     }
+
 
     public function index($id)
     {
@@ -74,41 +246,30 @@ class QuizController extends Controller
 
     public function show_solved_quiz($id)
     {
-        // dd('sddsf');
         $coursequiz = DB::table('quizzes')->where('course_id', $id)->pluck('id');
-        $quizzes = DB::table('solved_quizzes')->whereIn('quiz_id', $coursequiz)->where('student_id', Auth::user()->id)->pluck('quiz_id')->unique();
+        $quizzes = DB::table('solved_quizzes')->whereIn('quiz_id', $coursequiz)->where('student_id', Auth::user()->id)->orderBy('id', 'desc')->pluck('quiz_id')->unique();
         return view('quizzes.solved_quizzes', compact('quizzes'));
     }
 
     public function solved_quiz_result($id)
     {
-        // dd($id);
-        // $quiz_questions = DB::table('solved_quizzes')->where('quiz_id', $id)->get()->pluck('question_id');
-        $quiz_questions = DB::table('solved_quizzes')->select('question_id','correct')->where('quiz_id', $id)->get()->unique();
-        dd($quiz_questions);
-        $qstn = DB::table('questions')->whereIn('id', $quiz_questions)->get()->first();
-        $qstn_options = $qstn->options;
-        if($qstn->type == 'question/answer')
-        {
-            $correct = $qstn_options;
-        }
-        else
-        {
-            $qstn_option = unserialize($qstn_options);
-            foreach($qstn_option['correct'] as $corr)
-            {
-                $correct = $qstn_option[$corr];
-            }
-        }
+        $quiz = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $id)->get()->first();
         
+        $total_marks = $quiz->total_marks;
+
+        $percentage = $quiz->percentage;
+
+        return view('quizzes.solved_quizzes_obtained_marks', compact('total_marks', 'percentage'));
     }
 
-    public function addquestion_to_quiz($id)
+
+
+    public function addquestion_to_quiz($insid, $cid, $week, $qid)
     {
-        $quiz_id = $id;
+        $quiz_id = $qid;
         $qs = DB::table('quiz_questions')->pluck('question_id');
-        $questions = DB::table('questions')->whereNotIn('id', $qs)->get()->all();
-        $coursequiz = DB::table('quizzes')->where('id', $id)->get()->first();
+        $questions = DB::table('questions')->whereNotIn('id', $qs)->where('instructor_id', $insid)->where('course_id', $cid)->where('week', $week)->get()->all();
+        $coursequiz = DB::table('quizzes')->where('id', $qid)->get()->first();
         $course = DB::table('courses')->where('id', $coursequiz->course_id)->get()->first();
         // dd($course);
         return view ('quizzes.addquestion', compact('questions', 'quiz_id', 'course'));
