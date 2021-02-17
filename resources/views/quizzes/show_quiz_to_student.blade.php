@@ -38,7 +38,8 @@
     <div class="course_table mt-0">
 
       <div class="course card-header card-header-warning card-header-icon">
-        <h3>Quiz View</h3>   
+        <h3>Quiz View</h3> 
+        @if(count($questions)>0)  
           <form method="POST" action="{{url('/quiz/solved_quiz_by_student')}}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="quiz_id" value="{{$id}}">
@@ -117,6 +118,13 @@
                 <button type="submit" class="btn btn-success">Submit Quiz</button>
 
           </form>
+        @else
+
+          <p>Wait for quiz.</p>
+          <br>
+          <a  href="{{url('/dashboard')}}"><button type="button" class="btn btn-info">Go Back</button></a>
+
+        @endif
       </div>
 
     </div>

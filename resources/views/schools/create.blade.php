@@ -82,7 +82,7 @@
 
 
                     <div class="inputfile-box">
-                      <input type="file" id="file" class="inputfile" onchange='uploadFile(this)'>
+                      <input type="file" name="simage" id="file" class="inputfile" onchange='uploadFile(this)' accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
                       <label for="file" class="lable_file">
                         <span id="file-name" class="file-box"></span>
                         <span class="file-button">

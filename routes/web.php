@@ -54,7 +54,11 @@ use App\Http\Controllers\GreetingsController;
 
 use App\Http\Controllers\QuestionsController;
 
+use App\Http\Controllers\AttendanceController;
+
 use App\Http\Controllers\QuizController;
+
+use App\Http\Controllers\GradesController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -202,9 +206,24 @@ Route::get('/quiz/edit/{id}',  [QuizController::class, 'edit']);
 
 Route::post('/quiz/edit/{id}',  [QuizController::class, 'update']);
 
+Route::get('/quiz/edit/quiz_questions/{id}',  [QuizController::class, 'edit_quiz_qiuestions']);
+
+Route::post('/quiz/edit/quiz_questions/{id}',  [QuizController::class, 'update_quiz_qiuestions']);
+
 Route::get('/quiz/show/{id}',  [QuizController::class, 'show']);
 
 Route::post('/quiz/delete',  [QuizController::class, 'destroy']);
+
+
+///setgrades
+
+
+Route::get('/setgrades',  [GradesController::class, 'setgrades']);
+Route::post('/setgrades',  [GradesController::class, 'savegrades']);
+Route::get('/editgrades/{id}',  [GradesController::class, 'editgrades']);
+Route::post('/updategrades/{id}',  [GradesController::class, 'updategrades']);
+Route::get('/grade/delete', [GradesController::class, 'destroy']);
+
 
 
 //User Guide Route
@@ -294,8 +313,30 @@ Route::get('/get-students', [StudentsController::class, 'get_students']);
 
 Route::get('/filter_recent_students/{id}', [StudentsController::class, 'filterrecent']);
 
+//upload excel file
+
+Route::post('/import_file_students', [StudentsController::class, 'import']);
+
+Route::get('/add_student_sample', [StudentsController::class, 'addsample']);
+
+Route::post('/add_student_sample', [StudentsController::class, 'storesample']);
 
 
+
+//Attendance
+
+
+Route::get('/show_student_attendance/{cid}', [AttendanceController::class, 'show_attendance_to_student']);
+
+Route::get('/show_attendance_to_school', [AttendanceController::class, 'show_attendance_to_school']);
+
+Route::get('/attendance_dropdown-data/{id}',[AttendanceController::class, 'data']);
+
+Route::get('/attendance_course_dropdown-data/{id}',[AttendanceController::class, 'course_data']);
+
+Route::get('/export_student_attendance', [AttendanceController::class, 'export']);
+
+Route::get('/export_attendance_by_instructor', [AttendanceController::class, 'export_students']);
 
 
 //students crud

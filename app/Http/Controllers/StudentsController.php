@@ -8,13 +8,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\User;
-
-use App\Course;
-
-use App\Student;
 
 use File;
+
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Imports\ProjectsImport;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -31,13 +30,48 @@ use Illuminate\Support\Facades\DB;
 class StudentsController extends Controller
 
 {
+    public function import(Request $request)
+    {
+
+        $file=$request->file('select_file')->store('import');
+        //Excel::import(new ProjectsImport, request()->file('file'));
+        (new ProjectsImport)->import($file);
+
+        return redirect('/students')->with('message', 'File imported Successfully');
+    }
+
+    public function addsample()
+    {
+        return view('students.sample');
+    }
+
+    public function storesample(Request $request)
+    {
+
+        $file = $request->file('file');
+
+        $fileName = time().'.'.$file->getClientOriginalName();
+
+        $file->move(public_path('storage/'), $fileName);
+
+        $fileType =$file->getClientOriginalExtension();
+
+        $sample = array(
+            'file' => $fileName,
+            'type' => $fileType,
+            'school_id' => Auth::user()->id,
+        );
+        DB::table('student_excel_samples')->insert($sample);
+        Session::flash('message', 'File Stored Successfully');
+        return view('students.sample');
+    }
+
+
     public function students()
 
     {
 
            $user = Auth::user()->id;
-
-        // $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->orderBy('id', 'desc')->get();
            $students = DB::table('students')->get()->all();
 
         $schools  = DB::table('schools')->get()->all();
@@ -58,7 +92,9 @@ class StudentsController extends Controller
 
         $instructors = DB::table('users')->where('id', 4)->get()->all();
 
-    	return view ('students.create', compact('user', 'schools', 'instructors'));
+        $samples = DB::table('student_excel_samples')->where('school_id', Auth::user()->id)->get()->all();
+
+    	return view ('students.create', compact('user', 'schools', 'instructors', 'samples'));
 
     }
 

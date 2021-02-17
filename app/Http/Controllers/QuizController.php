@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Quiz;
+use App\Http\Traits\QuizTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
+
+    use QuizTrait;
+
     public function student_quizzes($id)
     {
         $quizzes = DB::table('solved_quizzes')->pluck('quiz_id');
@@ -100,6 +104,14 @@ class QuizController extends Controller
                                 'quiz_id' => $quiz_id,
                                 'questions_marks' => $final_q_marks,
                             ]);
+
+                            $individual_marks = array(
+                                's_u_id' => Auth::user()->id,
+                                'quiz_id' => $quiz_id,
+                                'question_id' => $qq->id,
+                                'marks' => $qa_marks,
+                            );
+                            DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
                         }
                         else
                         {
@@ -108,10 +120,19 @@ class QuizController extends Controller
                                     'questions_marks' => $qmarks,
                                 ]);
 
+                            $individual_marks = array(
+                                's_u_id' => Auth::user()->id,
+                                'quiz_id' => $quiz_id,
+                                'question_id' => $qq->id,
+                                'marks' => 0,
+                            );
+                            DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+
                         }
                     }
                     elseif($qq->type == 'mcq')
                     {
+
                         $q_type = $qq->type;
                             
                         $qstn_option = unserialize($qq->options);
@@ -136,6 +157,14 @@ class QuizController extends Controller
                                         'quiz_id' => $quiz_id,
                                         'mcq_marks' => $final_m_marks,
                                     ]);
+
+                                    $individual_marks = array(
+                                        's_u_id' => Auth::user()->id,
+                                        'quiz_id' => $quiz_id,
+                                        'question_id' => $qq->id,
+                                        'marks' => $mcq_marks,
+                                    );
+                                    DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
                                 }
                     
                                 else
@@ -146,13 +175,20 @@ class QuizController extends Controller
                                             'mcq_marks' => $mcqmarks,
                                         ]);
 
+                                    $individual_marks = array(
+                                        's_u_id' => Auth::user()->id,
+                                        'quiz_id' => $quiz_id,
+                                        'question_id' => $qq->id,
+                                        'marks' => 0,
+                                    );
+                                    DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+
                                 }
                             }
                         }
                     }
                     else
                     {
-
                         $qstn_option = unserialize($qq->options);
                         $correct_option = $qq->correct;
                           if($qstn_option['correct'] == $correct_option)
@@ -167,6 +203,13 @@ class QuizController extends Controller
                                     'quiz_id' => $quiz_id,
                                     'tf_marks' => $final_tf_marks,
                                 ]);
+                                $individual_marks = array(
+                                        's_u_id' => Auth::user()->id,
+                                        'quiz_id' => $quiz_id,
+                                        'question_id' => $qq->id,
+                                        'marks' => $tf_marks,
+                                    );
+                                DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
                             }
                 
                             else
@@ -175,6 +218,13 @@ class QuizController extends Controller
                                 $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
                                         'tf_marks' => $tfmarks,
                                     ]);
+                                $individual_marks = array(
+                                        's_u_id' => Auth::user()->id,
+                                        'quiz_id' => $quiz_id,
+                                        'question_id' => $qq->id,
+                                        'marks' => 0,
+                                );
+                                DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
 
                             }
                     } 
@@ -218,18 +268,21 @@ class QuizController extends Controller
                 }
             }
 
-            $original_qa_marks = $no_of_mcq * $original_qa_marks;
+            $original_qa_marks = $no_of_qa * $original_qa_marks;
             $original_mcq_marks = $no_of_mcq * $original_mcq_marks;
-            $original_tf_marks = $no_of_mcq * $original_tf_marks;
+            $original_tf_marks = $no_of_tf * $original_tf_marks;
 
             $original_marks = $original_qa_marks + $original_mcq_marks + $original_tf_marks;
 
             $percntage = $total_marks/$original_marks * 100;
 
-             $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
+            $success = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->update([
                         'total_marks' => $total_marks,
                         'percentage' => $percntage,
                     ]);
+            // dd('sdsdafds');
+            
+            return $this->solved_quiz_result($quiz_id);
         
             Session::flash('message', 'Quiz submitted successfully');
             return redirect('/classes');
@@ -244,22 +297,33 @@ class QuizController extends Controller
         return view('quizzes.index', compact('quizzes', 'course_id', 'instructor_id'));
     }
 
-    public function show_solved_quiz($id)
-    {
-        $coursequiz = DB::table('quizzes')->where('course_id', $id)->pluck('id');
-        $quizzes = DB::table('solved_quizzes')->whereIn('quiz_id', $coursequiz)->where('student_id', Auth::user()->id)->orderBy('id', 'desc')->pluck('quiz_id')->unique();
-        return view('quizzes.solved_quizzes', compact('quizzes'));
-    }
+    // public function show_solved_quiz($id)
+    // {
+    //     $coursequiz = DB::table('quizzes')->where('course_id', $id)->pluck('id');
+    //     $quizzes = DB::table('solved_quizzes')->whereIn('quiz_id', $coursequiz)->where('student_id', Auth::user()->id)->orderBy('id', 'desc')->pluck('quiz_id')->unique();
+    //     return view('quizzes.solved_quizzes', compact('quizzes'));
+    // }
 
     public function solved_quiz_result($id)
     {
+        // dd('sdfsd');
         $quiz = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $id)->get()->first();
         
         $total_marks = $quiz->total_marks;
 
         $percentage = $quiz->percentage;
 
-        return view('quizzes.solved_quizzes_obtained_marks', compact('total_marks', 'percentage'));
+        $AA = DB::table('grades')->where('grade', 'A+')->first(); 
+        $A = DB::table('grades')->where('grade', 'A')->first(); 
+        $BB = DB::table('grades')->where('grade', 'B+')->first(); 
+        $B = DB::table('grades')->where('grade', 'B')->first(); 
+        $CC = DB::table('grades')->where('grade', 'C+')->first(); 
+        $C = DB::table('grades')->where('grade', 'C')->first(); 
+        $DD = DB::table('grades')->where('grade', 'D+')->first(); 
+        $D = DB::table('grades')->where('grade', 'D')->first(); 
+        $F = DB::table('grades')->where('grade', 'F')->first(); 
+
+        return view('quizzes.solved_quizzes_obtained_marks', compact('total_marks', 'percentage', 'AA', 'A', 'BB', 'B', 'CC', 'C', 'DD', 'D', 'F'));
     }
 
 
@@ -271,8 +335,7 @@ class QuizController extends Controller
         $questions = DB::table('questions')->whereNotIn('id', $qs)->where('instructor_id', $insid)->where('course_id', $cid)->where('week', $week)->get()->all();
         $coursequiz = DB::table('quizzes')->where('id', $qid)->get()->first();
         $course = DB::table('courses')->where('id', $coursequiz->course_id)->get()->first();
-        // dd($course);
-        return view ('quizzes.addquestion', compact('questions', 'quiz_id', 'course'));
+        return view ('quizzes.addquestion', compact('questions', 'quiz_id', 'course', 'week', 'insid'));
     }
 
     public function storequestion_to_quiz(Request $request)
@@ -341,14 +404,10 @@ class QuizController extends Controller
             'instructor_id' => Auth::user()->id,
             'course_id' => $request->course_id,
         );
-        $success = DB::table('quizzes')->insert($quiz);
-        if($success){
-            Session::flash('message', 'Quiz created successfully');
-            return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
-        }else{
-            Session::flash('message', 'Something went wrong');
-            return redirect()->back();
-        }
+        $newquiz = DB::table('quizzes')->insertgetId($quiz);
+       
+            Session::flash('message', 'Quiz created successfully.');
+            return redirect('/quiz/addquestion/toquiz/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week .'/'. $newquiz);
     }
 
     public function edit($id)
@@ -405,5 +464,42 @@ class QuizController extends Controller
         $quizzes = DB::table('quizzes')->where('instructor_id', $instructor_id)->where('course_id', $course_id)->where('week', $week)->orderBy('id', 'desc')->get();
         return view('quizzes.index', compact('quizzes', 'course_id', 'instructor_id'));
 
+    }
+
+    public function edit_quiz_qiuestions($id)
+    {
+        $questions = DB::table('questions')->where('quiz_id', $id)->get();
+        $quiz_questions = DB::table('quiz_questions')->where('quiz_id', $id)->pluck('question_id')->toArray();
+        return view('courses.edit_quiz_questions', compact('questions', 'id', 'quiz_questions'));
+    }
+
+    public function update_quiz_qiuestions(Request $request, $id)
+    {
+
+        Db::table('quiz_questions')->where('quiz_id', $request->id)->delete();
+                
+          if(!empty($request->question_id))
+        {
+             $so = '1';
+            foreach( $request->question_id  as $question_id)
+            {
+                $quiz_questions = array(
+                    'quiz_id' => $request->quiz_id,
+                    'question_id' => $question_id,
+                    'sort_order' => $so,
+                );
+                $so++;
+                DB::table('quiz_questions')->insert($quiz_questions);
+            }
+          Session::flash('message', 'Selected questions added to quiz.');
+          return redirect()->back();
+        }
+       else
+        {
+           Session::flash('message', 'No Question Selected');
+
+            return back();
+        }
+        
     }
 }

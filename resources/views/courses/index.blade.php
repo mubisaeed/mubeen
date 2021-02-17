@@ -157,8 +157,9 @@
 
                   <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a>
 
-                  <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}">Course View</a>
+                  <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}" target="_blank">Course View</a>
 
+                  <a class="btn btn-primary" href="{{url('/show_student_attendance/'.$course->id)}}">Show attendance</a>
 
 <!--                   <li class="nav-item dropdown">
 
@@ -484,16 +485,16 @@
     /* Act on the event */
     $(this).toggleClass('btn-success');
   });
-$('.parent_input1').click(function(event) {
+  $('.parent_input1').click(function(event) {
     /* Act on the event */
      $('.parent_input1 i').toggle();
   });
-$('.parent_input2').click(function(event) {
+  $('.parent_input2').click(function(event) {
     /* Act on the event */
      $('.parent_input2 i').toggle();
   });
 
-$('.parent_input3').click(function(event) {
+  $('.parent_input3').click(function(event) {
     /* Act on the event */
      $('.parent_input3 i').toggle();
   });

@@ -106,7 +106,7 @@
 
                             <div class="s_edit_pic">
 
-                              <input type="file" id="imgupload" name="image" accept="image/*" capture style="display:none"/>
+                              <input type="file" id="imgupload" name="image" accept="image/x-png,image/gif,image/jpeg" capture style="display:none"/>
 
                               <a id="OpenImgUpload"> <i class="fa fa-pencil"></i> </a>
 

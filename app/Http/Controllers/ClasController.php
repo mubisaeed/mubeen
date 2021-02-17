@@ -196,8 +196,9 @@ class ClasController extends Controller
             }
             // end for permission
         $icons = DB::table('icons')->get();
+        $departments = DB::table('departments')->where('school_id', Auth::user()->id)->get();
         
-    	return view('clases.create', compact('icons'));
+    	return view('clases.create', compact('icons', 'departments'));
     }
 
     public function store(Request $request)

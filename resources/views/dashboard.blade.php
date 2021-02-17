@@ -818,7 +818,7 @@
 
                 <div class="radio_event_list">
 
-                  <label class="container_radio">All
+                  <label class="container_radio">School Calendar
 
                     <input type="radio" checked="checked" name="radio">
 
@@ -850,13 +850,13 @@
 
                   </label>
 
-                  <label class="container_radio">Populated
+                  <!-- <label class="container_radio">Populated
 
                     <input type="radio" name="radio">
 
                     <span class="checkmark"></span>
 
-                  </label>
+                  </label> -->
 
                 </div>
 
@@ -1140,7 +1140,7 @@
 
         <div class="s_form_button">
 
-          <a href="/showprofile"><button type="button" class="btn cncl_btn">Cancel</button></a>
+          <a href="/dashboard"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
           <button type="submit" class="btn save_btn">Save</button>
 

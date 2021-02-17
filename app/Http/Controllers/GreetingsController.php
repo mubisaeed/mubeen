@@ -75,7 +75,7 @@ class GreetingsController extends Controller
 
         if($greetings){
 
-            return redirect('/greetings/index')->with('message', 'Greeting Create Successfully');
+            return redirect('/greetings/index')->with('message', 'Greeting message created successfully');
     
             }else{
     

@@ -191,7 +191,15 @@
                         </td>
 
                         <td class="first_row">
-                          <a href="{{url('/quiz/addquestion/toquiz/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}" class="btn btn-success"> Add questions</a>
+                          <?php
+                            $check_quiz = DB::table('solved_quizzes')->where('quiz_id', $quiz->id)->get()->first();
+                          ?>
+                          @if($check_quiz != null)
+
+                          <button type="button" class="btn btn-success" disabled>Add questions</button>
+                          @else
+                            <a href="{{url('/quiz/addquestion/toquiz/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}" class="btn btn-success" > Add questions</a>
+                          @endif
                         </td>
 
                         <td class="first_row">
@@ -216,7 +224,9 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
 
-                              <a class="dropdown-item" href="{{url('/mcq/create/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-cogs"></i>Create Questions</a>
+                              <a class="dropdown-item" href="{{url('/quiz/edit/quiz_questions/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit Quiz Questions</a>
+
+                              <a class="dropdown-item" href="{{url('/mcq/create/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-plus"></i>Create Questions</a>
 
                               <a class="dropdown-item" href="{{url('/quiz/edit/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 

@@ -152,6 +152,8 @@
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
 
+                      <a class="dropdown-item" href="{{url('/show_student_attendance/'. $course->id)}}"><i class="fas fa-fingerprint" aria-hidden="true"></i>View Attendance</a>
+
                       <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
 
                       <a class="dropdown-item" href="{{url('/quiz/showquiz_to_student/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>

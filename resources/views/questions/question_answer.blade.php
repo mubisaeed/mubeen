@@ -267,7 +267,7 @@
 
             </table>   
 
-<div class="table_footer">
+          <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager pagination">

@@ -91,7 +91,7 @@ class ProfileController extends Controller
 
             'contact' => 'required|min:12|max:12',
 
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             
             'bio' => 'required',
 
