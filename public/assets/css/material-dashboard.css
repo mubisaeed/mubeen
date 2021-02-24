@@ -28448,7 +28448,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 .sidebar .nav li .dropdown-menu a:focus,
 
-.sidebar .nav li.active>[data-toggle="collapse"] {
+.sidebar .nav li.active>[data-toggle="collapse"] , .nav-item.active .nav-link {
 
   background-color: rgb(51 153 255);
 
@@ -36906,7 +36906,7 @@ Copyright (c) 2015 Daniel Eden
 
 }
 
-.dropdown_item .collapse-item:hover {
+.dropdown_item .collapse-item:hover , .active_multidropdown {
   background: #3399ff30;
 }
 
