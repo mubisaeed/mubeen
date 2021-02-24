@@ -227,7 +227,7 @@
 
           </li>
 
-          <li class="nav-item ">
+          <li class="nav-item {{ Request::is('add_student_sample') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{url('/add_student_sample')}}">
 
@@ -239,7 +239,7 @@
 
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item {{ Request::is('show_attendance_to_school') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{url('/show_attendance_to_school')}}">
 
@@ -252,7 +252,9 @@
           </li>
 
           @if(  in_array('All Departments', $data) || in_array('Add Department', $data) ) 
-            <li class="nav-item dropdown_item  {{ Request::is('departments') ? 'active' : '' }}">
+            <li class="nav-item dropdown_item  
+              {{(Request::is('departments') || Request::is('departments/create'))? 'active' : '' }}
+            ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 
@@ -262,21 +264,21 @@
 
             </a>
 
-            <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseOne" class="collapse {{(Request::is('departments') || Request::is('departments/create'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
               @if(  in_array('All Departments', $data) )
-                <a class="collapse-item" href="{{url('/departments')}}">All Departments</a>
+                <a class="collapse-item {{ Request::is('departments') ? 'active_multidropdown' : '' }}" href="{{url('/departments')}}">All Departments</a>
                 @endif
               @if(  in_array('Add Department', $data) )
-                <a class="collapse-item" href="{{url('/departments/create')}}">Add Department</a>
+                <a class="collapse-item {{ Request::is('departments/create') ? 'active_multidropdown' : '' }}" href="{{url('/departments/create')}}">Add Department</a>
               @endif
               </div>
 
             </div>
 
           </li>
-          <li class="nav-item">
+          <li class="nav-item {{ Request::is('setgrades') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{url('/setgrades')}}">
 
@@ -291,7 +293,9 @@
 
            @if(  in_array('All Classes', $data) || in_array('Add New Class', $data) ) 
             <!--classes-->
-              <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
+              <li class="nav-item dropdown_item  
+                {{(Request::is('classes') || Request::is('classcreate'))? 'active' : '' }}
+              ">
       
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
       
@@ -301,14 +305,14 @@
       
                 </a>
       
-                <div id="collapseEleven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div id="collapseEleven" class="collapse {{(Request::is('classes') || Request::is('classcreate'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
       
                   <div class="py-2 collapse-inner rounded">
                    @if(  in_array('All Classes', $data)  )
-                    <a class="collapse-item" href="{{url('/classes')}}">All Terms</a>
+                    <a class="collapse-item {{ Request::is('classes') ? 'active_multidropdown' : '' }}" href="{{url('/classes')}}">All Terms</a>
                     @endif
                        @if(  in_array('Add New Class', $data) )
-                    <a class="collapse-item" href="{{url('/classcreate')}}">Add New Term</a>
+                    <a class="collapse-item {{ Request::is('classcreate') ? 'active_multidropdown' : '' }}" href="{{url('/classcreate')}}">Add New Term</a>
                     @endif
       
                   </div>
@@ -320,7 +324,9 @@
               
           @if(  in_array('All Courses', $data) || in_array('Add New Course', $data) )    
         <!--courses-->
-        <li class="nav-item dropdown_item  {{ Request::is('course') ? 'active' : '' }}">
+        <li class="nav-item dropdown_item  
+          {{(Request::is('course') || Request::is('courses'))? 'active' : '' }}
+        ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 
@@ -330,14 +336,14 @@
 
             </a>
 
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseTwo" class="collapse {{(Request::is('course') || Request::is('courses'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
                  @if(  in_array('All Courses', $data) ) 
-                <a class="collapse-item" href="{{url('/course')}}">All Courses</a>
+                <a class="collapse-item {{ Request::is('course') ? 'active_multidropdown' : '' }}" href="{{url('/course')}}">All Courses</a>
                  @endif
                  @if( in_array('Add New Course', $data) ) 
-                <a class="collapse-item" href="{{url('/courses')}}">Add New Course</a>
+                <a class="collapse-item {{ Request::is('courses') ? 'active_multidropdown' : '' }}" href="{{url('/courses')}}">Add New Course</a>
                  @endif
               </div>
 
@@ -351,7 +357,9 @@
 
           @if(  in_array('All Students', $data) || in_array('Add New Student', $data) )    
         <!--courses-->
-          <li class="nav-item dropdown_item  {{ Request::is('students') ? 'active' : '' }}">
+          <li class="nav-item dropdown_item  
+            {{(Request::is('students') || Request::is('studentcreate'))? 'active' : '' }}
+          ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 
@@ -361,14 +369,14 @@
 
             </a>
 
-            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseThree" class="collapse {{(Request::is('students') || Request::is('studentcreate'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
                    @if(  in_array('All Students', $data) )
-                <a class="collapse-item" href="{{url('/students')}}">All Students</a>
+                <a class="collapse-item {{ Request::is('students') ? 'active_multidropdown' : '' }}" href="{{url('/students')}}">All Students</a>
                    @endif
                    @if(  in_array('Add New Student', $data) )
-                <a class="collapse-item" href="{{url('/studentcreate')}}">Add New Student</a>
+                <a class="collapse-item {{ Request::is('studentcreate') ? 'active_multidropdown' : '' }}" href="{{url('/studentcreate')}}">Add New Student</a>
                    @endif
 
               </div>
@@ -380,7 +388,9 @@
 
         <!-- ins-->
         @if(  in_array('All Instructors', $data) || in_array('Add Instructor', $data) ) 
-        <li class="nav-item dropdown_item  {{ Request::is('instructors') ? 'active' : '' }}">
+        <li class="nav-item dropdown_item  
+          {{(Request::is('instructors') || Request::is('instructors/create'))? 'active' : '' }}
+        ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
 
@@ -390,14 +400,14 @@
 
             </a>
 
-            <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseFive" class="collapse {{(Request::is('instructors') || Request::is('instructors/create'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
             @if(  in_array('All Instructors', $data)  ) 
-                <a class="collapse-item" href="{{url('/instructors')}}">All Instructors</a>
+                <a class="collapse-item {{ Request::is('instructors') ? 'active_multidropdown' : '' }}" href="{{url('/instructors')}}">All Instructors</a>
             @endif
             @if(   in_array('Add Instructor', $data) ) 
-                <a class="collapse-item" href="{{url('/instructors/create')}}">Add Instructor</a>
+                <a class="collapse-item {{ Request::is('instructors/create') ? 'active_multidropdown' : '' }}" href="{{url('/instructors/create')}}">Add Instructor</a>
             @endif
               </div>
 
@@ -408,7 +418,9 @@
           
           @if(  in_array('All Rooms', $data) || in_array('Add Room', $data) ) 
         <!--rooms-->
-        <li class="nav-item dropdown_item  {{ Request::is('rooms') ? 'active' : '' }}">
+        <li class="nav-item dropdown_item  
+          {{(Request::is('rooms') || Request::is('rooms/create'))? 'active' : '' }}
+        ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
 
@@ -418,14 +430,14 @@
 
             </a>
 
-            <div id="collapseNine" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseNine" class="collapse {{(Request::is('rooms') || Request::is('rooms/create'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
                 @if(  in_array('All Rooms', $data)  ) 
-                <a class="collapse-item" href="{{url('/rooms')}}">All Rooms</a>
+                <a class="collapse-item {{ Request::is('rooms') ? 'active_multidropdown' : '' }}" href="{{url('/rooms')}}">All Rooms</a>
                 @endif
                 @if(   in_array('Add Room', $data) ) 
-                <a class="collapse-item" href="{{url('/rooms/create')}}">Add Room</a>
+                <a class="collapse-item {{ Request::is('rooms/create') ? 'active_multidropdown' : '' }}" href="{{url('/rooms/create')}}">Add Room</a>
                 @endif
 
               </div>
@@ -465,7 +477,9 @@
           <!-- @endif -->
           @if(  in_array('Icons List', $data) || in_array('Add New Icon', $data) ) 
            <!--icons-->
-          <li class="nav-item dropdown_item  {{ Request::is('viewicon') ? 'active' : '' }}">
+          <li class="nav-item dropdown_item  
+            {{(Request::is('viewicon') || Request::is('create/icon'))? 'active' : '' }}
+          ">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 
@@ -475,14 +489,14 @@
 
             </a>
 
-            <div id="collapseSix" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseSix" class="collapse {{(Request::is('viewicon') || Request::is('create/icon'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
                  @if(  in_array('Icons List', $data) )
-                <a class="collapse-item" href="{{url('/viewicon')}}">Icons List</a>
+                <a class="collapse-item {{ Request::is('viewicon') ? 'active_multidropdown' : '' }}" href="{{url('/viewicon')}}">Icons List</a>
                  @endif
                @if(  in_array('Add New Icon', $data) )
-                <a class="collapse-item" href="{{url('/create/icon')}}">Add new icon</a>
+                <a class="collapse-item {{ Request::is('create/icon') ? 'active_multidropdown' : '' }}" href="{{url('/create/icon')}}">Add new icon</a>
                 @endif
 
               </div>
@@ -692,7 +706,7 @@
       
        
    
-         <li class="nav-item dropdown_item {{ request()->is('classes') ? 'active' : '' }}">
+         <li class="nav-item dropdown_item {{ Request::is('classes') ? 'active' : '' }}">
             
                       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
             
@@ -702,10 +716,10 @@
             
                       </a>
       
-                <div id="collapseEleven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div id="collapseEleven" class="collapse {{ Request::is('classes') ? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
       
                   <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{url('/classes')}}">All Terms/Sessions</a>
+                    <a class="collapse-item {{ Request::is('classes') ? 'active_multidropdown' : '' }}" href="{{url('/classes')}}">All Terms/Sessions</a>
                    
       
                   </div>
@@ -740,7 +754,7 @@
           
             
 
-             <li class="nav-item dropdown_item">
+             <li class="nav-item dropdown_item {{(Request::is('special_education/index') || Request::is('special_education/create'))? 'active' : '' }}">
 
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
 
@@ -750,18 +764,18 @@
 
             </a>
 
-            <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="collapseThree" class="collapse {{(Request::is('special_education/index') || Request::is('special_education/create'))? 'show' : '' }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
 
               <div class="py-2 collapse-inner rounded">
 
               @if(auth()->user()->role_id == '3')
               
-                <a class="collapse-item" href="{{url('/special_education/index')}}">Special Education</a>
+                <a class="collapse-item {{ Request::is('special_education/index') ? 'active_multidropdown' : '' }}" href="{{url('/special_education/index')}}">Special Education</a>
 
                 @endif
                   
                 
-                <a class="collapse-item" href="{{url('/special_education/create')}}">Add Special Education</a>
+                <a class="collapse-item {{ Request::is('special_education/create') ? 'active_multidropdown' : '' }}" href="{{url('/special_education/create')}}">Add Special Education</a>
                   
 
               </div>
