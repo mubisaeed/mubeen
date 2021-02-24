@@ -832,12 +832,3 @@
       </div>
 
   </div>
-
- <script> 
-    $(document).ready(function() { 
-        $('li').click(function() { 
-            $('li.nav-item.active').removeClass("active"); 
-            $(this).addClass("active"); 
-        }); 
-    }); 
-</script> 

@@ -302,30 +302,31 @@
           <p>OverAll Grade: something</p>
 
           <a  href="{{url('/studentcourses/'.$clsid)}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Back</button></a>
-
-          <div class="table_footer">
-            <div class="table_pegination">
-              <nav>
-                <ul class="pager pagination">
-                  <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-                  <span class="sr-only">(current)</span></span></li>
-                  <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-                  <span class="sr-only">(current)</span></span></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="table_rows">
-              <div class="rows_main">
-                <p>Rows per page</p>
-                <select name="state" id="maxRows">
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                </select>
+          @if(count($quizzes)>5)
+            <div class="table_footer">
+              <div class="table_pegination">
+                <nav>
+                  <ul class="pager pagination">
+                    <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
+                    <span class="sr-only">(current)</span></span></li>
+                    <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
+                    <span class="sr-only">(current)</span></span></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="table_rows">
+                <div class="rows_main">
+                  <p>Rows per page</p>
+                  <select name="state" id="maxRows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
+          @endif
 
          @else
 

@@ -206,7 +206,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$cid)->first();
-        $mcqs = DB::table('questions')->where('type', 'mcq')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
+        $mcqs = DB::table('questions')->where('type', 'mcq')->where('week', $week)->where('instructor_id', $insid)->where('course_id', $course->id)->where('quiz_id', $qid)->orderBy('id', 'desc')->get()->all();
         $instructor_id = Auth::user()->id;
         $week = $week;
         $qid = $qid;
@@ -250,7 +250,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$cid)->first();
-        $questions = DB::table('questions')->where('type', 'question/answer')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
+        $questions = DB::table('questions')->where('type', 'question/answer')->where('week', $week)->where('instructor_id', $insid)->where('course_id', $course->id)->where('quiz_id', $qid)->orderBy('id', 'desc')->get()->all();
         $instructor_id = Auth::user()->id;
         $week = $week;
         $qid = $qid;
@@ -285,7 +285,7 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $course = DB::table('courses')->where('id',$cid)->first();
-        $tfs = DB::table('questions')->where('type', 't/f')->where('course_id', $course->id)->orderBy('id', 'desc')->get()->all();
+        $tfs = DB::table('questions')->where('type', 't/f')->where('week', $week)->where('instructor_id', $insid)->where('course_id', $course->id)->where('quiz_id', $qid)->orderBy('id', 'desc')->get()->all();
         $instructor_id = Auth::user()->id;
         $week = $week;
         $qid = $qid;

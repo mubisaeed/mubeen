@@ -108,7 +108,9 @@ class QuizController extends Controller
 
         $quiz_questions = DB::table('solved_quizzes')->where('solved_quizzes.quiz_id', $quiz_id)->where('student_id', Auth::user()->id)->join('questions', 'questions.id', 'solved_quizzes.question_id')->get()->unique();
 
-            $qstn_marks = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->get()->first();
+
+        $qstn_marks = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->get()->first();
+
             
             if($qstn_marks == null)
             {

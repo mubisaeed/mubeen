@@ -41,7 +41,7 @@
       <div class="quiz_tabs">
 
         <ul class="nav nav-tabs ">
-          <li class="quiz_tab_link active">
+          <li class="quiz_tab_link">
             <a href="{{url('/mcq/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Multiple Choice </a>
           </li>
@@ -49,7 +49,7 @@
             <a href="{{url('/q/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Questions</a>
           </li>
-          <li class="quiz_tab_link second">
+          <li class="quiz_tab_link second active">
             <a href="{{url('/tf/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             True/False </a>
           </li>

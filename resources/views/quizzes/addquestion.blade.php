@@ -134,6 +134,8 @@
               
               <a class="btn btn-primary" href="{{url('/mcq/create/'. $insid .'/'. $course->id .'/'. $week .'/'. $quiz_id)}}"><i class="fa fa-plus"></i>Create Questions</a>
 
+              <a  href="{{url('/course/show_week_details/'. $insid .'/'. $course->id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Back</button></a>
+
             @endif
                
           </div>

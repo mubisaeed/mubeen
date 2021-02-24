@@ -41,11 +41,11 @@
       <div class="quiz_tabs">
 
         <ul class="nav nav-tabs ">
-          <li class="quiz_tab_link active">
+          <li class="quiz_tab_link">
             <a href="{{url('/mcq/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Multiple Choice </a>
           </li>
-          <li class="quiz_tab_link no_radius">
+          <li class="quiz_tab_link no_radius  active">
             <a href="{{url('/q/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Questions</a>
           </li>
