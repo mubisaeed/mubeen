@@ -91,9 +91,8 @@ class ProfileController extends Controller
 
             'contact' => 'required|min:12|max:12',
 
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             
-            'bio' => 'required',
 
         ]);
 
@@ -140,12 +139,13 @@ class ProfileController extends Controller
 
                }    
 
-                else {
+                else 
+                {
                     $user = User::find($id);
 
                     $password = $user->password;
 
-                    }
+                }
 
                  $data = User::find($id);
 

@@ -146,11 +146,36 @@
 
                   </div>
 
-                  <div class="col-md-6 p_left">
+
+                  <div class="col-md-12 p_right">
+
+                    <div class="custom_input_main select_plugin mobile_field">
+
+                    <select class="selectpicker" required="" name="sessions" id="slct">
+
+                      <option> Select Session </option>
+
+                      <option value="1">One session  ( 9 weeks ) </option>
+
+                      <option value="2">Two sessions-One semester ( 18 weeks )  </option>
+
+                      <option value="3">Three session  ( 27 weeks )</option>
+
+                      <option value="4">Four sessions-Two semesters ( 36 weeks )</option>
+
+                    </select>
+
+                    <label class="select_lable">Sessions</label>
+
+                  </div>
+
+                  </div>
+
+                  <div class="col-md-6 p_left" id="startdate">
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="date" class="form-control" name="sdate" value="{{old('sdate')}}" onchange="invoicedue(event);" class="mb-4" required="" autofocus="">
+                      <input type="date" class="form-control" name="sdate" value="{{old('sdate')}}" onchange="invoicedue(event);" class="mb-4" autofocus="">
 
                       <label>Start Date
 
@@ -160,7 +185,7 @@
 
                     </div>
 
-                    <div class="col-md-6 p_right">
+                    <!-- <div class="col-md-6 p_right">
 
                       <div class="custom_input_main mobile_field">
 
@@ -172,7 +197,7 @@
 
                         </div>
 
-                      </div>
+                      </div> -->
 
                   <div class="col-md-6 p_left">
 
@@ -247,28 +272,6 @@
 
                       </div>
 
-                      <div class="col-md-6 p_right">
-
-                        <div class="custom_input_main select_plugin mobile_field">
-
-                        <select class="selectpicker" name="sessions">
-
-                          <option value="1">One session  ( 9 weeks ) </option>
-
-                          <option value="2">Two sessions-One semester ( 18 weeks )  </option>
-
-                          <option value="3">Three session  ( 27 weeks )</option>
-
-                          <option value="4">Four sessions-Two semesters ( 36 weeks )</option>
-
-                        </select>
-
-                        <label class="select_lable">Sessions</label>
-
-                      </div>
-
-                      </div>
-
                     </div>
 
 
@@ -316,7 +319,23 @@
 
     </div>
 
+<script type="text/javascript">  
+  $(document).ready(function(){
+     $('#startdate').hide();
+  });
+</script>
 
+<script type="text/javascript">
+    $(function () {
+        $("#slct").change(function () {
+            if ($(this).val() != null) {
+                $("#startdate").show();
+            } else {
+                $("#startdate").hide();
+            }
+        });
+    });
+</script>
 
 <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 

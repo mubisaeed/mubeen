@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\Support\Facades\Validator;
 
+use Maatwebsite\Excel\Concerns\WithValidation;
+
+use Throwable;
+
 use Illuminate\Support\Facades\DB;
 
 
@@ -32,6 +36,20 @@ class StudentsController extends Controller
 {
     public function import(Request $request)
     {
+        $validator = Validator::make(
+          [
+              'select_file'      => $request->select_file,
+              'extension' => strtolower($request->select_file->getClientOriginalExtension()),
+          ],
+          [
+              'select_file'          => 'required',
+              'extension'      => 'required|in:xlsx,xls',
+          ]
+        );
+        if ($validator->fails()) 
+        {
+             return back()->withErrors($validator);
+           }
 
         $file=$request->file('select_file')->store('import');
         //Excel::import(new ProjectsImport, request()->file('file'));
@@ -48,6 +66,11 @@ class StudentsController extends Controller
     public function storesample(Request $request)
     {
 
+        $this->validate($request, [
+
+            'file' => 'required|xlsx',
+
+        ]);
         $file = $request->file('file');
 
         $fileName = time().'.'.$file->getClientOriginalName();
@@ -188,33 +211,33 @@ class StudentsController extends Controller
 
         $sdata->save();
 
-        $success = DB::table('users')->where('id' , $udata->id)->update([
-            'unique_id' => $udata->name . '' . $udata->id,
-        ]);
+        // $success = DB::table('users')->where('id' , $udata->id)->update([
+        //     'unique_id' => $udata->name . '' . $udata->id,
+        // ]);
 
-            // $i_s_data = array(
+        //     $student_created_by_data = array(
 
-            //     's_u_id' => $sdata->s_u_id,
+        //         's_u_id' => $sdata->s_u_id,
 
-            //     'i_u_id' => Auth::user()->id,
+        //         'created_by_id' => Auth::user()->id,
 
-            // );
+        //     );
 
-        // $success = DB::table('instructor_student')->insert($i_s_data);
+        // $success = DB::table('instructor_student')->insert($student_created_by_data);
 
-        if($success){
+        // if($success){
 
             Session::flash('message', 'Student saved successfully');
 
             return redirect('/students');
 
-        }else{
+        // }else{
 
-            Session::flash('message', 'Something went wrong');
+        //     Session::flash('message', 'Something went wrong');
 
-            return redirect()->back();
+        //     return redirect()->back();
 
-        }
+        // }
 
     }
 

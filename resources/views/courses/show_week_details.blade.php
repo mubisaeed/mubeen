@@ -50,6 +50,10 @@
 
       <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+      <li>Terms/Sessions</li>
+
+      <li>Course</li>
+
       <li class = "active">Course Weekly Details</li>
 
     </ol>
@@ -148,7 +152,7 @@
                       
                     </div>
 
-                <a href="{{url('/quiz/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add Quiz</a>
+                <!-- <a href="{{url('/quiz/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add Quiz</a> -->
 
                   </div>
 
@@ -227,6 +231,8 @@
                               <a class="dropdown-item" href="{{url('/quiz/edit/quiz_questions/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit Quiz Questions</a>
 
                               <a class="dropdown-item" href="{{url('/mcq/create/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-plus"></i>Create Questions</a>
+
+                              <a class="dropdown-item" href="{{url('/upload_quiz_questions/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-plus"></i>Upload Questions (.xlsx)</a>
 
                               <a class="dropdown-item" href="{{url('/quiz/edit/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 
@@ -346,7 +352,7 @@
                         </td>
 
                         <td class="align_ellipse first_row">
-                              <a href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
+                              <a href="{{url('/instructor/launchmeeting/' . $lec->id .'/'. $cid)}}">
                                 <button class="btn btn-sm btn-info">
                                   <i class="fa fa-rocket" aria-hidden="true"></i>Launch Meeting    
                                 </button>
@@ -433,7 +439,7 @@
                       
                     </div>
                     
-                    <a href="{{url('/courselink/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Link</a>
+                    <!-- <a href="{{url('/courselink/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Link</a> -->
 
                   </div>
 
@@ -571,7 +577,7 @@
                     <a href="#"> <i class="fa fa-search"></i> </a>
                     
                   </div>
-                  <a href="{{url('/courseresoursevideo/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Video</a>
+                  <!-- <a href="{{url('/courseresoursevideo/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Video</a> -->
                 </div>
 
                 <table class="table table-hover" id="table-id">
@@ -729,7 +735,7 @@
                       <a href="#"> <i class="fa fa-search"></i> </a>
                       
                     </div>
-                    <a href="{{url('/courseresourse/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Downloadable</a>
+                    <!-- <a href="{{url('/courseresourse/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Downloadable</a> -->
                   </div>
 
                   <table class="table table-hover" id="table-id">

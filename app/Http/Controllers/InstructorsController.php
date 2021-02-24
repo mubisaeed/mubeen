@@ -186,7 +186,7 @@ class InstructorsController extends Controller
 
         // $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->paginate(5);
 
-        $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->get()->all();
+        $instructors = DB::table('instructor_school')->where('sch_u_id', Auth::user()->id)->orderBy('id' , 'desc')->get()->all();
 
     	return view ('instructors.index', compact('user', 'instructors'));
 
@@ -201,14 +201,25 @@ class InstructorsController extends Controller
     }
     public function show_lecture($id)
     {
-        $lectures = DB::table('lectures')->where('course_id', $id)->get();
+        $lectures = DB::table('lectures')->where('course_id', $id)->orderBy('id' , 'desc')->get();
         // dd($lectures);
+
         return view('instructors.show_lectures', compact('lectures'));
     }
-    public function launch_meeting($id)
+    public function launch_meeting($id, $cid)
     {
       $lec = DB::table('lectures')->where('id', $id)->get()->first();
-      $a = $this->live_fun($lec->meeting_id);  
+      $a = $this->live_fun($lec->meeting_id);
+      $date = \Carbon\Carbon::now()->format('Y-m-d');
+      $time = \Carbon\Carbon::now()->format('h:i');
+      $attendance = array(
+        'student_id' => Auth::user()->id, 
+        'course_id' => $cid, 
+        'lecture_id' => $id, 
+        'date' => $date, 
+        'time' => $time, 
+      );  
+      DB::table('attendance')->insert($attendance);
       return view('instructors.launch_meeting', compact('a', 'lec'));
     }
 
@@ -259,19 +270,22 @@ class InstructorsController extends Controller
             'start_url' => $meeting->start_url,
             'course_id' => $request->input('course_id'),
         ]);
+
         $class  =DB::table('courses')->where('id', $request->input('course_id'))->get()->pluck('clas_id');
         $students = DB::table('classes_students')->whereIn('class_id', $class)->get()->pluck('s_u_id');
-        $student = DB::table('users')->join('students','students.s_u_id','=','users.id')->whereIn('users.id',$students)->get();
-        // foreach($student as $std)
-        // {
-        //   $zoom = new ZoomController();
-        //   $registrant = $zoom->add_student_to_meeting($meeting->id, $std->email, $std->name, $std->name, $std->address, 'lahore', 'US', '95055', 'CA', $std->phone, 'Tech', 'IT', 'DA');
-        //   dd($registrant);
-        // }
+
+        $student = DB::table('users')->join('students', 'students.s_u_id', 'users.id')->whereIn('users.id',$students)->get(); 
+
+
+        foreach($student as $std)
+        {
+          $zoom = new ZoomController();
+          $registrant = $zoom->add_student_to_meeting($meeting->id, $std->email, $std->name, $std->name, $std->address, 'lahore', 'US', '95055', 'CA', $std->phone, 'Tech', 'IT', 'DA');
+        }
     
         Session::flash('message', 'Lecture created successfully');
 
-        redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
+        return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);
     }
 
     public function create(){
@@ -374,6 +388,9 @@ class InstructorsController extends Controller
             'sch_u_id' => Auth::user()->id,
 
         ); 
+        $success = DB::table('users')->where('id' , $udata->id)->update([
+            'unique_id' => $udata->name . '' . $udata->id,
+        ]);
 
         $success = DB::table('instructor_school')->insert($i_sch_data);
 
@@ -390,6 +407,9 @@ class InstructorsController extends Controller
 
             ]);
             $zoom = new ZoomController();
+            
+            $zo_u = $zoom->user_list();
+
             $zoom_user = $zoom->create_user($request->input('name'),$request->input('name'),$request->input('email'),$request->input('password'));
 
             DB::table('instructors')->where('i_u_id', $instructor->i_u_id)->update([

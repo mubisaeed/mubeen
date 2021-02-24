@@ -2,11 +2,6 @@
   $user = Auth::user();
 ?>
 
-<style type="text/css">
-.nav li a.active {
-  background-color: #ccc;
-}
-</style>
   <div class="wrapper">
 
     <div class="sidebar"  data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
@@ -504,7 +499,7 @@
 
           </li>
           @if(  in_array('All Classes', $data))
-          <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
+          <li class="{{ Request::is('/classes') ? 'active' : '' }} nav-item dropdown_item">
           
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
           
@@ -686,7 +681,7 @@
       
        
    
-         <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
+         <li class="nav-item dropdown_item {{ request()->is('classes') ? 'active' : '' }}">
             
                       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
             
@@ -827,10 +822,11 @@
 
   </div>
 
-<script>
-    $('.nav li a').click(function(e) {
-        $('.nav li.active').removeClass('active');
-        var $parent = $(this).parent();
-        $parent.addClass('active');
-    });
-</script>
+ <script> 
+    $(document).ready(function() { 
+        $('li').click(function() { 
+            $('li.nav-item.active').removeClass("active"); 
+            $(this).addClass("active"); 
+        }); 
+    }); 
+</script> 

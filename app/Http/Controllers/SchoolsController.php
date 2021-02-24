@@ -356,6 +356,10 @@ class SchoolsController extends Controller
         $success = DB::table('grades')->insert($Fgrade);
 
         $success = DB::table('school_super')->insert($sup_sch_data);
+        
+        $success = DB::table('users')->where('id' , $udata->id)->update([
+            'unique_id' => $udata->name . '' . $udata->id,
+        ]);
 
         
 

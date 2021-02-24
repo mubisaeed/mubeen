@@ -45,6 +45,8 @@ class CalendarController extends Controller
 
             'edate' => 'required|date',
 
+            'type' => 'required',
+
         ]);
 
         $event = array(
@@ -52,6 +54,7 @@ class CalendarController extends Controller
         	'event_description' => $request->edesc,
         	'start_date' => $request->sdate,
             'end_date' => $request->edate,
+            'type' => $request->type,
         	'created_by' => Auth::user()->id,
         );
 

@@ -167,9 +167,9 @@
 
                             <div class="custom_input_main">
 
-                              <textarea class="form-control" name="bio" style="height: 115px !important;"> {{$user->bio}}</textarea>
+                              <textarea class="form-control" name="bio" value="{{old('bio', $user->bio)}}" style="height: 115px !important;"> {{$user->bio}}</textarea>
 
-                              <label>Bio <span class="grey">*</span></label>
+                              <label>Bio <span class="grey"></span></label>
 
                             </div>
 
@@ -359,6 +359,22 @@
 
   $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
 
+</script>
+
+<script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#upfile1').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#imgupload").change(function(){
+        readURL(this);
+    });
 </script>
 
 

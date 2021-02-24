@@ -8,6 +8,8 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
     <li class = "active">All Courses</li>
 
   </ol>
@@ -103,8 +105,13 @@
 
             <tbody id="mybody">
 
-              @foreach($courses as $index =>$course)
+              @foreach($courses as $index =>$crs)
 
+              <?php
+
+                $course = DB::table('courses')->where('id', $crs->course_id)->get()->first();
+
+              ?>
               <tr>
 
                 <th scope="row">#{{$index+1}}</th>
@@ -160,6 +167,8 @@
                   <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}" target="_blank">Course View</a>
 
                   <a class="btn btn-primary" href="{{url('/show_student_attendance/'.$course->id)}}">Show attendance</a>
+
+                  <a class="btn btn-info" href="{{url('/upload_syllabus/'.$course->id)}}">Syllabus</a>
 
 <!--                   <li class="nav-item dropdown">
 
@@ -229,30 +238,32 @@
 
             </tbody>
 
-          </table>   
-<div class="table_footer">
-            <div class="table_pegination">
-              <nav>
-                <ul class="pager pagination">
-                  <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-                  <span class="sr-only">(current)</span></span></li>
-                  <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-                  <span class="sr-only">(current)</span></span></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="table_rows">
-              <div class="rows_main">
-                <p>Rows per page</p>
-                <select name="state" id="maxRows">
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                </select>
+          </table>
+            @if(count($courses)>5)
+            <div class="table_footer">
+              <div class="table_pegination">
+                <nav>
+                  <ul class="pager pagination">
+                    <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
+                    <span class="sr-only">(current)</span></span></li>
+                    <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
+                    <span class="sr-only">(current)</span></span></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="table_rows">
+                <div class="rows_main">
+                  <p>Rows per page</p>
+                  <select name="state" id="maxRows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
+            @endif
 
          @else
 

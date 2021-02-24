@@ -10,6 +10,10 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
+    <li>Courses</li>
+
     <li class = "active">All Quizzes</li>
 
   </ol>
@@ -91,9 +95,6 @@
 
                 <th scope="col">Show/Solve</th>
 
-                <th scope="col">Time left</th>
-
-
               </tr>
 
             </thead>
@@ -134,7 +135,9 @@
                 </td>
 
                   <td class="first_row">
+
                     <a href="{{url('/quiz/solve_quiz_student/'.$quiz->id)}}" class="btn btn-success">Show/Solve</a>
+
                   </td>
                 @if($time >= $stime)
                 <td class="first_row" >
@@ -189,12 +192,6 @@
   </div>
 
 </div>
-
-<!-- <script>
-function myFunction($etime) {
-  alert("Page is loaded");
-}
-</script> -->
 
 
 <script>

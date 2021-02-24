@@ -19,6 +19,11 @@
             <div class="breadcrumb_main">
               <ol class="breadcrumb">
                 <li><a href = "{{url('/dashboard')}}">Home</a></li>
+
+                <li>Terms/Sessions</li>
+
+                <li>Courses</li>
+
                 <li class = "active">Attendance View</li>
               </ol>
             </div>
@@ -222,6 +227,11 @@
                 </div>
               </div>
             </div>
+
+
+
+
+
 
 <script type="text/javascript">
 

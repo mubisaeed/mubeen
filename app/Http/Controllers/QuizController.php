@@ -37,6 +37,37 @@ class QuizController extends Controller
         $quiz_details  = DB::table('quizzes')->where('id', $id)->orderBy('id', 'desc')->get()->first();        
         return view ('quizzes.show_quiz_to_student', compact('questions', 'id', 'quiz_details'));
     }
+
+    public function course_quizzes_result($id, $clsid)
+    {
+        $course_quizzes = DB::table('quizzes')->where('course_id', $id)->pluck('id')->toArray();
+        if(count($course_quizzes) > 0)
+        {
+            $quizzes = DB::table('obtained_marks_quiz')->whereIn('quiz_id', $course_quizzes)->get();
+            
+            if(count($quizzes) > 0)
+            {
+
+                return view('courses.course_quizzes_result', compact('quizzes', 'id', 'clsid'));
+            }
+            else
+            {
+                Session::flash('message', ' You have not solve any quiz yet for this course.');
+
+                return redirect()->back();
+            }
+        }
+        else
+        {
+            Session::flash('message', 'This course has no quiz yet.');
+
+            return redirect()->back();
+        }
+
+
+        return view('courses.course_quizzes_result', compact('quizzes'));
+    }
+
     public function solved_quiz_by_student(Request $request)
     {
         $quiz_id = $request->quiz_id;
@@ -158,13 +189,28 @@ class QuizController extends Controller
                                         'mcq_marks' => $final_m_marks,
                                     ]);
 
-                                    $individual_marks = array(
-                                        's_u_id' => Auth::user()->id,
-                                        'quiz_id' => $quiz_id,
-                                        'question_id' => $qq->id,
-                                        'marks' => $mcq_marks,
-                                    );
-                                    DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+                                    $ind_mcq_marks = DB::table('individual_quiz_questions_obtained_marks')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->where('question_id', $qq->id)->get()->first();
+                                    if($ind_mcq_marks == null)
+                                    {
+
+                                        $individual_marks = array(
+                                            's_u_id' => Auth::user()->id,
+                                            'quiz_id' => $quiz_id,
+                                            'question_id' => $qq->id,
+                                            'marks' => $mcq_marks,
+                                        );
+                                        DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+                                    }
+                                    else
+                                    {
+                                        DB::table('individual_quiz_questions_obtained_marks')->update([
+                                            's_u_id' => Auth::user()->id,
+                                            'quiz_id' => $quiz_id,
+                                            'question_id' => $qq->id,
+                                            'marks' => 0,
+                                        ]);
+                                    }
+
                                 }
                     
                                 else
@@ -175,13 +221,27 @@ class QuizController extends Controller
                                             'mcq_marks' => $mcqmarks,
                                         ]);
 
-                                    $individual_marks = array(
-                                        's_u_id' => Auth::user()->id,
-                                        'quiz_id' => $quiz_id,
-                                        'question_id' => $qq->id,
-                                        'marks' => 0,
-                                    );
-                                    DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+                                    $ind_mcq_marks = DB::table('individual_quiz_questions_obtained_marks')->where('s_u_id', Auth::user()->id)->where('quiz_id', $quiz_id)->where('question_id', $qq->id)->get()->first();
+                                    if($ind_mcq_marks == null)
+                                    {
+
+                                        $individual_marks = array(
+                                            's_u_id' => Auth::user()->id,
+                                            'quiz_id' => $quiz_id,
+                                            'question_id' => $qq->id,
+                                            'marks' => 0,
+                                        );
+                                        DB::table('individual_quiz_questions_obtained_marks')->insert($individual_marks);
+                                    }
+                                    else
+                                    {
+                                        DB::table('individual_quiz_questions_obtained_marks')->update([
+                                            's_u_id' => Auth::user()->id,
+                                            'quiz_id' => $quiz_id,
+                                            'question_id' => $qq->id,
+                                            'marks' => 0,
+                                        ]);
+                                    }
 
                                 }
                             }
@@ -203,6 +263,7 @@ class QuizController extends Controller
                                     'quiz_id' => $quiz_id,
                                     'tf_marks' => $final_tf_marks,
                                 ]);
+
                                 $individual_marks = array(
                                         's_u_id' => Auth::user()->id,
                                         'quiz_id' => $quiz_id,

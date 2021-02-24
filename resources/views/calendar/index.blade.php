@@ -57,13 +57,14 @@
 
                             </label>
 
-                            <label class="container_radio">US Holidays
+                              <label class="container_radio">US Holidays
 
-                              <input type="radio" name="radio">
+                                <input type="radio" name="radio">
 
-                              <span class="checkmark"></span>
+                                <span class="checkmark"></span>
 
-                            </label>
+                              </label>
+
 
                             <label class="container_radio">Events
 
@@ -72,14 +73,6 @@
                               <span class="checkmark"></span>
 
                             </label>
-<!-- 
-                            <label class="container_radio">Populated
-
-                              <input type="radio" name="radio">
-
-                              <span class="checkmark"></span>
-
-                            </label> -->
 
                           </div>
 
@@ -107,8 +100,6 @@
                       </div>
 
                     </div>
-
-                    
 
                   </div>
                 </div>
@@ -141,11 +132,11 @@
 
   </div>
 
-  <!-- <div id="modal-view-event-add" class="modal modal-top fade calendar-modal"> -->
+  <div id="modal-view-event-add" class="modal modal-top fade calendar-modal">
 
     <div class="modal-dialog modal-dialog-centered" role="document">
 
-  <!-- <div class="modal-content">
+  <div class="modal-content">
 
     <div class="cross_modal">
 
@@ -167,6 +158,34 @@
 
       <form method="POST" action="{{url('/addevent')}}">
         @csrf
+
+
+        <div class="col-md-12 p_right">
+
+            <div class="custom_input_main select_plugin mobile_field">
+
+            <select class="selectpicker" required="" name="type">
+
+              <option> Choose Event Type </option>
+
+              <option value="School Calendar">School Calendar</option>
+
+              <option value="Live Instructor Schedule">Live Instructor Schedule</option>
+              @if(Auth::user()->role_id == '1')
+
+                <option value="US Holidays">US Holidays</option>
+
+              @endif
+
+              <option value="Events">Events</option>
+
+            </select>
+
+            <label class="select_lable">Sessions</label>
+
+          </div>
+
+        </div>
 
         <div class="custom_input_main mobile_field">
 
@@ -214,49 +233,17 @@
 
     </div>
 
-  </div> -->
+  </div>
 
 </div>
 
 </div>
- <!-- <script src="https://code.jquery.com/jquery-2.1.4.js"></script> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.1/main.min.js"></script> -->
-    <script src="https://fullcalendar.io/assets/demo-to-codepen.js"></script>
-    <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-            eventClick: function(info) {
-            var eventObj = info.event;
-                if (eventObj.title) {
-                    alert('Event Name = ' + eventObj.title);
-                    console.log('Event Name = ' + eventObj.title);
-                }
-            },
-            events: [
-                {
-                    id:  1,
-                    title: 'Simple event',
-                    start: '2020-10-02',
-                    color:'green'
-                },
-                {
-                    id:  2,
-                    title: 'New Event',
-                    start: '2020-10-03',
-                    color:'green'
-                },
-                {
-                    id:  3,
-                    title: 'Coming Event',
-                    start: '2020-10-22',
-                    color:'green'
-                }
-            ]
-        });
-        calendar.render();
-    });
-    </script>
+
+
+
+
+
+
 
 <script type="text/javascript">
 

@@ -104,9 +104,81 @@
 
         </div>
 
-        
+        <script type="text/javascript">
+          var my_id = "{{Auth::user()->id}}"
+          var receiver_id = '';
+          
+          $(document).ready(function()
+          {
+
+            Pusher.logToConsole = true;
+
+            var pusher = new Pusher('6c99bc43ba7c14b34eee', {
+              cluster: 'ap2',
+              forceTLS: true
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('my-event', function(data) {
+
+               alert(JSON.stringify(data));
+
+
+              if (my_id == {{Auth::user()->id}}) 
+              {
+                $('#' + data.recieveid).click();
+              } 
+              else if (my_id == data.recieveid) 
+              {
+                  if (receiver_id == my_id) 
+                  {
+                      // if receiver is selected, reload the selected user ...
+                      $('#' + my_id).click();
+                  } 
+                  else 
+                  {
+                      // if receiver is not seleted, add notification for that user
+                      var pending = parseInt($('#' + my_id).find('.pending').html());
+                      if (pending) 
+                      {
+                          $('#' + my_id).find('.pending').html(pending + 1);
+                      } 
+                      else 
+                      {
+                          $('#' + my_id).append('<span class="pending">1</span>');
+                      }
+                  }
+              }
+            });
+
+            $('.msg_listing').click(function()
+            {
+              // $('.msg_listing').removeClass('active');
+              // $(this).addClass('active');
+              receiver_id = $(this).attr('id');
+              $.ajax({
+                type: 'get',
+                url: "get_messages/" + receiver_id,
+                data: "",
+                cache: false,
+                success: function (data)
+                {
+                  $('.chat-area').html(data);
+                }
+              });
+
+            });
+
+          });
+
+        </script>
+
+        <!-- pusher -->
+
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
       <!--   Core JS Files   -->
+
 
       <script src="{{asset('/assets/js/core/jquery.min.js')}}"></script>
 

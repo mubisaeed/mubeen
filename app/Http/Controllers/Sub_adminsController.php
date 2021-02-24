@@ -88,6 +88,10 @@ class Sub_adminsController extends Controller
         $sbadmns->password = Hash::make($request['password']);
 
         $sbadmns->save();
+
+        DB::table('users')->where('id' , $sbadmns->id)->update([
+            'unique_id' => $sbadmns->name . '' . $sbadmns->id,
+        ]);
       
         if($sbadmns){
 

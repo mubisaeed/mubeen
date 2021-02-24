@@ -49,11 +49,10 @@
 
         <form method="POST" action="/import_file_students" enctype="multipart/form-data">
           @csrf
-            <input type="file" name="select_file">
+            <input type="file" name="select_file" accept=".xlsx" required="">
            
             <input type="submit" name="upload" class="btn btn-primary" value="Upload">
 
-               
         </form>
 
 

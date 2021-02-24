@@ -98,7 +98,7 @@
 
                   <input type="radio" value="false" name="correct" class="btn" checked="checked"/> -->
 
-                  <button type="button" class="btn true_btn active_tf_btn">True <input type="radio" value="true" name="correct" class="btn"/></button>
+                  <button type="button" class="btn true_btn active_tf_btn">True <input type="radio" value="true" name="correct" class="btn" checked="checked"/></button>
 
                   <button type="button" class="btn true_btn false_btn add_margin_to_f">False <input type="radio" value="false" name="correct" class="btn"/></button>
 

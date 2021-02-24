@@ -129,7 +129,11 @@
               </div>
             </div>
             @else
+
               <p>No Question Created Yet</p>
+              
+              <a class="btn btn-primary" href="{{url('/mcq/create/'. $insid .'/'. $course->id .'/'. $week .'/'. $quiz_id)}}"><i class="fa fa-plus"></i>Create Questions</a>
+
             @endif
                
           </div>

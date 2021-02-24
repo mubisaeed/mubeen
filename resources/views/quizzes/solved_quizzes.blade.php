@@ -10,7 +10,11 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Quizzes</li>
+    <li>Terms/Sessions</li>
+
+    <li>Courses</li>
+
+    <li class = "active">Solved Quizzes</li>
 
   </ol>
 

@@ -128,9 +128,10 @@
                     data : {"_token":"{{ csrf_token() }}"},
                     dataType: "json",
                     success:function(data) {
-                      if(data){
+                      if(data.length){
                         $("#mybody").empty();
                         $("#mybody").focus;
+                        $("#myhead").empty();
                         $("#myhead").append(
                              '<tr>'+
                                 '<th> Student </th>'+
@@ -141,6 +142,7 @@
                                 '<th> Status </th>'+
                                 '</tr>'
                                 );
+
                         $.each(data, function(key, value){
                             $("#mybody ").append(
                                 '<tr>'+
@@ -155,6 +157,11 @@
                     });
                   }else{
                     $('#mybody ').empty();
+                    $('#myhead ').empty();
+                    $('#mybody ').append(
+                        '<p>There is no student</p>'
+                        );
+
                   }
                   }
                 });

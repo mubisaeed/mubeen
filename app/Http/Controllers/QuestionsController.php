@@ -9,9 +9,160 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Throwable;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MCQImport;
+use App\Imports\TfImport;
+use App\Imports\QaImport;
 
 class QuestionsController extends Controller
 {
+
+    public function upload_quiz_questions($insid, $courseid, $week, $qid)
+    {
+        $week = $week;
+        $course_id = $courseid;
+        $instructor_id = $insid;
+
+        return view ('questions.upload_quiz_questions', compact('course_id', 'instructor_id', 'week', 'qid'));
+    }
+
+    public function upload_quiz_mcq(Request $request)
+    {
+        $validator = Validator::make(
+          [
+              'file'      => $request->file,
+              'extension' => strtolower($request->file->getClientOriginalExtension()),
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:xlsx,xls',
+          ]
+        );
+        if ($validator->fails()) 
+        {
+             return back()->withErrors($validator);
+           }
+
+
+        $file=$request->file('file')->store('import');
+
+
+        $import = new MCQImport;
+        Excel::import($import, request()->file('file'));
+        $rows = $import->getRowCount(); 
+
+        $excel_records = DB::table('questions')->limit($rows)->orderBy('id', 'desc')->get();
+
+        foreach ($excel_records as $er) {
+            $success = DB::table('questions')->where('id', $er->id)->update([
+                'course_id' => $request->course_id,
+                'instructor_id' => $request->instructor_id,
+                'week' => $request->week,
+                'quiz_id' => $request->qid,
+            ]);
+        }
+        if($success){
+            return redirect()->back()->with('message', 'File imported Successfully');
+            
+        }else{
+            return redirect()->back()->with('message', 'Something went wrong');
+        }
+
+    }
+
+    public function upload_quiz_tf(Request $request)
+    {
+        {
+        $validator = Validator::make(
+          [
+              'file'      => $request->file,
+              'extension' => strtolower($request->file->getClientOriginalExtension()),
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:xlsx,xls',
+          ]
+        );
+        if ($validator->fails()) 
+        {
+             return back()->withErrors($validator);
+           }
+
+
+        $file=$request->file('file')->store('import');
+
+
+        $import = new TFImport;
+        Excel::import($import, request()->file('file'));
+        $rows = $import->getRowCount(); 
+
+        $excel_records = DB::table('questions')->limit($rows)->orderBy('id', 'desc')->get();
+
+        foreach ($excel_records as $er) {
+            $success = DB::table('questions')->where('id', $er->id)->update([
+                'course_id' => $request->course_id,
+                'instructor_id' => $request->instructor_id,
+                'week' => $request->week,
+                'quiz_id' => $request->qid,
+            ]);
+        }
+        if($success){
+            return redirect()->back()->with('message', 'File imported Successfully');
+            
+        }else{
+            return redirect()->back()->with('message', 'Something went wrong');
+        }
+
+    }
+    }
+
+    public function upload_quiz_qa(Request $request)
+    {
+        {
+        $validator = Validator::make(
+          [
+              'file'      => $request->file,
+              'extension' => strtolower($request->file->getClientOriginalExtension()),
+          ],
+          [
+              'file'          => 'required',
+              'extension'      => 'required|in:xlsx,xls',
+          ]
+        );
+        if ($validator->fails()) 
+        {
+             return back()->withErrors($validator);
+           }
+
+
+        $file=$request->file('file')->store('import');
+
+
+        $import = new QaImport;
+        Excel::import($import, request()->file('file'));
+        $rows = $import->getRowCount(); 
+
+        $excel_records = DB::table('questions')->limit($rows)->orderBy('id', 'desc')->get();
+
+        foreach ($excel_records as $er) {
+            $success = DB::table('questions')->where('id', $er->id)->update([
+                'course_id' => $request->course_id,
+                'instructor_id' => $request->instructor_id,
+                'week' => $request->week,
+                'quiz_id' => $request->qid,
+            ]);
+        }
+        if($success){
+            return redirect()->back()->with('message', 'File imported Successfully');
+            
+        }else{
+            return redirect()->back()->with('message', 'Something went wrong');
+        }
+
+    }
+    }
 
     public function search_by_week($insid, $courseid, $week)
     {
@@ -80,7 +231,6 @@ class QuestionsController extends Controller
             'opt4' => $request->input('opt4'),
             'correct' => $carray,
         );
-
         $mcq = new Question();
         $mcq->label=$request->input('label');
         $mcq->type=$type;

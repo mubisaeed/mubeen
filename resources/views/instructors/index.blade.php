@@ -374,7 +374,7 @@
 
     $("body").on( "click", ".delete", function () {
 
-    var task_id = $( this ).attr( "data-id" );
+    var task_id = attr( "data-id" );
 
     console.log(task_id);
 

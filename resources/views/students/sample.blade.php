@@ -58,7 +58,7 @@
 
                       <div class="file_spacing">
 
-                        <input id="file" class="choose" type="file" name="file" autofocus="" size="max:10240" required="">
+                        <input id="file" class="choose" type="file" name="file" autofocus="" size="max:10240" required="" accept=".xlsx">
 
                       </div>
 

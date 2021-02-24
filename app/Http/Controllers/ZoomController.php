@@ -59,7 +59,6 @@ class ZoomController extends Controller
     }
 
     public function meeting_list($user_id){
-
         $user = Zoom::user()->find($user_id);
 
         return $user->meetings()->all();
@@ -67,12 +66,22 @@ class ZoomController extends Controller
     }
     public function get_meeting($meeting_id){
         $meeting = Zoom::meeting();
+        $m = $meeting->find($meeting_id);
+        dd($m->report());
         return $meeting->find($meeting_id);
+    }
+
+    public function participants($meeting_id){
+        $meeting = Zoom::meeting();
+        $m = $meeting->find($meeting_id);
+
+        dd($m);
+        
     }
 
     public function add_student_to_meeting($meeting_id,$email,$f_name,$l_name,$address,$city,$country,$zip,$state,$phone,$industry,$org,$job_title){
         $meeting = Zoom::meeting()->find($meeting_id);
-        $registrant = Zoom::meeting()->registrants()->create([
+        $registrant = Zoom::meeting()->registrants()->make([
             "email" => $email,
             "first_name" => $f_name,
             "last_name" => $l_name,
@@ -85,7 +94,7 @@ class ZoomController extends Controller
             "industry" => $industry,
             "org" => $org,
             "job_title" => $job_title,
-            "purchasing_time_frame" => "More Than 6 Months",
+            "purchasing_time_frame" => "Within a month",
             "role_in_purchase_process" => "Influencer",
             "no_of_employees" => "1-20",
             "comments" => "Excited to host you.",
@@ -96,6 +105,10 @@ class ZoomController extends Controller
                 ]
             ]
             ]);
+        
         return $registrant;
+
+
+
     }
 }

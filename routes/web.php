@@ -46,6 +46,8 @@ use App\Http\Controllers\RoomsController;
 
 use App\Http\Controllers\UserGuideController;
 
+use App\Http\Controllers\SyllabusController;
+
 use App\Http\Controllers\Special_educationController;
 
 use App\Http\Controllers\Sub_adminsController;
@@ -135,6 +137,20 @@ Route::post('/assignment/update/{id}', [AssignmentsController::class, 'update'])
 Route::get('/assignment/delete', [AssignmentsController::class, 'destroy']);
 
 
+//syllabus routes
+
+Route::get('/upload_syllabus/{id}', [SyllabusController::class, 'upload_syllabus']);
+
+Route::post('/upload_syllabus', [SyllabusController::class, 'store_syllabus']);
+
+Route::get('/upload_syllabus/edit/{id}', [SyllabusController::class, 'edit']);
+
+Route::post('/upload_syllabus/update/{id}', [SyllabusController::class, 'update']);
+
+Route::get('/deletesyllabus', [SyllabusController::class, 'destroy']);
+
+
+
 //Quizzes routes
 
 Route::get('/questionsweek/{insid}/{courseid}/{week}', [QuestionsController::class, 'search_by_week'])->name('week');
@@ -142,6 +158,14 @@ Route::get('/questionsweek/{insid}/{courseid}/{week}', [QuestionsController::cla
 Route::get('/quizzes/create', [QuestionsController::class, 'create']);
 
 Route::get('/mcq/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'mcqcreate']);
+
+Route::get('/upload_quiz_questions/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'upload_quiz_questions']);
+
+Route::post('/add_mcq_excelFile', [QuestionsController::class, 'upload_quiz_mcq']);
+
+Route::post('/add_tf_excelFile', [QuestionsController::class, 'upload_quiz_tf']);
+
+Route::post('/add_qa_excelFile', [QuestionsController::class, 'upload_quiz_qa']);
 
 Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
 
@@ -195,6 +219,8 @@ Route::get('/quiz/solved_quizzes/{id}', [QuizController::class, 'show_solved_qui
 Route::get('/quiz/solve_quiz_result/{id}', [QuizController::class, 'solved_quiz_result']);
 
 Route::get('/quiz/showquiz_to_student/{id}', [QuizController::class, 'student_quizzes'])->name('quizzes');
+
+Route::get('/course/quizzes_result/{id}/{clsid}', [QuizController::class, 'course_quizzes_result'])->name('quizzes_result');
 
 Route::get('/quiz/solve_quiz_student/{id}', [QuizController::class, 'show_quiz_to_student'])->name('show');
 
@@ -450,7 +476,7 @@ Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
 
 Route::get('/lectures/{id}', [InstructorsController::class, 'show_lecture']);
 
-Route::get('/instructor/launchmeeting/{id}', [InstructorsController::class, 'launch_meeting']);
+Route::get('/instructor/launchmeeting/{id}/{cid}', [InstructorsController::class, 'launch_meeting']);
 
 
 
@@ -673,6 +699,8 @@ Route::post('subadmin/delete',  [Sub_adminsController::class, 'destroy']);
 //messages
 
 Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');
+
+Route::get('/get_messages/{id}', [MessagesController::class, 'get_messages'])->name('All Message');
 
 Route::get('/chatbox/{id}', [MessagesController::class, 'messages'])->name('Send Message');
 
