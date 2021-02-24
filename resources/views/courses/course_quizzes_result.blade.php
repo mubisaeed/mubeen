@@ -330,7 +330,7 @@
 
          @else
 
-          <p>oops! You have not submit any quiz.</p>
+          <p>oops! You have not submit any quiz yet.</p>
 
         @endif
 
