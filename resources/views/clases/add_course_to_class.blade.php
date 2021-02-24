@@ -10,7 +10,8 @@
   <div class="breadcrumb_main">
     <ol class="breadcrumb">
       <li><a href = "{{url('/dashboard')}}">Home</a></li>
-      <li class = "active">All Courses</li>
+      <li>Terms/Sessions</li>
+      <li class = "active">Add Course</li>
     </ol>
   </div>
   <div class="content_main">
@@ -34,7 +35,7 @@
                        @csrf
                      @foreach($allCourses as $course)
                       <tr>
-                      <th> {{$course->course_name}} </th>
+                      <td> {{$course->course_name}} </td>
                       <th>  
                       <input type="checkbox" name="course_id[]" value="{{$course->id}}"> 
                       </th>

@@ -266,27 +266,27 @@
 
                       </div>
 
-                              <div class="col-md-12">
+                      <div class="col-md-12">
 
-                                <div class="custom_input_main select_plugin mobile_field">
+                        <div class="custom_input_main select_plugin mobile_field">
 
-                                <select class="selectpicker" name="sessions">
+                          <select class="selectpicker" name="sessions">
 
-                                  <option  {{ ( $course->sessions) == '1' ? 'selected' : '' }}  value="1" >One session  ( 9 weeks ) </option>
+                            <option  {{ ( $course->sessions) == '1' ? 'selected' : '' }}  value="1" >One session  ( 9 weeks ) </option>
 
-                                    <option {{ ( $course->sessions) == '2' ? 'selected' : '' }}  value="2">Two sessions-One semester ( 18 weeks )</option>
+                              <option {{ ( $course->sessions) == '2' ? 'selected' : '' }}  value="2">Two sessions-One semester ( 18 weeks )</option>
 
-                                    <option {{ ( $course->sessions) == '3' ? 'selected' : '' }}  value="3">Three session  ( 27 weeks )</option>
+                              <option {{ ( $course->sessions) == '3' ? 'selected' : '' }}  value="3">Three session  ( 27 weeks )</option>
 
-                                    <option {{ ( $course->sessions) == '4' ? 'selected' : '' }}  value="4">Four sessions-Two semesters ( 36 weeks )</option>
+                              <option {{ ( $course->sessions) == '4' ? 'selected' : '' }}  value="4">Four sessions-Two semesters ( 36 weeks )</option>
 
-                                </select>
+                          </select>
 
-                                <label class="select_lable">Sessions</label>
+                          <label class="select_lable">Sessions</label>
 
-                              </div>
+                        </div>
 
-                              </div>
+                      </div>
 
                             </div>
 

@@ -116,8 +116,6 @@ class CourseController extends Controller
 
             $image = time().'.'.$request->image->getClientOriginalExtension();
 
-            // $request->image->move(public_path('storage/'), $image);
-
             $request->image->move(public_path() .'/assets/img/upload', $image);
 
        }
@@ -247,7 +245,8 @@ class CourseController extends Controller
             $courses = DB::table('course_instructor')->where('i_u_id', Auth::user()->id)->orderBy('id', 'desc')->get()->all();
 
         }
-        else{
+        else
+        {
             $courses = DB::table('courses')->orderBy('id', 'desc')->get();
         }
         return view('courses.index', compact('courses', 'user'));

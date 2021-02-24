@@ -41,7 +41,7 @@ class CourseResourcesController extends Controller
 
         $week = $week;
 
-        $cresources=DB::table('resources')->where('course_id', $cid)->get()->all();
+        $cresources=DB::table('resources')->where('course_id', $cid)->orderBy('id', 'desc')->get()->all();
 
         return view ('course_resources.index', compact ('user','cresources', 'course_id', 'week', 'instructor_id'));
 

@@ -46,13 +46,13 @@ class DepartmentsController extends Controller
          
         if(auth()->user()->role_id == '3'){ 
                 $user = Auth::user();
-                $departments = DB::table('departments')->where('school_id' , $user->id)->get();
+                $departments = DB::table('departments')->where('school_id' , $user->id)->orderBy('id', 'desc')->get();
                 
         }
 
         if(auth()->user()->role_id == '5'){ 
             $user = Auth::user();
-            $departments = DB::table('departments')->where('school_id' , $user->id)->get();
+            $departments = DB::table('departments')->where('school_id' , $user->id)->orderBy('id', 'desc')->get();
             
     }
         
@@ -63,7 +63,7 @@ class DepartmentsController extends Controller
 
     
     public function see_classes_of_department($id){
-           $classes = DB::table('classes')->where('department_id' , $id)->get();
+           $classes = DB::table('classes')->where('department_id' , $id)->orderBy('id', 'desc')->get();
            return view('departments.all_classes_of_dept' , compact('classes', 'id'));           
         
     }
@@ -74,7 +74,7 @@ class DepartmentsController extends Controller
         
     }
     public function storeclass_to_department(Request $request){
-   if(count($request->clas_id) > 0 ){
+   if(!empty($request->clas_id)){
         foreach( $request->clas_id  as $clas_id){
             DB::table('classes')->where('id' , $clas_id)->update([
                 'department_id' => $request->dep_id,
@@ -84,9 +84,9 @@ class DepartmentsController extends Controller
           return redirect('/departments');
    }
    else{
-       Session::flash('message', 'No Class Selected');
+       Session::flash('message', 'Please select a class first!');
 
-        return redirect('/departments');
+        return redirect()->back();
    }
    
    

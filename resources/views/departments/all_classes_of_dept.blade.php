@@ -9,6 +9,8 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Departments</li>
+
     <li class = "active">All Classes</li>
 
   </ol>

@@ -207,7 +207,7 @@ class QuizController extends Controller
                                             's_u_id' => Auth::user()->id,
                                             'quiz_id' => $quiz_id,
                                             'question_id' => $qq->id,
-                                            'marks' => 0,
+                                            'marks' => $mcq_marks,
                                         ]);
                                     }
 

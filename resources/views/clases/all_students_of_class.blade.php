@@ -9,6 +9,8 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
     <li class = "active">All Students</li>
 
   </ol>
@@ -70,9 +72,9 @@
 
                   <th scope="col">ID</th>
 
-                  <th scope="col">Student Name</th>
+                  <th scope="col">Name</th>
 
-                  <th scope="col">Student Image</th>
+                  <th scope="col">Image</th>
 
                   <th scope="col">Action</th>
 

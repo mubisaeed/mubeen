@@ -100,14 +100,6 @@ Route::get('/', function () {
 Route::get('/get-met',function(){
     $user =     Zoom::user();
     return $user->all();
-    // $user =     Zoom::user();
-    // return $user->create([
-    //     'first_name' => 'ali',
-    //     'last_name' => 'khan',
-    //     'email' => 'alikhanbalock@gmail.com',
-    //     'password' => 'Abc123123',
-    //     'type'=> 1
-    // ]);
 });
 
 Route::group(['middleware' => 'auth'], function(){
