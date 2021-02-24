@@ -49,7 +49,7 @@ class CourseLinkController extends Controller
         $instructor_id = $insid;
         $week = $week;
 
-        $courselink=DB::table('courselink')->where('course_id', $cid)->get()->all();
+        $courselink=DB::table('courselink')->where('course_id', $cid)->orderBy('id', 'desc')->get()->all();
 
 
         return view ('course_resources.links', compact ('user','courselink', 'course_id', 'week', 'instructor_id'));

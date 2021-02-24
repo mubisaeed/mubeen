@@ -8,6 +8,10 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
+    <li>Courses</li>
+    
     <li class = "active">All Lectures</li>
 
   </ol>
@@ -82,7 +86,13 @@
 
                 <th scope="col">Topic</th>
 
-                <th scope="col">Action</th>
+                <th scope="col">Course</th>
+
+                <th scope="col">Instructor</th>
+
+                <th scope="col">Meeting ID</th>
+
+                <th scope="col">Join</th>
 
               </tr>
 
@@ -91,6 +101,11 @@
             <tbody id="mybody">
 
               @foreach($lectures as $index =>$lec)
+
+              <?php
+                $course = DB::table('courses')->where('id', $lec->course_id)->get()->first();
+                $instructor = DB::table('users')->where('id', $lec->instructor_id)->get()->first();
+              ?>
 
               <tr>
 
@@ -107,10 +122,28 @@
 
                 </td>
 
+                <td class="first_row">
+                  
+                  {{$course->course_name}}
+
+                </td>
+
+                <td class="first_row">
+                  
+                  {{$instructor->name}}
+
+                </td>
+
+                <td class="first_row">
+                  
+                  {{$lec->meeting_id}}
+
+                </td>
+
                 <td class="align_ellipse first_row">
-                      <a href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
+                      <a href="{{url('/instructor/launchmeeting/' . $lec->id .'/'. $course->id)}}">
                         <button class="btn btn-sm btn-success">
-                          <i class="fa fa-rocket" aria-hidden="true"></i>Launch Meeting    
+                          <i class="fa fa-rocket" aria-hidden="true"></i>Join Meeting    
                         </button>
                       </a>
                 </td>

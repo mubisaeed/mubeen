@@ -2,13 +2,14 @@
 @section('content')
 
 
+
 <div class="content">
           <div class="container-fluid">
            
             <div class="breadcrumb_main">
               <ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
-                <li class="active">Profile</li>
+                <li class="active">Messages</li>
               </ol>
             </div>
             <div class="content_main">
@@ -17,7 +18,7 @@
                 <div class="profile mt-0">
                   <div class="course card-header card-header-warning card-header-icon">
                     
-                    <h3 class="main_title_ot">Profile</h3>
+                    <h3 class="main_title_ot">Messages</h3>
                     
                     <div class="profile_tabs">
                       <div class="row">
@@ -31,11 +32,13 @@
                                 </li>
                                 <li class="active profile_tabs_child">
                                   <a href="{{url('/messages')}}">
-                      Messages </a>
+                                    Messages 
+                                  </a>
                                 </li>
                                 <li class="profile_tabs_child">
                                   <a href="{{url('/editprofile')}}">
-                      Settings </a>
+                                    Settings 
+                                  </a>
                                 </li>
                               </ul>
                               <div class="tab-content">
@@ -94,79 +97,11 @@
                                 </div> -->
                                 <div class="tab-pane active" id="tab_default_2">
                                   <div class="row">
-                                    <div class="col-md-7">
+                                    <div class="col-md-7 chat-area">
                                       <div class="chatbox-holder">
                                         <div class="chatbox">
-                                          <div class="ticket_chat">
-                                            <div class="msg_img">
-                                              <img src="../assets/img/latest/msg_img.png" alt="">
-                                              <div class="msg_name">
-                                                <h5>Cloie Dacker</h5>
-                                                <p>M.Phil Biology</p>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="chat-messages">
-                                            <div class="message-box-holder">
-                                              <div class="message-box message-partner">
-                                                Hello! Finally found the time to write to you) I need your help in creating interactive animations for my mobile application.
-                                              </div>
-                                            </div>
-                                            <div class="message-box-holder">
-                                              <div class="message-box message-partner">
-                                                Can I send you files?
-                                              </div>
-                                              <p class="admin_days_ago">4 days ago</p>
-                                            </div>
-                                            <div class="message-box-holder">
-                                              <div class="add_check">
-                                                <div class="message-box">
-                                                  Hey! Okay, send out.
-                                                </div>
-                                                <span><img src="../assets/img/latest/all-done.svg" alt=""></span>
-                                              </div>
-                                              <p class="user_days_ago">4 days ago</p>
-                                            </div>
-                                            <div class="message-box-holder">
-                                              <div class="message-box message-partner">
-                                                <div class="attachment_send">
-                                                  <i class="fa fa-file-o"></i>
-                                                  <div class="attachmet_size">
-                                                    <h6>Style.zip</h6>
-                                                    <p>41.36 Mb</p>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                            </div>
-                                            <div class="combine_date">
-                                              <p>3 days ago</p>
-                                            </div>
-                                            <div class="message-box-holder">
-                                              <div class="add_check">
-                                                <div class="message-box">
-                                                  Hello! I tweaked everything you asked. I am sending the finished file.
-                                                </div>
-                                                <span><img src="../assets/img/latest/checkmark.svg" alt=""></span>
-                                              </div>
-                                              <p class="user_days_ago">3 days ago</p>
-                                            </div>
-                                          </div>
-                                          <div class="chat-input-holder">
-                                            <div class="main_send">
-                                              <div class="plus_icon">
-                                                <a href="#"><i class="fa fa-plus"></i></a>
-                                                <div class="option_list" style="display: none;">
-                                                  <ul>
-                                                    <li> <a href="#"> <i class="fa fa-file"> </i> File </a> </li>
-                                                  </ul>
-                                                </div>
-                                              </div>
-                                              <textarea class="chat-input" placeholder="Type a message here"></textarea>
-                                            </div>
-                                            <div class="send_icon">
-                                              <a href="#"><i class="fa fa-paper-plane"></i></a>
-                                            </div>
-                                          </div>
+                                          <p>Welcome to messages area. Click to any perso to start chat :-)</p>
+
                                         </div>
                                       </div>
                                     </div>
@@ -181,24 +116,51 @@
                                           <i class="fa fa-plus"></i>
                                         </div>
                                       </div>
-                                      <div class="msg_listing">
-                                        <div class="msg_styling">
-                                          <div class="msg_img">
-                                            <div class="msg_list_img">
-                                              <img src="../assets/img/latest/msg_img.png" alt="">
+                                      @if(Auth::user()->role_id == '4')
+                                        @foreach($instructor_students as $ins_std)
+                                            <div class="msg_listing" id="{{$ins_std->id}}">
+                                              <div class="msg_styling">
+                                                <div class="msg_img">
+                                                  <div class="msg_list_img">
+                                                    <img src="../assets/img/latest/msg_img.png" alt="">
+                                                  </div>
+                                                  <div class="msg_name">
+                                                    <h5>{{$ins_std->name}}</h5>
+                                                    <p>M.Phil Biology</p>
+                                                  </div>
+                                                </div>
+                                                <div class="msg_time">
+                                                  <p>2:12 PM</p>
+                                                </div>
+                                              </div>
+                                              <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
                                             </div>
-                                            <div class="msg_name">
-                                              <h5>Cloie Dacker</h5>
-                                              <p>M.Phil Biology</p>
+                                        @endforeach
+
+                                      @elseif(Auth::user()->role_id == '5')
+                                        @foreach($instructors as $ins)
+                                            <div class="msg_listing" id="{{$ins->id}}">
+                                              <div class="msg_styling">
+                                                <div class="msg_img">
+                                                  <div class="msg_list_img">
+                                                    <img src="../assets/img/latest/msg_img.png" alt="">
+                                                  </div>
+                                                  <div class="msg_name">
+                                                    <h5>{{$ins->name}}</h5>
+                                                    <p>M.Phil Biology</p>
+                                                  </div>
+                                                </div>
+                                                <div class="msg_time">
+                                                  <p>2:12 PM</p>
+                                                </div>
+                                              </div>
+                                              <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
                                             </div>
-                                          </div>
-                                          <div class="msg_time">
-                                            <p>2:12 PM</p>
-                                          </div>
-                                        </div>
-                                        <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
-                                      </div>
-                                      <div class="msg_listing">
+                                        @endforeach
+                                      @endif
+                                      
+
+                                      <!-- <div class="msg_listing">
                                         <div class="msg_styling">
                                           <div class="msg_img">
                                             <div class="msg_list_img">
@@ -299,7 +261,7 @@
                                           </div>
                                         </div>
                                         <p class="s_msg">Donec vitae enim eleifend, pulvinar lacus id, faucibus...  </p>
-                                      </div>
+                                      </div> -->
                                     </div>
                                   </div>
                                 </div>
@@ -414,6 +376,4 @@
 
       
     </div>
-
-
 @endsection

@@ -542,7 +542,7 @@
 
                 $instructors = DB::table('instructor_student')->where('s_u_id', Auth::user()->id)->get()->all();
 
-                $students = DB::table('instructor_student')->where('i_u_id', Auth::user()->id)->get()->all();
+                $students = DB::table('instructor_student')->where('created_by_id', Auth::user()->id)->get()->all();
 
               ?>
 
@@ -564,11 +564,11 @@
 
                         $instructor = Auth::user()->id;
 
-                        $messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('content');
+                        $messages = DB::table('messages_instructor_student')->where('std_id' , $student)->where('ins_id' , $instructor)->pluck('content');
 
                         $message = $messages->values()->last();
 
-                        $times = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('created_at');
+                        $times = DB::table('messages_instructor_student')->where('std_id' , $student)->where('ins_id' , $instructor)->pluck('created_at');
 
                         $time = $times->values()->last();
 
@@ -630,7 +630,7 @@
 
                     <?php
 
-                      $ins  = DB::table('users')->where('id', $instrctr->i_u_id)->get()->first();
+                      $ins  = DB::table('users')->where('id', $instrctr->created_by_id)->get()->first();
 
                       $user = Auth::user();
 
@@ -642,11 +642,11 @@
 
                         $student = Auth::user()->id;
 
-                        $messages = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('content');
+                        $messages = DB::table('messages_instructor_student')->where('std_id' , $student)->where('ins_id' , $instructor)->pluck('content');
 
                         $message = $messages->values()->last();
 
-                        $times = DB::table('messages')->where('student' , $student)->where('instructor' , $instructor)->pluck('created_at');
+                        $times = DB::table('messages_instructor_student')->where('std_id' , $student)->where('ins_id' , $instructor)->pluck('created_at');
 
                         $time = $times->values()->last();
 
@@ -818,7 +818,7 @@
 
                 <div class="radio_event_list">
 
-                  <label class="container_radio">All
+                  <label class="container_radio">School Calendar
 
                     <input type="radio" checked="checked" name="radio">
 
@@ -850,13 +850,13 @@
 
                   </label>
 
-                  <label class="container_radio">Populated
+                  <!-- <label class="container_radio">Populated
 
                     <input type="radio" name="radio">
 
                     <span class="checkmark"></span>
 
-                  </label>
+                  </label> -->
 
                 </div>
 
@@ -1140,7 +1140,7 @@
 
         <div class="s_form_button">
 
-          <a href="/showprofile"><button type="button" class="btn cncl_btn">Cancel</button></a>
+          <a href="/dashboard"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
           <button type="submit" class="btn save_btn">Save</button>
 

@@ -102,8 +102,9 @@
                </tbody>
                    <input  type="hidden" value="{{$quiz_id}}" name="quiz_id" > 
              </table>  
-               <button class="btn btn-primary" type="submit"> Add question </button>
+               <button class="btn btn-success" type="submit"> Assign question </button>
              </form>
+             <a href="{{url('/mcq/create/'. $insid .'/'. $course->id .'/'. $week .'/'. $quiz_id)}}"><button class="btn btn-primary" type="submit"> Create questions </button></a>
             <div class="table_footer">
               <div class="table_pegination">
                 <nav>
@@ -128,7 +129,11 @@
               </div>
             </div>
             @else
+
               <p>No Question Created Yet</p>
+              
+              <a class="btn btn-primary" href="{{url('/mcq/create/'. $insid .'/'. $course->id .'/'. $week .'/'. $quiz_id)}}"><i class="fa fa-plus"></i>Create Questions</a>
+
             @endif
                
           </div>

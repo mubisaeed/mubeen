@@ -10,6 +10,10 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
+    <li>Courses</li>
+
     <li class = "active">All Quizzes</li>
 
   </ol>
@@ -85,8 +89,11 @@
 
                 <th scope="col">Name</th>
 
-                <th scope="col">Show/Solve</th>
+                <th scope="col">Start Time</th>
 
+                <th scope="col">End Time</th>
+
+                <th scope="col">Show/Solve</th>
 
               </tr>
 
@@ -95,6 +102,11 @@
             <tbody id="mybody">
 
               @foreach($quizzes as $index =>$quiz)
+              <?php
+
+                $stime = date('h:i a ', strtotime($quiz->start_time));
+                $etime = date('h:i a ', strtotime($quiz->end_time));
+              ?>
 
               <tr>
 
@@ -111,8 +123,30 @@
                 </td>
 
                 <td class="first_row">
-                  <a href="{{url('/quiz/solve_quiz_student/'.$quiz->id)}}" class="btn btn-success">Show/Solve</a>
+
+                    {{$stime}}
+
                 </td>
+
+                <td class="first_row">
+
+                    {{$etime}}
+
+                </td>
+
+                  <td class="first_row">
+
+                    <a href="{{url('/quiz/solve_quiz_student/'.$quiz->id)}}" class="btn btn-success">Show/Solve</a>
+
+                  </td>
+                @if($time >= $stime)
+                <td class="first_row" >
+                    
+                      <p id="demo" onload="myFunction({!! $etime !!})">
+                          
+                      </p>
+                  </td>
+                @endif
 
               </tr>
 
@@ -158,6 +192,41 @@
   </div>
 
 </div>
+
+
+<script>
+// Set the date we're counting down to
+myFunction($etime)
+{
+
+  var countDownDate = new Date($etime).getTime();
+
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+
+    // Get today's date and time
+    var now = new Date().getTime();
+      
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+      
+    // Time calculations for days, hours, minutes and seconds
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML =  hours + "h "
+    + minutes + "m " + seconds + "s ";
+      
+    // If the count down is over, write some text 
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+  }, 1000);
+}
+</script>
 
   <script>
     getPagination('#table-id');

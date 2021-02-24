@@ -8,6 +8,8 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</a></li>
+
     <li class = "active">All Courses</li>
 
   </ol>
@@ -152,9 +154,13 @@
 
                       <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Assigment</a>
 
+                      <a class="dropdown-item" href="{{url('/show_student_attendance/'. $course->id)}}"><i class="fas fa-fingerprint" aria-hidden="true"></i>View Attendance</a>
+
                       <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show lectures</a>
 
                       <a class="dropdown-item" href="{{url('/quiz/showquiz_to_student/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>
+
+                      <a class="dropdown-item" href="{{url('/course/quizzes_result/'. $course->id.'/'. $id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>All Quizzes Result</a>
 
                       <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-file" aria-hidden="true"></i>Downloadables</a>
 

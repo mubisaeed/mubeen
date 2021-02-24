@@ -153,7 +153,7 @@ div.mm-dropdown ul li img {
                     <div class="textfirst">Select</div>
                     <ul>
                       @foreach($icons as $icon)
-                      <li class="input-option" data-value="{{$icon->id}}" name="icon" value="{{$icon->id}}" >
+                      <li class="input-option" data-value="{{$icon->id}}" name="icon" value="{{$icon->id}}">
                         <img src="{{asset('/assets/img/upload/'.$icon->image)}}" alt="" width="20" height="20" /> 
                         {{$icon->title}}
                       </li>

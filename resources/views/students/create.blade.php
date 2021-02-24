@@ -44,6 +44,68 @@
 
         <h3 class="main_title_ot">Add New Student</h3>
 
+
+
+
+        <form method="POST" action="/import_file_students" enctype="multipart/form-data">
+          @csrf
+            <input type="file" name="select_file" accept=".xlsx" required="">
+           
+            <input type="submit" name="upload" class="btn btn-primary" value="Upload">
+
+        </form>
+
+
+                          <table class="table table-hover" id="table-id">
+
+                    <thead>
+
+                      <tr>
+
+                        <th scope="col">ID</th>
+
+                        <th scope="col">File</th>
+
+                        <th scope="col">Downloadable</th>
+
+
+                      </tr>
+
+                    </thead>
+
+                    <tbody id="mybody">
+
+                      @foreach($samples as $index =>$sample)
+
+                       
+                        <tr>
+
+                          <th scope="row">#{{$index+1}}</th>
+
+                       
+                                <td>
+                                
+
+                                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{asset('storage/'.$sample->file)}}" width='100' height='100px' frameborder='0'></iframe>
+
+
+                                </td>
+
+                    
+
+                          <td class="first_row"><a href="{{asset('storage/'.$sample->file)}}"  class="btn btn-primary"download>Download</a></td>
+
+
+
+                        </tr>
+
+
+                      @endforeach
+
+                    </tbody>
+
+                  </table>
+
         <div class="tab-content">
 
            <form method="POST" action="/studentstore" enctype="multipart/form-data">

@@ -84,31 +84,29 @@ class CourseController extends Controller
 
 
     public function coursestore(Request $request)
-
     {
+		 $this->validate($request, [
 
-    		 $this->validate($request, [
-
-                'cname' => 'min:3|max:50',
-
-
-                'rno' => 'required',
+            'cname' => 'min:3|max:50',
 
 
-                'building' => 'required',
+            'rno' => 'required',
 
 
-                'sdate' => 'required|date',
+            'building' => 'required',
 
-                'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-                'edate' => 'required|date|after_or_equal:sdate',
+            'sdate' => 'required|date',
 
-                'ccolor' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-                'sessions' => 'required',
-                
-                'cdescription' => 'required',
+            // 'edate' => 'required|date|after_or_equal:sdate',
+
+            'ccolor' => 'required',
+
+            'sessions' => 'required',
+            
+            'cdescription' => 'required',
 
             ]);
 
@@ -117,8 +115,6 @@ class CourseController extends Controller
             $name=$files->getClientOriginalName();
 
             $image = time().'.'.$request->image->getClientOriginalExtension();
-
-            // $request->image->move(public_path('storage/'), $image);
 
             $request->image->move(public_path() .'/assets/img/upload', $image);
 
@@ -145,6 +141,13 @@ class CourseController extends Controller
             $weeks = 36;
         }
 
+        // $time = \Carbon\Carbon::now()->format('Y-m-d');
+        $sdate = $request->sdate;
+        $days = $weeks * 7;
+        $enddate = (new \Carbon\Carbon($sdate))->addDays($days);
+        $edate = $enddate->format('y-m-d');
+
+
         $data = array(
 
             'course_name'=> $request->cname,
@@ -159,7 +162,7 @@ class CourseController extends Controller
 
             'start_date'=> $request->sdate,
 
-            'end_date'=> $request->edate,
+            'end_date'=> $edate,
 
             'course_color'=> $request->ccolor,
 
@@ -236,12 +239,14 @@ class CourseController extends Controller
          }
 
     	$user = Auth::user();
-        if(Auth::user()->role_id == '4')
+
+        if(auth()->user()->role_id == '4')
         {
-            $courses = DB::table('courses')->where('user_id', Auth::user()->id)->get();
+            $courses = DB::table('course_instructor')->where('i_u_id', Auth::user()->id)->orderBy('id', 'desc')->get()->all();
 
         }
-        else{
+        else
+        {
             $courses = DB::table('courses')->orderBy('id', 'desc')->get();
         }
         return view('courses.index', compact('courses', 'user'));
@@ -262,27 +267,36 @@ class CourseController extends Controller
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $links = DB::table('courselink')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $lectures = DB::table('lectures')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $videos = DB::table('resources')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
         $downloadables = DB::table('resources')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
-        ])->get()->all();
+        ])->orderBy('id', 'desc')->get()->all();
+
+
+        // $user = DB::table('instructors')->where('i_u_id', Auth::user()->id)->get()->first();
+
+        // $zoom = new ZoomController();
+        // $meeting_list = $zoom->meeting_list($user->zoom_id);
+        // dd($meeting_list);
+
+
         
         return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'downloadables', 'insid', 'cid', 'week'));
     }
@@ -290,7 +304,7 @@ class CourseController extends Controller
     public function students_courses($id)
     {
         $courses = DB::table('courses')->where('clas_id', $id)->get()->all();
-        return view('courses.student_courses', compact('courses'));
+        return view('courses.student_courses', compact('courses', 'id'));
     }
 
 
@@ -298,7 +312,7 @@ class CourseController extends Controller
 
     { 
         $courses = DB::table('courses')->where('clas_id', $id)->get();
-        return view('courses.index', compact('courses'));
+        return view('courses.class_courses', compact('courses'));
 
     }
 

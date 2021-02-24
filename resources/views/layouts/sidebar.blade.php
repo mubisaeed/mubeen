@@ -2,11 +2,6 @@
   $user = Auth::user();
 ?>
 
-<style type="text/css">
-.nav li a.active {
-  background-color: #ccc;
-}
-</style>
   <div class="wrapper">
 
     <div class="sidebar"  data-color="purple" data-background-color="white" data-image="{{asset('/assets/img/sidebar-1.jpg')}}">
@@ -210,6 +205,9 @@
             </div>
 
           </li> 
+
+          <!-- greetig message -->
+
           
         @endif   
        
@@ -224,6 +222,30 @@
               <i class="fa fa-calendar"></i>
 
               <p>Calendar</p>
+
+            </a>
+
+          </li>
+
+          <li class="nav-item ">
+
+            <a class="nav-link" href="{{url('/add_student_sample')}}">
+
+              <i class="fa fa-calendar"></i>
+
+              <p>Add student sample</p>
+
+            </a>
+
+          </li>
+
+          <li class="nav-item">
+
+            <a class="nav-link" href="{{url('/show_attendance_to_school')}}">
+
+              <i class="fa fa-lightbulb-o"></i>
+
+              <p>Attendance</p>
 
             </a>
 
@@ -252,6 +274,17 @@
               </div>
 
             </div>
+
+          </li>
+          <li class="nav-item">
+
+            <a class="nav-link" href="{{url('/setgrades')}}">
+
+              <i class="fa fa-calendar"></i>
+
+              <p>Set Grades</p>
+
+            </a>
 
           </li>
         @endif
@@ -477,7 +510,7 @@
 
           </li>
           @if(  in_array('All Classes', $data))
-          <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
+          <li class="{{ Request::is('/classes') ? 'active' : '' }} nav-item dropdown_item">
           
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
           
@@ -659,20 +692,20 @@
       
        
    
-         <li class="nav-item dropdown_item  {{ Request::is('classes') ? 'active' : '' }}">
+         <li class="nav-item dropdown_item {{ request()->is('classes') ? 'active' : '' }}">
             
                       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
             
                         <i class="fa fa-graduation-cap"></i>
             
-                        <span>Classes</span>
+                        <span>Terms/Sessions</span>
             
                       </a>
       
                 <div id="collapseEleven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
       
                   <div class="py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{url('/classes')}}">All Classes</a>
+                    <a class="collapse-item" href="{{url('/classes')}}">All Terms/Sessions</a>
                    
       
                   </div>
@@ -763,7 +796,7 @@
 
   
     
-        @endif
+        @endif 
         <!--safty -->
           <li class="nav-item  {{ Request::is('safetytips') ? 'active' : '' }}">
 
@@ -800,10 +833,11 @@
 
   </div>
 
-<script>
-    $('.nav li a').click(function(e) {
-        $('.nav li.active').removeClass('active');
-        var $parent = $(this).parent();
-        $parent.addClass('active');
-    });
-</script>
+ <script> 
+    $(document).ready(function() { 
+        $('li').click(function() { 
+            $('li.nav-item.active').removeClass("active"); 
+            $(this).addClass("active"); 
+        }); 
+    }); 
+</script> 

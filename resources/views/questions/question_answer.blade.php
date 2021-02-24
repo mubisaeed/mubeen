@@ -41,33 +41,19 @@
       <div class="quiz_tabs">
 
         <ul class="nav nav-tabs ">
-
-          <li class="quiz_tab_link">
-
-            <a href="{{url('/mcq/create/'. $course->id)}}">
-
-            Question Answers </a>
-
+          <li class="quiz_tab_link active">
+            <a href="{{url('/mcq/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
+            Multiple Choice </a>
           </li>
-
-          <li class="quiz_tab_link active no_radius">
-
-            <a href="{{url('/q/create/'. $course->id)}}">
-
+          <li class="quiz_tab_link no_radius">
+            <a href="{{url('/q/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Questions</a>
-
           </li>
-
           <li class="quiz_tab_link second">
-
-            <a href="{{url('/tf/create/'. $course->id)}}">
-
+            <a href="{{url('/tf/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             True/False </a>
-
           </li>
-
           
-
         </ul>
 
         <div class="tab-content">
@@ -78,6 +64,9 @@
 
           			@csrf
                 <input type="hidden" name="course_id" value="{{$course->id}}">
+                <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+                <input type="hidden" name="week" value="{{$week}}">
+                <input type="hidden" name="qid" value="{{$qid}}">
 
 		            <div class="quiz_head">
 
@@ -278,7 +267,7 @@
 
             </table>   
 
-<div class="table_footer">
+          <div class="table_footer">
             <div class="table_pegination">
               <nav>
                 <ul class="pager pagination">

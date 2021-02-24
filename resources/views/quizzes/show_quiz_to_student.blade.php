@@ -2,7 +2,38 @@
 
 @section('content')
 
-
+<script type="text/javascript">
+  
+  function timeout()
+  {
+    var hours =  Math.floor(timeLeft/3600);
+    var minute = Math.floor((timeLeft-(hours*60*60)-30)/60);
+    var second = timeLeft%60;
+    var hrs = checktime(hours);
+    var mint = checktime(minute);
+    var sec = checktime(second);
+    if(timeLeft<=0)
+    {
+      clearTimeout(tm);
+      document.getElementById("form1").submit();
+    }
+    else
+    {
+      
+      document.getElementById("time").innerHTML=hrs+":"+mint+":"+sec;
+    }
+    timeLeft--;
+    var tm = setTimeout(function(){timeout()}, 1000);
+  }
+  function checktime(msg)
+  {
+    if(msg<10)
+    {
+      msg = "0"+msg;
+    }
+    return msg;
+  }
+</script>
 <div class="breadcrumb_main">
 
   <ol class="breadcrumb">
@@ -38,86 +69,112 @@
     <div class="course_table mt-0">
 
       <div class="course card-header card-header-warning card-header-icon">
-        <h3>Quiz View</h3>   
-          <form method="POST" action="{{url('/quiz/solved_quiz_by_student')}}" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="quiz_id" value="{{$id}}">
+        <h3>Quiz View 
 
-            @foreach($questions as $q)
-              <?php 
-                $qstn = DB::table('questions')->where('id', $q->question_id)->get()->first();
-                if($qstn->type == 'question/answer')
-                  {
-                    $opts = $qstn->options;
-                  }
-                else
-                {
-                  $opts = unserialize($qstn->options);
-                }
-              ?>
-              <div>
+          <script type="text/javascript">
+              
+              var timeLeft = 2*60*60;
+
+          </script>
+
+          <div id="time" style="float: right;">TimeOut</div> </h3> 
+
+
+
+
+        @if(count($questions)>0) 
+         
+            <form method="POST" action="{{url('/quiz/solved_quiz_by_student')}}" enctype="multipart/form-data" id="form1">
+              @csrf
+              <input type="hidden" name="quiz_id" value="{{$id}}">
+
+              @foreach($questions as $q)
+                <?php 
+                  $qstn = DB::table('questions')->where('id', $q->question_id)->get()->first();
+                  if($qstn->type == "question/answer")
+                    {
+                      $opts = $qstn->options;
+                    }
+                  else
+                    {
+                      $opts = unserialize($qstn->options);
+                    }
+                ?>
+
                 <div>
-                  <h4>{{$qstn->label}}</h4>
-                </div>
-                @if($qstn->type == 'mcq')
-                <input type="hidden" name="mcqlabel" value="{{$qstn->label}}">
-                <input type="hidden" name="question_id[]" value="{{$qstn->id}}">
-                  <div class="row">
-                    <div class="col-md-3">
-                      <label>{{$opts['opt1']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
-                    </div>
-                    <div class="col-md-3">
-                      <label>{{$opts['opt2']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
-                    </div>
-                    <div class="col-md-3">
-                      <label>{{$opts['opt3']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
-                    </div>
-                    <div class="col-md-3">
-                      <label>{{$opts['opt4']}}</label>
-                      <input type="checkbox" value="{{$opts['opt1']}}" name="correct1[]" class="btn"/>
-                    </div>
-                  </div>
-                @elseif($qstn->type == 't/f')
-                <input type="hidden" name="tfabel" value="{{$qstn->label}}">
-                <input type="hidden" name="question_id[]" value="{{$qstn->id}}">
+
+
                   <div>
-                    <div class="row">
-                      <div class="col-md-6 p_left">
-                        <label>{{$opts['true']}}</label>
-
-                        <input type="radio" value="true" name="correcttf" class="btn"/>
-
-                        <label>{{$opts['false']}}</label>
-
-                        <input type="radio" value="false" name="correcttf" class="btn"/>
-                                  
-                                  
-                      </div>
-                    </div>
+                    <h4>{{$qstn->label}}</h4>
                   </div>
-                  @elseif($qstn->type == 'question/answer')
-                  <input type="hidden" name="qalabel" value="{{$qstn->label}}">
+                  @if($qstn->type == 'mcq')
+                  <input type="hidden" name="mcqlabel" value="{{$qstn->label}}">
                   <input type="hidden" name="question_id[]" value="{{$qstn->id}}">
-                  <div>
                     <div class="row">
-                      <div class="col-md-6 p_left">
-
-                        <textarea class="form-control" name="ans" value="{!!old('ans')!!}" autofocus="" required="" style="height: 100px !important;"> </textarea>
-                                  
-                                  
+                      <div class="col-md-3">
+                        <label>{{$opts['opt1']}}</label>
+                        <input type="checkbox" value="{{$opts['opt1']}}" name="correct{{$qstn->id}}[]" class="btn"/>
+                      </div>
+                      <div class="col-md-3">
+                        <label>{{$opts['opt2']}}</label>
+                        <input type="checkbox" value="{{$opts['opt2']}}" name="correct{{$qstn->id}}[]" class="btn"/>
+                      </div>
+                      <div class="col-md-3">
+                        <label>{{$opts['opt3']}}</label>
+                        <input type="checkbox" value="{{$opts['opt3']}}" name="correct{{$qstn->id}}[]" class="btn"/>
+                      </div>
+                      <div class="col-md-3">
+                        <label>{{$opts['opt4']}}</label>
+                        <input type="checkbox" value="{{$opts['opt4']}}" name="correct{{$qstn->id}}[]" class="btn"/>
                       </div>
                     </div>
-                  </div>
-                @endif
-              </div> 
-             
-            @endforeach
-                <button type="submit" class="btn btn-success">Submit Quiz</button>
+                  @elseif($qstn->type == 't/f')
+                  <input type="hidden" name="tfabel" value="{{$qstn->label}}">
+                  <input type="hidden" name="question_id[]" value="{{$qstn->id}}">
+                    <div>
+                      <div class="row">
+                        <div class="col-md-6 p_left">
+                          <label>{{$opts['true']}}</label>
 
-          </form>
+                          <input type="radio" value="true" name="correcttf{{$qstn->id}}" class="btn"/>
+
+                          <label>{{$opts['false']}}</label>
+
+                          <input type="radio" value="false" name="correcttf{{$qstn->id}}" class="btn"/>
+                                             
+                        </div>
+                      </div>
+                    </div>
+                    @elseif($qstn->type == 'question/answer')
+                    <input type="hidden" name="qalabel" value="{{$qstn->label}}">
+                    <input type="hidden" name="question_id[]" value="{{$qstn->id}}">
+                    <div>
+                      <div class="row">
+                        <div class="col-md-6 p_left">
+
+                          <textarea class="form-control" name="ans" value="{!!old('ans')!!}" autofocus="" required="" style="height: 100px !important;"> </textarea>
+                                    
+                                    
+                        </div>
+                      </div>
+                    </div>
+                  @endif
+                </div> 
+               
+              @endforeach
+                  <button type="submit" class="btn btn-success">Submit Quiz</button>
+
+            </form>
+
+
+
+        @else
+
+          <p>Wait for quiz.</p>
+          <br>
+          <a  href="{{url('/dashboard')}}"><button type="button" class="btn btn-info">Go Back</button></a>
+
+        @endif
       </div>
 
     </div>
@@ -125,6 +182,30 @@
   </div>
 
 </div>
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+  $(function() 
+  {
+    setTimeout(function() {
+     $("#questions").fadeOut(1500); 
+    }, 5000)
+  });
+  
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    timeout();
+});
+</script>
+
 
   <script>
     getPagination('#table-id');

@@ -40,7 +40,10 @@
 
                         <input type="hidden" name="id" value="{{$id}}">
 
-                        <input type="hidden" name="main" value="{{$main}}"> 
+                      <input type="hidden" name="course_id" value="{{$course_id}}"> 
+                      <input type="hidden" name="instructor_id" value="{{$instructor_id}}"> 
+                      <input type="hidden" name="week" value="{{$week}}"> 
+
 
                          
                     <div class="col-md-6 p_left">
@@ -97,7 +100,7 @@
 
                       <div class="file_spacing">
 
-                        <input id="file" class="choose" type="file" name="file" value="{!!old('file', $cress->file)!!}" accept="application/pdf,application/vnd.ms-excel/application/vnd.ms-doc" required="" autofocus="" size="max:10240">
+                        <input id="file" class="choose" type="file" name="file" value="{!!old('file', $cress->file)!!}" accept="application/pdf,application/docx,application/rtf,application/vnd.ms-excel/application/vnd.ms-doc" required="" autofocus="" size="max:10240">
 
                       </div>
 

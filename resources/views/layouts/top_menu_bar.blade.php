@@ -6,9 +6,16 @@
 <?php
 
 $special= DB::table('special_educations')->get();
+$greeting = DB::table('greetings')->get()->first();
 
 ?>
 <div class="header_2">
+  
+  <div>
+      <div class="alert alert-success">
+        <p>{{$greeting->description}} {{$user->name}}.</p>
+      </div>
+  </div>
 
   <div class="main_heding">
 

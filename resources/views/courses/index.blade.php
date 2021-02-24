@@ -8,6 +8,8 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
     <li class = "active">All Courses</li>
 
   </ol>
@@ -54,22 +56,6 @@
 
             </div>
 
-<!--             <div class="table_select">
-
-              <select class="selectpicker">
-
-                <option>All Courses</option>
-
-                <option>Filter by Class</option>
-
-                <option>Macro Economics I</option>
-
-                <option>Macro Economics II</option>
-
-              </select>
-
-            </div> -->
-
           </div>
 
           <table class="table table-hover" id="table-id">
@@ -103,8 +89,19 @@
 
             <tbody id="mybody">
 
-              @foreach($courses as $index =>$course)
+              @foreach($courses as $index =>$crs)
 
+              <?php
+                if(Auth::user()->role_id == 4)
+                  {
+                    $course = DB::table('courses')->where('id', $crs->course_id)->get()->first();
+                  }
+                else
+                  {
+                    $course = DB::table('courses')->where('id', $crs->id)->get()->first();
+                  }
+
+              ?>
               <tr>
 
                 <th scope="row">#{{$index+1}}</th>
@@ -133,7 +130,7 @@
 
                   <div class="course_td">
 
-                  <a href="{{url('/course/addinstructor/tocourse/' .$course->id)}}" class="btn btn-success"> Add Instructor </a>
+                  <a href="{{url('/course/addinstructor/tocourse/' .$course->id)}}" class="btn btn-warning"> Add Instructor </a>
 
                   </div>
 
@@ -157,65 +154,12 @@
 
                   <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a>
 
-                  <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}">Course View</a>
+                  <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}" target="_blank">Course View</a>
+                  @if(Auth::user()->role_id == 4)
+                    <a class="btn btn-primary" href="{{url('/show_student_attendance/'.$course->id)}}">Show attendance</a>
 
-
-<!--                   <li class="nav-item dropdown">
-
-                    <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                      <span class="material-icons">
-
-                        more_horiz
-
-                      </span>
-
-                      <div class="ripple-container"></div>
-
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right add_zindex" aria-labelledby="navbarDropdownProfile">
-
-                      <a class="dropdown-item" href="{{url('/course/'.$course->slug)}}" target="_blank"> <i class="fa fa-eye"></i>View</a>
-
-                      @if(auth()->user()->role_id == '4')
-
-                      <a class="dropdown-item" href="{{url('/lecture/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Create lecture</a>
-
-                      <a class="dropdown-item" href="{{url('/lectures/'. $course->id)}}"><i class="fa fa-users" aria-hidden="true"></i>Show lectures</a>
-
-                      <a class="dropdown-item" href="{{url('/courselink/'.$course->id)}}"> <i class="fa fa-link"></i>Links</a>
-
-
-                      <a class="dropdown-item" href="{{url('/assignment/create/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Create Assigment</a>
-
-                      <a class="dropdown-item" href="{{url('/assignments/'. $course->id)}}"><i class="fa fa-file" aria-hidden="true"></i>Show Assigment</a>
-
-                      <a class="dropdown-item" href="{{url('/quizzes/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Show Quizzes</a>
-
-                      <a class="dropdown-item" href="{{url('/quiz/create/'. $course->id)}}"><i class="fa fa-pencil" aria-hidden="true"></i>Create Quiz</a>
-
-                      <a class="dropdown-item" href="{{url('/mcq/create/'. $course->id)}}"><i class="fa fa-question-circle" aria-hidden="true"></i>Quiz/Questions</a>
-
-                      <a class="dropdown-item" href="{{url('/courseresourse/'. $course->id)}}"> <i class="fa fa-download" aria-hidden="true"></i>Downloadables</a>
-
-                      <a class="dropdown-item" href="{{url('/courseresoursevideo/'. $course->id)}}"> <i class="fa fa-play" aria-hidden="true"></i>Videos</a>
-
-                      <a class="dropdown-item duplicate" href="#" data-toggle="modal" id = "{{$course->id}}" data-target="#exampleModalCenter" onclick="dupid(this.id);"><i class="fa fa-copy"></i>Duplicate</a>
-                       
-                      @endif
-
-                      @if(auth()->user()->role_id == '3' || auth()->user()->role_id == '4')
-
-                      <a class="dropdown-item" href="{{url('course/edit/' . $course->id)}}"><i class="fa fa-cogs"></i>Edit</a>
-
-                      <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="dropdown-item delete"><i class="fa fa-trash"></i>Delete</a>
-
-                      @endif
-
-                    </div>
-
-                  </li> -->
+                    <a class="btn btn-info" href="{{url('/upload_syllabus/'.$course->id)}}">Syllabus</a>
+                  @endif
 
                 </td>
 
@@ -228,30 +172,32 @@
 
             </tbody>
 
-          </table>   
-<div class="table_footer">
-            <div class="table_pegination">
-              <nav>
-                <ul class="pager pagination">
-                  <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
-                  <span class="sr-only">(current)</span></span></li>
-                  <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
-                  <span class="sr-only">(current)</span></span></li>
-                </ul>
-              </nav>
-            </div>
-            <div class="table_rows">
-              <div class="rows_main">
-                <p>Rows per page</p>
-                <select name="state" id="maxRows">
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                </select>
+          </table>
+            @if(count($courses)>5)
+            <div class="table_footer">
+              <div class="table_pegination">
+                <nav>
+                  <ul class="pager pagination">
+                    <li data-page="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-left">
+                    <span class="sr-only">(current)</span></span></li>
+                    <li data-page="next" id="prev" class="pager__item pager__item--prev"><span class="pager__link fa fa-angle-right">
+                    <span class="sr-only">(current)</span></span></li>
+                  </ul>
+                </nav>
+              </div>
+              <div class="table_rows">
+                <div class="rows_main">
+                  <p>Rows per page</p>
+                  <select name="state" id="maxRows">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
+            @endif
 
          @else
 
@@ -318,24 +264,6 @@
             </button>
           </div>
         </div>
-
-       <!--  <div class="custom_input_main">
-          <input type="checkbox" value="quiz" name="selected[]" class="btn"/>
-          <label>Quizzes <span class="grey"></span></label>
-
-        </div>
-
-        <div class="custom_input_main">
-          <input type="checkbox" value="links" name="selected[]" class="btn"/>
-          <label>Links <span class="grey"></span></label>
-
-        </div>
-
-        <div class="custom_input_main">
-          <input type="checkbox" value="downloadables" name="selected[]" class="btn"/>
-          <label>Downloadables <span class="grey"></span></label>
-
-        </div> -->
 
         <div class="s_form_button">
 
@@ -484,16 +412,16 @@
     /* Act on the event */
     $(this).toggleClass('btn-success');
   });
-$('.parent_input1').click(function(event) {
+  $('.parent_input1').click(function(event) {
     /* Act on the event */
      $('.parent_input1 i').toggle();
   });
-$('.parent_input2').click(function(event) {
+  $('.parent_input2').click(function(event) {
     /* Act on the event */
      $('.parent_input2 i').toggle();
   });
 
-$('.parent_input3').click(function(event) {
+  $('.parent_input3').click(function(event) {
     /* Act on the event */
      $('.parent_input3 i').toggle();
   });

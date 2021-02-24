@@ -46,6 +46,8 @@ use App\Http\Controllers\RoomsController;
 
 use App\Http\Controllers\UserGuideController;
 
+use App\Http\Controllers\SyllabusController;
+
 use App\Http\Controllers\Special_educationController;
 
 use App\Http\Controllers\Sub_adminsController;
@@ -54,7 +56,11 @@ use App\Http\Controllers\GreetingsController;
 
 use App\Http\Controllers\QuestionsController;
 
+use App\Http\Controllers\AttendanceController;
+
 use App\Http\Controllers\QuizController;
+
+use App\Http\Controllers\GradesController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -94,14 +100,6 @@ Route::get('/', function () {
 Route::get('/get-met',function(){
     $user =     Zoom::user();
     return $user->all();
-    // $user =     Zoom::user();
-    // return $user->create([
-    //     'first_name' => 'ali',
-    //     'last_name' => 'khan',
-    //     'email' => 'alikhanbalock@gmail.com',
-    //     'password' => 'Abc123123',
-    //     'type'=> 1
-    // ]);
 });
 
 Route::group(['middleware' => 'auth'], function(){
@@ -111,6 +109,8 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 //Calendar Route
+
+Route::post('/addevent', [CalendarController::class, 'addevent']);
 
 Route::get('/calendar', [CalendarController::class, 'index']);
 
@@ -129,13 +129,35 @@ Route::post('/assignment/update/{id}', [AssignmentsController::class, 'update'])
 Route::get('/assignment/delete', [AssignmentsController::class, 'destroy']);
 
 
+//syllabus routes
+
+Route::get('/upload_syllabus/{id}', [SyllabusController::class, 'upload_syllabus']);
+
+Route::post('/upload_syllabus', [SyllabusController::class, 'store_syllabus']);
+
+Route::get('/upload_syllabus/edit/{id}', [SyllabusController::class, 'edit']);
+
+Route::post('/upload_syllabus/update/{id}', [SyllabusController::class, 'update']);
+
+Route::get('/deletesyllabus', [SyllabusController::class, 'destroy']);
+
+
+
 //Quizzes routes
 
 Route::get('/questionsweek/{insid}/{courseid}/{week}', [QuestionsController::class, 'search_by_week'])->name('week');
 
 Route::get('/quizzes/create', [QuestionsController::class, 'create']);
 
-Route::get('/mcq/create/{id}', [QuestionsController::class, 'mcqcreate']);
+Route::get('/mcq/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'mcqcreate']);
+
+Route::get('/upload_quiz_questions/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'upload_quiz_questions']);
+
+Route::post('/add_mcq_excelFile', [QuestionsController::class, 'upload_quiz_mcq']);
+
+Route::post('/add_tf_excelFile', [QuestionsController::class, 'upload_quiz_tf']);
+
+Route::post('/add_qa_excelFile', [QuestionsController::class, 'upload_quiz_qa']);
 
 Route::post('/mcq/store', [QuestionsController::class, 'mcqstore']);
 
@@ -143,7 +165,7 @@ Route::get('/mcq/edit/{id}/{courseid}',  [QuestionsController::class, 'mcq_edit'
 
 Route::post('/mcq/update/{id}',  [QuestionsController::class, 'mcq_update']);
 
-Route::get('/q/create/{id}', [QuestionsController::class, 'qcreate']);
+Route::get('/q/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'qcreate']);
 
 Route::post('/q/store', [QuestionsController::class, 'qstore']);
 
@@ -155,7 +177,7 @@ Route::get('/mcq/show', [QuestionsController::class, 'see_all_mcqs']);
 
 Route::get('/tf/show', [QuestionsController::class, 'see_all_tf']);
 
-Route::get('/tf/create/{id}', [QuestionsController::class, 'tfcreate']);
+Route::get('/tf/create/{insid}/{courseid}/{week}/{qid}', [QuestionsController::class, 'tfcreate']);
 
 Route::post('/tf/store', [QuestionsController::class, 'tfstore']);
 
@@ -178,7 +200,7 @@ Route::get('/quizzes/{id}', [QuizController::class, 'index'])->name('Quizzes');
 
 Route::get('/quiz/create/{insid}/{courseid}/{week}', [QuizController::class, 'create']);
 
-Route::get('/quiz/addquestion/toquiz/{id}', [QuizController::class, 'addquestion_to_quiz']);
+Route::get('/quiz/addquestion/toquiz/{insid}/{courseid}/{week}/{qid}', [QuizController::class, 'addquestion_to_quiz']);
 
 Route::post('/quiz/addquestion/toquiz', [QuizController::class, 'storequestion_to_quiz'])->name('add.question.to.quiz');
 
@@ -190,6 +212,8 @@ Route::get('/quiz/solve_quiz_result/{id}', [QuizController::class, 'solved_quiz_
 
 Route::get('/quiz/showquiz_to_student/{id}', [QuizController::class, 'student_quizzes'])->name('quizzes');
 
+Route::get('/course/quizzes_result/{id}/{clsid}', [QuizController::class, 'course_quizzes_result'])->name('quizzes_result');
+
 Route::get('/quiz/solve_quiz_student/{id}', [QuizController::class, 'show_quiz_to_student'])->name('show');
 
 Route::post('/quiz/solved_quiz_by_student', [QuizController::class, 'solved_quiz_by_student']);
@@ -200,9 +224,24 @@ Route::get('/quiz/edit/{id}',  [QuizController::class, 'edit']);
 
 Route::post('/quiz/edit/{id}',  [QuizController::class, 'update']);
 
+Route::get('/quiz/edit/quiz_questions/{id}',  [QuizController::class, 'edit_quiz_qiuestions']);
+
+Route::post('/quiz/edit/quiz_questions/{id}',  [QuizController::class, 'update_quiz_qiuestions']);
+
 Route::get('/quiz/show/{id}',  [QuizController::class, 'show']);
 
 Route::post('/quiz/delete',  [QuizController::class, 'destroy']);
+
+
+///setgrades
+
+
+Route::get('/setgrades',  [GradesController::class, 'setgrades']);
+Route::post('/setgrades',  [GradesController::class, 'savegrades']);
+Route::get('/editgrades/{id}',  [GradesController::class, 'editgrades']);
+Route::post('/updategrades/{id}',  [GradesController::class, 'updategrades']);
+Route::get('/grade/delete', [GradesController::class, 'destroy']);
+
 
 
 //User Guide Route
@@ -292,8 +331,30 @@ Route::get('/get-students', [StudentsController::class, 'get_students']);
 
 Route::get('/filter_recent_students/{id}', [StudentsController::class, 'filterrecent']);
 
+//upload excel file
+
+Route::post('/import_file_students', [StudentsController::class, 'import']);
+
+Route::get('/add_student_sample', [StudentsController::class, 'addsample']);
+
+Route::post('/add_student_sample', [StudentsController::class, 'storesample']);
 
 
+
+//Attendance
+
+
+Route::get('/show_student_attendance/{cid}', [AttendanceController::class, 'show_attendance_to_student']);
+
+Route::get('/show_attendance_to_school', [AttendanceController::class, 'show_attendance_to_school']);
+
+Route::get('/attendance_dropdown-data/{id}',[AttendanceController::class, 'data']);
+
+Route::get('/attendance_course_dropdown-data/{id}',[AttendanceController::class, 'course_data']);
+
+Route::get('/export_student_attendance', [AttendanceController::class, 'export']);
+
+Route::get('/export_attendance_by_instructor', [AttendanceController::class, 'export_students']);
 
 
 //students crud
@@ -407,7 +468,7 @@ Route::post('/lecture/create', [InstructorsController::class, 'store_lecture']);
 
 Route::get('/lectures/{id}', [InstructorsController::class, 'show_lecture']);
 
-Route::get('/instructor/launchmeeting/{id}', [InstructorsController::class, 'launch_meeting']);
+Route::get('/instructor/launchmeeting/{id}/{cid}', [InstructorsController::class, 'launch_meeting']);
 
 
 
@@ -630,6 +691,8 @@ Route::post('subadmin/delete',  [Sub_adminsController::class, 'destroy']);
 //messages
 
 Route::get('/messages', [MessagesController::class, 'messages'])->name('All Message');
+
+Route::get('/get_messages/{id}', [MessagesController::class, 'get_messages'])->name('All Message');
 
 Route::get('/chatbox/{id}', [MessagesController::class, 'messages'])->name('Send Message');
 

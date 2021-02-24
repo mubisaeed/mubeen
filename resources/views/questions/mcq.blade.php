@@ -21,15 +21,15 @@
       <div class="quiz_tabs">
         <ul class="nav nav-tabs ">
           <li class="quiz_tab_link active">
-            <a href="{{url('/mcq/create/'. $course->id)}}">
+            <a href="{{url('/mcq/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Multiple Choice </a>
           </li>
           <li class="quiz_tab_link no_radius">
-            <a href="{{url('/q/create/'. $course->id)}}">
+            <a href="{{url('/q/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             Questions</a>
           </li>
           <li class="quiz_tab_link second">
-            <a href="{{url('/tf/create/'. $course->id)}}">
+            <a href="{{url('/tf/create/'. $instructor_id .'/'. $course->id .'/'. $week .'/'. $qid)}}">
             True/False </a>
           </li>
           
@@ -39,6 +39,9 @@
             <form method="POST" action="{{url('/mcq/store')}}">
               @csrf
               <input type="hidden" name="course_id" value="{{$course->id}}">
+              <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
+              <input type="hidden" name="week" value="{{$week}}">
+              <input type="hidden" name="qid" value="{{$qid}}">
               <div class="quiz_head">
                 <h5>Question -1</h5>
                 <div class="quiz_form">
@@ -118,27 +121,9 @@
                         </div>
 
 
-
-                        <?php
-                          $course = DB::table('courses')->where('id', $course->id)->get()->first();
-                          $weeks = $course->weeks;
-                        ?>
-
-                        <div class="col-md-12">
-                          @for($i = 1; $i <= $weeks; $i++)
-
-                            <input type="radio" name="week" value="{{$i}}" id="wk" onclick="showbtn()" required="">
-
-                            <label class="select_lable">Week {{$i}}</label>
-
-                          @endfor
-
-                        </div>
-
-
                         <div class="save_next_btn text-center w-100">
                           <a  href="{{url('/course')}}"><button type="button" class="btn" style="background-color: #e7e7e7; color: black">Cancel</button></a>
-                          <button type="submit" class="btn" id="sub_button">Save and next</button>
+                          <button type="submit" class="btn">Save and next</button>
                           
                         </div>
                       </div>
@@ -274,7 +259,7 @@
 
 
 
-<script type="text/javascript">  
+<!-- <script type="text/javascript">  
   $(document).ready(function(){
      $('#sub_button').hide();
   });
@@ -285,7 +270,7 @@
   {
     $('#sub_button').show();
   }
-</script>
+</script> -->
 
   <script type="text/javascript">
       jQuery(document).ready(function($) {

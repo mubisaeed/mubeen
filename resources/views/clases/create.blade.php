@@ -132,6 +132,30 @@ div.mm-dropdown ul li img {
                     @enderror
 
                   </div>
+
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main select_plugin mobile_field">
+
+                        <select class="selectpicker" name="department">
+
+                          @foreach($departments as $dept)
+
+                            <option value="{{$dept->id}}"> {{$dept->name}} </option>
+
+                          @endforeach
+
+                        </select>
+
+                        <label class="select_lable">Department</label>
+
+                    </div>
+
+                  </div>
+
+
+
                   <div class="col-md-6 p_left">
                     <div class="mm-dropdown">
                     <div class="textfirst">Select</div>

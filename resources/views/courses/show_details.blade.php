@@ -30,6 +30,10 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
+    <li>Terms/Sessions</li>
+
+    <li>Course</li>
+
     <li class = "active">All Weekly Details</li>
 
   </ol>

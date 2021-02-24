@@ -53,7 +53,7 @@ class ClasController extends Controller
                 $course_classes = DB::table('courses')->whereIn('id', $courses)->pluck('clas_id');
                 if(count($course_classes)>0)
                 {
-                    $classes = DB::table('classes')->where('id', $course_classes)->get()->all();
+                    $classes = DB::table('classes')->where('id', $course_classes)->orderBy('id', 'desc')->get()->all();
                     return view ('clases.index', compact('classes'));
                 }
                 else{
@@ -69,7 +69,7 @@ class ClasController extends Controller
 
         else
         {
-            $classes = DB::table('classes')->get()->all();
+            $classes = DB::table('classes')->orderBy('id', 'desc')->get()->all();
     	   return view ('clases.index', compact('classes'));
         }
     }
@@ -84,7 +84,7 @@ class ClasController extends Controller
 
     public function see_courses_of_class($id){
 
-           $courses = DB::table('courses')->where('clas_id' , $id)->get();
+           $courses = DB::table('courses')->where('clas_id' , $id)->orderBy('id', 'desc')->get();
            return view('clases.all_courses_of_class' , compact('courses', 'id'));           
         
     }
@@ -142,7 +142,7 @@ class ClasController extends Controller
 
 
     public function see_students_of_class($id){
-           $stds = DB::table('classes_students')->where('class_id' , $id)->get()->all();
+           $stds = DB::table('classes_students')->where('class_id' , $id)->orderBy('id', 'desc')->get()->all();
            return view('clases.all_students_of_class' , compact('stds', 'id'));           
         
     }
@@ -196,8 +196,9 @@ class ClasController extends Controller
             }
             // end for permission
         $icons = DB::table('icons')->get();
+        $departments = DB::table('departments')->where('school_id', Auth::user()->id)->get();
         
-    	return view('clases.create', compact('icons'));
+    	return view('clases.create', compact('icons', 'departments'));
     }
 
     public function store(Request $request)
@@ -239,9 +240,6 @@ class ClasController extends Controller
 
         $success = $class->save();
 
-        // $class = DB::table('classes')->where('id',$id)->get()->first();
-    
-    	// DB::table('classes')->where('id', $id)->update(['name' => $request->name]);
         Session::flash('message', 'Updated successfully');
         return redirect('/classes');        
     }

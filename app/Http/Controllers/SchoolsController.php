@@ -182,10 +182,6 @@ class SchoolsController extends Controller
 
     { 
 
-        
-
-        // dd('wadasd');
-
         $this->validate($request, [
 
             'sname' => 'required|min:3|max:20',
@@ -196,9 +192,9 @@ class SchoolsController extends Controller
 
             'password' => 'required|string|min:8|confirmed',
 
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-            'simage' => 'required',
+            'simage' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
             'phno' => 'required|min:12|max:12',
 
@@ -279,8 +275,91 @@ class SchoolsController extends Controller
             'sup_u_id' => Auth::user()->id,
 
         );
+        $AAgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 95.5, 
+            'marks_to' => 100, 
+            'grade' => 'A+', 
+        );
+
+        $Agrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 90.5, 
+            'marks_to' => 95, 
+            'grade' => 'A', 
+        );
+        $BBgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 80.5, 
+            'marks_to' => 90, 
+            'grade' => 'B+', 
+        );
+        $Bgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 75.5, 
+            'marks_to' => 80, 
+            'grade' => 'B', 
+        );
+        $CCgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 70.5, 
+            'marks_to' => 75, 
+            'grade' => 'C+', 
+        );
+        $Cgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 60.5, 
+            'marks_to' => 70, 
+            'grade' => 'C', 
+        );
+        $DDgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 55.5, 
+            'marks_to' => 60, 
+            'grade' => 'D+', 
+        );
+        $Dgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 45.5, 
+            'marks_to' => 55, 
+            'grade' => 'D', 
+        );
+        $EEgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 30.5, 
+            'marks_to' => 45, 
+            'grade' => 'E+', 
+        );
+        $Egrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 20.5, 
+            'marks_to' => 30, 
+            'grade' => 'E', 
+        );
+        $Fgrade = array(
+            'set_by' => $sdata->sch_u_id,
+            'marks_from' => 0, 
+            'marks_to' => 20, 
+            'grade' => 'F', 
+        );
+
+        $success = DB::table('grades')->insert($AAgrade);
+        $success = DB::table('grades')->insert($Agrade);
+        $success = DB::table('grades')->insert($BBgrade);
+        $success = DB::table('grades')->insert($Bgrade);
+        $success = DB::table('grades')->insert($CCgrade);
+        $success = DB::table('grades')->insert($Cgrade);
+        $success = DB::table('grades')->insert($DDgrade);
+        $success = DB::table('grades')->insert($Dgrade);
+        $success = DB::table('grades')->insert($EEgrade);
+        $success = DB::table('grades')->insert($Egrade);
+        $success = DB::table('grades')->insert($Fgrade);
 
         $success = DB::table('school_super')->insert($sup_sch_data);
+        
+        $success = DB::table('users')->where('id' , $udata->id)->update([
+            'unique_id' => $udata->name . '' . $udata->id,
+        ]);
 
         
 

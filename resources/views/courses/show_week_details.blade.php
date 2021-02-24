@@ -2,7 +2,33 @@
 
 @section('content')
 
+<style>
+    .viddeo_row video {
+        width: 180px;
+    }
+    .panel-heading {
+        cursor: pointer;
+    }
+    .panel-default {
+  position: relative;
+}
+  
+.panel-default::after {
+    content: "\f107";
+    color: #333;
+    top: 14px;
+    right: 20px;
+    position: absolute;
+    font-family: "FontAwesome";
+    font-size: 28px;
+    font-weight: bold;
+}
 
+.panel-default[aria-expanded="true"]::after {
+  content: "\f106";
+      color: #fff;
+}
+</style>
 
   <div id="message">
 
@@ -23,6 +49,10 @@
     <ol class="breadcrumb">
 
       <li><a href = "{{url('/dashboard')}}">Home</a></li>
+
+      <li>Terms/Sessions</li>
+
+      <li>Course</li>
 
       <li class = "active">Course Weekly Details</li>
 
@@ -46,11 +76,38 @@
       <div class="panel-group" id="accordion">
 
         <?php
-          $q = count($quizzes);
-          $lec = count($lectures);
+          $q =    count($quizzes);
+          $lec =  count($lectures);
           $link = count($links);
-          $vid = count($videos);
+          $vid =  count($videos);
+          if($vid > 0)
+          {
+            $video=null;
+            foreach($videos as $vidd){
+              if($vidd->type == 'mp4'){
+                  $video[] = $vidd;
+              }
+            }
+            $videos = $video;
+            $vid = count($video);
+          }
+
+
           $down = count($downloadables);
+          if($down > 0)
+          {
+            $download=null;
+            foreach($downloadables as $dable){
+              if($dable->type == 'pdf' || $dable->type == 'xls'  || $dable->type == 'xlsx'|| $dable->type == 'doc' || $dable->type == 'docx' || $dable->type == 'rtf' || $dable->type == 'txt'){
+                  $download[] = $dable;
+              }
+            }
+            $downloadables = $download;
+            $down = count($download);
+          }
+          // dd($down);
+          // $data = $downloadables->where('type' ,'!=' ,'mp4' )->get();
+          // dd($data);
         ?>
 
         <!-- start quizzes tab -->
@@ -61,11 +118,13 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$q}}  Quizzes</a>
+            <a data-toggle="collapse" class=" stmp_accordion">{{$q}}  Quizzes</a>
 
             </h4>
 
           </div>
+
+        </div>
 
 
           <div id="table" class="collapse">
@@ -73,6 +132,7 @@
               <div class="panel-body">
 
 
+                
                 <div class="table_filters">
 
                   <div>
@@ -91,6 +151,8 @@
                       <a href="#"> <i class="fa fa-search"></i> </a>
                       
                     </div>
+
+                <!-- <a href="{{url('/quiz/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add Quiz</a> -->
 
                   </div>
 
@@ -133,7 +195,15 @@
                         </td>
 
                         <td class="first_row">
-                          <a href="{{url('/quiz/addquestion/toquiz/'.$quiz->id)}}" class="btn btn-success"> Add questions</a>
+                          <?php
+                            $check_quiz = DB::table('solved_quizzes')->where('quiz_id', $quiz->id)->get()->first();
+                          ?>
+                          @if($check_quiz != null)
+
+                          <button type="button" class="btn btn-success" disabled>Add questions</button>
+                          @else
+                            <a href="{{url('/quiz/addquestion/toquiz/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}" class="btn btn-success" > Add questions</a>
+                          @endif
                         </td>
 
                         <td class="first_row">
@@ -157,6 +227,12 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+
+                              <a class="dropdown-item" href="{{url('/quiz/edit/quiz_questions/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit Quiz Questions</a>
+
+                              <a class="dropdown-item" href="{{url('/mcq/create/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-plus"></i>Create Questions</a>
+
+                              <a class="dropdown-item" href="{{url('/upload_quiz_questions/'. $insid .'/'. $cid .'/'. $week .'/'. $quiz->id)}}"><i class="fa fa-plus"></i>Upload Questions (.xlsx)</a>
 
                               <a class="dropdown-item" href="{{url('/quiz/edit/'.$quiz->id)}}"><i class="fa fa-cogs"></i>Edit</a>
 
@@ -186,7 +262,7 @@
 
           </div>
 
-        </div>
+        
 
         <!-- end quizzes tab -->
 
@@ -199,18 +275,21 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$lec}} Lectures</a>
+            <a data-toggle="collapse" class=" stmp_accordion">{{$lec}} Lectures</a>
 
             </h4>
 
           </div>
 
+    </div>
 
           <div id="tablelecture" class="collapse">
 
               <div class="panel-body">
 
-                 <div class="table_filters">
+                 
+
+                <div class="table_filters">
 
                   <div>
                     <a href="{{url('/lecture/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Create New Lecture</a>
@@ -233,6 +312,7 @@
                   <!--   <div>
                       <a href="{{url('/lecture/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Create New Lecture</a>
                     </div> -->
+                    <a href="{{url('/lecture/create/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Create New Lecture</a>
 
                   </div>
 
@@ -272,7 +352,7 @@
                         </td>
 
                         <td class="align_ellipse first_row">
-                              <a href="{{url('/instructor/launchmeeting/' . $lec->id)}}">
+                              <a href="{{url('/instructor/launchmeeting/' . $lec->id .'/'. $cid)}}">
                                 <button class="btn btn-sm btn-info">
                                   <i class="fa fa-rocket" aria-hidden="true"></i>Launch Meeting    
                                 </button>
@@ -307,7 +387,7 @@
 
           </div>
 
-        </div>
+       
 
 
 
@@ -324,16 +404,19 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$link}} Links</a>
+            <a data-toggle="collapse" class=" stmp_accordion">{{$link}} Links</a>
 
             </h4>
 
           </div>
 
+    </div>
+
 
           <div id="linkstable" class="collapse">
 
               <div class="panel-body">
+
 
 
                 <div class="table_filters">
@@ -343,6 +426,7 @@
                   </div>
 
                 </div>
+                
                 @if(count($links)>0)
 
                   <div class="table_filters">
@@ -354,6 +438,8 @@
                       <a href="#"> <i class="fa fa-search"></i> </a>
                       
                     </div>
+                    
+                    <!-- <a href="{{url('/courselink/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Link</a> -->
 
                   </div>
 
@@ -445,7 +531,7 @@
 
           </div>
 
-        </div>
+       
 
         <!-- end links tabs -->
 
@@ -458,16 +544,18 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$vid}} Videos</a>
+            <a data-toggle="collapse" class=" stmp_accordion">{{$vid}} Videos</a>
 
             </h4>
 
           </div>
 
+</div>
 
           <div id="videostable" class="collapse">
 
               <div class="panel-body">
+
 
 
                 <div class="table_filters">
@@ -489,6 +577,7 @@
                     <a href="#"> <i class="fa fa-search"></i> </a>
                     
                   </div>
+                  <!-- <a href="{{url('/courseresoursevideo/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Video</a> -->
                 </div>
 
                 <table class="table table-hover" id="table-id">
@@ -535,10 +624,21 @@
 
                 @if($cr->type =='mp4')
 
-                  <td class="first_row"><iframe src="{{asset('storage/'.$cr->file)}}" height="60" width="85">{{($cr->file)}}</iframe><br>
-                  <a class ="btn btn-primary" href="{{route('/download', $cr->id)}}">{{$cr->type}}</a></td>
+                  <td class="first_row viddeo_row">
+                      <!--<iframe src="{{asset('storage/'.$cr->file)}}" height="60" width="85">{{($cr->file)}}</iframe><br>-->
+                  
+                                              <video controls>
+                                  
+                                  <source src="{{asset('storage/'.$cr->file)}}">
+                                  Your browser does not support HTML5 Video.
+                                </video> <br>
+                  <a class ="btn btn-primary"  href="{{asset('storage/'.$cr->file)}}" download >Download</a>
+
+                  </td>
                 @else
-                  <td class="first_row"><a href="{{$cr->link}}">{{$cr->link}}</a></td>
+                  <td class="first_row">
+                      <a href="{{$cr->link}}">{{$cr->link}}</a>
+                      </td>
 
                 @endif
 
@@ -588,7 +688,7 @@
 
           </div>
 
-        </div>
+       
 
         <!-- end videos tab -->
 
@@ -601,16 +701,18 @@
 
             <h4 class="panel-title">
 
-            <a data-toggle="collapse" class="active_stp stmp_accordion">{{$down}} Downloadables</a>
+            <a data-toggle="collapse" class=" stmp_accordion">{{$down}} Downloadables</a>
 
             </h4>
 
           </div>
 
+</div>
 
           <div id="downloadablestable" class="collapse">
 
               <div class="panel-body">
+
 
 
                 <div class="table_filters">
@@ -621,7 +723,8 @@
                   </div>
 
                 </div>
-                @if(count($downloadables)>0)
+
+                @if($down>0)
 
                   <div class="table_filters">
 
@@ -632,6 +735,7 @@
                       <a href="#"> <i class="fa fa-search"></i> </a>
                       
                     </div>
+                    <!-- <a href="{{url('/courseresourse/'. $insid .'/'. $cid .'/'. $week)}}" class="btn btn-primary">Add New Downloadable</a> -->
                   </div>
 
                   <table class="table table-hover" id="table-id">
@@ -680,13 +784,16 @@
 
                               @if ($cr->type=='pdf')
 
-                                <td class="first_row"><embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf" height="50" width="50"></td>
+                                <td class="first_row">
+                                  <embed src="{{asset('storage/'.$cr->file)}}" type="application/pdf" height="50" width="50">
+                                </td>
 
-                              @elseif ($cr->type=='docx'|| $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt')
-                        
+                              @elseif ($cr->type=='docx'|| $cr->type=='odt' || $cr->type=='xlsx' || $cr->type=='pptx' || $cr->type=='txt')                        
                                 <td>
-                              
-                                  <iframe src="https://view.officeapps.live.com/op/view.aspx?src={{asset('storage/'.$cr->file)}}" frameborder="0" height="50" width="50"></iframe>
+                                
+
+                                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{asset('storage/'.$cr->file)}}" width='100' height='100px' frameborder='0'></iframe>
+
 
                                 </td>
 
@@ -700,7 +807,7 @@
 
                                @endif
 
-                          <td class="first_row"><a href="{{route('/download', $cr->id)}}" download>{{$cr->type}}</a></td>
+                          <td class="first_row"><a href="{{asset('storage/'.$cr->file)}}"  class="btn btn-primary"download>Download</a></td>
 
                           <td class="align_ellipse first_row">
 

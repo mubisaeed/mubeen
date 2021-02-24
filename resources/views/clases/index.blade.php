@@ -65,6 +65,7 @@
           
 
           <h3>All Terms/sections</h3>
+          <br><br>
 
           @if(count($classes)>0)
 
@@ -187,9 +188,15 @@
                   <td class="custom_width_eye">
                     {{$stds}}
                   </td>
-                  <td class="remove_padding">
-                      <a class="dropdown-item" href="{{url('/class/seestudents/'.$class->id)}}"><i class="fa fa-eye"></i></a>
-                  </td>
+                  @if(!empty($stds))
+                    <td class="remove_padding">
+                        <a class="dropdown-item" href="{{url('/class/seestudents/'.$class->id)}}"><i class="fa fa-eye"></i></a>
+                    </td>
+                  @else
+                    <td class="remove_padding">
+                        <a class="dropdown-item" href="#" title="no student"><i class="fa fa-eye"></i></a>
+                    </td>
+                  @endif
                           
 
                   <td>

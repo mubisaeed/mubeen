@@ -10,7 +10,11 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li class = "active">All Quizzes</li>
+    <li>Terms/Sessions</li>
+
+    <li>Courses</li>
+
+    <li class = "active">Solved Quizzes</li>
 
   </ol>
 
@@ -42,7 +46,7 @@
 
         
 
-        <h3>All Solved Quizzes</h3> 
+        <h3>My Quizzes</h3> 
        
 
         @if(count($quizzes)>0)
@@ -61,7 +65,7 @@
 
               <select class="selectpicker">
 
-                <option>All Solved quizzes</option>
+                <option>My quizzes</option>
 
                 <option>Today </option>
 

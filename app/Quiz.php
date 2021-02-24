@@ -1,6 +1,8 @@
 <?php
 
 namespace App;
+use QuizTrait;
+use App\Http\Traits\QuizTrait;
 
 use Illuminate\Database\Eloquent\Model;
 
