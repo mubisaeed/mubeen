@@ -2,7 +2,7 @@
 
 @section('content')
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   
   function timeout()
   {
@@ -33,7 +33,9 @@
     }
     return msg;
   }
-</script>
+</script> -->
+
+
 <div class="breadcrumb_main">
 
   <ol class="breadcrumb">
@@ -71,14 +73,14 @@
       <div class="course card-header card-header-warning card-header-icon">
         <h3>Quiz View 
 
-          <script type="text/javascript">
+          <!-- <script type="text/javascript">
               
               var timeLeft = 2*60*60;
 
           </script>
 
           <div id="time" style="float: right;">TimeOut</div> </h3> 
-
+ -->
 
 
 
@@ -88,7 +90,8 @@
               @csrf
               <input type="hidden" name="quiz_id" value="{{$id}}">
 
-              @foreach($questions as $q)
+              @foreach($questions as $key => $q)
+
                 <?php 
                   $qstn = DB::table('questions')->where('id', $q->question_id)->get()->first();
                   if($qstn->type == "question/answer")
@@ -101,9 +104,7 @@
                     }
                 ?>
 
-                <div>
-
-
+                <div id="firstdiv">
                   <div>
                     <h4>{{$qstn->label}}</h4>
                   </div>
@@ -136,11 +137,11 @@
                         <div class="col-md-6 p_left">
                           <label>{{$opts['true']}}</label>
 
-                          <input type="radio" value="true" name="correcttf{{$qstn->id}}" class="btn"/>
+                          <input type="radio" value="true" name="correcttf{{$qstn->id}}" class="btn" required="required" />
 
                           <label>{{$opts['false']}}</label>
 
-                          <input type="radio" value="false" name="correcttf{{$qstn->id}}" class="btn"/>
+                          <input type="radio" value="false" name="correcttf{{$qstn->id}}" class="btn" required="required" />
                                              
                         </div>
                       </div>
@@ -159,8 +160,8 @@
                       </div>
                     </div>
                   @endif
+                  
                 </div> 
-               
               @endforeach
                   <button type="submit" class="btn btn-success">Submit Quiz</button>
 
@@ -184,9 +185,25 @@
 </div>
 
 
+<script type="text/javascript">
+  $("#form1").validate({
+  rules: {
+    'correct[]': {
+      required: true,
+      minlength: 1,
+    }
+  },
 
+  messages: {
+    
+    'audit[]': {
+      required: "Please check at least 1 option.",
+      minlength: "Please check at least {0} option."
+    }
+  }
+  });
 
-
+</script>
 
 
 <script type="text/javascript">

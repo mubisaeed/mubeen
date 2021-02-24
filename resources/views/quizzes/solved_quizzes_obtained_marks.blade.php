@@ -43,34 +43,34 @@
           <p>Total Percentage: {{$percentage}} %</p>
           @if($AA != null || $A != null || $BB != null || $B != null || $CC != null || $C != null || $DD != null || $D != null || $F!= null)
             @if($percentage >= $AA->marks_from && $percentage <= $AA->marks_to)
-              <p> Your final grade for the quiz will be: {{$AA->grade}}</p>
+              <p> Your final grade for the quiz is: {{$AA->grade}}</p>
               <br />
             @elseif($percentage >= $A->marks_from && $percentage <= $A->marks_to)
-              <p> Your final grade for the quiz will be: {{$A->grade}}</p>
+              <p> Your final grade for the quiz is: {{$A->grade}}</p>
               <br />
             @elseif($percentage >= $BB->marks_from && $percentage <= $BB->marks_to)
-              <p> Your final grade for the quiz will be: {{$BB->grade}}</p>
+              <p> Your final grade for the quiz is: {{$BB->grade}}</p>
               <br />
             @elseif($percentage >= $B->marks_from && $percentage <= $B->marks_to)
-              <p> Your final grade for the quiz will be: {{$B->grade}}</p>
+              <p> Your final grade for the quiz is: {{$B->grade}}</p>
               <br />
             @elseif($percentage >= $CC->marks_from && $percentage <= $CC->marks_to)
-              <p> Your final grade for the quiz will be: {{$CC->grade}}</p>
+              <p> Your final grade for the quiz is: {{$CC->grade}}</p>
               <br />
             @elseif($percentage >= $C->marks_from && $percentage <= $C->marks_to)
-              <p> Your final grade for the quiz will be: {{$C->grade}}</p>
+              <p> Your final grade for the quiz is: {{$C->grade}}</p>
               <br />
             @elseif($percentage >= $DD->marks_from && $percentage <= $DD->marks_to)
-              <p> Your final grade for the quiz will be: {{$DD->grade}}</p>
+              <p> Your final grade for the quiz is: {{$DD->grade}}</p>
               <br />
             @elseif($percentage >= $D->marks_from && $percentage <= $D->marks_to)
-              <p> Your final grade for the quiz will be: {{$D->grade}}</p>
+              <p> Your final grade for the quiz is: {{$D->grade}}</p>
               <br />
             @elseif($percentage >= $F->marks_from && $percentage <= $F->marks_to)
-              <p> Your final grade for the quiz will be: {{$F->grade}}</p>
+              <p> Your final grade for the quiz is: {{$F->grade}}</p>
               <br />
             @else
-              <p>You cannt see your grade now.</p>
+              <p>Your final grade for the quiz is: G</p>
               <br />
             @endif
           @else

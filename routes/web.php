@@ -216,6 +216,8 @@ Route::get('/course/quizzes_result/{id}/{clsid}', [QuizController::class, 'cours
 
 Route::get('/quiz/solve_quiz_student/{id}', [QuizController::class, 'show_quiz_to_student'])->name('show');
 
+Route::get('/quiz/move_next_question/{nid}',[QuizController::class, 'move_next_question']);
+
 Route::post('/quiz/solved_quiz_by_student', [QuizController::class, 'solved_quiz_by_student']);
 
 Route::post('/quiz/create', [QuizController::class, 'store']);

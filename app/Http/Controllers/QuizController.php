@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class QuizController extends Controller
 {
@@ -31,11 +32,15 @@ class QuizController extends Controller
 
     public function show_quiz_to_student($id)
     {
-        $id = $id;
         $questions = DB::table('quiz_questions')->where('quiz_id', $id)->orderBy('sort_order', 'desc')->get()->all();
         
-        $quiz_details  = DB::table('quizzes')->where('id', $id)->orderBy('id', 'desc')->get()->first();        
+        $quiz_details  = DB::table('quizzes')->where('id', $id)->get()->first();        
         return view ('quizzes.show_quiz_to_student', compact('questions', 'id', 'quiz_details'));
+    }
+
+    public function move_next_question($nid)
+    {
+        return redirect()->back()->with('data', $nid);
     }
 
     public function course_quizzes_result($id, $clsid)
@@ -169,6 +174,7 @@ class QuizController extends Controller
                         $qstn_option = unserialize($qq->options);
 
                         $correct_option = unserialize($qq->correct);  
+
                         foreach($qstn_option['correct'] as $corr)
                         {
                             $correct = $qstn_option[$corr];
@@ -367,7 +373,6 @@ class QuizController extends Controller
 
     public function solved_quiz_result($id)
     {
-        // dd('sdfsd');
         $quiz = DB::table('obtained_marks_quiz')->where('s_u_id', Auth::user()->id)->where('quiz_id', $id)->get()->first();
         
         $total_marks = $quiz->total_marks;
