@@ -185,25 +185,7 @@
 </div>
 
 
-<script type="text/javascript">
-  $("#form1").validate({
-  rules: {
-    'correct[]': {
-      required: true,
-      minlength: 1,
-    }
-  },
 
-  messages: {
-    
-    'audit[]': {
-      required: "Please check at least 1 option.",
-      minlength: "Please check at least {0} option."
-    }
-  }
-  });
-
-</script>
 
 
 <script type="text/javascript">
