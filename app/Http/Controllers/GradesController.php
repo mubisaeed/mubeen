@@ -73,18 +73,15 @@ class GradesController extends Controller
 
 	public function updategrades(Request $request, $id)
 	{
-		 $success = DB::table('grades')->where('id', $id)->update([
+		DB::table('grades')->where('id', $id)->update([
             'marks_from' => $request->input('from'),
             'marks_to' => $request->input('to'),
             'grade' => $request->input('grade'),
         ]);
-        if($success){
-            Session::flash('message', 'Grade Updated successfully');
-            return redirect('/setgrades');
-        }else{
-            Session::flash('message', 'Something went wrong');
-            return redirect()->back();
-        }
+        
+            Session::flash('message', 'Course Grade Updated successfully');
+            return redirect('/course');
+
 	}
 
 	public function destroy(Request $request)

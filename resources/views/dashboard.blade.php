@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 <link href="{{url('/assets/css/calendar.css')}}" rel="stylesheet" />
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.2.7/fullcalendar.min.css"/>
+
+
 
 
 
@@ -814,49 +820,42 @@
 
               <div class="clndr_event_list">
 
-                <button type="button">Add Event</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#calendar_add_even">Add Calendar Data</button>
 
                 <div class="radio_event_list">
 
-                  <label class="container_radio">School Calendar
+                  <label class="container_radio" onclick="window.location.href = '/dashboard/School Calendar' ">School Calendar
 
-                    <input type="radio" checked="checked" name="radio">
-
-                    <span class="checkmark"></span>
-
-                  </label>
-
-                  <label class="container_radio">Live Instructor Schedule
-
-                    <input type="radio" name="radio">
+                    <input type="radio"  checked  value="School Calendar" name="type" class="type">
 
                     <span class="checkmark"></span>
 
                   </label>
 
-                  <label class="container_radio">US Holidays
+                  <label class="container_radio" onclick="window.location.href = '/dashboard/Live Instructor Schedule' ">Live Instructor Schedule
 
-                    <input type="radio" name="radio">
-
-                    <span class="checkmark"></span>
-
-                  </label>
-
-                  <label class="container_radio">Events
-
-                    <input type="radio" name="radio">
+                    <input type="radio" @if(isset($type) && $type == 'Live Instructor Schedule') checked @endif name="type" value="Live Instructor Schedule" class="type">
 
                     <span class="checkmark"></span>
 
                   </label>
 
-                  <!-- <label class="container_radio">Populated
+                  <label class="container_radio" onclick="window.location.href = '/dashboard/US Holidays' ">US Holidays
 
-                    <input type="radio" name="radio">
+                    <input type="radio"  @if(isset($type) && $type == 'US Holidays') checked @endif  name="type" value="US Holidays" class="type">
 
                     <span class="checkmark"></span>
 
-                  </label> -->
+                  </label>
+
+                  <label class="container_radio" onclick="window.location.href = '/dashboard/Events' ">Events
+
+                    <input type="radio"  @if(isset($type) && $type == 'Events') checked @endif  name="type" value="Events" class="type">
+
+                    <span class="checkmark"></span>
+
+                  </label>
+
 
                 </div>
 
@@ -872,7 +871,10 @@
 
                   <div class="card-body p-0">
 
-                    <div id="calendar"></div>
+                    <div>
+                      {!! $calendar->calendar() !!}
+                      {!! $calendar->script() !!}
+                    </div>
 
                   </div>
 
@@ -890,7 +892,28 @@
 
       </div>
 
+<!--   <div class="mt-5">
+     {!! $calendar->calendar() !!}
+    {!! $calendar->script() !!}
+  </div> -->
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <div class="course_table">
 
@@ -902,33 +925,7 @@
 
         </div>
 
-        <!-- <div class="table_filters">
-
-          <div class="table_search">
-
-            <input type="text" name="" value="" placeholder="Search...">
-
-            <a href="#"> <i class="fa fa-search"></i> </a>
-
-          </div>
-
-          <div class="table_select">
-
-            <select class="selectpicker">
-
-              <option>All Courses</option>
-
-              <option>Today </option>
-
-              <option>Macro Economics I</option>
-
-              <option>Macro Economics II</option>
-
-            </select>
-
-          </div>
-
-        </div> -->
+       
 
         <table class="table table-hover" id="table-id">
 
@@ -1103,14 +1100,15 @@
 
     <div class="modal-body">
 
-      <form method="POST" action="/updatecontact">
+      <form method="POST" action="/add_event_from_calendar">
 
-        <input type="hidden" name="_token" value="HBS1l8UCNPnxm6xbyiN13LXdMqqvPql3FHBnXKur">
-        <input type="hidden" name="id" value="113">
+        @csrf
+
+        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
 
         <div class="custom_input_main mobile_field">
 
-          <input type="name" class="form-control" name="contact">
+          <input type="text" class="form-control" name="event_name">
 
 
 
@@ -1120,7 +1118,7 @@
 
         <div class="custom_input_main mobile_field">
 
-          <input type="date" class="form-control" name="contact">
+          <input type="date" class="form-control" name="event_date">
 
 
 
@@ -1130,7 +1128,7 @@
 
         <div class="custom_input_main mobile_field">
 
-          <textarea class="form-control"></textarea>
+          <textarea class="form-control" name="event_description"></textarea>
 
 
 
@@ -1156,709 +1154,86 @@
 
   </div>
 
-  <!-- <div class="row">
 
-    <div class="col-lg-6 col-md-12">
 
-      <div class="card">
 
-        <div class="card-header card-header-tabs card-header-primary">
 
-          <div class="nav-tabs-navigation">
-
-            <div class="nav-tabs-wrapper">
-
-              <span class="nav-tabs-title">Tasks:</span>
-
-              <ul class="nav nav-tabs" data-tabs="tabs">
-
-                <li class="nav-item">
-
-                  <a class="nav-link active" href="#profile" data-toggle="tab">
-
-                    <i class="material-icons">bug_report</i> Bugs
-
-                    <div class="ripple-container"></div>
-
-                  </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                  <a class="nav-link" href="#messages" data-toggle="tab">
-
-                    <i class="material-icons">code</i> Website
-
-                    <div class="ripple-container"></div>
-
-                  </a>
-
-                </li>
-
-                <li class="nav-item">
-
-                  <a class="nav-link" href="#settings" data-toggle="tab">
-
-                    <i class="material-icons">cloud</i> Server
-
-                    <div class="ripple-container"></div>
-
-                  </a>
-
-                </li>
-
-              </ul>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="card-body">
-
-          <div class="tab-content">
-
-            <div class="tab-pane active" id="profile">
-
-              <table class="table">
-
-                <tbody>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="" checked>
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Sign contract for "What are conference organizers afraid of?"</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="">
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="">
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-
-                    </td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="" checked>
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Create 4 Invisible User Experiences you Never Knew About</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-            <div class="tab-pane" id="messages">
-
-              <table class="table">
-
-                <tbody>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="" checked>
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-
-                    </td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="">
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Sign contract for "What are conference organizers afraid of?"</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-            <div class="tab-pane" id="settings">
-
-              <table class="table">
-
-                <tbody>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="">
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="" checked>
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-
-                    </td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                  <tr>
-
-                    <td>
-
-                      <div class="form-check">
-
-                        <label class="form-check-label">
-
-                          <input class="form-check-input" type="checkbox" value="" checked>
-
-                          <span class="form-check-sign">
-
-                            <span class="check"></span>
-
-                          </span>
-
-                        </label>
-
-                      </div>
-
-                    </td>
-
-                    <td>Sign contract for "What are conference organizers afraid of?"</td>
-
-                    <td class="td-actions text-right">
-
-                      <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-
-                      <i class="material-icons">edit</i>
-
-                      </button>
-
-                      <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-
-                      <i class="material-icons">close</i>
-
-                      </button>
-
-                    </td>
-
-                  </tr>
-
-                </tbody>
-
-              </table>
-
-            </div>
-
-          </div>
-
-        </div>
-
+<!-- Modal -->
+<div class="modal fade" id="calendar_add_even" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Calendar Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <form method="post" action="/add_event_from_calendar">
+          @csrf
+           <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+           <input type="hidden" name="event_type" @if(isset($type)) value="{{$type}}" @else value="School Calendar" @endif id="form_type">
 
-    </div>
+        <div class="custom_input_main mobile_field">
 
-    <div class="col-lg-6 col-md-12">
+          <input type="text" class="form-control" name="event_name" required>
 
-      <div class="card">
 
-        <div class="card-header card-header-warning">
 
-          <h4 class="card-title">Employees Stats</h4>
-
-          <p class="card-category">New employees on 15th September, 2016</p>
-
-        </div>
-
-        <div class="card-body table-responsive">
-
-          <table class="table table-hover">
-
-            <thead class="text-warning">
-
-              <th>ID</th>
-
-              <th>Name</th>
-
-              <th>Salary</th>
-
-              <th>Country</th>
-
-            </thead>
-
-            <tbody>
-
-              <tr>
-
-                <td>1</td>
-
-                <td>Dakota Rice</td>
-
-                <td>$36,738</td>
-
-                <td>Niger</td>
-
-              </tr>
-
-              <tr>
-
-                <td>2</td>
-
-                <td>Minerva Hooper</td>
-
-                <td>$23,789</td>
-
-                <td>Curaçao</td>
-
-              </tr>
-
-              <tr>
-
-                <td>3</td>
-
-                <td>Sage Rodriguez</td>
-
-                <td>$56,142</td>
-
-                <td>Netherlands</td>
-
-              </tr>
-
-              <tr>
-
-                <td>4</td>
-
-                <td>Philip Chaney</td>
-
-                <td>$38,735</td>
-
-                <td>Korea, South</td>
-
-              </tr>
-
-            </tbody>
-
-          </table>
+          <label>Event Name <span class="grey">*</span></label>
 
         </div>
 
+        <div class="custom_input_main mobile_field">
+
+          <input type="date" class="form-control" name="event_start" required>
+
+
+
+          <label>Event Start Date <span class="red">*</span></label>
+
+        </div>
+
+        <div class="custom_input_main mobile_field">
+
+          <input type="date" class="form-control" name="event_end" required>
+
+
+
+          <label>Event End Date <span class="red">*</span></label>
+
+        </div>
+
+        <div class="custom_input_main mobile_field">
+
+          <textarea class="form-control" name="event_description" required></textarea>
+
+
+
+          <label>Event Description <span class="red">*</span></label>
+
+        </div>
+
+       
       </div>
-
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
     </div>
-
-  </div> -->
-
-  <!--   <div class="fixed-plugin">
-
-    <div class="dropdown show-dropdown">
-
-      <a href="#" data-toggle="dropdown">
-
-        <i class="fa fa-cog fa-2x"> </i>
-
-      </a>
-
-      <ul class="dropdown-menu">
-
-        <li class="header-title"> Sidebar Filters</li>
-
-        <li class="adjustments-line">
-
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-
-            <div class="badge-colors ml-auto mr-auto">
-
-              <span class="badge filter badge-purple" data-color="purple"></span>
-
-              <span class="badge filter badge-azure" data-color="azure"></span>
-
-              <span class="badge filter badge-green" data-color="green"></span>
-
-              <span class="badge filter badge-warning" data-color="orange"></span>
-
-              <span class="badge filter badge-danger" data-color="danger"></span>
-
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-
-            </div>
-
-            <div class="clearfix"></div>
-
-          </a>
-
-        </li>
-
-        <li class="header-title">Images</li>
-
-        <li class="active">
-
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-
-            <img src="{{asset('/assets/img/sidebar-1.jpg')}}" alt="">
-
-          </a>
-
-        </li>
-
-        <li>
-
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-
-            <img src="{{asset('/assets/img/sidebar-2.jpg')}}" alt="">
-
-          </a>
-
-        </li>
-
-        <li>
-
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-
-            <img src="{{asset('/assets/img/sidebar-3.jpg')}}" alt="">
-
-          </a>
-
-        </li>
-
-        <li>
-
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-
-            <img src="{{asset('/assets/img/sidebar-4.jpg')}}" alt="">
-
-          </a>
-
-        </li>
-
-        <li class="button-container">
-
-          <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-
-            View Documentation
-
-          </a>
-
-        </li>
-
-        <li class="button-container github-star">
-
-          <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-
-        </li>
-
-        <li class="header-title">Thank you for 95 shares!</li>
-
-        <li class="button-container text-center">
-
-          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-
-          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-
-          <br>
-
-          <br>
-
-        </li>
-
-      </ul>
-
-    </div>
-
-  </div> -->
-
+  </div>
+</div>
 
 
 <script type="text/javascript">
+
+  $(".type").change(function(){ // bind a function to the change event
+        if( $(this).is(":checked") ){ // check if the radio is checked
+            var val = $(this).val(); // retrieve the value
+            $("#form_type").val(val);
+        }
+    });
 
   setTimeout(function() {
 

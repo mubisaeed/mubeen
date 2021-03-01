@@ -91,8 +91,6 @@
 
                   <th scope="col">Gender</th>
 
-                  <th scope="col">Admission Date</th>
-
                   <th scope="col">Action</th>
 
                 </tr>
@@ -131,7 +129,6 @@
 
                   <td class="first_row">{{$stdd->gender}}</td>
 
-                  <td class="first_row">{{date('d-m-Y', strtotime($stdd->admission_date))}}</td>
 
                   <td class="align_ellipse first_row">
 

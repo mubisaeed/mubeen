@@ -55,6 +55,7 @@
                       <input type="hidden" name="course_id" value="{{$course_id}}">
                       <input type="hidden" name="instructor_id" value="{{$instructor_id}}">  
                       <input type="hidden" name="week" value="{{$week}}"> 
+                      <input type="hidden" name="class" value="{{$clasid}}"> 
 
                     <div class="col-md-6 p_left">
 
@@ -123,6 +124,9 @@
                       </div>
 
 
+                   
+
+
                     <div class="col-md-6 p_right">
 
                       <div class="file_spacing">
@@ -142,13 +146,34 @@
                           @enderror
 
                     </div>
+
+
+                     <div class="col-md-6 p_right">
+
+                      <div class="custom_input_main select_plugin mobile_field">
+
+                      <select class="selectpicker" name="day">
+
+                          <option value="monday">Monday</option>
+                          <option value="tuesday">Tuesday</option>
+                          <option value="wednesday">Wednesday</option>
+                          <option value="thursday">Thursday</option>
+                          <option value="friday">Friday</option>
+
+                      </select>
+
+                      <label class="select_lable">Select Day</label>
+
+                    </div>
+
+                  </div>
                     
 
                     <div class="col-md-12">
 
                       <div class="s_form_button text-center">
 
-                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
+                        <a  href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course_id .'/'. $week .'/'. $clasid)}}"><button type="button" class="btn cncl_btn">Cancel</button></a>
 
                         <button type="submit" class="btn save_btn">Save<div class="ripple-container"></div></button>
 

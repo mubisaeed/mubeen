@@ -8,7 +8,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li>Terms/Sessions</li>
+    <li><a href = "{{url('/classes')}}">Terms/Sessions</a></li>
 
     <li class = "active">All Courses</li>
 
@@ -158,7 +158,7 @@
                 @endif
                 <td class="align_ellipse first_row">
 
-                  <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a>
+                  <a href="{{url('/course/showdetails/' .$course->id .'/'. $id)}}" class="btn btn-success"> Show Details </a>
 
                   <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}" target="_blank">Course View</a>
 

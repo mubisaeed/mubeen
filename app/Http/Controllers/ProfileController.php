@@ -41,7 +41,7 @@ class ProfileController extends Controller
     public function updatecontact(Request $request)
 
     {
-
+        //dd($request);
         $user = User::find($request->id);
 
         $this->validate($request, [

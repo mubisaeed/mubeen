@@ -89,6 +89,7 @@
             <form method="POST" action="{{url('/quiz/solved_quiz_by_student')}}" enctype="multipart/form-data" id="form1">
               @csrf
               <input type="hidden" name="quiz_id" value="{{$id}}">
+              <input type="hidden" name="course_id" value="{{$cid}}">
 
               @foreach($questions as $key => $q)
 

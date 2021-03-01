@@ -55,6 +55,7 @@
                       <input type="hidden" name="course_id" value="{{$course->id}}">
                       <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
                       <input type="hidden" name="week" value="{{$week}}">
+                      <input type="hidden" name="class" value="{{$clasid}}">
                       <input class="form-control" type="text" name="name" value="{{old('name')}}" required minlength="1" maxlength="255" autofocus="">
 
                       <label>Quiz Name<span class="red">*</span></label>
@@ -70,6 +71,27 @@
                       </span>
 
                     @enderror
+
+                  </div>
+
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main select_plugin mobile_field">
+
+                    <select class="selectpicker" name="day">
+
+                        <option value="monday">Monday</option>
+                        <option value="tuesday">Tuesday</option>
+                        <option value="wednesday">Wednesday</option>
+                        <option value="thursday">Thursday</option>
+                        <option value="friday">Friday</option>
+
+                    </select>
+
+                    <label class="select_lable">Select Day</label>
+
+                  </div>
 
                   </div>
 
@@ -140,6 +162,7 @@
 
                   </div>
 
+                   
                  <div class="col-md-6 p_left">
 
                     <div class="custom_input_main mobile_field">

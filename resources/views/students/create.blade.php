@@ -64,7 +64,6 @@
 
                         <th scope="col">ID</th>
 
-                        <th scope="col">File</th>
 
                         <th scope="col">Downloadable</th>
 
@@ -83,13 +82,13 @@
                           <th scope="row">#{{$index+1}}</th>
 
                        
-                                <td>
+<!--                                 <td>
                                 
 
                                 <iframe src="https://view.officeapps.live.com/op/embed.aspx?src={{asset('storage/'.$sample->file)}}" width='100' height='100px' frameborder='0'></iframe>
 
 
-                                </td>
+                                </td> -->
 
                     
 
@@ -130,11 +129,57 @@
 
                       <input type="text" class="form-control" value="{{ old('sname')}}" name="sname" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Student name<span class="red">*</span></label>
+                      <label>First name<span class="red">*</span></label>
 
                     </div>
 
                     @error('sname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('lname')}}" name="lname" required="" minlength="3" maxlength ="50" autofocus="">
+
+                      <label>Last name<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('lname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+
+                  <div class="col-md-6 p_right">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" name="record_no" value="{{old('record_no')}}" required maxlength="255" autofocus="">
+
+                      <label>Record no.<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('record_no')
 
                       <span class="invalid-feedback" role="alert">
 
@@ -165,6 +210,19 @@
                       </span>
 
                     @enderror
+
+                  </div>
+
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+
+                      <label>Image<span class="red">*</span></label>
+
+                    </div>
 
                   </div>
 
@@ -202,15 +260,28 @@
 
                   </div>
 
+
+
+
                   <div class="col-md-6 p_left">
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="file" name="image" accept="image/x-png,image/gif,image/jpeg" required="" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('hadd')}}" name="hadd" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Image<span class="red">*</span></label>
+                      <label>Home Address<span class="red">*</span></label>
 
                     </div>
+
+                    @error('hadd')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
 
                   </div>
 
@@ -234,7 +305,7 @@
 
                   </div>
 
-                  <div class="col-md-6 p_left">
+                  <!-- <div class="col-md-6 p_left">
 
                     <div class="custom_input_main mobile_field">
 
@@ -246,7 +317,7 @@
 
                       </div>
 
-                    </div>
+                    </div> -->
 
                     <div class="row px-3"> 
 
@@ -276,17 +347,165 @@
 
                     </div>
 
+
+                  <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('gl')}}" name="gl" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
+
+                      <label>Grade Level<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('gl')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                  </div>
+
+
+
+                <div class="col-md-12 p_right" required = "">
+
+                  <input type="checkbox" value="Dust Mites" name="alergy[]" />
+                  <label>Dust Mites</label>
+
+                   <input type="checkbox" value="Animal dander" name="alergy[]" />
+                  <label>Animal dander</label>
+
+                 <input type="checkbox" value="Food (shellfish, eggs and cows' milk)" name="alergy[]" />
+                  <label>Food (shellfish, eggs and cows' milk)</label>
+
+                 <input type="checkbox" value="Insect bites and stings" name="alergy[]" />
+                  <label>Insect bites and stings</label>
+
+                 <input type="checkbox" value="Medicines" name="alergy[]" />
+                <label>Medicines</label>
+
+
+                    <!-- <select required="" name="alergy">
+
+                      <option value="1">Dust Mites</option>
+
+                      <option value="2">Animal dander</option>
+
+                      <option value="3">Food (shellfish, eggs and cows' milk)</option>
+
+                      <option value="4">Insect bites and stings</option>
+
+                      <option value="5">Medicines</option>
+
+                    </select>
+
+                    <label >Known Allergies</label> -->
+
+
+                </div>
+
+
+                <div class="col-md-12 p_right">
+
+                    <div class="custom_input_main select_plugin mobile_field">
+
+                    <select class="selectpicker" required="" name="iep">
+
+                      <option value="1">1st Grade(Elementary)</option>
+
+                      <option value="2">2nd Grade(Elementary)</option>
+
+                      <option value="3">3rd Grade(Elementary)</option>
+
+                      <option value="4">4th Grade(Elementary)</option>
+
+                      <option value="5">5th Grade(Elementary)</option>
+
+                      <option value="6">6th Grade(Elementary)</option>
+
+                      <option value="7">7th Grade(Middle)</option>
+
+                      <option value="8">8th Grade(Middle)</option>
+
+                      <option value="9">9th Grade(Highschool)</option>
+
+                      <option value="10">10th Grade(Highschool)</option>
+
+                      <option value="11">11th Grade(Highschool)</option>
+
+                      <option value="12">12th Grade(Highschool)</option>
+
+                    </select>
+
+                    <label class="select_lable">IEP/504</label>
+
+                  </div>
+
+                </div>
+
+
                 <div class="col-md-6 p_left">
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('pfname')}}" name="pfname" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
 
-                      <label>Father name<span class="red">*</span></label>
+                      <label>Parent First Name<span class="red">*</span></label>
 
                     </div>
 
-                    @error('fname')
+                    @error('pfname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                </div>
+
+                <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('plname')}}" name="plname" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
+
+                      <label>Parent Last Name<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('plname')
+
+                      <span class="invalid-feedback" role="alert">
+
+                      <strong>{{ $message }}</strong>
+
+                      </span>
+
+                    @enderror
+
+                </div>
+
+
+
+                <div class="col-md-6 p_left">
+
+                    <div class="custom_input_main mobile_field">
+
+                      <input type="text" class="form-control" value="{{ old('reltion')}}" name="relation" class="mb-4" required="" minlength="1" maxlength ="50" autofocus="">
+
+                      <label>Relation<span class="red">*</span></label>
+
+                    </div>
+
+                    @error('relation')
 
                       <span class="invalid-feedback" role="alert">
 
@@ -302,7 +521,7 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="tell" class="form-control" name="phno" value="{{ old('phno')}}" placeholder="xxxx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required="" minlength="12" maxlength = "12" autofocus="">
+                      <input type="tell" class="form-control" name="phno" value="{{ old('phno')}}" placeholder="xxxx-xxxxxxx" required="" autofocus="">
 
                       <label>Phone No<span class="red">*</span></label>
 
@@ -320,17 +539,18 @@
 
                   </div>
 
-                  <div class="col-md-6 p_left">
+                  
+                <div class="col-md-6 p_right">
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{ old('cnic')}}" name="cnic" minlength="13" maxlength="15"  placeholder="XXXXX-XXXXXXX-X"  required="" autofocus="">
+                      <input type="email" class="form-control" name="pemail" value="{{old('pemail')}}" required maxlength="255" autofocus="">
 
-                      <label>CNIC<span class="red">*</span></label>
+                      <label>Parent Email <span class ="red">*</span></label>
 
                     </div>
 
-                    @error('cnic')
+                    @error('pemail')
 
                       <span class="invalid-feedback" role="alert">
 
@@ -364,7 +584,7 @@
 
                   </div>
 
-                  <div class="col-md-6 p_right">
+                 <!--  <div class="col-md-6 p_right">
 
                     <div class="custom_input_main mobile_field">
 
@@ -384,9 +604,9 @@
 
                     @enderror
 
-                  </div>
+                  </div> -->
 
-                  <div class="col-md-6 p_right">
+                  <!-- <div class="col-md-6 p_right">
 
                     <div class="custom_input_main mobile_field">
 
@@ -406,9 +626,9 @@
 
                     @enderror
 
-                  </div>
+                  </div> -->
 
-          <div class="row px-3"> 
+          <!-- <div class="row px-3"> 
 
             <label class="mb-1">
 
@@ -434,11 +654,11 @@
 
                 
 
-          </div>
+          </div> -->
 
           <br><br>
 
-          <div class="row px-3"> 
+          <!-- <div class="row px-3"> 
 
             <label class="mb-1">
 
@@ -462,7 +682,7 @@
 
             </label> 
 
-          </div>
+          </div> -->
 
           <div class="s_form_button text-center">
 

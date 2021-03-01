@@ -152,8 +152,9 @@ class ClasController extends Controller
         $stds = DB::table('classes_students')->pluck('s_u_id');
 
         $allStudents = DB::table('students')->whereNotIn('s_u_id', $stds)->join('users', 'users.id', '=' , 'students.s_u_id')->get()->all();
+        $allCourses = DB::table('courses')->where('clas_id' , $id)->get();
 
-   return view('clases.add_std_to_class' , compact('allStudents' , 'id'));           
+   return view('clases.add_std_to_class' , compact('allStudents' , 'id', 'allCourses'));           
         
     }
     public function storestudent_to_class(Request $request)
@@ -164,7 +165,13 @@ class ClasController extends Controller
                 'class_id' => $request->class_id,
                 's_u_id' => $student_id,
             );
+            $class_course_students = array(
+                'class_id' => $request->class,
+                'course_id' => $request->course,
+                'std_id' => $student_id,
+            );
             DB::table('classes_students')->insert($class_student);
+            DB::table('class_course_students')->insert($class_course_students);
         }
           Session::flash('message', 'Selected Student added to class'. DB::table('classes')->where('id',$request->class_id)->pluck('name')->first().'.');
           return redirect('/classes');

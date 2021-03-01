@@ -9,5 +9,5 @@ class CourseResources extends Model
     //
     protected $table ='resources';
     
-	protected $fillable =['course_id','title','short_description','type'];
+	protected $fillable =['course_id','title','short_description','type', 'day'];
 }

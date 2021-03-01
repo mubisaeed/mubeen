@@ -29,77 +29,95 @@
                   
                     <h3>School Calendar</h3>
                   
-                  <div class="calendar_main">
+                <div class="calender_main">
 
-                    <div class="row">
+      <div class="calender card-header card-header-warning card-header-icon">
 
-                      <div class="col-md-3">
+        <div class="card-icon">
 
-                        <div class="clndr_event_list">
+          <h2>Calendar</h2>
 
-                          <button type="button" data-toggle="modal" data-target="#modal-view-event-add">Add Event</button>
+        </div>
 
-                          <div class="radio_event_list">
+        <div class="calendar_main">
 
-                            <label class="container_radio">School Calendar
+          <div class="row">
 
-                              <input type="radio" checked="checked" name="radio">
+            <div class="col-md-3">
 
-                              <span class="checkmark"></span>
+              <div class="clndr_event_list">
 
-                            </label>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#calendar_add_even">Add Calendar Data</button>
 
-                            <label class="container_radio">Live Instructor Schedule
+                <div class="radio_event_list">
 
-                              <input type="radio" name="radio">
+                  <label class="container_radio" onclick="window.location.href = '/calendar/School Calendar' ">School Calendar
 
-                              <span class="checkmark"></span>
+                    <input type="radio"  checked  value="School Calendar" name="type" class="type">
 
-                            </label>
+                    <span class="checkmark"></span>
 
-                              <label class="container_radio">US Holidays
+                  </label>
 
-                                <input type="radio" name="radio">
+                  <label class="container_radio" onclick="window.location.href = '/calendar/Live Instructor Schedule' ">Live Instructor Schedule
 
-                                <span class="checkmark"></span>
+                    <input type="radio" @if(isset($type) && $type == 'Live Instructor Schedule') checked @endif name="type" value="Live Instructor Schedule" class="type">
 
-                              </label>
+                    <span class="checkmark"></span>
+
+                  </label>
+
+                  <label class="container_radio" onclick="window.location.href = '/calendar/US Holidays' ">US Holidays
+
+                    <input type="radio"  @if(isset($type) && $type == 'US Holidays') checked @endif  name="type" value="US Holidays" class="type">
+
+                    <span class="checkmark"></span>
+
+                  </label>
+
+                  <label class="container_radio" onclick="window.location.href = '/calendar/Events' ">Events
+
+                    <input type="radio"  @if(isset($type) && $type == 'Events') checked @endif  name="type" value="Events" class="type">
+
+                    <span class="checkmark"></span>
+
+                  </label>
 
 
-                            <label class="container_radio">Events
+                </div>
 
-                              <input type="radio" name="radio">
+              </div>
 
-                              <span class="checkmark"></span>
+            </div>
 
-                            </label>
+            <div class="col-md-9">
 
-                          </div>
+              <div class="top_clndr">
 
-                        </div>
+                <div class="">
 
-                      </div>
+                  <div class="card-body p-0">
 
-
-                      <div class="col-md-9">
-
-                        <div class="top_clndr">
-
-                          <div class="">
-
-                            <div class="card-body p-0">
-
-                              <div id="calendar"></div>
-
-                            </div>
-
-                          </div>
-
-                        </div>
-
-                      </div>
-
+                    <div>
+                      {!! $calendar->calendar() !!}
+                      {!! $calendar->script() !!}
                     </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          
+
+        </div>
+
+      </div>
 
                   </div>
                 </div>
@@ -240,6 +258,72 @@
 </div>
 
 
+
+<div class="modal fade" id="calendar_add_even" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Calendar Data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="/add_event_from_calendar">
+          @csrf
+           <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+           <input type="hidden" name="event_type" @if(isset($type)) value="{{$type}}" @else value="School Calendar" @endif id="form_type">
+
+        <div class="custom_input_main mobile_field">
+
+          <input type="text" class="form-control" name="event_name" required>
+
+
+
+          <label>Event Name <span class="grey">*</span></label>
+
+        </div>
+
+        <div class="custom_input_main mobile_field">
+
+          <input type="date" class="form-control" name="event_start" required>
+
+
+
+          <label>Event Start Date <span class="red">*</span></label>
+
+        </div>
+
+        <div class="custom_input_main mobile_field">
+
+          <input type="date" class="form-control" name="event_end" required>
+
+
+
+          <label>Event End Date <span class="red">*</span></label>
+
+        </div>
+
+        <div class="custom_input_main mobile_field">
+
+          <textarea class="form-control" name="event_description" required></textarea>
+
+
+
+          <label>Event Description <span class="red">*</span></label>
+
+        </div>
+
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+       </form>
+    </div>
+  </div>
+</div>
 
 
 

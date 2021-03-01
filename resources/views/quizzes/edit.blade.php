@@ -40,13 +40,14 @@
       <div class="course card-header card-header-warning card-header-icon">
         <h3 class="main_title_ot">Edit Quiz</h3>
         <div class="tab-content">
-          <form method="POST" action="{{url('/quiz/edit/'.$quiz->id)}}" enctype="multipart/form-data">
+          <form method="POST" action="{{url('/quiz/edit/'.$quiz->id .'/'. $clasid)}}" enctype="multipart/form-data">
 
             @csrf
 
             <input type="hidden" name="course_id" value="{{$qcourse->id}}">
             <input type="hidden" name="instructor_id" value="{{$instructor_id}}">
             <input type="hidden" name="week" value="{{$week}}">
+            <input type="hidden" name="class" value="{{$clasid}}">
 
               <div class="s_profile_fields">
 
@@ -92,6 +93,32 @@
                     </select>
 
                     <label class="select_lable">Duration</label>
+
+                  </div>
+
+                  </div>
+
+
+                  <div class="col-md-12">
+
+                    <div class="custom_input_main select_plugin mobile_field">
+
+                    <select class="selectpicker" name="day">
+
+                      <option   @if($quiz->day == "monday") Selected @endif  value="monday">Monday</option>
+
+                      <option   @if($quiz->day == "tuesday") Selected @endif  value="tuesday">Tuesday</option>
+
+                      <option   @if($quiz->day == "wednesday") Selected @endif  value="wednesday">Wednesday</option>
+
+                      <option   @if($quiz->day == "thursday") Selected @endif  value="thursday">Thursday</option>
+
+                      <option   @if($quiz->day == "friday") Selected @endif  value="friday">Friday</option>
+
+
+                    </select>
+
+                    <label class="select_lable">Day</label>
 
                   </div>
 

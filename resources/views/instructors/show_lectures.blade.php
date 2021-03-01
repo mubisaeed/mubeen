@@ -8,7 +8,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li>Terms/Sessions</li>
+    <li><a href = "{{url('/classes')}}">Terms/Sessions</a></li>
 
     <li>Courses</li>
     

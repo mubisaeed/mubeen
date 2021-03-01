@@ -122,7 +122,7 @@
 
                       <input type="text" class="form-control" value="{{old('name',$school->name)}}"  name="name" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Owner name<span class="red">*</span></label>
+                      <label>Superintendent<span class="red">*</span></label>
 
                     </div>
 
@@ -166,7 +166,7 @@
 
                       <input type="file" name="image" value="{{old('image',$school->image)}}"  class="mb-4" accept="image/x-png,image/gif,image/jpeg" autofocus="">
 
-                      <label>Owner Image<span class="red">*</span></label>
+                      <label>Image<span class="red">*</span></label>
 
                     </div>
 
@@ -192,13 +192,13 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{old('fname',$school->father_name)}}" name="fname" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{old('district',$school->district)}}" name="district" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Father name<span class="red">*</span></label>
+                      <label>District<span class="red">*</span></label>
 
                     </div>
 
-                    @error('fname')
+                    @error('district')
 
                       <span class="invalid-feedback" role="alert">
 
@@ -236,39 +236,17 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{old('cnic',$school->cnic)}}" name="cnic"class="mb-4" minlength="13" maxlength="15"  placeholder="XXXXX-XXXXXXX-X"  required="" autofocus="">
+                      <input type="text" class="form-control" value="{{old('s_id',$school->school_identification_number)}}" name="s_id"class="mb-4" minlength="13" maxlength="15"  placeholder="XXXXX-XXXXXXX-X"  required="" autofocus="">
 
-                      <label>CNIC<span class="red">*</span></label>
+                      <label>School Identification Number<span class="red">*</span></label>
 
                     </div>
 
-                    @error('cnic')
+                    @error('s_id')
 
                       <span class="invalid-feedback" role="alert">
 
                       <strong>{{ $message }}</strong>
-
-                      </span>
-
-                    @enderror
-
-                  </div>
-
-                  <div class="col-md-6 p_right">
-
-                    <div class="custom_input_main mobile_field">
-
-                      <input type="text" class="form-control" value="{{old('add',$school->address)}}"  name="add" class="mb-4" required="" minlength="3" maxlength ="200" autofocus="">
-
-                      <label>Owner Address<span class="red">*</span></label>
-
-                    </div>
-
-                    @error('address')
-
-                      <span class="invalid-feedback" role="alert">
-
-                      <strong>{{ $message}}</strong>
 
                       </span>
 

@@ -12,24 +12,57 @@ use calendar;
 
 class CalendarController extends Controller
 {
-    public function index()
+    public function index($type = 'School Calendar')
     {
-        // $events = DB::table('calendar_events')->get()->all();
-        // dd($data);
-        // $data = [];
-        // foreach($events as $row)
-        // {
-            // dd($row);
-        //  $data[] = array(
-        //   'id'   => $row->id,
-        //   'event_name'   => $row->event_name,
-        //   'start_date'   => $row->start_date,
-        //   'end_date'   => $row->end_date
-        //  );
+
+        $user = Auth::user();
+
+        $events = DB::table('calendar_events')->where('type',$type)->get();
+
+        $cal_events = [];
+        foreach($events as $event){
+                $even = \Calendar::event(
+                $event->event_name, //event title
+                true, //full day event?
+                 $event->start_date, //start time (you can also use Carbon instead of DateTime)
+                 $event->end_date, //end time (you can also use Carbon instead of DateTime)
+                 $event->id,  //optionally, you can specify an event ID
+                );
+            array_push($cal_events, $even);
+        }
+
+        
+        $calendar = \Calendar::addEvents($cal_events);
+        // return view ('dashboard', compact('user','calendar'));
+        return view ('calendar.index', compact('user','calendar'));
+    }
+
+
+     public function index_post($type)
+    {
+        $user = Auth::user();
+        // if(!$request->type){
+        //  $request->type = 'School Calendar';
         // }
 
-        // echo json_encode($data);
-        return view ('calendar.index');
+        $events = DB::table('calendar_events')->where('type',$type)->get();
+
+        $cal_events = [];
+        foreach($events as $event){
+                $even = \Calendar::event(
+                $event->event_name, //event title
+                true, //full day event?
+                 $event->start_date, //start time (you can also use Carbon instead of DateTime)
+                 $event->end_date, //end time (you can also use Carbon instead of DateTime)
+                 $event->id,  //optionally, you can specify an event ID
+                );
+            array_push($cal_events, $even);
+        }
+
+        $type = $type;
+
+        $calendar = \Calendar::addEvents($cal_events);
+        return view ('calendar.index', compact('user','calendar','type'));
     }
 
     public function addevent(Request $request)
@@ -70,6 +103,52 @@ class CalendarController extends Controller
         	Session::flash('message', 'Something went wrong');
 
         	return redirect()->back();
+        }
+    }
+
+    public function add_event_from_calendar(Request $request)
+    {
+        // dd($request);
+
+        $event = array(
+            'event_name' => $request->event_name,
+            'event_description' => $request->event_description,
+            'start_date' => $request->event_start,
+            'end_date' => $request->event_end,
+            'type' => $request->event_type,
+            'created_by' => Auth::user()->id,
+        );
+
+        $success = DB::table('calendar_events')->insert($event);
+        if($success)
+        {
+            Session::flash('message', 'Event created  successfully');
+            $events = DB::table('calendar_events')->where('type',$request->event_type)->get();
+                    $user = Auth::user();
+                    $cal_events = [];
+                    foreach($events as $event){
+                            $even = \Calendar::event(
+                            $event->event_name, //event title
+                            true, //full day event?
+                             $event->start_date, //start time (you can also use Carbon instead of DateTime)
+                             $event->end_date, //end time (you can also use Carbon instead of DateTime)
+                             $event->id,  //optionally, you can specify an event ID
+                            );
+                        array_push($cal_events, $even);
+                    }
+
+                    $type = $request->event_type;
+                   
+                    
+                        return redirect('/dashboard/'.$type);
+                   
+                   
+        }
+        else
+        {
+            Session::flash('message', 'Something went wrong');
+
+            return redirect()->back();
         }
     }
 }

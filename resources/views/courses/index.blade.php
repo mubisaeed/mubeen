@@ -152,9 +152,12 @@
                 @endif
                 <td class="align_ellipse first_row">
 
-                  <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a>
+                  <!-- <a href="{{url('/course/showdetails/' .$course->id)}}" class="btn btn-success"> Show Details </a> -->
 
                   <a class="btn btn-info" href="{{url('/course/'.$course->slug)}}" target="_blank">Course View</a>
+                  <a class="btn btn-info" href="{{url('/course/grades/'.$course->id)}}">Grades</a>
+                  <a class="btn btn-info" href="{{url('/course/edit/'.$course->id)}}">Edit</a>
+                  <a href="javascript:void(0);" data-id="<?php echo $course->id; ?>" class="btn btn-danger delete"><i class="fa fa-trash"></i> Delete</a>
                   @if(Auth::user()->role_id == 4)
                     <a class="btn btn-primary" href="{{url('/show_student_attendance/'.$course->id)}}">Show attendance</a>
 
@@ -164,10 +167,7 @@
                 </td>
 
               </tr>
-
-
-
-
+              
               @endforeach
 
             </tbody>

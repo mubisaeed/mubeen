@@ -8,6 +8,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Student;
+
+use App\User;
 
 use File;
 
@@ -124,48 +127,93 @@ class StudentsController extends Controller
     public function store(Request $request)
 
     {
-
 		$this->validate($request, [
 
             'sname' => 'required|min:3|max:20',
 
-            'fname' => 'required|min:1|max:50',
+            'lname' => 'required|min:1|max:50',
 
             'email' => 'required|unique:users|max:255',
 
             'phno' => 'required|min:12|max:12',
 
-            'adate' => 'required|date',
-
             'password' => 'required|string|min:8|confirmed',
 
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-            'cnic' => 'required|min:13|max:15',
-
             'add' => 'required|min:3|max:200',
 
-            'class' => 'required|min:3|max:20',
+            'hadd' => 'required|min:3|max:200',
 
-            'diabetes' => 'required',
+            'gl' => 'required',
 
             'alergy' => 'required',
 
             'gender' => 'required',
 
-            'rno' => 'required',
+            'record_no' => 'required',
 
         ]);
 
-        if ($files = $request->file('image')) {
+        if ($file = $request->file('image')) {
 
-            $name=$files->getClientOriginalName();
+            $name=$file->getClientOriginalName();
 
             $image = time().'.'.$request->image->getClientOriginalExtension();
 
             $request->image->move(public_path() .'/assets/img/upload', $image);
 
        }
+        // dd($image);
+
+        if($request->iep == 1)
+        {
+            $iep = '1st Grade(Elementary)';
+        }
+        elseif($request->iep == 2)
+        {
+            $iep = '2nd Grade(Elementary)';
+        }
+        elseif($request->iep == 3)
+        {
+            $iep = '3rd Grade(Elementary)';
+        }
+        elseif($request->iep == 4)
+        {
+            $iep = '4th Grade(Elementary)';
+        }
+        elseif($request->iep == 5)
+        {
+            $iep = '5th Grade(Elementary)';
+        }
+        elseif($request->iep == 6)
+        {
+            $iep = '6th Grade(Elementary)';
+        }
+        elseif($request->iep == 7)
+        {
+            $iep = '7th Grade(Middle)';
+        }
+        elseif($request->iep == 8)
+        {
+            $iep = '8th Grade(Middle)';
+        }
+        elseif($request->iep == 9)
+        {
+            $iep = '9th Grade(Highschool)';
+        }
+        elseif($request->iep == 10)
+        {
+            $iep = '10th Grade(Highschool)';
+        }
+        elseif($request->iep == 11)
+        {
+            $iep = '11th Grade(Highschool)';
+        }
+        elseif($request->iep == 12)
+        {
+            $iep = '12th Grade(Highschool)';
+        }
 
         $udata = new User();
 
@@ -177,43 +225,50 @@ class StudentsController extends Controller
 
         $udata->contact=$request->input('phno');
 
-        $udata->image=$image;
+        $udata->image= $image;
 
         $udata->password = Hash::make($request['password']);
 
         $udata->save();
 
 
+        $alrgy = implode(", ", $request->input('alergy'));
 
         $sdata = new Student();
 
         $sdata->s_u_id = $udata->id;
 
-        $sdata->father_name = $request->fname;
+        $sdata->last_name = $request->lname;
 
-        $sdata->cnic = $request->cnic;
+        $sdata->record_no = $request->record_no;
 
-        $sdata->admission_date = $request->adate;
-
-        $sdata->phone = $request->phno;
+        $sdata->home_address = $request->hadd;
 
         $sdata->gender = $request->gender;
 
+        $sdata->grade_level = $request->gl;
+
+        $sdata->alergy = $alrgy;
+
+        $sdata->iep = $iep;
+
+        $sdata->parent_first_name = $request->pfname;
+
+        $sdata->parent_last_name = $request->plname;
+
+        $sdata->parent_email = $request->pemail;
+
+        $sdata->relation = $request->relation;
+
+        $sdata->phone = $request->phno;
+
         $sdata->address = $request->add;
-
-        $sdata->class = $request->class;
-
-        $sdata->rollno = $request->rno;
-
-        $sdata->diabetes = $request->diabetes;
-
-        $sdata->alergy = $request->alergy;
 
         $sdata->save();
 
-        // $success = DB::table('users')->where('id' , $udata->id)->update([
-        //     'unique_id' => $udata->name . '' . $udata->id,
-        // ]);
+        $success = DB::table('users')->where('id' , $udata->id)->update([
+            'unique_id' => $udata->name . '' . $udata->id,
+        ]);
 
         //     $student_created_by_data = array(
 

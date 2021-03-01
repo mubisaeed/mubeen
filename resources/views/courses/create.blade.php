@@ -281,7 +281,7 @@
 
                         <div class="custom_input_main mobile_field">
 
-                          <textarea name="cdescription" cols="8" id="txtEditor" value="{!!old('cdescription')!!}" style="height: 35px;width: 100%;" required="">
+                          <textarea name="cdescription" cols="8" id="txtEditor" value="{!! old('cdescription') !!}" style="height: 35px;width: 100%;" required="">
 
                           </textarea>
 

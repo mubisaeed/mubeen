@@ -175,10 +175,89 @@ class CourseController extends Controller
             'course_description'=> $request->cdescription,
 
         );
+		$c = DB::table('courses')->insertGetId($data);
+
+        $AAgrade = array(
+           'course_id' => $c,
+            'marks_from' => 95.5, 
+            'marks_to' => 100, 
+            'grade' => 'A+', 
+        );
+
+        $Agrade = array(
+            'course_id' => $c,
+            'marks_from' => 90.5, 
+            'marks_to' => 95, 
+            'grade' => 'A', 
+        );
+        $BBgrade = array(
+            'course_id' => $c,
+            'marks_from' => 80.5, 
+            'marks_to' => 90, 
+            'grade' => 'B+', 
+        );
+        $Bgrade = array(
+            'course_id' => $c,
+            'marks_from' => 75.5, 
+            'marks_to' => 80, 
+            'grade' => 'B', 
+        );
+        $CCgrade = array(
+            'course_id' => $c,
+            'marks_from' => 70.5, 
+            'marks_to' => 75, 
+            'grade' => 'C+', 
+        );
+        $Cgrade = array(
+            'course_id' => $c,
+            'marks_from' => 60.5, 
+            'marks_to' => 70, 
+            'grade' => 'C', 
+        );
+        $DDgrade = array(
+            'course_id' => $c,
+            'marks_from' => 55.5, 
+            'marks_to' => 60, 
+            'grade' => 'D+', 
+        );
+        $Dgrade = array(
+            'course_id' => $c,
+            'marks_from' => 45.5, 
+            'marks_to' => 55, 
+            'grade' => 'D', 
+        );
+        $EEgrade = array(
+            'course_id' => $c,
+            'marks_from' => 30.5, 
+            'marks_to' => 45, 
+            'grade' => 'E+', 
+        );
+        $Egrade = array(
+           'course_id' => $c,
+            'marks_from' => 20.5, 
+            'marks_to' => 30, 
+            'grade' => 'E', 
+        );
+        $Fgrade = array(
+            'course_id' => $c,
+            'marks_from' => 0, 
+            'marks_to' => 20, 
+            'grade' => 'F', 
+        );
 
 
+        $success = DB::table('grades')->insert($AAgrade);
+        $success = DB::table('grades')->insert($Agrade);
+        $success = DB::table('grades')->insert($BBgrade);
+        $success = DB::table('grades')->insert($Bgrade);
+        $success = DB::table('grades')->insert($CCgrade);
+        $success = DB::table('grades')->insert($Cgrade);
+        $success = DB::table('grades')->insert($DDgrade);
+        $success = DB::table('grades')->insert($Dgrade);
+        $success = DB::table('grades')->insert($EEgrade);
+        $success = DB::table('grades')->insert($Egrade);
+        $success = DB::table('grades')->insert($Fgrade);
 
-		        $success = DB::table('courses')->insert($data);
 
 		        if($success){
 
@@ -220,13 +299,12 @@ class CourseController extends Controller
 
             if($data != null){
 
-                 foreach ($data as $value) {
+                foreach ($data as $value) 
+                 {
 
-                $assigned_permissions = explode(',',$value);
+                    $assigned_permissions = explode(',',$value);
 
-                 
-
-            }
+                 }
 
             }
 
@@ -253,52 +331,158 @@ class CourseController extends Controller
 
     }
 
-    public function show_details($id)
+    public function course_grades($id)
+    {
+       $grades = DB::table('grades')->where('course_id', $id)->get()->all();
+        return view('courses.grades', compact('grades'));
+    }
+
+
+    public function show_details($id, $clasid)
     {
         $course = DB::table('courses')->where('id', $id)->get()->first();
         $weeks = $course->weeks;
         $instructor_id = Auth::user()->id;
-        return view('courses.show_details', compact('course', 'weeks', 'instructor_id'));
+        return view('courses.show_details', compact('course', 'weeks', 'instructor_id', 'clasid'));
     }
 
-    public function show_week_details($insid, $cid, $week)
+    public function show_week_details($insid, $cid, $week, $clasid)
     {
-        $quizzes = DB::table('quizzes')->where([
+        $mquizzes = DB::table('quizzes')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
+            ['day', '=', 'monday'],
         ])->orderBy('id', 'desc')->get()->all();
-        $links = DB::table('courselink')->where([
+        $tuesquizzes = DB::table('quizzes')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
+            ['day', '=', 'tuesday'],
         ])->orderBy('id', 'desc')->get()->all();
-        $lectures = DB::table('lectures')->where([
+        $wedquizzes = DB::table('quizzes')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
+            ['day', '=', 'wednesday'],
         ])->orderBy('id', 'desc')->get()->all();
-        $videos = DB::table('resources')->where([
+        $tquizzes = DB::table('quizzes')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
+            ['day', '=', 'thursday'],
         ])->orderBy('id', 'desc')->get()->all();
-        $downloadables = DB::table('resources')->where([
+        $fquizzes = DB::table('quizzes')->where([
             ['instructor_id', '=', $insid],
             ['course_id', '=', $cid],
             ['week', '=', $week],
+            ['day', '=', "friday"],
         ])->orderBy('id', 'desc')->get()->all();
 
 
-        // $user = DB::table('instructors')->where('i_u_id', Auth::user()->id)->get()->first();
+        $mlinks = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'monday'],
+        ])->orderBy('id', 'desc')->get()->all();
+        $tueslinks = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'tuesday'],
+        ])->orderBy('id', 'desc')->get()->all();
+        $wedlinks = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'wednesday'],
+        ])->orderBy('id', 'desc')->get()->all();
+        $tlinks = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'thursday'],
+        ])->orderBy('id', 'desc')->get()->all();
+        $flinks = DB::table('courselink')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'friday'],
+        ])->orderBy('id', 'desc')->get()->all();
 
-        // $zoom = new ZoomController();
-        // $meeting_list = $zoom->meeting_list($user->zoom_id);
-        // dd($meeting_list);
+
+
+
+        $mlectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'monday'],
+        ])->orderBy('id', 'desc')->get()->all();
+         $tueslectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'tuesday'],
+        ])->orderBy('id', 'desc')->get()->all();
+          $wedlectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'wednesday'],
+        ])->orderBy('id', 'desc')->get()->all();
+           $thlectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'thursday'],
+        ])->orderBy('id', 'desc')->get()->all();
+            $flectures = DB::table('lectures')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', 'friday'],
+        ])->orderBy('id', 'desc')->get()->all();
+
+
+
+
+
+        $mvideoos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', "monday"],
+        ])->orderBy('id', 'desc')->get()->all();
+        $tuesvideoos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', "tuesday"],
+        ])->orderBy('id', 'desc')->get()->all();
+        $wedvideoos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', "wednesday"],
+        ])->orderBy('id', 'desc')->get()->all();
+        $tvideoos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', "thursday"],
+        ])->orderBy('id', 'desc')->get()->all();
+        $fvideoos = DB::table('resources')->where([
+            ['instructor_id', '=', $insid],
+            ['course_id', '=', $cid],
+            ['week', '=', $week],
+            ['day', '=', "friday"],
+        ])->orderBy('id', 'desc')->get()->all();
 
 
         
-        return view('courses.show_week_details', compact('quizzes', 'links', 'lectures', 'videos', 'downloadables', 'insid', 'cid', 'week'));
+        return view('courses.show_week_details', compact('mquizzes','tuesquizzes','wedquizzes' ,'tquizzes' ,'fquizzes', 'mlinks', 'tueslinks', 'wedlinks', 'tlinks', 'flinks', 'mlectures', 'tueslectures', 'wedlectures', 'thlectures', 'flectures', 'mvideoos', 'tuesvideoos', 'wedvideoos', 'tvideoos', 'fvideoos', 'insid', 'cid', 'week', 'clasid'));
     }
 
     public function students_courses($id)
@@ -312,7 +496,7 @@ class CourseController extends Controller
 
     { 
         $courses = DB::table('courses')->where('clas_id', $id)->get();
-        return view('courses.class_courses', compact('courses'));
+        return view('courses.class_courses', compact('courses', 'id'));
 
     }
 
@@ -352,11 +536,7 @@ class CourseController extends Controller
 
     public function course_replicate(Request $request)
     {
-
-        // dd($request->course_id);
-
         $oldcourse = DB::table('courses')->where('id', $request->course_id)->first();
-        // dd($oldcourse);
 
         $data = new Course();
         $data->course_name = $oldcourse->course_name;

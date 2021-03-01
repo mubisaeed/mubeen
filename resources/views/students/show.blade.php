@@ -29,14 +29,13 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th scope="col">F name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Parent First Name</th>
+                <th scope="col">Parent Last Name</th>
+                <th scope="col">Parent Email</th>
                 <th scope="col">Phone</th>
-                <th scope="col">CNIC</th>
+                <th scope="col">Known Allergies</th>
                 <th scope="col">Address</th>
-                <th scope="col">Class</th>
-                <th scope="col">Roll no</th>
-                <th scope="col">Diabetes</th>
-                <th scope="col">Alergy</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -48,12 +47,12 @@
                     <p>{{$st->father_name}}</p>
                   </div>
                 </td>
+                <td class="first_row">{{$st->parent_first_name}}</td>
+                <td class="first_row">{{$st->parent_last_name}}</td>
+                <td class="first_row">{{$st->parent_email}}</td>
                 <td class="first_row">{{$st->phone}}</td>
-                <td class="first_row">{{$st->cnic}}</td>
+                <td class="first_row">{{$st->alergy}}</td>
                 <td class="first_row">{{$st->address}}</td>
-                <td class="first_row">{{$st->class}}</td>
-                <td class="first_row">{{$st->rollno}}</td>
-                <td class="first_row">{{$st->diabetes}}</td>
                 <td class="first_row">{{$st->alergy}}</td>
                 
                 <td class="align_ellipse first_row">

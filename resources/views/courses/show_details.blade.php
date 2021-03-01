@@ -30,7 +30,7 @@
 
     <li><a href = "{{url('/dashboard')}}">Home</a></li>
 
-    <li>Terms/Sessions</li>
+    <li><a href = "{{url('/classes')}}">Terms/Sessions</a></li>
 
     <li>Course</li>
 
@@ -134,7 +134,7 @@
                           ])->count();
                       ?>
                     <div class="col-md-4">
-                      <a href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i)}}">
+                      <a href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i .'/'. $clasid)}}">
                         <div class="member aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic">
                                 <img src="{{asset('/assets/img/upload/'.$course->image)}}" width="50" alt="" class="img-fluid">
@@ -147,7 +147,7 @@
                                 <span>{{$lectures}} Lectures</span>
                                 <span>{{$downloadables}} Downloadables</span>
                                 <div class="img_buttons">
-                                    <a class="btn btn-primary" href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i)}}">View Resources</a>
+                                    <a class="btn btn-primary" href="{{url('/course/show_week_details/'. $instructor_id .'/'. $course->id .'/'. $i.'/'. $clasid)}}">View Resources</a>
                                 </div>
                             </div>
                         </div>

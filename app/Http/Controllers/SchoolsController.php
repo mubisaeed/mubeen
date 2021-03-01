@@ -188,7 +188,7 @@ class SchoolsController extends Controller
 
             'name' => 'required|min:3|max:20',
 
-            'fname' => 'required|min:3|max:50',
+            'district' => 'required|min:3|max:50',
 
             'password' => 'required|string|min:8|confirmed',
 
@@ -198,11 +198,10 @@ class SchoolsController extends Controller
 
             'phno' => 'required|min:12|max:12',
 
-            'cnic' => 'required|min:13|max:15',
+            's_id' => 'required',
 
             'sadd' => 'required|min:3|max:200',
 
-            'add' => 'required|min:3|max:200',
 
         ]);
 
@@ -248,13 +247,11 @@ class SchoolsController extends Controller
 
         $sdata->sch_u_id = $udata->id;
 
-        $sdata->father_name = $request->fname;
+        $sdata->district = $request->district;
 
-        $sdata->cnic = $request->cnic;
+        $sdata->school_identification_number = $request->s_id;
 
         $sdata->phone = $request->phno;
-
-        $sdata->address = $request->add;
 
         $sdata->school_address = $request->sadd;
 
@@ -275,85 +272,85 @@ class SchoolsController extends Controller
             'sup_u_id' => Auth::user()->id,
 
         );
-        $AAgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 95.5, 
-            'marks_to' => 100, 
-            'grade' => 'A+', 
-        );
+        // $AAgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 95.5, 
+        //     'marks_to' => 100, 
+        //     'grade' => 'A+', 
+        // );
 
-        $Agrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 90.5, 
-            'marks_to' => 95, 
-            'grade' => 'A', 
-        );
-        $BBgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 80.5, 
-            'marks_to' => 90, 
-            'grade' => 'B+', 
-        );
-        $Bgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 75.5, 
-            'marks_to' => 80, 
-            'grade' => 'B', 
-        );
-        $CCgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 70.5, 
-            'marks_to' => 75, 
-            'grade' => 'C+', 
-        );
-        $Cgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 60.5, 
-            'marks_to' => 70, 
-            'grade' => 'C', 
-        );
-        $DDgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 55.5, 
-            'marks_to' => 60, 
-            'grade' => 'D+', 
-        );
-        $Dgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 45.5, 
-            'marks_to' => 55, 
-            'grade' => 'D', 
-        );
-        $EEgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 30.5, 
-            'marks_to' => 45, 
-            'grade' => 'E+', 
-        );
-        $Egrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 20.5, 
-            'marks_to' => 30, 
-            'grade' => 'E', 
-        );
-        $Fgrade = array(
-            'set_by' => $sdata->sch_u_id,
-            'marks_from' => 0, 
-            'marks_to' => 20, 
-            'grade' => 'F', 
-        );
+        // $Agrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 90.5, 
+        //     'marks_to' => 95, 
+        //     'grade' => 'A', 
+        // );
+        // $BBgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 80.5, 
+        //     'marks_to' => 90, 
+        //     'grade' => 'B+', 
+        // );
+        // $Bgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 75.5, 
+        //     'marks_to' => 80, 
+        //     'grade' => 'B', 
+        // );
+        // $CCgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 70.5, 
+        //     'marks_to' => 75, 
+        //     'grade' => 'C+', 
+        // );
+        // $Cgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 60.5, 
+        //     'marks_to' => 70, 
+        //     'grade' => 'C', 
+        // );
+        // $DDgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 55.5, 
+        //     'marks_to' => 60, 
+        //     'grade' => 'D+', 
+        // );
+        // $Dgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 45.5, 
+        //     'marks_to' => 55, 
+        //     'grade' => 'D', 
+        // );
+        // $EEgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 30.5, 
+        //     'marks_to' => 45, 
+        //     'grade' => 'E+', 
+        // );
+        // $Egrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 20.5, 
+        //     'marks_to' => 30, 
+        //     'grade' => 'E', 
+        // );
+        // $Fgrade = array(
+        //     'set_by' => $sdata->sch_u_id,
+        //     'marks_from' => 0, 
+        //     'marks_to' => 20, 
+        //     'grade' => 'F', 
+        // );
 
-        $success = DB::table('grades')->insert($AAgrade);
-        $success = DB::table('grades')->insert($Agrade);
-        $success = DB::table('grades')->insert($BBgrade);
-        $success = DB::table('grades')->insert($Bgrade);
-        $success = DB::table('grades')->insert($CCgrade);
-        $success = DB::table('grades')->insert($Cgrade);
-        $success = DB::table('grades')->insert($DDgrade);
-        $success = DB::table('grades')->insert($Dgrade);
-        $success = DB::table('grades')->insert($EEgrade);
-        $success = DB::table('grades')->insert($Egrade);
-        $success = DB::table('grades')->insert($Fgrade);
+        // $success = DB::table('grades')->insert($AAgrade);
+        // $success = DB::table('grades')->insert($Agrade);
+        // $success = DB::table('grades')->insert($BBgrade);
+        // $success = DB::table('grades')->insert($Bgrade);
+        // $success = DB::table('grades')->insert($CCgrade);
+        // $success = DB::table('grades')->insert($Cgrade);
+        // $success = DB::table('grades')->insert($DDgrade);
+        // $success = DB::table('grades')->insert($Dgrade);
+        // $success = DB::table('grades')->insert($EEgrade);
+        // $success = DB::table('grades')->insert($Egrade);
+        // $success = DB::table('grades')->insert($Fgrade);
 
         $success = DB::table('school_super')->insert($sup_sch_data);
         
@@ -449,13 +446,11 @@ class SchoolsController extends Controller
 
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
-            'fname' => 'required|min:3|max:50',
+            'district' => 'required|min:3|max:50',
 
             'phno' => 'required|min:12|max:12',
 
-            'cnic' => 'required|min:13|max:15',
-
-            'add' => 'required|min:3|max:200',
+            's_id' => 'required',
 
             'sadd' => 'required|min:3|max:200',
 
@@ -521,13 +516,11 @@ class SchoolsController extends Controller
 
             $sdata->school_image=$simage;
 
-            $sdata->father_name=$request->input('fname');
+            $sdata->district=$request->input('district');
 
             $sdata->phone=$request->input('phno');
 
-            $sdata->cnic=$request->input('cnic');
-
-            $sdata->address=$request->input('add');
+            $sdata->school_identification_number=$request->input('s_id');
 
             $success = $sdata->save();
 

@@ -32,7 +32,7 @@ class CourseResourcesController extends Controller
 
 {
 
-    public function index($insid, $cid, $week){
+    public function index($insid, $cid, $week, $clasid){
         $course_id = $cid;
 
         $user = Auth::user();
@@ -43,7 +43,7 @@ class CourseResourcesController extends Controller
 
         $cresources=DB::table('resources')->where('course_id', $cid)->orderBy('id', 'desc')->get()->all();
 
-        return view ('course_resources.index', compact ('user','cresources', 'course_id', 'week', 'instructor_id'));
+        return view ('course_resources.index', compact ('user','cresources', 'course_id', 'week', 'instructor_id', 'clasid'));
 
     }
 
@@ -63,7 +63,7 @@ class CourseResourcesController extends Controller
 
 
 
-    public function resourcevideos($insid, $cid, $week){
+    public function resourcevideos($insid, $cid, $week, $clasid){
         // dd('videos');
 
 
@@ -76,14 +76,15 @@ class CourseResourcesController extends Controller
 
         $cresources=DB::table('resources')->where('course_id', $cid)->get()->all();
 
-        return view ('course_resources.videos', compact ('user','cresources', 'course_id', 'week', 'instructor_id'));
+        return view ('course_resources.videos', compact ('user','cresources', 'course_id', 'week', 'instructor_id', 'clasid'));
 
     }
 
 
 
-    public function Storefile(Request $req){
-            //dd($req);
+    public function Storefile(Request $req)
+    {
+
         $this->validate($req,
 
          [
@@ -103,6 +104,8 @@ class CourseResourcesController extends Controller
         $cress->instructor_id=$req->input('instructor_id');
 
         $cress->week=$req->input('week');
+
+        $cress->day=$req->input('day');
 
         $cress->title=$req->input('title');
 
@@ -128,7 +131,7 @@ class CourseResourcesController extends Controller
 
             Session::flash('message', 'File Stored Successfully');
 
-            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week);
+            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week  .'/'. $req->class);
 
         }
 
@@ -159,7 +162,7 @@ class CourseResourcesController extends Controller
 
         $cress->title=$req->input('title');
 
-        
+        $cress->day=$req->input('day');
 
         $cress->short_description=$req->input('short_des');
 
@@ -193,7 +196,7 @@ class CourseResourcesController extends Controller
 
             Session::flash('message', 'Course Video Successfully');
 
-            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week);
+            return redirect('/course/show_week_details/'. $req->instructor_id .'/'. $req->course_id .'/'. $req->week .'/'. $req->class);
 
         }
 
@@ -223,7 +226,7 @@ class CourseResourcesController extends Controller
 
 
 
-    public function editvid($id, $main)
+    public function editvid($id, $main, $clasid)
     {
 
         $id = $id;
@@ -236,7 +239,7 @@ class CourseResourcesController extends Controller
 
         $instructor_id = Auth::user()->id;
 
-    	return view ('course_resources.editvid', compact('cress', 'id', 'course_id', 'instructor_id', 'week'));
+    	return view ('course_resources.editvid', compact('cress', 'id', 'course_id', 'instructor_id', 'week', 'clasid'));
 
     }
 
@@ -292,6 +295,8 @@ class CourseResourcesController extends Controller
 
         $cress->week=$request->input('week');
 
+        $cress->day=$request->input('day');
+
         $cress->course_id=$request->input('course_id');
 
         $cress->instructor_id=$request->input('instructor_id');
@@ -312,9 +317,9 @@ class CourseResourcesController extends Controller
 
 
 
-    public function updatevid(Request $request){
-
-
+    public function updatevid(Request $request)
+    {
+        // dd($request->all());
 
         $this->validate($request, ['video' => 'max:2048|mimes:mp4,wmv',
 
@@ -364,6 +369,8 @@ class CourseResourcesController extends Controller
 
         $cress->week=$request->input('week');
 
+        $cress->day=$request->input('day');
+
         $cress->course_id=$request->input('course_id');
 
         $cress->instructor_id=$request->input('instructor_id');
@@ -378,7 +385,7 @@ class CourseResourcesController extends Controller
 
         Session::flash('message', 'Course Video Updated Successfully');
 
-         return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week);         
+         return redirect('/course/show_week_details/'. $request->instructor_id .'/'. $request->course_id .'/'. $request->week .'/'. $request->class);         
 
     }
 

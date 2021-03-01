@@ -132,7 +132,7 @@
 
                       <input type="text" class="form-control" value="{{ old('name')}}" name="name" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Owner name<span class="red">*</span></label>
+                      <label>Superintendent<span class="red">*</span></label>
 
                     </div>
 
@@ -154,7 +154,7 @@
 
                       <input type="email" class="form-control" name="email" value="{{old('email')}}" required maxlength="255"autofocus="">
 
-                      <label>Owner Email<span class="red">*</span></label>
+                      <label>Email<span class="red">*</span></label>
 
                     </div>
 
@@ -236,9 +236,9 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{ old('fname')}}" name="fname" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('district')}}" name="district" class="mb-4" required="" minlength="3" maxlength ="50" autofocus="">
 
-                      <label>Father name<span class="red">*</span></label>
+                      <label>District<span class="red">*</span></label>
 
                     </div>
 
@@ -258,7 +258,7 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="tell" class="form-control" name="phno" value="{{ old('phno')}}" placeholder="xxxx-xxxxxxx" pattern="03[0-9]{2}-(?!1234567)(?!1111111)(?!7654321)[0-9]{7}" required="" minlength="12" maxlength = "12" autofocus="">
+                      <input type="tell" class="form-control" name="phno" value="{{ old('phno')}}" placeholder="xxxx-xxxxxxx" autofocus="">
 
                       <label>Phone No<span class="red">*</span></label>
 
@@ -280,9 +280,9 @@
 
                     <div class="custom_input_main mobile_field">
 
-                      <input type="text" class="form-control" value="{{ old('cnic')}}" name="cnic"class="mb-4" minlength="13" maxlength="15"  placeholder="XXXXX-XXXXXXX-X"  required="" autofocus="">
+                      <input type="text" class="form-control" value="{{ old('s_id')}}" name="s_id"class="mb-4" required="" autofocus="">
 
-                      <label>CNIC<span class="red">*</span></label>
+                      <label>School Identification Number<span class="red">*</span></label>
 
                     </div>
 
@@ -298,7 +298,7 @@
 
                   </div>
 
-                  <div class="col-md-6 p_right">
+<!--                   <div class="col-md-6 p_right">
 
                     <div class="custom_input_main mobile_field">
 
@@ -318,7 +318,7 @@
 
                     @enderror
 
-                  </div>
+                  </div> -->
 
 
 

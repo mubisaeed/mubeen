@@ -29,12 +29,14 @@
                      <tr>
                                 <th> Student Name </th>
                                 <th> Student Image </th>
+                                <th> class </th>
                                 <th> Action </th>
                           </tr>
                      </thead>
                
                  <tbody>
                        @csrf
+                       <input type="hidden" name="class" value="{{$id}}">
                      @foreach($allStudents as $student)
 
                       <tr>
@@ -42,6 +44,27 @@
                       <th>
                       <img src="{{asset('assets/img/upload/'.$student->image)}}" width="50" alt="" class="img-fluid">
                       </th>
+                      <td>
+                        <div class="col-md-6 p_right">
+
+                        <div class="custom_input_main select_plugin mobile_field">
+
+                        <select class="selectpicker" name="course">
+
+                            @foreach($allCourses as $course)
+
+                              <option value="{{$course->id}}">{{$course->course_name}}</option>
+
+                            @endforeach
+
+                        </select>
+
+                        <label class="select_lable">Select course</label>
+
+                      </div>
+
+                  </div>
+                      </td>
                       <th>  
                       <input type="checkbox" name="student_id[]" value="{{$student->s_u_id}}"> 
                       </th>
